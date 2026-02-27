@@ -1,0 +1,122 @@
+name: Temenos APIs
+description: APIs for Temenos banking and financial services platform
+image: https://www.temenos.com/wp-content/themes/temenos/assets/temenos-logo.svg
+url: https://www.temenos.com
+created: '2024'
+modified: '2024'
+specificationVersion: '0.18'
+apis:
+- name: Temenos Transact API
+  description: Core banking system API for managing accounts, transactions, and customer data
+  image: https://www.temenos.com/wp-content/themes/temenos/assets/temenos-logo.svg
+  humanURL: https://www.temenos.com/products/transact/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Banking
+  - Core Banking
+  - Transactions
+  - Accounts
+  properties:
+  - type: Documentation
+    url: https://developer.temenos.com/transact/apis
+  - type: OpenAPI
+    url: https://developer.temenos.com/transact/openapi.json
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+- name: Temenos Infinity API
+  description: Digital banking platform API for omnichannel customer experiences
+  image: https://www.temenos.com/wp-content/themes/temenos/assets/temenos-logo.svg
+  humanURL: https://www.temenos.com/products/infinity/
+  baseURL: https://api.temenos.com/infinity
+  tags:
+  - Digital Banking
+  - Mobile Banking
+  - Customer Experience
+  - Omnichannel
+  properties:
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: OpenAPI
+    url: https://developer.temenos.com/infinity/openapi.json
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+- name: Temenos Payments API
+  description: Payment processing and management API supporting multiple payment types
+  image: https://www.temenos.com/wp-content/themes/temenos/assets/temenos-logo.svg
+  humanURL: https://www.temenos.com/products/payments/
+  baseURL: https://api.temenos.com/payments
+  tags:
+  - Payments
+  - SWIFT
+  - Real-time Payments
+  - Payment Processing
+  properties:
+  - type: Documentation
+    url: https://developer.temenos.com/payments/apis
+  - type: OpenAPI
+    url: https://developer.temenos.com/payments/openapi.json
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+- name: Temenos Fund Administration API
+  description: Investment fund management and administration API
+  image: https://www.temenos.com/wp-content/themes/temenos/assets/temenos-logo.svg
+  humanURL: https://www.temenos.com/products/multifonds/
+  baseURL: https://api.temenos.com/funds
+  tags:
+  - Fund Management
+  - Investment
+  - Wealth Management
+  - Asset Management
+  properties:
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: OpenAPI
+    url: https://developer.temenos.com/funds/openapi.json
+- name: Temenos Financial Crime Mitigation API
+  description: API for anti-money laundering, fraud detection, and compliance
+  image: https://www.temenos.com/wp-content/themes/temenos/assets/temenos-logo.svg
+  humanURL: https://www.temenos.com/products/financial-crime-mitigation/
+  baseURL: https://api.temenos.com/fcm
+  tags:
+  - Compliance
+  - AML
+  - Fraud Detection
+  - Risk Management
+  properties:
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: OpenAPI
+    url: https://developer.temenos.com/fcm/openapi.json
+common:
+- type: Developer Portal
+  url: https://developer.temenos.com
+- type: Getting Started
+  url: https://developer.temenos.com/getting-started
+- type: Authentication
+  url: https://developer.temenos.com/authentication
+- type: Rate Limits
+  url: https://developer.temenos.com/rate-limits
+- type: Support
+  url: https://www.temenos.com/support
+- type: Terms of Service
+  url: https://www.temenos.com/terms
+- type: Privacy Policy
+  url: https://www.temenos.com/privacy
+- type: Status Page
+  url: https://status.temenos.com
+- type: Sandbox
+  url: https://sandbox.temenos.com
+- type: Blog
+  url: https://www.temenos.com/news
+maintainers:
+- FN: Temenos
+  email: developer-support@temenos.com
+  url: https://www.temenos.com
+tags:
+- Banking
+- Financial Services
+- Core Banking
+- Digital Banking
+- Fintech
