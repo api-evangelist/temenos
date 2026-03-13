@@ -1,0 +1,423 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later API
+  description: >-
+    APIs for buy now pay later services with embedded Explainable AI for
+    automated decisioning and credit offer matching. Supports interest-free
+    and interest-bearing BNPL products with point-of-sale integration and
+    full loan lifecycle management. Core banking agnostic and deployable
+    on Temenos Banking Cloud.
+  version: '1.0.0'
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later
+servers:
+  - url: https://api.temenos.com/bnpl/v1
+    description: Temenos BNPL API - Production
+security:
+  - bearerAuth: []
+tags:
+  - name: Credit Offers
+    description: >-
+      Generate and manage BNPL credit offers using Explainable AI
+      decisioning for instant approval and offer matching.
+  - name: Loans
+    description: >-
+      Manage BNPL loan lifecycle from origination through repayment
+      including payment schedules and status tracking.
+  - name: Merchants
+    description: >-
+      Manage merchant integrations for point-of-sale BNPL activation
+      and settlement processing.
+paths:
+  /offers:
+    post:
+      operationId: createCreditOffer
+      summary: Create credit offer
+      description: >-
+        Generate a BNPL credit offer using Explainable AI decisioning
+        based on customer data, purchase amount, and configured product
+        rules. Returns eligible offer options with interest-free and
+        interest-bearing terms.
+      tags:
+        - Credit Offers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditOfferRequest'
+      responses:
+        '200':
+          description: Credit offer generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditOfferResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /offers/{offerId}:
+    get:
+      operationId: getCreditOffer
+      summary: Get credit offer details
+      description: >-
+        Retrieve details of a generated credit offer including terms,
+        repayment schedule, and AI decisioning explanation.
+      tags:
+        - Credit Offers
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          description: Offer identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditOffer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /offers/{offerId}/accept:
+    post:
+      operationId: acceptCreditOffer
+      summary: Accept credit offer
+      description: >-
+        Accept a BNPL credit offer to initiate loan creation and
+        merchant settlement processing.
+      tags:
+        - Credit Offers
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          description: Offer identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Offer accepted and loan created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BnplLoan'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /loans:
+    get:
+      operationId: listBnplLoans
+      summary: List BNPL loans
+      description: >-
+        Retrieve BNPL loans with their repayment status, payment
+        schedules, and outstanding balances.
+      tags:
+        - Loans
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: customerId
+          in: query
+          description: Filter by customer
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by loan status
+          schema:
+            type: string
+            enum:
+              - ACTIVE
+              - COMPLETED
+              - DEFAULTED
+              - CANCELLED
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BnplLoan'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /loans/{loanId}:
+    get:
+      operationId: getBnplLoan
+      summary: Get BNPL loan details
+      description: >-
+        Retrieve detailed BNPL loan information including payment
+        schedule, payment history, and outstanding balance.
+      tags:
+        - Loans
+      parameters:
+        - name: loanId
+          in: path
+          required: true
+          description: Loan identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BnplLoan'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /merchants:
+    get:
+      operationId: listMerchants
+      summary: List merchants
+      description: >-
+        Retrieve registered merchants with their BNPL integration
+        configurations and settlement details.
+      tags:
+        - Merchants
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Merchant'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
+    CreditOfferRequest:
+      type: object
+      required:
+        - customerId
+        - purchaseAmount
+        - currency
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        merchantId:
+          type: string
+          description: Merchant identifier
+        purchaseAmount:
+          type: number
+          format: double
+          description: Purchase amount
+          minimum: 0.01
+        currency:
+          type: string
+          description: Currency
+          pattern: '^[A-Z]{3}$'
+        purchaseDescription:
+          type: string
+          description: Purchase description
+    CreditOfferResponse:
+      type: object
+      description: Credit offer response with available options
+      properties:
+        offers:
+          type: array
+          description: Available BNPL offers
+          items:
+            $ref: '#/components/schemas/CreditOffer'
+        decisionExplanation:
+          type: string
+          description: AI decisioning explanation
+    CreditOffer:
+      type: object
+      description: BNPL credit offer
+      properties:
+        offerId:
+          type: string
+          description: Offer identifier
+        offerType:
+          type: string
+          description: Offer type
+          enum:
+            - INTEREST_FREE
+            - INTEREST_BEARING
+        purchaseAmount:
+          type: number
+          format: double
+          description: Purchase amount
+        currency:
+          type: string
+          description: Currency
+        numberOfInstallments:
+          type: integer
+          description: Number of installments
+        installmentAmount:
+          type: number
+          format: double
+          description: Amount per installment
+        interestRate:
+          type: number
+          format: double
+          description: Annual interest rate
+        totalRepayment:
+          type: number
+          format: double
+          description: Total repayment amount
+        expiresAt:
+          type: string
+          format: date-time
+          description: Offer expiry timestamp
+    BnplLoan:
+      type: object
+      description: BNPL loan
+      properties:
+        loanId:
+          type: string
+          description: Loan identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        merchantId:
+          type: string
+          description: Merchant identifier
+        purchaseAmount:
+          type: number
+          format: double
+          description: Original purchase amount
+        currency:
+          type: string
+          description: Currency
+        outstandingBalance:
+          type: number
+          format: double
+          description: Outstanding balance
+        numberOfInstallments:
+          type: integer
+          description: Total installments
+        installmentsPaid:
+          type: integer
+          description: Installments paid
+        nextPaymentDate:
+          type: string
+          format: date
+          description: Next payment date
+        nextPaymentAmount:
+          type: number
+          format: double
+          description: Next payment amount
+        status:
+          type: string
+          description: Loan status
+          enum:
+            - ACTIVE
+            - COMPLETED
+            - DEFAULTED
+            - CANCELLED
+        createdDate:
+          type: string
+          format: date
+          description: Loan creation date
+    Merchant:
+      type: object
+      description: Registered merchant
+      properties:
+        merchantId:
+          type: string
+          description: Merchant identifier
+        merchantName:
+          type: string
+          description: Merchant name
+        category:
+          type: string
+          description: Merchant category
+        settlementAccountId:
+          type: string
+          description: Settlement account
+        status:
+          type: string
+          description: Integration status
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string

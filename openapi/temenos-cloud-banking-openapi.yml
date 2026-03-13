@@ -1,0 +1,585 @@
+openapi: 3.1.0
+info:
+  title: Temenos Cloud Banking (CMB) API
+  description: >-
+    Country-specific commercial and cloud banking APIs delivering front-to-back
+    services for accounts, deposits, lending, trade finance, and payments with
+    pre-wired APIs and regional regulatory compliance for markets including
+    Australia, Canada, Mexico, UK, US, and more. Provides pre-configured
+    banking products and workflows adapted for local regulations.
+  version: '1.0.0'
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+externalDocs:
+  description: Temenos CMB API Documentation
+  url: https://developer.temenos.com/cmb
+servers:
+  - url: https://api.temenos.com/cmb/v1
+    description: Temenos Cloud Banking API - Production
+security:
+  - bearerAuth: []
+tags:
+  - name: Accounts
+    description: >-
+      Manage commercial banking accounts including current accounts,
+      savings accounts, and operational accounts with regional compliance.
+  - name: Deposits
+    description: >-
+      Manage deposit products including term deposits, demand deposits,
+      and certificates of deposit with country-specific terms.
+  - name: Lending
+    description: >-
+      Commercial lending operations including loan origination, facility
+      management, and repayment processing.
+  - name: Trade Finance
+    description: >-
+      Trade finance operations including letters of credit, guarantees,
+      documentary collections, and trade document management.
+  - name: Payments
+    description: >-
+      Country-specific payment processing including domestic and
+      international transfers with local clearing integration.
+paths:
+  /accounts:
+    get:
+      operationId: listCmbAccounts
+      summary: List commercial banking accounts
+      description: >-
+        Retrieve commercial banking accounts with country-specific product
+        details and regulatory compliance status.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: customerId
+          in: query
+          description: Filter by customer
+          schema:
+            type: string
+        - name: region
+          in: query
+          description: Filter by regional market
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CmbAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCmbAccount
+      summary: Create commercial banking account
+      description: >-
+        Create a new commercial banking account using pre-configured
+        regional product templates with local regulatory compliance.
+      tags:
+        - Accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CmbAccountCreate'
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CmbAccount'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /deposits:
+    get:
+      operationId: listCmbDeposits
+      summary: List deposits
+      description: >-
+        Retrieve deposit products with country-specific terms, rates,
+        and regulatory classification.
+      tags:
+        - Deposits
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CmbDeposit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /lending/facilities:
+    get:
+      operationId: listLendingFacilities
+      summary: List lending facilities
+      description: >-
+        Retrieve commercial lending facilities including credit lines,
+        term loans, and revolving facilities with utilization details.
+      tags:
+        - Lending
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: customerId
+          in: query
+          description: Filter by customer
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LendingFacility'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createLendingFacility
+      summary: Create lending facility
+      description: >-
+        Originate a new lending facility with specified terms, collateral,
+        and repayment conditions.
+      tags:
+        - Lending
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LendingFacilityCreate'
+      responses:
+        '201':
+          description: Facility created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LendingFacility'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /tradeFinance/lettersOfCredit:
+    get:
+      operationId: listLettersOfCredit
+      summary: List letters of credit
+      description: >-
+        Retrieve letters of credit including import and export LCs
+        with their document status and amendment history.
+      tags:
+        - Trade Finance
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LetterOfCredit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /tradeFinance/guarantees:
+    get:
+      operationId: listGuarantees
+      summary: List guarantees
+      description: >-
+        Retrieve bank guarantees and standby letters of credit with
+        their terms, beneficiaries, and expiry dates.
+      tags:
+        - Trade Finance
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Guarantee'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /payments:
+    post:
+      operationId: createCmbPayment
+      summary: Create payment
+      description: >-
+        Initiate a payment through country-specific clearing channels
+        with local regulatory validation and compliance checks.
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CmbPaymentCreate'
+      responses:
+        '201':
+          description: Payment initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CmbPayment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
+    CmbAccount:
+      type: object
+      description: Commercial banking account
+      properties:
+        accountId:
+          type: string
+          description: Account identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        productId:
+          type: string
+          description: Product identifier
+        accountType:
+          type: string
+          description: Account type
+        currency:
+          type: string
+          description: Account currency
+        balance:
+          type: number
+          format: double
+          description: Current balance
+        region:
+          type: string
+          description: Regional market
+        status:
+          type: string
+          description: Account status
+    CmbAccountCreate:
+      type: object
+      required:
+        - customerId
+        - productId
+        - currency
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        productId:
+          type: string
+          description: Regional product template
+        currency:
+          type: string
+          description: Account currency
+          pattern: '^[A-Z]{3}$'
+    CmbDeposit:
+      type: object
+      description: Deposit product
+      properties:
+        depositId:
+          type: string
+          description: Deposit identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        amount:
+          type: number
+          format: double
+          description: Deposit amount
+        currency:
+          type: string
+          description: Currency
+        interestRate:
+          type: number
+          format: double
+          description: Interest rate
+        maturityDate:
+          type: string
+          format: date
+          description: Maturity date
+        status:
+          type: string
+          description: Deposit status
+    LendingFacility:
+      type: object
+      description: Commercial lending facility
+      properties:
+        facilityId:
+          type: string
+          description: Facility identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        facilityType:
+          type: string
+          description: Facility type
+          enum:
+            - TERM_LOAN
+            - REVOLVING_CREDIT
+            - OVERDRAFT
+            - TRADE_FINANCE
+        currency:
+          type: string
+          description: Facility currency
+        approvedAmount:
+          type: number
+          format: double
+          description: Approved facility amount
+        utilizedAmount:
+          type: number
+          format: double
+          description: Current utilization
+        interestRate:
+          type: number
+          format: double
+          description: Interest rate
+        maturityDate:
+          type: string
+          format: date
+          description: Maturity date
+        status:
+          type: string
+          description: Facility status
+    LendingFacilityCreate:
+      type: object
+      required:
+        - customerId
+        - facilityType
+        - currency
+        - amount
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        facilityType:
+          type: string
+          description: Facility type
+          enum:
+            - TERM_LOAN
+            - REVOLVING_CREDIT
+            - OVERDRAFT
+        currency:
+          type: string
+          description: Currency
+          pattern: '^[A-Z]{3}$'
+        amount:
+          type: number
+          format: double
+          description: Requested amount
+        term:
+          type: integer
+          description: Term in months
+    LetterOfCredit:
+      type: object
+      description: Letter of credit
+      properties:
+        lcId:
+          type: string
+          description: LC identifier
+        lcType:
+          type: string
+          description: LC type
+          enum:
+            - IMPORT
+            - EXPORT
+            - STANDBY
+        applicant:
+          type: string
+          description: Applicant name
+        beneficiary:
+          type: string
+          description: Beneficiary name
+        amount:
+          type: number
+          format: double
+          description: LC amount
+        currency:
+          type: string
+          description: Currency
+        expiryDate:
+          type: string
+          format: date
+          description: Expiry date
+        status:
+          type: string
+          description: LC status
+    Guarantee:
+      type: object
+      description: Bank guarantee
+      properties:
+        guaranteeId:
+          type: string
+          description: Guarantee identifier
+        guaranteeType:
+          type: string
+          description: Guarantee type
+        applicant:
+          type: string
+          description: Applicant
+        beneficiary:
+          type: string
+          description: Beneficiary
+        amount:
+          type: number
+          format: double
+          description: Guarantee amount
+        currency:
+          type: string
+          description: Currency
+        expiryDate:
+          type: string
+          format: date
+          description: Expiry date
+        status:
+          type: string
+          description: Guarantee status
+    CmbPaymentCreate:
+      type: object
+      required:
+        - debitAccountId
+        - amount
+        - currency
+      properties:
+        debitAccountId:
+          type: string
+          description: Debit account
+        beneficiaryName:
+          type: string
+          description: Beneficiary name
+        beneficiaryAccountId:
+          type: string
+          description: Beneficiary account
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+        currency:
+          type: string
+          description: Currency
+          pattern: '^[A-Z]{3}$'
+        reference:
+          type: string
+          description: Payment reference
+    CmbPayment:
+      type: object
+      description: Payment record
+      properties:
+        paymentId:
+          type: string
+          description: Payment identifier
+        debitAccountId:
+          type: string
+          description: Debit account
+        amount:
+          type: number
+          format: double
+          description: Amount
+        currency:
+          type: string
+          description: Currency
+        status:
+          type: string
+          description: Payment status
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string

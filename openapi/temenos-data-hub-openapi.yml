@@ -1,0 +1,506 @@
+openapi: 3.1.0
+info:
+  title: Temenos Transact Data Hub API
+  description: >-
+    High-performance APIs built on the near real-time Analytics Data Store
+    (ADS) and Operational Data Store (ODS) from Temenos Transact Data Hub.
+    Provides banking-specific analytical and operational data for
+    comprehensive intra-day and historical analysis, reporting, and
+    integration use cases utilizing real-time data streams and ETL
+    transformations.
+  version: '1.0.0'
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+externalDocs:
+  description: Temenos Transact Data Hub Documentation
+  url: https://developer.temenos.com/transact-data-hub
+servers:
+  - url: https://api.temenos.com/transact-data-hub/v1
+    description: Temenos Transact Data Hub API - Production
+security:
+  - bearerAuth: []
+tags:
+  - name: Analytics Data Store
+    description: >-
+      Access banking-specific analytical data from the Analytics Data Store
+      for reporting, dashboards, and business intelligence use cases.
+  - name: Operational Data Store
+    description: >-
+      Access near real-time operational data from the Operational Data Store
+      for operational reporting and API-driven integration use cases.
+  - name: Data Streaming
+    description: >-
+      Manage event streaming configurations for capturing data replication
+      events from committed transactions in real time.
+paths:
+  /analytics/accounts:
+    get:
+      operationId: listAnalyticsAccounts
+      summary: List analytics account data
+      description: >-
+        Retrieve analytical account data from the ADS including balance
+        histories, transaction volumes, and account metrics for
+        reporting and business intelligence.
+      tags:
+        - Analytics Data Store
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: dateFrom
+          in: query
+          description: Start date for analytics period
+          schema:
+            type: string
+            format: date
+        - name: dateTo
+          in: query
+          description: End date for analytics period
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successful retrieval of analytics data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AnalyticsAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /analytics/transactions:
+    get:
+      operationId: listAnalyticsTransactions
+      summary: List analytics transaction data
+      description: >-
+        Retrieve analytical transaction data from the ADS for intra-day
+        and historical transaction analysis with aggregation support.
+      tags:
+        - Analytics Data Store
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: dateFrom
+          in: query
+          description: Start date
+          schema:
+            type: string
+            format: date
+        - name: dateTo
+          in: query
+          description: End date
+          schema:
+            type: string
+            format: date
+        - name: accountId
+          in: query
+          description: Filter by account
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of transaction analytics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AnalyticsTransaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /analytics/customers:
+    get:
+      operationId: listAnalyticsCustomers
+      summary: List analytics customer data
+      description: >-
+        Retrieve analytical customer data including customer segmentation
+        metrics, product holdings summaries, and relationship indicators.
+      tags:
+        - Analytics Data Store
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of customer analytics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AnalyticsCustomer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operational/accounts:
+    get:
+      operationId: listOperationalAccounts
+      summary: List operational account data
+      description: >-
+        Retrieve near real-time operational account data from the ODS
+        for integration use cases with current balances and status.
+      tags:
+        - Operational Data Store
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of operational data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OperationalAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operational/transactions:
+    get:
+      operationId: listOperationalTransactions
+      summary: List operational transaction data
+      description: >-
+        Retrieve near real-time transaction data from the ODS for
+        operational reporting and real-time integration.
+      tags:
+        - Operational Data Store
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: accountId
+          in: query
+          description: Filter by account
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of operational transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OperationalTransaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /streaming/configurations:
+    get:
+      operationId: listStreamingConfigurations
+      summary: List streaming configurations
+      description: >-
+        Retrieve event streaming configurations for data replication
+        and real-time event capture from committed transactions.
+      tags:
+        - Data Streaming
+      responses:
+        '200':
+          description: Successful retrieval of configurations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StreamingConfiguration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createStreamingConfiguration
+      summary: Create streaming configuration
+      description: >-
+        Create a new event streaming configuration to capture data
+        replication events when transactions are committed to the system.
+      tags:
+        - Data Streaming
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamingConfigurationCreate'
+      responses:
+        '201':
+          description: Configuration created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamingConfiguration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
+    AnalyticsAccount:
+      type: object
+      description: Analytical account data
+      properties:
+        accountId:
+          type: string
+          description: Account identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        productId:
+          type: string
+          description: Product identifier
+        currency:
+          type: string
+          description: Account currency
+        averageBalance:
+          type: number
+          format: double
+          description: Average balance for period
+        transactionCount:
+          type: integer
+          description: Transaction count for period
+        totalDebits:
+          type: number
+          format: double
+          description: Total debits for period
+        totalCredits:
+          type: number
+          format: double
+          description: Total credits for period
+        status:
+          type: string
+          description: Account status
+    AnalyticsTransaction:
+      type: object
+      description: Analytical transaction data
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        accountId:
+          type: string
+          description: Account identifier
+        transactionType:
+          type: string
+          description: Transaction type
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        currency:
+          type: string
+          description: Currency
+        bookingDate:
+          type: string
+          format: date
+          description: Booking date
+        valueDate:
+          type: string
+          format: date
+          description: Value date
+        channel:
+          type: string
+          description: Originating channel
+    AnalyticsCustomer:
+      type: object
+      description: Analytical customer data
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        segment:
+          type: string
+          description: Customer segment
+        totalProducts:
+          type: integer
+          description: Number of products held
+        totalRelationshipValue:
+          type: number
+          format: double
+          description: Total relationship value
+        currency:
+          type: string
+          description: Reporting currency
+    OperationalAccount:
+      type: object
+      description: Operational account data
+      properties:
+        accountId:
+          type: string
+          description: Account identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        accountType:
+          type: string
+          description: Account type
+        currency:
+          type: string
+          description: Currency
+        currentBalance:
+          type: number
+          format: double
+          description: Current balance
+        availableBalance:
+          type: number
+          format: double
+          description: Available balance
+        status:
+          type: string
+          description: Status
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    OperationalTransaction:
+      type: object
+      description: Operational transaction data
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        accountId:
+          type: string
+          description: Account identifier
+        amount:
+          type: number
+          format: double
+          description: Amount
+        currency:
+          type: string
+          description: Currency
+        bookingDate:
+          type: string
+          format: date
+          description: Booking date
+        description:
+          type: string
+          description: Transaction description
+        status:
+          type: string
+          description: Processing status
+    StreamingConfiguration:
+      type: object
+      description: Event streaming configuration
+      properties:
+        configurationId:
+          type: string
+          description: Configuration identifier
+        entityType:
+          type: string
+          description: Entity type to stream
+        targetTopic:
+          type: string
+          description: Target Kafka topic
+        filterCriteria:
+          type: string
+          description: Filter criteria for events
+        status:
+          type: string
+          description: Configuration status
+          enum:
+            - ACTIVE
+            - INACTIVE
+    StreamingConfigurationCreate:
+      type: object
+      description: Streaming configuration creation request
+      required:
+        - entityType
+        - targetTopic
+      properties:
+        entityType:
+          type: string
+          description: Entity type to stream
+        targetTopic:
+          type: string
+          description: Target Kafka topic
+        filterCriteria:
+          type: string
+          description: Optional filter criteria
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description

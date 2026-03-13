@@ -1,0 +1,894 @@
+openapi: 3.1.0
+info:
+  title: Temenos Infinity Digital Banking API
+  description: >-
+    Digital banking platform API for Temenos Infinity, providing omnichannel
+    customer experiences across retail and business banking channels. Enables
+    integration with Temenos Fabric and Temenos Visualizer for building
+    responsive digital banking applications. Supports Open Banking via
+    PSD2-compliant APIs and connects to over 100 FinTech services through
+    the Temenos MarketPlace. Uses JavaScript frameworks such as React for
+    front-end experience creation and provides REST APIs for accessing
+    banking data as resources in machine-readable JSON format.
+  version: '1.0.0'
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+externalDocs:
+  description: Temenos Infinity API Documentation
+  url: https://developer.temenos.com/infinity/apis
+servers:
+  - url: https://api.temenos.com/infinity/v1
+    description: Temenos Infinity API - Production
+  - url: https://sandbox.temenos.com/infinity/v1
+    description: Temenos Infinity API - Sandbox
+security:
+  - bearerAuth: []
+tags:
+  - name: Accounts
+    description: >-
+      Manage retail and business banking accounts including current accounts,
+      savings accounts, and digital wallet accounts across all channels.
+  - name: Customers
+    description: >-
+      Create and manage customer profiles, preferences, and digital identities
+      across omnichannel touchpoints.
+  - name: Transactions
+    description: >-
+      Access transaction history and details for customer accounts with
+      support for filtering, pagination, and multi-channel views.
+  - name: Payments
+    description: >-
+      Initiate and manage payments including domestic transfers, international
+      transfers, and bill payments across digital channels.
+  - name: Cards
+    description: >-
+      Manage debit and credit cards including card controls, spending limits,
+      activation, blocking, and PIN management through digital channels.
+  - name: Notifications
+    description: >-
+      Configure and manage customer notification preferences and delivery
+      across push notifications, SMS, and email channels.
+  - name: Consent
+    description: >-
+      Manage customer consent for Open Banking data sharing and third-party
+      provider access under PSD2 regulations.
+paths:
+  /accounts:
+    get:
+      operationId: listAccounts
+      summary: List customer accounts
+      description: >-
+        Retrieve a list of customer accounts across all account types visible
+        through the digital banking channel. Returns account summary information
+        including balances, status, and product details.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: customerId
+          in: query
+          description: Filter accounts by customer identifier
+          schema:
+            type: string
+        - name: accountType
+          in: query
+          description: Filter by account type (e.g., CURRENT, SAVINGS, DEPOSIT)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved list of accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accounts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Account'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}:
+    get:
+      operationId: getAccount
+      summary: Get account details
+      description: >-
+        Retrieve detailed information for a specific customer account including
+        balances, product details, interest rates, and associated services.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Successfully retrieved account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /accounts/{accountId}/transactions:
+    get:
+      operationId: listAccountTransactions
+      summary: List account transactions
+      description: >-
+        Retrieve transaction history for a specific account. Supports filtering
+        by date range, amount, transaction type, and text search across
+        narratives.
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: fromDate
+          in: query
+          description: Start date for transaction history (ISO 8601 format)
+          schema:
+            type: string
+            format: date
+        - name: toDate
+          in: query
+          description: End date for transaction history (ISO 8601 format)
+          schema:
+            type: string
+            format: date
+        - name: transactionType
+          in: query
+          description: Filter by transaction type
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved transaction list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Transaction'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/{customerId}:
+    get:
+      operationId: getCustomer
+      summary: Get customer profile
+      description: >-
+        Retrieve customer profile information including personal details,
+        contact information, preferences, and linked accounts across the
+        digital banking platform.
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      responses:
+        '200':
+          description: Successfully retrieved customer profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateCustomer
+      summary: Update customer profile
+      description: >-
+        Update customer profile information including contact details,
+        communication preferences, and notification settings.
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdate'
+      responses:
+        '200':
+          description: Successfully updated customer profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /payments:
+    post:
+      operationId: createPayment
+      summary: Initiate a payment
+      description: >-
+        Initiate a new payment from a customer account. Supports domestic
+        transfers, international transfers, and bill payments. The payment
+        is validated and submitted for processing.
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        '201':
+          description: Payment successfully initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /payments/{paymentId}:
+    get:
+      operationId: getPayment
+      summary: Get payment status
+      description: >-
+        Retrieve the current status and details of a previously initiated
+        payment including processing status, timestamps, and confirmation
+        details.
+      tags:
+        - Payments
+      parameters:
+        - name: paymentId
+          in: path
+          required: true
+          description: Unique payment identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved payment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /cards:
+    get:
+      operationId: listCards
+      summary: List customer cards
+      description: >-
+        Retrieve a list of debit and credit cards associated with the customer
+        across all linked accounts.
+      tags:
+        - Cards
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successfully retrieved card list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cards:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /cards/{cardId}:
+    put:
+      operationId: updateCardControls
+      summary: Update card controls
+      description: >-
+        Update card settings including spending limits, transaction type
+        controls, geographic restrictions, and contactless payment settings.
+      tags:
+        - Cards
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          description: Unique card identifier
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardControls'
+      responses:
+        '200':
+          description: Successfully updated card controls
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /notifications/preferences:
+    get:
+      operationId: getNotificationPreferences
+      summary: Get notification preferences
+      description: >-
+        Retrieve the customer notification preferences including enabled
+        channels, event subscriptions, and delivery settings.
+      tags:
+        - Notifications
+      responses:
+        '200':
+          description: Successfully retrieved notification preferences
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationPreferences'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updateNotificationPreferences
+      summary: Update notification preferences
+      description: >-
+        Update the customer notification preferences for banking events
+        such as transactions, balance thresholds, and security alerts.
+      tags:
+        - Notifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationPreferences'
+      responses:
+        '200':
+          description: Successfully updated notification preferences
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationPreferences'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /consents:
+    post:
+      operationId: createConsent
+      summary: Create consent record
+      description: >-
+        Create a new consent record for Open Banking data sharing, authorizing
+        a third-party provider to access specified account information or
+        initiate payments under PSD2 regulations.
+      tags:
+        - Consent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsentRequest'
+      responses:
+        '201':
+          description: Consent successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /consents/{consentId}:
+    get:
+      operationId: getConsent
+      summary: Get consent details
+      description: >-
+        Retrieve the details and current status of a consent record including
+        authorized scopes, expiration, and third-party provider information.
+      tags:
+        - Consent
+      parameters:
+        - name: consentId
+          in: path
+          required: true
+          description: Unique consent identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved consent details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsentResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: revokeConsent
+      summary: Revoke consent
+      description: >-
+        Revoke an existing consent, immediately terminating the third-party
+        provider access to the authorized account data or payment initiation
+        capabilities.
+      tags:
+        - Consent
+      parameters:
+        - name: consentId
+          in: path
+          required: true
+          description: Unique consent identifier
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Consent successfully revoked
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        JWT bearer token obtained through OAuth 2.0 authentication flow
+        with the Temenos identity provider.
+  parameters:
+    pageSize:
+      name: pageSize
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        default: 25
+        minimum: 1
+        maximum: 100
+    pageStart:
+      name: pageStart
+      in: query
+      description: Pagination offset token or page number
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Invalid request parameters or payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Account:
+      type: object
+      description: Customer bank account visible through the digital channel
+      properties:
+        accountId:
+          type: string
+          description: Unique account identifier
+        accountName:
+          type: string
+          description: Customer-defined name for the account
+        accountType:
+          type: string
+          description: Type of account
+          enum:
+            - CURRENT
+            - SAVINGS
+            - DEPOSIT
+            - LOAN
+            - CREDIT_CARD
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          pattern: '^[A-Z]{3}$'
+        availableBalance:
+          type: number
+          description: Available balance for transactions
+        currentBalance:
+          type: number
+          description: Current ledger balance
+        status:
+          type: string
+          description: Account status
+          enum:
+            - ACTIVE
+            - DORMANT
+            - CLOSED
+            - BLOCKED
+        productName:
+          type: string
+          description: Name of the banking product
+    Customer:
+      type: object
+      description: Customer profile in the digital banking platform
+      properties:
+        customerId:
+          type: string
+          description: Unique customer identifier
+        firstName:
+          type: string
+          description: Customer first name
+        lastName:
+          type: string
+          description: Customer last name
+        email:
+          type: string
+          format: email
+          description: Primary email address
+        phone:
+          type: string
+          description: Primary phone number
+        dateOfBirth:
+          type: string
+          format: date
+          description: Date of birth
+        address:
+          $ref: '#/components/schemas/Address'
+    CustomerUpdate:
+      type: object
+      description: Fields available for customer profile update
+      properties:
+        email:
+          type: string
+          format: email
+          description: Updated email address
+        phone:
+          type: string
+          description: Updated phone number
+        address:
+          $ref: '#/components/schemas/Address'
+    Address:
+      type: object
+      description: Postal address
+      properties:
+        addressLine1:
+          type: string
+          description: First line of address
+        addressLine2:
+          type: string
+          description: Second line of address
+        city:
+          type: string
+          description: City name
+        state:
+          type: string
+          description: State or province
+        postalCode:
+          type: string
+          description: Postal or ZIP code
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          pattern: '^[A-Z]{2}$'
+    Transaction:
+      type: object
+      description: Account transaction record
+      properties:
+        transactionId:
+          type: string
+          description: Unique transaction identifier
+        accountId:
+          type: string
+          description: Account identifier
+        amount:
+          type: number
+          description: Transaction amount
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        debitOrCredit:
+          type: string
+          enum:
+            - DEBIT
+            - CREDIT
+          description: Direction of the transaction
+        bookingDate:
+          type: string
+          format: date
+          description: Date the transaction was booked
+        valueDate:
+          type: string
+          format: date
+          description: Value date of the transaction
+        narrative:
+          type: string
+          description: Transaction description or narrative
+        transactionType:
+          type: string
+          description: Type of transaction
+    PaymentRequest:
+      type: object
+      description: Payment initiation request
+      required:
+        - debitAccountId
+        - creditAccountId
+        - amount
+        - currency
+      properties:
+        debitAccountId:
+          type: string
+          description: Source account identifier
+        creditAccountId:
+          type: string
+          description: Destination account or beneficiary identifier
+        amount:
+          type: number
+          description: Payment amount
+          minimum: 0
+          exclusiveMinimum: true
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          pattern: '^[A-Z]{3}$'
+        paymentType:
+          type: string
+          description: Type of payment
+          enum:
+            - DOMESTIC_TRANSFER
+            - INTERNATIONAL_TRANSFER
+            - BILL_PAYMENT
+        narrative:
+          type: string
+          description: Payment reference or description
+          maxLength: 140
+    PaymentResponse:
+      type: object
+      description: Payment status and details
+      properties:
+        paymentId:
+          type: string
+          description: Unique payment identifier
+        status:
+          type: string
+          description: Current payment status
+          enum:
+            - PENDING
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+            - CANCELLED
+        debitAccountId:
+          type: string
+          description: Source account identifier
+        creditAccountId:
+          type: string
+          description: Destination account identifier
+        amount:
+          type: number
+          description: Payment amount
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        createdDate:
+          type: string
+          format: date-time
+          description: Timestamp when the payment was created
+    Card:
+      type: object
+      description: Customer debit or credit card
+      properties:
+        cardId:
+          type: string
+          description: Unique card identifier
+        cardNumber:
+          type: string
+          description: Masked card number
+        cardType:
+          type: string
+          description: Type of card
+          enum:
+            - DEBIT
+            - CREDIT
+            - PREPAID
+        status:
+          type: string
+          description: Current card status
+          enum:
+            - ACTIVE
+            - BLOCKED
+            - EXPIRED
+            - PENDING_ACTIVATION
+        expiryDate:
+          type: string
+          description: Card expiry date in MM/YY format
+        accountId:
+          type: string
+          description: Linked account identifier
+    CardControls:
+      type: object
+      description: Card control settings
+      properties:
+        contactlessEnabled:
+          type: boolean
+          description: Whether contactless payments are enabled
+        onlineTransactionsEnabled:
+          type: boolean
+          description: Whether online transactions are enabled
+        dailySpendingLimit:
+          type: number
+          description: Maximum daily spending limit
+          minimum: 0
+        atmWithdrawalLimit:
+          type: number
+          description: Maximum daily ATM withdrawal limit
+          minimum: 0
+    NotificationPreferences:
+      type: object
+      description: Customer notification preferences
+      properties:
+        pushEnabled:
+          type: boolean
+          description: Whether push notifications are enabled
+        smsEnabled:
+          type: boolean
+          description: Whether SMS notifications are enabled
+        emailEnabled:
+          type: boolean
+          description: Whether email notifications are enabled
+        transactionAlerts:
+          type: boolean
+          description: Receive alerts for each transaction
+        balanceThresholdAlert:
+          type: boolean
+          description: Receive alerts when balance drops below threshold
+        balanceThreshold:
+          type: number
+          description: Balance threshold amount for alerts
+    ConsentRequest:
+      type: object
+      description: Open Banking consent creation request
+      required:
+        - tppId
+        - permissions
+        - expirationDate
+      properties:
+        tppId:
+          type: string
+          description: Third-party provider identifier
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+              - READ_ACCOUNTS
+              - READ_BALANCES
+              - READ_TRANSACTIONS
+              - INITIATE_PAYMENTS
+          description: Requested access permissions
+        expirationDate:
+          type: string
+          format: date-time
+          description: Consent expiration date and time
+        accountIds:
+          type: array
+          items:
+            type: string
+          description: Specific account identifiers to authorize
+    ConsentResponse:
+      type: object
+      description: Open Banking consent record
+      properties:
+        consentId:
+          type: string
+          description: Unique consent identifier
+        status:
+          type: string
+          description: Current consent status
+          enum:
+            - AWAITING_AUTHORIZATION
+            - AUTHORIZED
+            - REJECTED
+            - REVOKED
+            - EXPIRED
+        tppId:
+          type: string
+          description: Third-party provider identifier
+        permissions:
+          type: array
+          items:
+            type: string
+          description: Authorized permissions
+        createdDate:
+          type: string
+          format: date-time
+          description: Consent creation timestamp
+        expirationDate:
+          type: string
+          format: date-time
+          description: Consent expiration timestamp
+    Pagination:
+      type: object
+      description: Pagination metadata
+      properties:
+        pageSize:
+          type: integer
+          description: Number of records per page
+        pageStart:
+          type: string
+          description: Current page token
+        totalRecords:
+          type: integer
+          description: Total number of records
+        hasMore:
+          type: boolean
+          description: Whether more pages are available
+    Error:
+      type: object
+      description: Error response
+      properties:
+        code:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Detail of the error
+          description: Additional error details

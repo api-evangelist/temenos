@@ -1,0 +1,692 @@
+openapi: 3.1.0
+info:
+  title: Temenos Journey Manager API
+  description: >-
+    REST APIs for customer journey orchestration allowing external systems
+    to integrate with Temenos Journey Manager for digital onboarding, form
+    processing, and workflow management. Includes Application Package API,
+    Delivery API, Form Groups API, Service Definitions API, Tasks API,
+    Transactions API, Transaction History API, and Workspaces portal API.
+  version: '1.0.0'
+  contact:
+    name: Temenos Developer Support
+    url: https://journey.temenos.com/api/
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+externalDocs:
+  description: Temenos Journey Manager API Documentation
+  url: https://journey.temenos.com/api/svcs-guide/rest-api/
+servers:
+  - url: https://journey.temenos.com/api/v1
+    description: Temenos Journey Manager API - Production
+security:
+  - bearerAuth: []
+  - oauth2: []
+tags:
+  - name: Application Packages
+    description: >-
+      Manage application packages including uploading, retrieving, and
+      deleting application package archives.
+  - name: Delivery
+    description: >-
+      Manage delivery channels, retrieve submissions, and process
+      delivery completions and errors.
+  - name: Form Groups
+    description: >-
+      Create and manage form group configurations for organizing
+      customer journey forms.
+  - name: Service Definitions
+    description: >-
+      Manage service definitions and parameters for journey integration
+      services.
+  - name: Transactions
+    description: >-
+      Create and manage customer journey transactions including form
+      submissions and workflow processing.
+  - name: Tasks
+    description: >-
+      Manage tasks within customer journey workflows including
+      assignment, completion, and status tracking.
+  - name: Workspaces
+    description: >-
+      Workspaces portal APIs for external system integration with
+      the Journey Manager workspace environment.
+paths:
+  /packages:
+    get:
+      operationId: listApplicationPackages
+      summary: List application packages
+      description: >-
+        Retrieve the list of available application packages with their
+        metadata and version information.
+      tags:
+        - Application Packages
+      responses:
+        '200':
+          description: Successful retrieval of packages
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApplicationPackage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: uploadApplicationPackage
+      summary: Upload application package
+      description: >-
+        Upload a new application package archive for deployment in
+        the Journey Manager platform.
+      tags:
+        - Application Packages
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                archive:
+                  type: string
+                  format: binary
+                  description: Application package archive file
+      responses:
+        '201':
+          description: Package uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationPackage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /packages/{packageId}:
+    get:
+      operationId: getApplicationPackage
+      summary: Get application package
+      description: >-
+        Retrieve a specific application package with its metadata
+        and configuration details.
+      tags:
+        - Application Packages
+      parameters:
+        - name: packageId
+          in: path
+          required: true
+          description: Package identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationPackage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteApplicationPackage
+      summary: Delete application package
+      description: >-
+        Remove an application package from the Journey Manager platform.
+      tags:
+        - Application Packages
+      parameters:
+        - name: packageId
+          in: path
+          required: true
+          description: Package identifier
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Package deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /delivery/submissions:
+    get:
+      operationId: listSubmissions
+      summary: List submissions
+      description: >-
+        Retrieve a list of form submissions pending delivery processing.
+      tags:
+        - Delivery
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of submissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Submission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /delivery/submissions/{submissionId}:
+    get:
+      operationId: getSubmission
+      summary: Get submission details
+      description: >-
+        Retrieve detailed submission data including form field values
+        and submission metadata.
+      tags:
+        - Delivery
+      parameters:
+        - name: submissionId
+          in: path
+          required: true
+          description: Submission identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /delivery/submissions/{submissionId}/complete:
+    post:
+      operationId: completeDelivery
+      summary: Complete delivery
+      description: >-
+        Mark a submission delivery as completed after successful
+        processing by the receiving system.
+      tags:
+        - Delivery
+      parameters:
+        - name: submissionId
+          in: path
+          required: true
+          description: Submission identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Delivery marked as completed
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /formGroups:
+    get:
+      operationId: listFormGroups
+      summary: List form groups
+      description: >-
+        Retrieve all form group configurations for organizing and
+        categorizing customer journey forms.
+      tags:
+        - Form Groups
+      responses:
+        '200':
+          description: Successful retrieval of form groups
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FormGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createFormGroup
+      summary: Create form group
+      description: >-
+        Create a new form group for organizing customer journey forms.
+      tags:
+        - Form Groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FormGroupCreate'
+      responses:
+        '201':
+          description: Form group created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormGroup'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services:
+    get:
+      operationId: listServiceDefinitions
+      summary: List service definitions
+      description: >-
+        Retrieve service definitions for journey integration services
+        with their parameters and configurations.
+      tags:
+        - Service Definitions
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceDefinition'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createServiceDefinition
+      summary: Create service definition
+      description: >-
+        Create a new service definition for integration within
+        customer journey workflows.
+      tags:
+        - Service Definitions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceDefinitionCreate'
+      responses:
+        '201':
+          description: Service definition created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceDefinition'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /transactions:
+    get:
+      operationId: listTransactions
+      summary: List transactions
+      description: >-
+        Retrieve customer journey transactions including their current
+        status, form data, and workflow position.
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: status
+          in: query
+          description: Filter by transaction status
+          schema:
+            type: string
+            enum:
+              - IN_PROGRESS
+              - COMPLETED
+              - ABANDONED
+              - EXPIRED
+      responses:
+        '200':
+          description: Successful retrieval of transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JourneyTransaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /tasks:
+    get:
+      operationId: listTasks
+      summary: List tasks
+      description: >-
+        Retrieve tasks within journey workflows including assignment
+        and completion status.
+      tags:
+        - Tasks
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: assignee
+          in: query
+          description: Filter by assigned user
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by task status
+          schema:
+            type: string
+            enum:
+              - PENDING
+              - IN_PROGRESS
+              - COMPLETED
+      responses:
+        '200':
+          description: Successful retrieval of tasks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /workspaces:
+    get:
+      operationId: listWorkspaces
+      summary: List workspaces
+      description: >-
+        Retrieve available workspaces in the Journey Manager portal
+        for external system integration.
+      tags:
+        - Workspaces
+      responses:
+        '200':
+          description: Successful retrieval of workspaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Workspace'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://journey.temenos.com/oauth2/authorize
+          tokenUrl: https://journey.temenos.com/oauth2/token
+          scopes:
+            read: Read access
+            write: Write access
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
+    ApplicationPackage:
+      type: object
+      description: Application package
+      properties:
+        packageId:
+          type: string
+          description: Package identifier
+        name:
+          type: string
+          description: Package name
+        version:
+          type: string
+          description: Package version
+        description:
+          type: string
+          description: Package description
+        status:
+          type: string
+          description: Package status
+        createdDate:
+          type: string
+          format: date-time
+          description: Creation timestamp
+    Submission:
+      type: object
+      description: Form submission
+      properties:
+        submissionId:
+          type: string
+          description: Submission identifier
+        formName:
+          type: string
+          description: Form name
+        data:
+          type: object
+          description: Submission data
+          additionalProperties: true
+        status:
+          type: string
+          description: Delivery status
+        submittedDate:
+          type: string
+          format: date-time
+          description: Submission timestamp
+    FormGroup:
+      type: object
+      description: Form group configuration
+      properties:
+        formGroupId:
+          type: string
+          description: Form group identifier
+        name:
+          type: string
+          description: Group name
+        description:
+          type: string
+          description: Group description
+        forms:
+          type: array
+          description: Forms in group
+          items:
+            type: string
+    FormGroupCreate:
+      type: object
+      description: Form group creation request
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Group name
+        description:
+          type: string
+          description: Group description
+    ServiceDefinition:
+      type: object
+      description: Integration service definition
+      properties:
+        serviceId:
+          type: string
+          description: Service identifier
+        name:
+          type: string
+          description: Service name
+        description:
+          type: string
+          description: Service description
+        parameters:
+          type: array
+          description: Service parameters
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Parameter name
+              type:
+                type: string
+                description: Parameter type
+              required:
+                type: boolean
+                description: Whether required
+    ServiceDefinitionCreate:
+      type: object
+      description: Service definition creation request
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Service name
+        description:
+          type: string
+          description: Service description
+    JourneyTransaction:
+      type: object
+      description: Customer journey transaction
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        journeyName:
+          type: string
+          description: Journey name
+        status:
+          type: string
+          description: Transaction status
+          enum:
+            - IN_PROGRESS
+            - COMPLETED
+            - ABANDONED
+            - EXPIRED
+        currentStep:
+          type: string
+          description: Current journey step
+        customerId:
+          type: string
+          description: Customer identifier
+        startDate:
+          type: string
+          format: date-time
+          description: Journey start timestamp
+        lastActivity:
+          type: string
+          format: date-time
+          description: Last activity timestamp
+    Task:
+      type: object
+      description: Journey workflow task
+      properties:
+        taskId:
+          type: string
+          description: Task identifier
+        transactionId:
+          type: string
+          description: Parent transaction
+        taskName:
+          type: string
+          description: Task name
+        assignee:
+          type: string
+          description: Assigned user
+        status:
+          type: string
+          description: Task status
+          enum:
+            - PENDING
+            - IN_PROGRESS
+            - COMPLETED
+        dueDate:
+          type: string
+          format: date-time
+          description: Task due date
+    Workspace:
+      type: object
+      description: Journey Manager workspace
+      properties:
+        workspaceId:
+          type: string
+          description: Workspace identifier
+        name:
+          type: string
+          description: Workspace name
+        description:
+          type: string
+          description: Workspace description
+        status:
+          type: string
+          description: Workspace status
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description

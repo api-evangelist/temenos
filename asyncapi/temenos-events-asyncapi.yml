@@ -1,0 +1,547 @@
+asyncapi: 2.6.0
+info:
+  title: Temenos Banking Events
+  description: >-
+    Event-driven architecture for Temenos banking platform providing
+    asynchronous integration through business and system events published
+    to Apache Kafka topics. Enables loose coupling of Packaged Business
+    Capabilities (PBCs) with support for both JMS point-to-point messaging
+    for guaranteed once-and-only-once delivery and Kafka publish-subscribe
+    for at-least-once delivery of data events. Events are published in
+    JSON format with adapter support for XML and Avro transformation.
+  version: '1.0.0'
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+  kafka:
+    url: kafka.temenos.com:9092
+    protocol: kafka
+    description: >-
+      Temenos Kafka cluster for event streaming. Apache Kafka serves as the
+      distributed event streaming platform for publishing and subscribing
+      to banking events.
+    security:
+      - sasl: []
+  jms:
+    url: jms.temenos.com:61616
+    protocol: jms
+    description: >-
+      JMS message broker for point-to-point event delivery with guaranteed
+      once-and-only-once delivery semantics.
+    security:
+      - userPassword: []
+channels:
+  temenos.events.account:
+    description: >-
+      Account lifecycle events including creation, closure, status changes,
+      and balance updates for all account types.
+    publish:
+      operationId: onAccountEvent
+      summary: Account event published
+      description: >-
+        Receive notifications for account lifecycle events when accounts
+        are created, modified, closed, or have significant balance changes.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/AccountCreated'
+          - $ref: '#/components/messages/AccountClosed'
+          - $ref: '#/components/messages/AccountStatusChanged'
+  temenos.events.payment:
+    description: >-
+      Payment processing events including order acceptance, execution
+      confirmation, clearing status updates, and payment failures.
+    publish:
+      operationId: onPaymentEvent
+      summary: Payment event published
+      description: >-
+        Receive notifications for payment lifecycle events when payment
+        orders are accepted, confirmed, cleared, or fail processing.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/PaymentOrderAccepted'
+          - $ref: '#/components/messages/PaymentOrderConfirmed'
+          - $ref: '#/components/messages/PaymentOrderFailed'
+  temenos.events.customer:
+    description: >-
+      Customer lifecycle events including onboarding, profile updates,
+      KYC status changes, and relationship modifications.
+    publish:
+      operationId: onCustomerEvent
+      summary: Customer event published
+      description: >-
+        Receive notifications for customer lifecycle events when customers
+        are onboarded, updated, or have KYC status changes.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/CustomerOnboarded'
+          - $ref: '#/components/messages/CustomerUpdated'
+          - $ref: '#/components/messages/KycStatusChanged'
+  temenos.events.transaction:
+    description: >-
+      Transaction events published when financial transactions are
+      committed to the system including debits, credits, and transfers.
+    publish:
+      operationId: onTransactionEvent
+      summary: Transaction event published
+      description: >-
+        Receive notifications when financial transactions are committed
+        including debit, credit, and transfer operations.
+      message:
+        $ref: '#/components/messages/TransactionCommitted'
+  temenos.events.compliance:
+    description: >-
+      Compliance and financial crime events including sanctions screening
+      alerts, AML monitoring alerts, and risk score changes.
+    publish:
+      operationId: onComplianceEvent
+      summary: Compliance event published
+      description: >-
+        Receive notifications for compliance events including new
+        screening alerts and risk rating changes.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/SanctionAlertRaised'
+          - $ref: '#/components/messages/RiskScoreChanged'
+  temenos.data.replication:
+    description: >-
+      Data replication events captured from memory when transactions are
+      committed to the system. Used for populating the Analytics Data Store
+      and Operational Data Store through real-time ETL processing.
+    publish:
+      operationId: onDataReplicationEvent
+      summary: Data replication event published
+      description: >-
+        Receive data change events for replicating committed transaction
+        data to downstream data stores and analytics systems.
+      message:
+        $ref: '#/components/messages/DataReplicationEvent'
+  temenos.events.system:
+    description: >-
+      System-level events including service health changes, configuration
+      updates, and platform operational events.
+    publish:
+      operationId: onSystemEvent
+      summary: System event published
+      description: >-
+        Receive notifications for system-level operational events.
+      message:
+        $ref: '#/components/messages/SystemEvent'
+components:
+  securitySchemes:
+    sasl:
+      type: scramSha256
+      description: SASL/SCRAM-SHA-256 authentication for Kafka
+    userPassword:
+      type: userPassword
+      description: Username/password authentication for JMS
+  messages:
+    AccountCreated:
+      name: AccountCreated
+      title: Account Created
+      summary: Published when a new account is created
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AccountEvent'
+      headers:
+        type: object
+        properties:
+          eventType:
+            type: string
+            const: account.created
+          correlationId:
+            type: string
+          timestamp:
+            type: string
+            format: date-time
+    AccountClosed:
+      name: AccountClosed
+      title: Account Closed
+      summary: Published when an account is closed
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AccountEvent'
+      headers:
+        type: object
+        properties:
+          eventType:
+            type: string
+            const: account.closed
+    AccountStatusChanged:
+      name: AccountStatusChanged
+      title: Account Status Changed
+      summary: Published when an account status changes
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AccountEvent'
+      headers:
+        type: object
+        properties:
+          eventType:
+            type: string
+            const: account.status.changed
+    PaymentOrderAccepted:
+      name: PaymentOrderAccepted
+      title: Payment Order Accepted
+      summary: Published when a payment order is accepted for processing
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PaymentEvent'
+      headers:
+        type: object
+        properties:
+          eventType:
+            type: string
+            const: payment.order.accepted
+    PaymentOrderConfirmed:
+      name: PaymentOrderConfirmed
+      title: Payment Order Confirmed
+      summary: Published when a payment order is confirmed and booked
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PaymentEvent'
+      headers:
+        type: object
+        properties:
+          eventType:
+            type: string
+            const: payment.order.confirmed
+    PaymentOrderFailed:
+      name: PaymentOrderFailed
+      title: Payment Order Failed
+      summary: Published when a payment order fails processing
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PaymentEvent'
+      headers:
+        type: object
+        properties:
+          eventType:
+            type: string
+            const: payment.order.failed
+    CustomerOnboarded:
+      name: CustomerOnboarded
+      title: Customer Onboarded
+      summary: Published when a new customer is onboarded
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CustomerEvent'
+      headers:
+        type: object
+        properties:
+          eventType:
+            type: string
+            const: customer.onboarded
+    CustomerUpdated:
+      name: CustomerUpdated
+      title: Customer Updated
+      summary: Published when customer details are updated
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CustomerEvent'
+      headers:
+        type: object
+        properties:
+          eventType:
+            type: string
+            const: customer.updated
+    KycStatusChanged:
+      name: KycStatusChanged
+      title: KYC Status Changed
+      summary: Published when a customer KYC status changes
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CustomerEvent'
+      headers:
+        type: object
+        properties:
+          eventType:
+            type: string
+            const: customer.kyc.changed
+    TransactionCommitted:
+      name: TransactionCommitted
+      title: Transaction Committed
+      summary: Published when a financial transaction is committed
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/TransactionEvent'
+    SanctionAlertRaised:
+      name: SanctionAlertRaised
+      title: Sanction Alert Raised
+      summary: Published when a sanctions screening alert is generated
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ComplianceEvent'
+      headers:
+        type: object
+        properties:
+          eventType:
+            type: string
+            const: compliance.sanction.alert
+    RiskScoreChanged:
+      name: RiskScoreChanged
+      title: Risk Score Changed
+      summary: Published when a customer risk score is updated
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ComplianceEvent'
+      headers:
+        type: object
+        properties:
+          eventType:
+            type: string
+            const: compliance.risk.changed
+    DataReplicationEvent:
+      name: DataReplicationEvent
+      title: Data Replication Event
+      summary: Published for data replication when transactions are committed
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DataReplication'
+    SystemEvent:
+      name: SystemEvent
+      title: System Event
+      summary: Published for system-level operational events
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SystemEventPayload'
+  schemas:
+    AccountEvent:
+      type: object
+      description: Account lifecycle event payload
+      properties:
+        eventId:
+          type: string
+          description: Unique event identifier
+        eventType:
+          type: string
+          description: Event type classification
+        accountId:
+          type: string
+          description: Account identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        accountType:
+          type: string
+          description: Account type
+        currency:
+          type: string
+          description: Account currency
+        status:
+          type: string
+          description: Account status after event
+        previousStatus:
+          type: string
+          description: Account status before event
+        timestamp:
+          type: string
+          format: date-time
+          description: Event timestamp
+        source:
+          type: string
+          description: Source application
+    PaymentEvent:
+      type: object
+      description: Payment lifecycle event payload
+      properties:
+        eventId:
+          type: string
+          description: Unique event identifier
+        eventType:
+          type: string
+          description: Event type classification
+        paymentOrderId:
+          type: string
+          description: Payment order identifier
+        debitAccountId:
+          type: string
+          description: Debit account
+        creditAccountId:
+          type: string
+          description: Credit account
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+        currency:
+          type: string
+          description: Payment currency
+        paymentType:
+          type: string
+          description: Payment type
+        bookingStatus:
+          type: string
+          description: Booking status
+        failureReason:
+          type: string
+          description: Failure reason if applicable
+        timestamp:
+          type: string
+          format: date-time
+          description: Event timestamp
+    CustomerEvent:
+      type: object
+      description: Customer lifecycle event payload
+      properties:
+        eventId:
+          type: string
+          description: Unique event identifier
+        eventType:
+          type: string
+          description: Event type classification
+        customerId:
+          type: string
+          description: Customer identifier
+        customerType:
+          type: string
+          description: Customer type
+        kycStatus:
+          type: string
+          description: Current KYC status
+        previousKycStatus:
+          type: string
+          description: Previous KYC status
+        timestamp:
+          type: string
+          format: date-time
+          description: Event timestamp
+    TransactionEvent:
+      type: object
+      description: Financial transaction event payload
+      properties:
+        eventId:
+          type: string
+          description: Unique event identifier
+        transactionId:
+          type: string
+          description: Transaction identifier
+        accountId:
+          type: string
+          description: Account identifier
+        transactionType:
+          type: string
+          description: Transaction type
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        currency:
+          type: string
+          description: Currency
+        debitOrCredit:
+          type: string
+          description: Debit or credit indicator
+          enum:
+            - DEBIT
+            - CREDIT
+        bookingDate:
+          type: string
+          format: date
+          description: Booking date
+        valueDate:
+          type: string
+          format: date
+          description: Value date
+        timestamp:
+          type: string
+          format: date-time
+          description: Event timestamp
+    ComplianceEvent:
+      type: object
+      description: Compliance event payload
+      properties:
+        eventId:
+          type: string
+          description: Unique event identifier
+        eventType:
+          type: string
+          description: Event type
+        customerId:
+          type: string
+          description: Customer identifier
+        alertId:
+          type: string
+          description: Alert identifier if applicable
+        severity:
+          type: string
+          description: Event severity
+          enum:
+            - HIGH
+            - MEDIUM
+            - LOW
+        riskScore:
+          type: number
+          format: double
+          description: Risk score if applicable
+        previousRiskScore:
+          type: number
+          format: double
+          description: Previous risk score
+        details:
+          type: string
+          description: Event details
+        timestamp:
+          type: string
+          format: date-time
+          description: Event timestamp
+    DataReplication:
+      type: object
+      description: Data replication event payload
+      properties:
+        eventId:
+          type: string
+          description: Unique event identifier
+        entityType:
+          type: string
+          description: Entity type being replicated
+        entityId:
+          type: string
+          description: Entity identifier
+        operation:
+          type: string
+          description: Operation type
+          enum:
+            - CREATE
+            - UPDATE
+            - DELETE
+        data:
+          type: object
+          description: Entity data payload
+          additionalProperties: true
+        timestamp:
+          type: string
+          format: date-time
+          description: Commit timestamp
+    SystemEventPayload:
+      type: object
+      description: System event payload
+      properties:
+        eventId:
+          type: string
+          description: Event identifier
+        eventType:
+          type: string
+          description: System event type
+        source:
+          type: string
+          description: Source service
+        severity:
+          type: string
+          description: Event severity
+          enum:
+            - INFO
+            - WARNING
+            - ERROR
+            - CRITICAL
+        message:
+          type: string
+          description: Event message
+        timestamp:
+          type: string
+          format: date-time
+          description: Event timestamp

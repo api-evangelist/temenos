@@ -1,0 +1,917 @@
+openapi: 3.1.0
+info:
+  title: Temenos Enterprise Product and Pricing API
+  description: >-
+    APIs for product pricing, quotation simulation, package arrangements,
+    pricing adjustments, transparency details, and promotions management for
+    banking products and services. Enables simulation of account creation and
+    transaction events to determine applicable pricing details including
+    interest rates, fees, and cashback. Supports pricing negotiation through
+    quotation references and manual adjustment workflows.
+  version: '1.0.0'
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+externalDocs:
+  description: Temenos Enterprise Product Pricing API Documentation
+  url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+servers:
+  - url: https://api.temenos.com/enterprise-pricing/v1
+    description: Temenos Enterprise Pricing API - Production
+security:
+  - bearerAuth: []
+tags:
+  - name: Pricing Quotation
+    description: >-
+      Simulate account or arrangement creation and transaction events to
+      determine applicable pricing details including interest rates, fees,
+      and cashback with negotiation support.
+  - name: Package Details
+    description: >-
+      Create, amend, and manage package arrangements that bundle customer
+      accounts for combined pricing benefits.
+  - name: Pricing Adjustment
+    description: >-
+      Apply manual pricing adjustments including fee and interest rate
+      modifications with expiry settings and negotiation workflows.
+  - name: Party Details
+    description: >-
+      Retrieve customer contracts, pricing information, related parties,
+      and eligibility status within the pricing system.
+  - name: Accounts Arrangement Details
+    description: >-
+      Calculate payoff amounts, adjust closure charges, process early
+      deposit redemptions, and handle external arrangement balances.
+  - name: Pricing Arrangement Details
+    description: >-
+      Retrieve interest rate details, activity charges, transaction
+      pricing, periodic fees, and account event history within the
+      pricing system.
+  - name: Pricing Transparency
+    description: >-
+      Access pricing transparency information including fee breakdowns,
+      benefit details, and rule qualification outcomes.
+  - name: Promotions
+    description: >-
+      Create and manage promotional arrangements for parties with
+      promotional codes and benefit tracking.
+paths:
+  /quotations/simulate:
+    post:
+      operationId: simulateArrangementCreation
+      summary: Simulate account creation pricing
+      description: >-
+        Simulate the creation of an arrangement or account to determine
+        applicable pricing details including interest rates, fees, and
+        cashback. Returns a quotation reference that can be used for
+        negotiating or adjusting pricing details or for creating a new
+        account.
+      tags:
+        - Pricing Quotation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuotationSimulateRequest'
+      responses:
+        '200':
+          description: Quotation simulation completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /quotations/simulateEvent:
+    post:
+      operationId: simulateEventPricing
+      summary: Simulate event pricing
+      description: >-
+        Simulate an activity or transaction event such as an ATM
+        withdrawal, partial redemption, or funds transfer to determine
+        applicable pricing details and returns a quotation reference.
+      tags:
+        - Pricing Quotation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSimulateRequest'
+      responses:
+        '200':
+          description: Event simulation completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /quotations/{quotationReference}:
+    get:
+      operationId: getQuotationDetails
+      summary: Get quotation details
+      description: >-
+        Retrieve pricing details of a simulated quotation. If the
+        quotation has been negotiated, returns final pricing details
+        including any adjustments applied.
+      tags:
+        - Pricing Quotation
+      parameters:
+        - name: quotationReference
+          in: path
+          required: true
+          description: Quotation reference identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of quotation details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: amendQuotationPricing
+      summary: Amend quotation pricing
+      description: >-
+        Amend pricing details such as interest rates or fees for an
+        existing simulated quotation reference as part of pricing
+        negotiation.
+      tags:
+        - Pricing Adjustment
+      parameters:
+        - name: quotationReference
+          in: path
+          required: true
+          description: Quotation reference identifier
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PricingAmendment'
+      responses:
+        '200':
+          description: Quotation pricing amended
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /packages:
+    get:
+      operationId: listPackages
+      summary: List package arrangements
+      description: >-
+        Retrieve package arrangements that bundle customer accounts
+        for combined pricing benefits with primary and linked account
+        information.
+      tags:
+        - Package Details
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: customerId
+          in: query
+          description: Filter by customer
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of packages
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Package'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPackage
+      summary: Create package arrangement
+      description: >-
+        Create a new package arrangement to bundle customer accounts
+        for combined pricing benefits and promotions.
+      tags:
+        - Package Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackageCreate'
+      responses:
+        '201':
+          description: Package created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /packages/{packageId}/pricing:
+    get:
+      operationId: getPackagePricing
+      summary: Get package pricing details
+      description: >-
+        Retrieve periodic pricing events and benefit details within
+        specific periods for a package arrangement.
+      tags:
+        - Package Details
+      parameters:
+        - name: packageId
+          in: path
+          required: true
+          description: Package arrangement identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of package pricing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackagePricing'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /party/{customerId}/contracts:
+    get:
+      operationId: getCustomerContracts
+      summary: Get customer contracts and accounts
+      description: >-
+        Retrieve all holdings, contracts, and accounts for a party
+        within the pricing system.
+      tags:
+        - Party Details
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: Customer identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of contracts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomerContract'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /party/{customerId}/pricing:
+    get:
+      operationId: getCustomerPricing
+      summary: Get customer pricing
+      description: >-
+        Retrieve all pricing information for a customer including
+        pricing identifiers and applied benefit adjustments.
+      tags:
+        - Party Details
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: Customer identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of pricing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomerPricing'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /arrangements/{arrangementId}/payoff:
+    get:
+      operationId: calculatePayoffAmount
+      summary: Calculate payoff amount
+      description: >-
+        Compute the closure costs for an arrangement including
+        outstanding interest, charges, and early termination penalties.
+      tags:
+        - Accounts Arrangement Details
+      parameters:
+        - name: arrangementId
+          in: path
+          required: true
+          description: Arrangement identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payoff calculation completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayoffCalculation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /arrangements/{arrangementId}/interestRates:
+    get:
+      operationId: getArrangementInterestRates
+      summary: Get arrangement interest rates
+      description: >-
+        Retrieve interest rate details for an arrangement including
+        base rates, applied benefits, and effective net rates.
+      tags:
+        - Pricing Arrangement Details
+      parameters:
+        - name: arrangementId
+          in: path
+          required: true
+          description: Arrangement identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of interest rates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InterestRateDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /arrangements/{arrangementId}/charges:
+    get:
+      operationId: getArrangementCharges
+      summary: Get arrangement charges
+      description: >-
+        Retrieve activity charge fees and periodic charge fees for an
+        arrangement including account opening, closure, and recurring
+        maintenance charges.
+      tags:
+        - Pricing Arrangement Details
+      parameters:
+        - name: arrangementId
+          in: path
+          required: true
+          description: Arrangement identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of charges
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ChargeDetail'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /promotions:
+    post:
+      operationId: createPromotion
+      summary: Create promotion arrangement
+      description: >-
+        Establish a promotional arrangement for a party with promotional
+        codes enabling special pricing benefits.
+      tags:
+        - Promotions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromotionCreate'
+      responses:
+        '201':
+          description: Promotion created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promotion'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
+    QuotationSimulateRequest:
+      type: object
+      description: Arrangement creation simulation request
+      required:
+        - productId
+        - currency
+      properties:
+        productId:
+          type: string
+          description: Product identifier to simulate
+        customerId:
+          type: string
+          description: Customer identifier for personalized pricing
+        currency:
+          type: string
+          description: Arrangement currency
+          pattern: '^[A-Z]{3}$'
+        amount:
+          type: number
+          format: double
+          description: Initial amount
+        term:
+          type: integer
+          description: Arrangement term in months
+        quotationReference:
+          type: string
+          description: User-defined quotation reference
+    EventSimulateRequest:
+      type: object
+      description: Event simulation request
+      required:
+        - arrangementId
+        - eventType
+      properties:
+        arrangementId:
+          type: string
+          description: Existing arrangement identifier
+        eventType:
+          type: string
+          description: Type of event to simulate
+          enum:
+            - ATM_WITHDRAWAL
+            - FUNDS_TRANSFER
+            - PARTIAL_REDEMPTION
+            - FULL_REDEMPTION
+            - PAYMENT
+        amount:
+          type: number
+          format: double
+          description: Event amount
+        currency:
+          type: string
+          description: Event currency
+    QuotationResult:
+      type: object
+      description: Quotation pricing result
+      properties:
+        quotationReference:
+          type: string
+          description: Quotation reference identifier
+        productId:
+          type: string
+          description: Product identifier
+        interestRates:
+          type: array
+          description: Applicable interest rates
+          items:
+            $ref: '#/components/schemas/InterestRateDetail'
+        fees:
+          type: array
+          description: Applicable fees
+          items:
+            $ref: '#/components/schemas/FeeDetail'
+        cashback:
+          type: array
+          description: Applicable cashback offers
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Cashback type
+              amount:
+                type: number
+                format: double
+                description: Cashback amount
+        negotiated:
+          type: boolean
+          description: Whether pricing has been negotiated
+    PricingAmendment:
+      type: object
+      description: Pricing amendment request
+      properties:
+        interestRateAdjustment:
+          type: number
+          format: double
+          description: Interest rate adjustment in basis points
+        feeWaivers:
+          type: array
+          description: Fee waivers to apply
+          items:
+            type: object
+            properties:
+              feeType:
+                type: string
+                description: Fee type to waive
+              waivePercentage:
+                type: number
+                format: double
+                description: Percentage of fee to waive
+        expiryDate:
+          type: string
+          format: date
+          description: Expiry date for the adjustment
+    Package:
+      type: object
+      description: Package arrangement
+      properties:
+        packageId:
+          type: string
+          description: Package identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        packageName:
+          type: string
+          description: Package name
+        primaryAccountId:
+          type: string
+          description: Primary account
+        linkedAccounts:
+          type: array
+          description: Linked account identifiers
+          items:
+            type: string
+        status:
+          type: string
+          description: Package status
+    PackageCreate:
+      type: object
+      description: Package creation request
+      required:
+        - customerId
+        - productId
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        productId:
+          type: string
+          description: Package product identifier
+        packageName:
+          type: string
+          description: Package name
+        linkedAccounts:
+          type: array
+          description: Accounts to link
+          items:
+            type: string
+    PackagePricing:
+      type: object
+      description: Package pricing details
+      properties:
+        packageId:
+          type: string
+          description: Package identifier
+        periodicPricing:
+          type: array
+          description: Pricing events by period
+          items:
+            type: object
+            properties:
+              effectiveDate:
+                type: string
+                format: date
+                description: Effective date
+              interestRates:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InterestRateDetail'
+              fees:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeeDetail'
+        benefits:
+          type: array
+          description: Applied pricing benefits
+          items:
+            type: object
+            properties:
+              benefitType:
+                type: string
+                description: Benefit type
+              description:
+                type: string
+                description: Benefit description
+              value:
+                type: number
+                format: double
+                description: Benefit value
+    CustomerContract:
+      type: object
+      description: Customer contract within pricing system
+      properties:
+        contractId:
+          type: string
+          description: Contract identifier
+        productId:
+          type: string
+          description: Product identifier
+        productName:
+          type: string
+          description: Product name
+        status:
+          type: string
+          description: Contract status
+    CustomerPricing:
+      type: object
+      description: Customer pricing information
+      properties:
+        arrangementId:
+          type: string
+          description: Arrangement identifier
+        pricingId:
+          type: string
+          description: Pricing identifier
+        interestRate:
+          type: number
+          format: double
+          description: Effective interest rate
+        adjustments:
+          type: array
+          description: Applied adjustments
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Adjustment type
+              value:
+                type: number
+                format: double
+                description: Adjustment value
+    PayoffCalculation:
+      type: object
+      description: Payoff calculation result
+      properties:
+        arrangementId:
+          type: string
+          description: Arrangement identifier
+        outstandingPrincipal:
+          type: number
+          format: double
+          description: Outstanding principal
+        accruedInterest:
+          type: number
+          format: double
+          description: Accrued interest
+        earlyTerminationFee:
+          type: number
+          format: double
+          description: Early termination penalty
+        outstandingCharges:
+          type: number
+          format: double
+          description: Outstanding charges
+        totalPayoff:
+          type: number
+          format: double
+          description: Total payoff amount
+        currency:
+          type: string
+          description: Currency
+    InterestRateDetails:
+      type: object
+      description: Arrangement interest rate details
+      properties:
+        arrangementId:
+          type: string
+          description: Arrangement identifier
+        rates:
+          type: array
+          description: Interest rate details
+          items:
+            $ref: '#/components/schemas/InterestRateDetail'
+    InterestRateDetail:
+      type: object
+      description: Individual interest rate detail
+      properties:
+        rateType:
+          type: string
+          description: Rate type
+          enum:
+            - FIXED
+            - VARIABLE
+            - PROMOTIONAL
+        baseRate:
+          type: number
+          format: double
+          description: Base rate percentage
+        benefit:
+          type: number
+          format: double
+          description: Benefit adjustment
+        netRate:
+          type: number
+          format: double
+          description: Effective net rate
+        effectiveDate:
+          type: string
+          format: date
+          description: Rate effective date
+    FeeDetail:
+      type: object
+      description: Fee detail
+      properties:
+        feeType:
+          type: string
+          description: Fee type
+        description:
+          type: string
+          description: Fee description
+        amount:
+          type: number
+          format: double
+          description: Fee amount
+        currency:
+          type: string
+          description: Fee currency
+        frequency:
+          type: string
+          description: Fee frequency
+    ChargeDetail:
+      type: object
+      description: Charge detail
+      properties:
+        chargeType:
+          type: string
+          description: Charge type
+        description:
+          type: string
+          description: Charge description
+        amount:
+          type: number
+          format: double
+          description: Charge amount
+        currency:
+          type: string
+          description: Currency
+        frequency:
+          type: string
+          description: Charge frequency
+    PromotionCreate:
+      type: object
+      description: Promotion creation request
+      required:
+        - customerId
+        - promotionCode
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        promotionCode:
+          type: string
+          description: Promotional code
+        arrangementId:
+          type: string
+          description: Target arrangement
+    Promotion:
+      type: object
+      description: Promotional arrangement
+      properties:
+        promotionId:
+          type: string
+          description: Promotion identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        promotionCode:
+          type: string
+          description: Promotional code
+        benefits:
+          type: array
+          description: Applied benefits
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Benefit type
+              value:
+                type: number
+                format: double
+                description: Benefit value
+        status:
+          type: string
+          description: Promotion status
+        startDate:
+          type: string
+          format: date
+          description: Promotion start date
+        endDate:
+          type: string
+          format: date
+          description: Promotion end date
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description

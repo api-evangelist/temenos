@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://temenos.com/schemas/temenos/event.json",
+  "title": "Temenos Banking Event",
+  "description": "Schema for Temenos banking events published through the event-driven architecture via Apache Kafka and JMS messaging. Covers business events, system events, and data replication events.",
+  "type": "object",
+  "required": ["eventId", "eventType", "timestamp"],
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "description": "Unique event identifier for deduplication and tracking"
+    },
+    "eventType": {
+      "type": "string",
+      "description": "Classification of the event type",
+      "enum": [
+        "account.created",
+        "account.closed",
+        "account.status.changed",
+        "payment.order.accepted",
+        "payment.order.confirmed",
+        "payment.order.failed",
+        "customer.onboarded",
+        "customer.updated",
+        "customer.kyc.changed",
+        "transaction.committed",
+        "compliance.sanction.alert",
+        "compliance.risk.changed",
+        "data.replication",
+        "system.health",
+        "system.config.changed"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "description": "Source application or service that generated the event"
+    },
+    "correlationId": {
+      "type": "string",
+      "description": "Correlation identifier for tracing related events across services"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the event occurred"
+    },
+    "version": {
+      "type": "string",
+      "description": "Event schema version for compatibility",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "payload": {
+      "type": "object",
+      "description": "Event-specific payload data in JSON format",
+      "additionalProperties": true
+    },
+    "metadata": {
+      "$ref": "#/$defs/EventMetadata"
+    }
+  },
+  "$defs": {
+    "EventMetadata": {
+      "type": "object",
+      "description": "Additional metadata about the event for processing and routing",
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "description": "Multi-tenant identifier"
+        },
+        "userId": {
+          "type": "string",
+          "description": "User who triggered the event"
+        },
+        "channel": {
+          "type": "string",
+          "description": "Channel through which the event originated",
+          "enum": ["API", "ONLINE_BANKING", "MOBILE", "BRANCH", "ATM", "BATCH", "SYSTEM"]
+        },
+        "priority": {
+          "type": "string",
+          "description": "Event processing priority",
+          "enum": ["LOW", "NORMAL", "HIGH", "CRITICAL"]
+        },
+        "retryCount": {
+          "type": "integer",
+          "description": "Number of delivery retry attempts",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

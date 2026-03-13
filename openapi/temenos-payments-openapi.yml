@@ -1,0 +1,1238 @@
+openapi: 3.1.0
+info:
+  title: Temenos Payments API
+  description: >-
+    Payment processing and management API supporting multiple payment types
+    including SEPA credit transfers, instant SEPA payments, SWIFT cross-border
+    payments, PSD2 compliant open banking payments, request-to-pay, bulk
+    payment initiation, direct debit management, and payment stop requests.
+    Built on Berlin Group PSD2 API standards with full ISO 20022 messaging
+    support and integrated clearing through the Temenos Payments Hub.
+  version: '1.0.0'
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+externalDocs:
+  description: Temenos Open Banking and Payments Documentation
+  url: https://developer.temenos.com/open-banking&payments
+servers:
+  - url: https://api.temenos.com/payments/v1
+    description: Temenos Payments API - Production
+  - url: https://sandbox.temenos.com/payments/v1
+    description: Temenos Payments API - Sandbox
+security:
+  - bearerAuth: []
+tags:
+  - name: Payment Orders
+    description: >-
+      Initiate, view, and manage payment orders for domestic and international
+      fund transfers with support for SEPA, SWIFT, and internal transfers.
+  - name: Bulk Payments
+    description: >-
+      Handle bulk payment file uploads and manual entry for batch payment
+      processing with approval workflows and status tracking.
+  - name: Direct Debits
+    description: >-
+      Manage direct debit instructions and mandate collections for recurring
+      payment scenarios including SEPA direct debits.
+  - name: Standing Orders
+    description: >-
+      Create and manage standing order instructions for automated recurring
+      payment execution.
+  - name: Payment Stops
+    description: >-
+      Create and manage stop instructions for individual payments based on
+      cheque details, transaction amounts, or payment references.
+  - name: Request to Pay
+    description: >-
+      Enable request-to-pay functionality and information exchange between
+      payers, payees, and RTP clearing systems.
+  - name: PSD2 Accounts
+    description: >-
+      PSD2 compliant account information access for authorized third-party
+      providers under Berlin Group standards.
+  - name: Payment Configuration
+    description: >-
+      Configuration APIs for payment order application setup, clearing
+      channels, and payment routing management.
+paths:
+  /paymentOrders:
+    get:
+      operationId: listPaymentOrders
+      summary: List payment orders
+      description: >-
+        Retrieve a list of payment orders with optional filtering by status,
+        date range, payment type, and originating account. Returns payment
+        details including amounts, beneficiary information, and processing
+        status.
+      tags:
+        - Payment Orders
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: accountId
+          in: query
+          description: Filter by originating account identifier
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by payment order status
+          schema:
+            type: string
+            enum:
+              - PENDING
+              - PROCESSING
+              - COMPLETED
+              - FAILED
+              - CANCELLED
+        - name: paymentType
+          in: query
+          description: Filter by payment type
+          schema:
+            type: string
+            enum:
+              - SEPA_CREDIT
+              - INSTANT_SEPA
+              - SWIFT
+              - DOMESTIC
+              - INTERNAL
+        - name: dateFrom
+          in: query
+          description: Filter payments from this date
+          schema:
+            type: string
+            format: date
+        - name: dateTo
+          in: query
+          description: Filter payments up to this date
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successful retrieval of payment orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaymentOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPaymentOrder
+      summary: Create payment order
+      description: >-
+        Initiate a new payment order for fund transfer. Supports SEPA credit
+        transfers, instant SEPA payments, SWIFT cross-border transfers,
+        domestic payments, and internal account-to-account transfers.
+        Validates payment details, beneficiary information, and available
+        balance before processing.
+      tags:
+        - Payment Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentOrderCreate'
+      responses:
+        '201':
+          description: Payment order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /paymentOrders/{paymentOrderId}:
+    get:
+      operationId: getPaymentOrder
+      summary: Get payment order details
+      description: >-
+        Retrieve detailed information for a specific payment order including
+        processing status, clearing details, and beneficiary information.
+      tags:
+        - Payment Orders
+      parameters:
+        - $ref: '#/components/parameters/paymentOrderId'
+      responses:
+        '200':
+          description: Successful retrieval of payment order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /paymentOrders/{paymentOrderId}/status:
+    get:
+      operationId: getPaymentOrderStatus
+      summary: Get payment order status
+      description: >-
+        Retrieve the current processing status of a payment order including
+        clearing status, booking confirmation, and any error details.
+      tags:
+        - Payment Orders
+      parameters:
+        - $ref: '#/components/parameters/paymentOrderId'
+      responses:
+        '200':
+          description: Successful retrieval of payment status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /bulkPayments:
+    get:
+      operationId: listBulkPayments
+      summary: List bulk payment batches
+      description: >-
+        Retrieve a list of bulk payment batches with their processing status
+        and summary information including total amounts and payment counts.
+      tags:
+        - Bulk Payments
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: status
+          in: query
+          description: Filter by batch processing status
+          schema:
+            type: string
+            enum:
+              - PENDING_APPROVAL
+              - APPROVED
+              - PROCESSING
+              - COMPLETED
+              - REJECTED
+      responses:
+        '200':
+          description: Successful retrieval of bulk payment batches
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BulkPayment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createBulkPayment
+      summary: Create bulk payment batch
+      description: >-
+        Initiate a bulk payment batch by uploading payment instructions for
+        batch processing. Supports file upload and manual entry with
+        configurable approval workflows.
+      tags:
+        - Bulk Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkPaymentCreate'
+      responses:
+        '201':
+          description: Bulk payment batch created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkPayment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /bulkPayments/{batchId}/approve:
+    post:
+      operationId: approveBulkPayment
+      summary: Approve bulk payment batch
+      description: >-
+        Approve a bulk payment batch for processing after review. Applies
+        the configured approval workflow rules.
+      tags:
+        - Bulk Payments
+      parameters:
+        - $ref: '#/components/parameters/batchId'
+      responses:
+        '200':
+          description: Bulk payment batch approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkPayment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /directDebits:
+    get:
+      operationId: listDirectDebits
+      summary: List direct debit mandates
+      description: >-
+        Retrieve direct debit instructions and mandate collections including
+        SEPA direct debits with creditor details, amounts, and collection
+        frequencies.
+      tags:
+        - Direct Debits
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: accountId
+          in: query
+          description: Filter by debited account identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of direct debit mandates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DirectDebit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /directDebits/{directDebitId}:
+    get:
+      operationId: getDirectDebit
+      summary: Get direct debit details
+      description: >-
+        Retrieve detailed information for a specific direct debit mandate
+        including collection history and next collection date.
+      tags:
+        - Direct Debits
+      parameters:
+        - name: directDebitId
+          in: path
+          required: true
+          description: Unique direct debit mandate identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of direct debit details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectDebit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /standingOrders:
+    get:
+      operationId: listStandingOrders
+      summary: List standing orders
+      description: >-
+        Retrieve standing order instructions for recurring payments with
+        their frequency, amounts, beneficiary details, and execution
+        status.
+      tags:
+        - Standing Orders
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: accountId
+          in: query
+          description: Filter by originating account identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of standing orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StandingOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createStandingOrder
+      summary: Create standing order
+      description: >-
+        Create a new standing order instruction for automated recurring
+        payments with specified frequency, amount, and beneficiary.
+      tags:
+        - Standing Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StandingOrderCreate'
+      responses:
+        '201':
+          description: Standing order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandingOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /paymentStops:
+    get:
+      operationId: listPaymentStops
+      summary: List payment stop requests
+      description: >-
+        Retrieve active payment stop instructions including stops based
+        on cheque details, transaction amounts, or payment references.
+      tags:
+        - Payment Stops
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: accountId
+          in: query
+          description: Filter by account identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of payment stops
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaymentStop'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPaymentStop
+      summary: Create payment stop request
+      description: >-
+        Create a stop instruction for individual payments based on cheque
+        number, transaction amount range, or payment reference to prevent
+        processing.
+      tags:
+        - Payment Stops
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentStopCreate'
+      responses:
+        '201':
+          description: Payment stop created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentStop'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /requestToPay:
+    get:
+      operationId: listRequestToPay
+      summary: List request-to-pay messages
+      description: >-
+        Retrieve request-to-pay messages including incoming requests for
+        payment and outgoing payment requests with their resolution status.
+      tags:
+        - Request to Pay
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: direction
+          in: query
+          description: Filter by request direction
+          schema:
+            type: string
+            enum:
+              - INCOMING
+              - OUTGOING
+      responses:
+        '200':
+          description: Successful retrieval of request-to-pay messages
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RequestToPay'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createRequestToPay
+      summary: Create request-to-pay
+      description: >-
+        Initiate a new request-to-pay message to a payer through the RTP
+        clearing system. Includes payee details, amount, and payment terms.
+      tags:
+        - Request to Pay
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestToPayCreate'
+      responses:
+        '201':
+          description: Request-to-pay created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestToPay'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /psd2/accounts:
+    get:
+      operationId: listPsd2Accounts
+      summary: List PSD2 accounts
+      description: >-
+        Retrieve account information for authorized third-party provider
+        access under PSD2 Berlin Group standards. Requires valid consent
+        from the account holder.
+      tags:
+        - PSD2 Accounts
+      parameters:
+        - name: consentId
+          in: header
+          required: true
+          description: PSD2 consent identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of account information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accounts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Psd2Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /configuration/paymentRoutes:
+    get:
+      operationId: listPaymentRoutes
+      summary: List payment routing configurations
+      description: >-
+        Retrieve payment routing configurations including clearing channel
+        assignments and payment type routing rules.
+      tags:
+        - Payment Configuration
+      responses:
+        '200':
+          description: Successful retrieval of payment routes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaymentRoute'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        JWT-based authentication token obtained through the Temenos
+        authentication endpoint.
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    paymentOrderId:
+      name: paymentOrderId
+      in: path
+      required: true
+      description: Unique payment order identifier
+      schema:
+        type: string
+    batchId:
+      name: batchId
+      in: path
+      required: true
+      description: Unique bulk payment batch identifier
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    PaymentOrder:
+      type: object
+      description: Payment order for fund transfer
+      properties:
+        paymentOrderId:
+          type: string
+          description: Unique payment order identifier
+        debitAccountId:
+          type: string
+          description: Originating account identifier
+        creditAccountId:
+          type: string
+          description: Destination account identifier
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+          pattern: '^[A-Z]{3}$'
+        paymentType:
+          type: string
+          description: Type of payment
+          enum:
+            - SEPA_CREDIT
+            - INSTANT_SEPA
+            - SWIFT
+            - DOMESTIC
+            - INTERNAL
+            - TARGET2
+            - CROSS_BORDER
+        status:
+          type: string
+          description: Current payment order status
+          enum:
+            - PENDING
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+            - CANCELLED
+        valueDate:
+          type: string
+          format: date
+          description: Value date for the payment
+        executionDate:
+          type: string
+          format: date
+          description: Actual execution date
+        reference:
+          type: string
+          description: Payment reference
+          maxLength: 140
+        endToEndId:
+          type: string
+          description: End-to-end identifier for ISO 20022 tracking
+        beneficiaryName:
+          type: string
+          description: Beneficiary name
+        beneficiaryIban:
+          type: string
+          description: Beneficiary IBAN
+        beneficiaryBic:
+          type: string
+          description: Beneficiary bank BIC/SWIFT code
+        remittanceInformation:
+          type: string
+          description: Remittance information for the payment
+    PaymentOrderCreate:
+      type: object
+      description: Request body for creating a payment order
+      required:
+        - debitAccountId
+        - amount
+        - currency
+        - paymentType
+      properties:
+        debitAccountId:
+          type: string
+          description: Originating account identifier
+        creditAccountId:
+          type: string
+          description: Destination account identifier for internal transfers
+        beneficiaryName:
+          type: string
+          description: Beneficiary name for external transfers
+        beneficiaryIban:
+          type: string
+          description: Beneficiary IBAN
+        beneficiaryBic:
+          type: string
+          description: Beneficiary bank BIC/SWIFT code
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+          minimum: 0.01
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+          pattern: '^[A-Z]{3}$'
+        paymentType:
+          type: string
+          description: Type of payment
+          enum:
+            - SEPA_CREDIT
+            - INSTANT_SEPA
+            - SWIFT
+            - DOMESTIC
+            - INTERNAL
+            - TARGET2
+            - CROSS_BORDER
+        valueDate:
+          type: string
+          format: date
+          description: Requested value date
+        reference:
+          type: string
+          description: Payment reference
+          maxLength: 140
+        endToEndId:
+          type: string
+          description: End-to-end identifier
+          maxLength: 35
+        remittanceInformation:
+          type: string
+          description: Remittance information
+          maxLength: 140
+    PaymentStatus:
+      type: object
+      description: Payment order processing status
+      properties:
+        paymentOrderId:
+          type: string
+          description: Payment order identifier
+        status:
+          type: string
+          description: Current processing status
+          enum:
+            - PENDING
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+            - CANCELLED
+        clearingStatus:
+          type: string
+          description: Clearing system status
+        bookingStatus:
+          type: string
+          description: Account booking status
+          enum:
+            - BOOKED
+            - PENDING
+            - REJECTED
+        statusReason:
+          type: string
+          description: Reason for current status
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Timestamp of last status update
+    BulkPayment:
+      type: object
+      description: Bulk payment batch
+      properties:
+        batchId:
+          type: string
+          description: Unique batch identifier
+        debitAccountId:
+          type: string
+          description: Common debit account for the batch
+        totalAmount:
+          type: number
+          format: double
+          description: Total batch amount
+        currency:
+          type: string
+          description: Batch currency
+        paymentCount:
+          type: integer
+          description: Number of payments in the batch
+        status:
+          type: string
+          description: Batch processing status
+          enum:
+            - PENDING_APPROVAL
+            - APPROVED
+            - PROCESSING
+            - COMPLETED
+            - REJECTED
+        createdDate:
+          type: string
+          format: date-time
+          description: Batch creation timestamp
+    BulkPaymentCreate:
+      type: object
+      description: Request body for creating a bulk payment batch
+      required:
+        - debitAccountId
+        - currency
+        - payments
+      properties:
+        debitAccountId:
+          type: string
+          description: Common debit account
+        currency:
+          type: string
+          description: Batch currency in ISO 4217 format
+          pattern: '^[A-Z]{3}$'
+        valueDate:
+          type: string
+          format: date
+          description: Common value date for all payments
+        payments:
+          type: array
+          description: Individual payment instructions
+          minItems: 1
+          items:
+            type: object
+            required:
+              - beneficiaryName
+              - amount
+            properties:
+              beneficiaryName:
+                type: string
+                description: Beneficiary name
+              beneficiaryIban:
+                type: string
+                description: Beneficiary IBAN
+              amount:
+                type: number
+                format: double
+                description: Payment amount
+              reference:
+                type: string
+                description: Payment reference
+    DirectDebit:
+      type: object
+      description: Direct debit mandate and instruction
+      properties:
+        directDebitId:
+          type: string
+          description: Unique direct debit identifier
+        accountId:
+          type: string
+          description: Account to be debited
+        mandateReference:
+          type: string
+          description: Direct debit mandate reference
+        creditorName:
+          type: string
+          description: Name of the creditor
+        creditorId:
+          type: string
+          description: Creditor identifier
+        amount:
+          type: number
+          format: double
+          description: Direct debit amount
+        currency:
+          type: string
+          description: Currency in ISO 4217 format
+        frequency:
+          type: string
+          description: Collection frequency
+          enum:
+            - WEEKLY
+            - MONTHLY
+            - QUARTERLY
+            - ANNUAL
+        nextCollectionDate:
+          type: string
+          format: date
+          description: Next scheduled collection date
+        status:
+          type: string
+          description: Mandate status
+          enum:
+            - ACTIVE
+            - SUSPENDED
+            - CANCELLED
+    StandingOrder:
+      type: object
+      description: Standing order instruction
+      properties:
+        standingOrderId:
+          type: string
+          description: Unique standing order identifier
+        accountId:
+          type: string
+          description: Source account identifier
+        beneficiaryName:
+          type: string
+          description: Beneficiary name
+        beneficiaryIban:
+          type: string
+          description: Beneficiary IBAN
+        amount:
+          type: number
+          format: double
+          description: Payment amount per execution
+        currency:
+          type: string
+          description: Payment currency
+        frequency:
+          type: string
+          description: Execution frequency
+          enum:
+            - DAILY
+            - WEEKLY
+            - MONTHLY
+            - QUARTERLY
+            - ANNUAL
+        startDate:
+          type: string
+          format: date
+          description: First execution date
+        endDate:
+          type: string
+          format: date
+          description: Last execution date
+        nextExecutionDate:
+          type: string
+          format: date
+          description: Next scheduled execution date
+        status:
+          type: string
+          description: Standing order status
+          enum:
+            - ACTIVE
+            - SUSPENDED
+            - COMPLETED
+            - CANCELLED
+    StandingOrderCreate:
+      type: object
+      description: Request body for creating a standing order
+      required:
+        - accountId
+        - beneficiaryName
+        - amount
+        - currency
+        - frequency
+        - startDate
+      properties:
+        accountId:
+          type: string
+          description: Source account identifier
+        beneficiaryName:
+          type: string
+          description: Beneficiary name
+        beneficiaryIban:
+          type: string
+          description: Beneficiary IBAN
+        beneficiaryBic:
+          type: string
+          description: Beneficiary bank BIC
+        amount:
+          type: number
+          format: double
+          description: Payment amount per execution
+          minimum: 0.01
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+          pattern: '^[A-Z]{3}$'
+        frequency:
+          type: string
+          description: Execution frequency
+          enum:
+            - DAILY
+            - WEEKLY
+            - MONTHLY
+            - QUARTERLY
+            - ANNUAL
+        startDate:
+          type: string
+          format: date
+          description: First execution date
+        endDate:
+          type: string
+          format: date
+          description: Optional last execution date
+        reference:
+          type: string
+          description: Payment reference
+    PaymentStop:
+      type: object
+      description: Payment stop instruction
+      properties:
+        paymentStopId:
+          type: string
+          description: Unique payment stop identifier
+        accountId:
+          type: string
+          description: Account for the stop instruction
+        stopType:
+          type: string
+          description: Type of payment stop
+          enum:
+            - CHEQUE
+            - AMOUNT_RANGE
+            - REFERENCE
+        chequeNumber:
+          type: string
+          description: Cheque number for cheque-based stops
+        amountFrom:
+          type: number
+          format: double
+          description: Minimum amount for range-based stops
+        amountTo:
+          type: number
+          format: double
+          description: Maximum amount for range-based stops
+        reference:
+          type: string
+          description: Payment reference for reference-based stops
+        status:
+          type: string
+          description: Stop instruction status
+          enum:
+            - ACTIVE
+            - EXPIRED
+            - CANCELLED
+    PaymentStopCreate:
+      type: object
+      description: Request body for creating a payment stop
+      required:
+        - accountId
+        - stopType
+      properties:
+        accountId:
+          type: string
+          description: Account identifier
+        stopType:
+          type: string
+          description: Type of payment stop
+          enum:
+            - CHEQUE
+            - AMOUNT_RANGE
+            - REFERENCE
+        chequeNumber:
+          type: string
+          description: Cheque number to stop
+        chequeNumberTo:
+          type: string
+          description: End of cheque number range
+        amountFrom:
+          type: number
+          format: double
+          description: Minimum amount threshold
+        amountTo:
+          type: number
+          format: double
+          description: Maximum amount threshold
+        reference:
+          type: string
+          description: Payment reference to stop
+    RequestToPay:
+      type: object
+      description: Request-to-pay message
+      properties:
+        rtpId:
+          type: string
+          description: Unique RTP identifier
+        direction:
+          type: string
+          description: Request direction
+          enum:
+            - INCOMING
+            - OUTGOING
+        payeeName:
+          type: string
+          description: Payee name
+        payerName:
+          type: string
+          description: Payer name
+        amount:
+          type: number
+          format: double
+          description: Requested amount
+        currency:
+          type: string
+          description: Currency in ISO 4217 format
+        dueDate:
+          type: string
+          format: date
+          description: Payment due date
+        description:
+          type: string
+          description: RTP description
+        status:
+          type: string
+          description: RTP status
+          enum:
+            - PENDING
+            - ACCEPTED
+            - REJECTED
+            - EXPIRED
+    RequestToPayCreate:
+      type: object
+      description: Request body for creating an RTP
+      required:
+        - payerAccountId
+        - amount
+        - currency
+      properties:
+        payerAccountId:
+          type: string
+          description: Payer account identifier or proxy
+        amount:
+          type: number
+          format: double
+          description: Requested amount
+          minimum: 0.01
+        currency:
+          type: string
+          description: Currency in ISO 4217 format
+          pattern: '^[A-Z]{3}$'
+        dueDate:
+          type: string
+          format: date
+          description: Payment due date
+        description:
+          type: string
+          description: Description of the payment request
+    Psd2Account:
+      type: object
+      description: PSD2 account information
+      properties:
+        resourceId:
+          type: string
+          description: Account resource identifier
+        iban:
+          type: string
+          description: Account IBAN
+        currency:
+          type: string
+          description: Account currency
+        name:
+          type: string
+          description: Account name
+        product:
+          type: string
+          description: Product name
+        cashAccountType:
+          type: string
+          description: Account type code
+        status:
+          type: string
+          description: Account status
+    PaymentRoute:
+      type: object
+      description: Payment routing configuration
+      properties:
+        routeId:
+          type: string
+          description: Unique route identifier
+        paymentType:
+          type: string
+          description: Payment type for routing
+        clearingChannel:
+          type: string
+          description: Assigned clearing channel
+        priority:
+          type: integer
+          description: Routing priority
+        status:
+          type: string
+          description: Route configuration status
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description

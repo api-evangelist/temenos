@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://temenos.com/schemas/temenos/account.json",
+  "title": "Temenos Banking Account",
+  "description": "Schema for Temenos banking account arrangements including current accounts, savings accounts, deposits, and loans with balance information and product configuration.",
+  "type": "object",
+  "required": ["accountId", "customerId", "accountType", "currency", "status"],
+  "properties": {
+    "accountId": {
+      "type": "string",
+      "description": "Unique account identifier assigned by the Temenos system"
+    },
+    "customerId": {
+      "type": "string",
+      "description": "Identifier of the customer who owns the account"
+    },
+    "accountName": {
+      "type": "string",
+      "description": "Display name for the account",
+      "maxLength": 100
+    },
+    "accountType": {
+      "type": "string",
+      "description": "Classification of the account type",
+      "enum": ["CURRENT", "SAVINGS", "DEPOSIT", "LOAN", "MORTGAGE", "ISLAMIC"]
+    },
+    "productId": {
+      "type": "string",
+      "description": "Product identifier defining the account terms and conditions"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Account currency in ISO 4217 format",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current operational status of the account",
+      "enum": ["ACTIVE", "INACTIVE", "CLOSED", "DORMANT", "SUSPENDED"]
+    },
+    "openingDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the account was opened"
+    },
+    "closingDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Date the account was closed, null if still active"
+    },
+    "balances": {
+      "$ref": "#/$defs/AccountBalances"
+    },
+    "interestRate": {
+      "type": ["number", "null"],
+      "description": "Applied interest rate as a percentage",
+      "minimum": 0
+    },
+    "maturityDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Maturity date for term deposits and loans"
+    },
+    "branchId": {
+      "type": "string",
+      "description": "Branch identifier where the account is held"
+    },
+    "iban": {
+      "type": "string",
+      "description": "International Bank Account Number",
+      "pattern": "^[A-Z]{2}[0-9]{2}[A-Z0-9]{4,30}$"
+    },
+    "bic": {
+      "type": "string",
+      "description": "Bank Identifier Code (SWIFT code)",
+      "pattern": "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$"
+    }
+  },
+  "$defs": {
+    "AccountBalances": {
+      "type": "object",
+      "description": "Account balance breakdown across different balance types",
+      "properties": {
+        "workingBalance": {
+          "type": "number",
+          "description": "Current working balance including all posted transactions"
+        },
+        "availableBalance": {
+          "type": "number",
+          "description": "Balance available for new transactions after holds and limits"
+        },
+        "lockedAmount": {
+          "type": "number",
+          "description": "Amount currently held or locked for pending operations",
+          "minimum": 0
+        },
+        "clearedBalance": {
+          "type": "number",
+          "description": "Balance of cleared and settled funds only"
+        },
+        "pendingDebits": {
+          "type": "number",
+          "description": "Sum of pending debit transactions",
+          "minimum": 0
+        },
+        "pendingCredits": {
+          "type": "number",
+          "description": "Sum of pending credit transactions",
+          "minimum": 0
+        },
+        "overdraftLimit": {
+          "type": ["number", "null"],
+          "description": "Approved overdraft limit if applicable",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "temenos": "https://api.temenos.com/vocabulary/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "fibo": "https://spec.edmcouncil.org/fibo/ontology/",
+
+    "BankAccount": {
+      "@id": "temenos:BankAccount",
+      "@context": {
+        "accountId": "temenos:accountId",
+        "accountName": "schema:name",
+        "accountType": "temenos:accountType",
+        "currency": {
+          "@id": "schema:currency",
+          "@type": "xsd:string"
+        },
+        "status": "temenos:status",
+        "openingDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:date"
+        },
+        "closingDate": {
+          "@id": "temenos:closingDate",
+          "@type": "xsd:date"
+        },
+        "workingBalance": {
+          "@id": "temenos:workingBalance",
+          "@type": "xsd:decimal"
+        },
+        "availableBalance": {
+          "@id": "temenos:availableBalance",
+          "@type": "xsd:decimal"
+        },
+        "iban": "schema:identifier",
+        "customer": {
+          "@id": "temenos:customer",
+          "@type": "@id"
+        },
+        "product": {
+          "@id": "temenos:product",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Customer": {
+      "@id": "temenos:Customer",
+      "@context": {
+        "customerId": "temenos:customerId",
+        "customerType": "temenos:customerType",
+        "name": "schema:name",
+        "firstName": "schema:givenName",
+        "lastName": "schema:familyName",
+        "email": "schema:email",
+        "phone": "schema:telephone",
+        "dateOfBirth": {
+          "@id": "schema:birthDate",
+          "@type": "xsd:date"
+        },
+        "nationality": "schema:nationality",
+        "address": {
+          "@id": "schema:address",
+          "@type": "@id"
+        },
+        "kycStatus": "temenos:kycStatus",
+        "riskRating": "temenos:riskRating",
+        "onboardingDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:date"
+        },
+        "accounts": {
+          "@id": "temenos:accounts",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "PaymentOrder": {
+      "@id": "temenos:PaymentOrder",
+      "@context": {
+        "paymentOrderId": "temenos:paymentOrderId",
+        "amount": {
+          "@id": "schema:price",
+          "@type": "xsd:decimal"
+        },
+        "currency": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "paymentType": "temenos:paymentType",
+        "status": "temenos:paymentStatus",
+        "valueDate": {
+          "@id": "temenos:valueDate",
+          "@type": "xsd:date"
+        },
+        "reference": "temenos:paymentReference",
+        "debitAccount": {
+          "@id": "temenos:debitAccount",
+          "@type": "@id"
+        },
+        "creditAccount": {
+          "@id": "temenos:creditAccount",
+          "@type": "@id"
+        },
+        "beneficiary": {
+          "@id": "temenos:beneficiary",
+          "@type": "@id"
+        },
+        "createdDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Transaction": {
+      "@id": "temenos:Transaction",
+      "@context": {
+        "transactionId": "temenos:transactionId",
+        "transactionType": "temenos:transactionType",
+        "amount": {
+          "@id": "schema:price",
+          "@type": "xsd:decimal"
+        },
+        "currency": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "debitOrCredit": "temenos:debitOrCredit",
+        "bookingDate": {
+          "@id": "temenos:bookingDate",
+          "@type": "xsd:date"
+        },
+        "valueDate": {
+          "@id": "temenos:valueDate",
+          "@type": "xsd:date"
+        },
+        "description": "schema:description",
+        "account": {
+          "@id": "temenos:account",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Portfolio": {
+      "@id": "temenos:Portfolio",
+      "@context": {
+        "portfolioId": "temenos:portfolioId",
+        "portfolioName": "schema:name",
+        "currency": {
+          "@id": "schema:currency",
+          "@type": "xsd:string"
+        },
+        "mandateType": "temenos:mandateType",
+        "riskProfile": "temenos:riskProfile",
+        "totalValue": {
+          "@id": "temenos:totalValue",
+          "@type": "xsd:decimal"
+        },
+        "client": {
+          "@id": "temenos:client",
+          "@type": "@id"
+        },
+        "positions": {
+          "@id": "temenos:positions",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Fund": {
+      "@id": "temenos:Fund",
+      "@context": {
+        "fundId": "temenos:fundId",
+        "fundName": "schema:name",
+        "fundType": "temenos:fundType",
+        "domicile": "temenos:domicile",
+        "baseCurrency": {
+          "@id": "schema:currency",
+          "@type": "xsd:string"
+        },
+        "inceptionDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:date"
+        },
+        "manager": {
+          "@id": "temenos:fundManager",
+          "@type": "@id"
+        },
+        "shareClasses": {
+          "@id": "temenos:shareClasses",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Address": {
+      "@id": "schema:PostalAddress",
+      "@context": {
+        "addressLine1": "schema:streetAddress",
+        "city": "schema:addressLocality",
+        "state": "schema:addressRegion",
+        "postalCode": "schema:postalCode",
+        "country": "schema:addressCountry"
+      }
+    },
+
+    "BankingProduct": {
+      "@id": "temenos:BankingProduct",
+      "@context": {
+        "productId": "temenos:productId",
+        "productName": "schema:name",
+        "description": "schema:description",
+        "productGroup": "temenos:productGroup",
+        "currency": {
+          "@id": "schema:currency",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "ComplianceAlert": {
+      "@id": "temenos:ComplianceAlert",
+      "@context": {
+        "alertId": "temenos:alertId",
+        "alertType": "temenos:alertType",
+        "severity": "temenos:severity",
+        "status": "temenos:alertStatus",
+        "customer": {
+          "@id": "temenos:customer",
+          "@type": "@id"
+        },
+        "createdDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}

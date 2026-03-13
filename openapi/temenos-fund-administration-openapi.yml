@@ -1,0 +1,1114 @@
+openapi: 3.1.0
+info:
+  title: Temenos Fund Administration API
+  description: >-
+    Investment fund management and administration API powered by Temenos
+    Multifonds for fund accounting, transfer agency, and investor servicing.
+    Provides endpoints across party, holdings, order, product, reference, and
+    system API categories with over 150 endpoints covering distributor
+    management, investor data, fund accounting, securities transactions,
+    instruction processing, share class configuration, and reference data
+    injection.
+  version: '1.0.0'
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+externalDocs:
+  description: Temenos Fund Administration GI API Documentation
+  url: https://developer.temenos.com/fund-administration-gi
+servers:
+  - url: https://api.temenos.com/funds/v1
+    description: Temenos Fund Administration API - Production
+security:
+  - bearerAuth: []
+tags:
+  - name: Party
+    description: >-
+      Manage distributor, investor, and financial institution data including
+      addresses, AML compliance, bank accounts, FATCA/CRS, KYC details,
+      and distribution agreements with 38 endpoints.
+  - name: Holdings
+    description: >-
+      Manage fund investment positions including deposits, capital
+      transactions, dividends, equities, bonds, foreign exchange, futures,
+      options, swaps, and other securities with 47 endpoints.
+  - name: Order
+    description: >-
+      Handle instruction processing and payment management including cash
+      receipts, dividend payments, order creation and cancellation, payment
+      amendments, and stock exchange transactions with 17 endpoints.
+  - name: Product
+    description: >-
+      Configure fund and share class settings including anti-dilution levies,
+      commission groups, fund manager data, share class information,
+      calendars, and performance fee structures with 38 endpoints.
+  - name: Reference
+    description: >-
+      Manage reference data including exchange rates, interest rates,
+      security prices, swap rates, holiday calendars, and location
+      definitions with 11 endpoints.
+  - name: System
+    description: >-
+      System-level configuration including outbound trigger tables for
+      event-driven communications.
+paths:
+  /party/investors:
+    get:
+      operationId: listInvestors
+      summary: List investors
+      description: >-
+        Retrieve a list of investors with their master data including
+        personal details, investment accounts, tax residence information,
+        and KYC status.
+      tags:
+        - Party
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of investors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Investor'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createInvestor
+      summary: Create investor
+      description: >-
+        Create a new investor master record with personal details,
+        address information, bank account details, and tax residence
+        documentation.
+      tags:
+        - Party
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestorCreate'
+      responses:
+        '201':
+          description: Investor created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Investor'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /party/distributors:
+    get:
+      operationId: listDistributors
+      summary: List distributors
+      description: >-
+        Retrieve a list of fund distributors with their details including
+        distribution agreements, commission structures, and cutoff
+        configurations.
+      tags:
+        - Party
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of distributors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Distributor'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /party/aml/screenings:
+    get:
+      operationId: listAmlScreenings
+      summary: List AML screenings
+      description: >-
+        Retrieve anti-money laundering screening results including blocking
+        codes, monitoring information, and compliance documentation for
+        investors and distributors.
+      tags:
+        - Party
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of AML screenings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AmlScreening'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /party/fatca:
+    get:
+      operationId: listFatcaRecords
+      summary: List FATCA/CRS records
+      description: >-
+        Retrieve FATCA and CRS tax compliance documentation and status
+        information for investors across jurisdictions.
+      tags:
+        - Party
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of FATCA/CRS records
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FatcaRecord'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /holdings/positions:
+    get:
+      operationId: listPositions
+      summary: List fund positions
+      description: >-
+        Retrieve investment positions across funds including equities,
+        bonds, derivatives, and other securities with current valuations
+        and accounting data.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: fundId
+          in: query
+          description: Filter by fund identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of positions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Position'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /holdings/transactions:
+    get:
+      operationId: listHoldingsTransactions
+      summary: List holdings transactions
+      description: >-
+        Retrieve securities transactions including equity trades, bond
+        transactions, FX spot and forward deals, futures, options, and
+        swap bookings across fund portfolios.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: fundId
+          in: query
+          description: Filter by fund identifier
+          schema:
+            type: string
+        - name: transactionType
+          in: query
+          description: Filter by transaction type
+          schema:
+            type: string
+            enum:
+              - EQUITY
+              - BOND
+              - FX_SPOT
+              - FX_FORWARD
+              - FUTURE
+              - OPTION
+              - SWAP
+              - DIVIDEND
+              - CAPITAL
+      responses:
+        '200':
+          description: Successful retrieval of transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SecurityTransaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /holdings/dividends:
+    post:
+      operationId: bookDividend
+      summary: Book dividend transaction
+      description: >-
+        Book a dividend or coupon distribution transaction for a fund
+        including income distributions and reinvestment processing.
+      tags:
+        - Holdings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DividendBooking'
+      responses:
+        '201':
+          description: Dividend booked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecurityTransaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /order/instructions:
+    get:
+      operationId: listInstructions
+      summary: List order instructions
+      description: >-
+        Retrieve order instructions for subscription, redemption, switch,
+        and transfer operations across fund share classes.
+      tags:
+        - Order
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: fundId
+          in: query
+          description: Filter by fund identifier
+          schema:
+            type: string
+        - name: instructionType
+          in: query
+          description: Filter by instruction type
+          schema:
+            type: string
+            enum:
+              - SUBSCRIPTION
+              - REDEMPTION
+              - SWITCH
+              - TRANSFER
+      responses:
+        '200':
+          description: Successful retrieval of instructions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OrderInstruction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createInstruction
+      summary: Create order instruction
+      description: >-
+        Create a new order instruction for subscription, redemption, switch,
+        or transfer operations with share class and quantity details.
+      tags:
+        - Order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInstructionCreate'
+      responses:
+        '201':
+          description: Instruction created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderInstruction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /order/sharePrices:
+    post:
+      operationId: createSharePrice
+      summary: Set share price
+      description: >-
+        Set the net asset value (NAV) based share price for a fund share
+        class for a specific valuation date.
+      tags:
+        - Order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SharePriceCreate'
+      responses:
+        '201':
+          description: Share price set successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SharePrice'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /product/funds:
+    get:
+      operationId: listFunds
+      summary: List funds
+      description: >-
+        Retrieve the list of funds with their master data including fund
+        type, domicile, base currency, manager information, and promoter
+        details.
+      tags:
+        - Product
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of funds
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Fund'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createFund
+      summary: Create fund
+      description: >-
+        Create a new fund master record with fund type, domicile, base
+        currency, manager assignment, and regulatory configuration.
+      tags:
+        - Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FundCreate'
+      responses:
+        '201':
+          description: Fund created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fund'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /product/shareClasses:
+    get:
+      operationId: listShareClasses
+      summary: List share classes
+      description: >-
+        Retrieve share class configurations for funds including pricing
+        details, fee structures, distribution policies, and investor
+        eligibility criteria.
+      tags:
+        - Product
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: fundId
+          in: query
+          description: Filter by fund identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of share classes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ShareClass'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reference/exchangeRates:
+    post:
+      operationId: injectExchangeRates
+      summary: Inject exchange rates
+      description: >-
+        Load daily foreign exchange rates for fund valuation and
+        multi-currency position calculations.
+      tags:
+        - Reference
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExchangeRateInjection'
+      responses:
+        '201':
+          description: Exchange rates injected successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reference/securityPrices:
+    post:
+      operationId: injectSecurityPrices
+      summary: Inject security prices
+      description: >-
+        Import market security prices for portfolio valuation including
+        equity prices, bond prices, and derivative valuations.
+      tags:
+        - Reference
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecurityPriceInjection'
+      responses:
+        '201':
+          description: Security prices injected successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        JWT-based authentication token for Temenos Fund Administration API.
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total records available
+    Investor:
+      type: object
+      description: Fund investor record
+      properties:
+        investorId:
+          type: string
+          description: Unique investor identifier
+        investorType:
+          type: string
+          description: Investor classification
+          enum:
+            - INDIVIDUAL
+            - INSTITUTIONAL
+            - CORPORATE
+        name:
+          type: string
+          description: Investor name
+        nationality:
+          type: string
+          description: Investor nationality code
+        taxResidence:
+          type: string
+          description: Tax residence country code
+        kycStatus:
+          type: string
+          description: KYC verification status
+        fatcaStatus:
+          type: string
+          description: FATCA classification status
+        status:
+          type: string
+          description: Investor record status
+    InvestorCreate:
+      type: object
+      description: Request body for creating an investor
+      required:
+        - name
+        - investorType
+      properties:
+        name:
+          type: string
+          description: Investor name
+        investorType:
+          type: string
+          description: Investor classification
+          enum:
+            - INDIVIDUAL
+            - INSTITUTIONAL
+            - CORPORATE
+        nationality:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        taxResidence:
+          type: string
+          description: Tax residence country code
+    Distributor:
+      type: object
+      description: Fund distributor record
+      properties:
+        distributorId:
+          type: string
+          description: Unique distributor identifier
+        name:
+          type: string
+          description: Distributor name
+        distributionAgreements:
+          type: array
+          description: Active distribution agreements
+          items:
+            type: string
+        commissionGroup:
+          type: string
+          description: Commission group assignment
+        status:
+          type: string
+          description: Distributor status
+    AmlScreening:
+      type: object
+      description: AML screening result
+      properties:
+        screeningId:
+          type: string
+          description: Screening record identifier
+        entityId:
+          type: string
+          description: Screened entity identifier
+        screeningDate:
+          type: string
+          format: date
+          description: Date of screening
+        result:
+          type: string
+          description: Screening outcome
+          enum:
+            - CLEAR
+            - MATCH
+            - POTENTIAL_MATCH
+        blockingCode:
+          type: string
+          description: Applied blocking code if any
+    FatcaRecord:
+      type: object
+      description: FATCA/CRS compliance record
+      properties:
+        recordId:
+          type: string
+          description: FATCA record identifier
+        investorId:
+          type: string
+          description: Associated investor
+        classification:
+          type: string
+          description: FATCA classification
+        reportingJurisdiction:
+          type: string
+          description: Reporting jurisdiction
+        status:
+          type: string
+          description: Compliance status
+    Position:
+      type: object
+      description: Fund investment position
+      properties:
+        positionId:
+          type: string
+          description: Position identifier
+        fundId:
+          type: string
+          description: Fund identifier
+        securityId:
+          type: string
+          description: Security identifier
+        securityType:
+          type: string
+          description: Type of security
+          enum:
+            - EQUITY
+            - BOND
+            - FX
+            - FUTURE
+            - OPTION
+            - SWAP
+            - FUND
+        quantity:
+          type: number
+          format: double
+          description: Position quantity
+        marketValue:
+          type: number
+          format: double
+          description: Current market value
+        currency:
+          type: string
+          description: Position currency
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date
+    SecurityTransaction:
+      type: object
+      description: Securities transaction record
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        fundId:
+          type: string
+          description: Fund identifier
+        securityId:
+          type: string
+          description: Security identifier
+        transactionType:
+          type: string
+          description: Transaction type
+          enum:
+            - BUY
+            - SELL
+            - DIVIDEND
+            - COUPON
+            - FX_SPOT
+            - FX_FORWARD
+            - CAPITAL_INCREASE
+            - CAPITAL_DECREASE
+        quantity:
+          type: number
+          format: double
+          description: Transaction quantity
+        price:
+          type: number
+          format: double
+          description: Transaction price
+        amount:
+          type: number
+          format: double
+          description: Total transaction amount
+        currency:
+          type: string
+          description: Transaction currency
+        tradeDate:
+          type: string
+          format: date
+          description: Trade date
+        settlementDate:
+          type: string
+          format: date
+          description: Settlement date
+    DividendBooking:
+      type: object
+      description: Dividend booking request
+      required:
+        - fundId
+        - securityId
+        - amount
+        - currency
+      properties:
+        fundId:
+          type: string
+          description: Fund identifier
+        securityId:
+          type: string
+          description: Security identifier
+        amount:
+          type: number
+          format: double
+          description: Dividend amount
+        currency:
+          type: string
+          description: Currency code
+        exDate:
+          type: string
+          format: date
+          description: Ex-dividend date
+        paymentDate:
+          type: string
+          format: date
+          description: Payment date
+    OrderInstruction:
+      type: object
+      description: Fund order instruction
+      properties:
+        instructionId:
+          type: string
+          description: Instruction identifier
+        investorId:
+          type: string
+          description: Investor identifier
+        fundId:
+          type: string
+          description: Fund identifier
+        shareClassId:
+          type: string
+          description: Share class identifier
+        instructionType:
+          type: string
+          description: Type of instruction
+          enum:
+            - SUBSCRIPTION
+            - REDEMPTION
+            - SWITCH
+            - TRANSFER
+        quantity:
+          type: number
+          format: double
+          description: Number of units
+        amount:
+          type: number
+          format: double
+          description: Monetary amount
+        currency:
+          type: string
+          description: Currency code
+        status:
+          type: string
+          description: Instruction processing status
+          enum:
+            - PENDING
+            - VALIDATED
+            - EXECUTED
+            - SETTLED
+            - CANCELLED
+    OrderInstructionCreate:
+      type: object
+      description: Request body for creating an instruction
+      required:
+        - investorId
+        - fundId
+        - shareClassId
+        - instructionType
+      properties:
+        investorId:
+          type: string
+          description: Investor identifier
+        fundId:
+          type: string
+          description: Fund identifier
+        shareClassId:
+          type: string
+          description: Share class identifier
+        instructionType:
+          type: string
+          description: Type of instruction
+          enum:
+            - SUBSCRIPTION
+            - REDEMPTION
+            - SWITCH
+            - TRANSFER
+        quantity:
+          type: number
+          format: double
+          description: Number of units
+        amount:
+          type: number
+          format: double
+          description: Monetary amount
+        currency:
+          type: string
+          description: Currency code
+    SharePrice:
+      type: object
+      description: Fund share price record
+      properties:
+        shareClassId:
+          type: string
+          description: Share class identifier
+        price:
+          type: number
+          format: double
+          description: NAV-based share price
+        currency:
+          type: string
+          description: Price currency
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date
+    SharePriceCreate:
+      type: object
+      description: Request body for setting share price
+      required:
+        - shareClassId
+        - price
+        - currency
+        - valuationDate
+      properties:
+        shareClassId:
+          type: string
+          description: Share class identifier
+        price:
+          type: number
+          format: double
+          description: NAV-based share price
+        currency:
+          type: string
+          description: Price currency
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date
+    Fund:
+      type: object
+      description: Fund master record
+      properties:
+        fundId:
+          type: string
+          description: Unique fund identifier
+        fundName:
+          type: string
+          description: Fund name
+        fundType:
+          type: string
+          description: Fund classification type
+        domicile:
+          type: string
+          description: Fund domicile country
+        baseCurrency:
+          type: string
+          description: Fund base currency
+        managerId:
+          type: string
+          description: Fund manager identifier
+        promoterId:
+          type: string
+          description: Fund promoter identifier
+        inceptionDate:
+          type: string
+          format: date
+          description: Fund inception date
+        status:
+          type: string
+          description: Fund status
+    FundCreate:
+      type: object
+      description: Request body for creating a fund
+      required:
+        - fundName
+        - fundType
+        - domicile
+        - baseCurrency
+      properties:
+        fundName:
+          type: string
+          description: Fund name
+        fundType:
+          type: string
+          description: Fund type
+        domicile:
+          type: string
+          description: Domicile country code
+        baseCurrency:
+          type: string
+          description: Base currency in ISO 4217 format
+          pattern: '^[A-Z]{3}$'
+        managerId:
+          type: string
+          description: Fund manager identifier
+    ShareClass:
+      type: object
+      description: Fund share class configuration
+      properties:
+        shareClassId:
+          type: string
+          description: Share class identifier
+        fundId:
+          type: string
+          description: Parent fund identifier
+        shareClassName:
+          type: string
+          description: Share class name
+        currency:
+          type: string
+          description: Share class currency
+        distributionPolicy:
+          type: string
+          description: Distribution policy
+          enum:
+            - ACCUMULATION
+            - DISTRIBUTION
+        managementFee:
+          type: number
+          format: double
+          description: Annual management fee percentage
+        performanceFee:
+          type: number
+          format: double
+          description: Performance fee percentage
+        minimumInvestment:
+          type: number
+          format: double
+          description: Minimum initial investment amount
+        status:
+          type: string
+          description: Share class status
+    ExchangeRateInjection:
+      type: object
+      description: Exchange rate injection request
+      required:
+        - rates
+        - effectiveDate
+      properties:
+        effectiveDate:
+          type: string
+          format: date
+          description: Effective date for rates
+        rates:
+          type: array
+          description: Exchange rates to inject
+          items:
+            type: object
+            required:
+              - baseCurrency
+              - quoteCurrency
+              - rate
+            properties:
+              baseCurrency:
+                type: string
+                description: Base currency code
+              quoteCurrency:
+                type: string
+                description: Quote currency code
+              rate:
+                type: number
+                format: double
+                description: Exchange rate value
+    SecurityPriceInjection:
+      type: object
+      description: Security price injection request
+      required:
+        - prices
+        - valuationDate
+      properties:
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date for prices
+        prices:
+          type: array
+          description: Security prices to inject
+          items:
+            type: object
+            required:
+              - securityId
+              - price
+              - currency
+            properties:
+              securityId:
+                type: string
+                description: Security identifier
+              price:
+                type: number
+                format: double
+                description: Market price
+              currency:
+                type: string
+                description: Price currency
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description

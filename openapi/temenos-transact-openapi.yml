@@ -1,0 +1,1734 @@
+openapi: 3.1.0
+info:
+  title: Temenos Transact API
+  description: >-
+    Core banking system API for Temenos Transact (formerly T24), providing
+    comprehensive banking functionality across enterprise, holdings, order,
+    party, product, reference, meta, settings, and system API categories.
+    Covers over 290 endpoints spanning retail, corporate, wealth, treasury,
+    and Islamic banking operations. All APIs follow REST architecture and
+    represent data as resources in machine-readable JSON format.
+  version: '1.0.0'
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+externalDocs:
+  description: Temenos Transact API Documentation
+  url: https://developer.temenos.com/transact-apis
+servers:
+  - url: https://api.temenos.com/transact/v1
+    description: Temenos Transact API - Production
+  - url: https://sandbox.temenos.com/transact/v1
+    description: Temenos Transact API - Sandbox
+security:
+  - bearerAuth: []
+tags:
+  - name: Enterprise
+    description: >-
+      Enterprise-level APIs for bundle arrangements, enterprise product and
+      pricing services, identity comparison, payoff calculations, and
+      promotion arrangements.
+  - name: Holdings
+    description: >-
+      Manage customer and institution holdings including accounts, deposits,
+      loans, treasury positions, and Islamic finance arrangements with over
+      107 endpoints.
+  - name: Order
+    description: >-
+      Handle payment instructions and transaction orders including ACH, wire
+      transfers, standing orders, security orders, fund transfers, and direct
+      debit management with 43 endpoints.
+  - name: Party
+    description: >-
+      Customer and financial institution data management including customer
+      onboarding, beneficiary management, KYC details, and contact
+      information with 29 endpoints.
+  - name: Product
+    description: >-
+      Product-related configurations including product builder, Islamic
+      finance products, product marketing catalogue, and limit products
+      with 10 endpoints.
+  - name: Reference
+    description: >-
+      General reference data management including currencies, countries,
+      IBAN structures, bank codes, and other lookup data with 64 endpoints.
+  - name: Meta
+    description: >-
+      API ecosystem management and metadata retrieval for discovering
+      available API resources and capabilities with 6 endpoints.
+  - name: System
+    description: >-
+      Core system functionality and administration including system
+      configuration, audit, and operational management with 25 endpoints.
+  - name: Settings
+    description: >-
+      Configuration management for system-wide and user-specific settings
+      with 6 endpoints.
+paths:
+  /holdings/accounts:
+    get:
+      operationId: listAccounts
+      summary: List accounts
+      description: >-
+        Retrieve a list of customer accounts across all account types
+        including current accounts, savings accounts, deposit accounts,
+        and loan accounts. Supports filtering by customer, account type,
+        and status.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: customerId
+          in: query
+          description: Filter accounts by customer identifier
+          schema:
+            type: string
+        - name: accountType
+          in: query
+          description: Filter by account type
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createAccount
+      summary: Create account arrangement
+      description: >-
+        Create a new account arrangement for a customer. The arrangement
+        architecture supports creating various account types including
+        current accounts, savings accounts, and deposit accounts with
+        modular business component configuration.
+      tags:
+        - Holdings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountCreate'
+      responses:
+        '201':
+          description: Account created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /holdings/accounts/{accountId}:
+    get:
+      operationId: getAccount
+      summary: Get account details
+      description: >-
+        Retrieve detailed information for a specific account including
+        balances, status, product details, and arrangement properties.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Successful retrieval of account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateAccount
+      summary: Update account arrangement
+      description: >-
+        Update an existing account arrangement including modifying
+        account properties, status, and configuration settings.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountUpdate'
+      responses:
+        '200':
+          description: Account updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /holdings/accounts/{accountId}/balances:
+    get:
+      operationId: getAccountBalances
+      summary: Get account balances
+      description: >-
+        Retrieve balance information for a specific account including
+        working balance, available balance, locked amount, and cleared
+        balance across different balance types.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Successful retrieval of account balances
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountBalance'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /holdings/accounts/{accountId}/transactions:
+    get:
+      operationId: listAccountTransactions
+      summary: List account transactions
+      description: >-
+        Retrieve transaction history for a specific account with support
+        for date range filtering, transaction type filtering, and
+        pagination.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: dateFrom
+          in: query
+          description: Start date for transaction filter in ISO 8601 format
+          schema:
+            type: string
+            format: date
+        - name: dateTo
+          in: query
+          description: End date for transaction filter in ISO 8601 format
+          schema:
+            type: string
+            format: date
+        - name: transactionType
+          in: query
+          description: Filter by transaction type
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /holdings/deposits:
+    get:
+      operationId: listDeposits
+      summary: List deposit arrangements
+      description: >-
+        Retrieve a list of deposit arrangements including term deposits,
+        call deposits, and savings deposits with their maturity dates,
+        interest rates, and current balances.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: customerId
+          in: query
+          description: Filter deposits by customer identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of deposits
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Deposit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /holdings/loans:
+    get:
+      operationId: listLoans
+      summary: List loan arrangements
+      description: >-
+        Retrieve a list of loan arrangements including personal loans,
+        mortgage loans, and corporate lending with their outstanding
+        balances, repayment schedules, and interest details.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: customerId
+          in: query
+          description: Filter loans by customer identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of loans
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Loan'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createLoan
+      summary: Create loan arrangement
+      description: >-
+        Create a new loan arrangement for a customer specifying loan
+        amount, term, interest rate, and repayment schedule details.
+      tags:
+        - Holdings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoanCreate'
+      responses:
+        '201':
+          description: Loan created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /order/paymentOrders:
+    get:
+      operationId: listPaymentOrders
+      summary: List payment orders
+      description: >-
+        Retrieve a list of payment orders including domestic transfers,
+        international transfers, SEPA payments, and standing orders.
+      tags:
+        - Order
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: accountId
+          in: query
+          description: Filter payment orders by originating account
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by payment order status
+          schema:
+            type: string
+            enum:
+              - pending
+              - processing
+              - completed
+              - failed
+              - cancelled
+      responses:
+        '200':
+          description: Successful retrieval of payment orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaymentOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPaymentOrder
+      summary: Create payment order
+      description: >-
+        Initiate a new payment order for domestic or international fund
+        transfers. Supports SEPA credit transfers, SWIFT payments, ACH
+        transfers, and internal account transfers.
+      tags:
+        - Order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentOrderCreate'
+      responses:
+        '201':
+          description: Payment order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /order/standingOrders:
+    get:
+      operationId: listStandingOrders
+      summary: List standing orders
+      description: >-
+        Retrieve a list of standing order instructions for recurring
+        payment processing including frequency, amount, and beneficiary
+        details.
+      tags:
+        - Order
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: accountId
+          in: query
+          description: Filter standing orders by account
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of standing orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StandingOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /order/directDebits:
+    get:
+      operationId: listDirectDebits
+      summary: List direct debit mandates
+      description: >-
+        Retrieve direct debit instructions and mandate collections for
+        recurring payment scenarios including SEPA direct debits.
+      tags:
+        - Order
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: accountId
+          in: query
+          description: Filter direct debits by account
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of direct debits
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DirectDebit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /party/customers:
+    get:
+      operationId: listCustomers
+      summary: List customers
+      description: >-
+        Retrieve a list of customers including individual and corporate
+        customers with their basic profile information, KYC status,
+        and relationship details.
+      tags:
+        - Party
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: customerType
+          in: query
+          description: Filter by customer type
+          schema:
+            type: string
+            enum:
+              - individual
+              - corporate
+      responses:
+        '200':
+          description: Successful retrieval of customers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCustomer
+      summary: Create customer
+      description: >-
+        Create a new customer record for onboarding including personal
+        details, address information, identification documents, and
+        KYC data collection.
+      tags:
+        - Party
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '201':
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /party/customers/{customerId}:
+    get:
+      operationId: getCustomer
+      summary: Get customer details
+      description: >-
+        Retrieve detailed customer information including personal data,
+        addresses, contact details, identification documents, KYC status,
+        and delivery preferences.
+      tags:
+        - Party
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      responses:
+        '200':
+          description: Successful retrieval of customer details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateCustomer
+      summary: Update customer details
+      description: >-
+        Update existing customer information including personal data,
+        address changes, contact preferences, and KYC documentation.
+      tags:
+        - Party
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdate'
+      responses:
+        '200':
+          description: Customer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /party/beneficiaries:
+    get:
+      operationId: listBeneficiaries
+      summary: List beneficiaries
+      description: >-
+        Retrieve a list of registered beneficiaries for payment
+        processing including their account details and bank information.
+      tags:
+        - Party
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: customerId
+          in: query
+          description: Filter beneficiaries by customer
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of beneficiaries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Beneficiary'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /product/products:
+    get:
+      operationId: listProducts
+      summary: List banking products
+      description: >-
+        Retrieve the product catalogue including current account products,
+        savings products, deposit products, loan products, and Islamic
+        finance products with their terms and conditions.
+      tags:
+        - Product
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: productGroup
+          in: query
+          description: Filter by product group
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reference/currencies:
+    get:
+      operationId: listCurrencies
+      summary: List currencies
+      description: >-
+        Retrieve the list of supported currencies with their ISO codes,
+        names, decimal places, and exchange rate information.
+      tags:
+        - Reference
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of currencies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Currency'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reference/countries:
+    get:
+      operationId: listCountries
+      summary: List countries
+      description: >-
+        Retrieve the list of supported countries with their ISO codes,
+        names, and associated regulatory information.
+      tags:
+        - Reference
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of countries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Country'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reference/ibanStructures:
+    get:
+      operationId: listIbanStructures
+      summary: List IBAN structures
+      description: >-
+        Retrieve IBAN validation structures by country including the
+        expected format, length, and check digit calculation rules.
+      tags:
+        - Reference
+      parameters:
+        - name: countryCode
+          in: query
+          description: Filter by ISO 3166-1 alpha-2 country code
+          schema:
+            type: string
+            pattern: '^[A-Z]{2}$'
+      responses:
+        '200':
+          description: Successful retrieval of IBAN structures
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IbanStructure'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /meta/apis:
+    get:
+      operationId: listApis
+      summary: List available APIs
+      description: >-
+        Retrieve metadata about available API resources and capabilities
+        in the Temenos Transact platform for API discovery and navigation.
+      tags:
+        - Meta
+      responses:
+        '200':
+          description: Successful retrieval of API metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApiMetadata'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /system/status:
+    get:
+      operationId: getSystemStatus
+      summary: Get system status
+      description: >-
+        Retrieve the current system status including operational state,
+        version information, and system health indicators.
+      tags:
+        - System
+      responses:
+        '200':
+          description: Successful retrieval of system status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /enterprise/bundleArrangements:
+    get:
+      operationId: listBundleArrangements
+      summary: List bundle arrangements
+      description: >-
+        Retrieve bundle arrangements that group multiple customer accounts
+        and products together for combined pricing benefits and package
+        management.
+      tags:
+        - Enterprise
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: customerId
+          in: query
+          description: Filter by customer identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of bundle arrangements
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BundleArrangement'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createBundleArrangement
+      summary: Create bundle arrangement
+      description: >-
+        Create a new bundle arrangement to group customer accounts and
+        products for combined benefits and package pricing.
+      tags:
+        - Enterprise
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BundleArrangementCreate'
+      responses:
+        '201':
+          description: Bundle arrangement created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BundleArrangement'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /settings/configurations:
+    get:
+      operationId: listConfigurations
+      summary: List system configurations
+      description: >-
+        Retrieve system-wide and user-specific configuration settings
+        for the Temenos Transact platform.
+      tags:
+        - Settings
+      responses:
+        '200':
+          description: Successful retrieval of configurations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Configuration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        JWT-based authentication token obtained through the Temenos
+        authentication endpoint.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for API access
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.temenos.com/oauth2/authorize
+          tokenUrl: https://auth.temenos.com/oauth2/token
+          scopes:
+            read: Read access to banking data
+            write: Write access to banking data
+            admin: Administrative access
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    Account:
+      type: object
+      description: Banking account arrangement
+      properties:
+        accountId:
+          type: string
+          description: Unique account identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        accountName:
+          type: string
+          description: Account display name
+        accountType:
+          type: string
+          description: Type of account
+          enum:
+            - CURRENT
+            - SAVINGS
+            - DEPOSIT
+            - LOAN
+        productId:
+          type: string
+          description: Associated product identifier
+        currency:
+          type: string
+          description: Account currency in ISO 4217 format
+          pattern: '^[A-Z]{3}$'
+        status:
+          type: string
+          description: Current account status
+          enum:
+            - ACTIVE
+            - INACTIVE
+            - CLOSED
+            - DORMANT
+        openingDate:
+          type: string
+          format: date
+          description: Date the account was opened
+        workingBalance:
+          type: number
+          format: double
+          description: Current working balance
+        availableBalance:
+          type: number
+          format: double
+          description: Available balance for transactions
+    AccountCreate:
+      type: object
+      description: Request body for creating a new account
+      required:
+        - customerId
+        - productId
+        - currency
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier for the account holder
+        productId:
+          type: string
+          description: Product identifier defining account type and terms
+        currency:
+          type: string
+          description: Account currency in ISO 4217 format
+          pattern: '^[A-Z]{3}$'
+        accountName:
+          type: string
+          description: Optional display name for the account
+    AccountUpdate:
+      type: object
+      description: Request body for updating an account
+      properties:
+        accountName:
+          type: string
+          description: Updated display name
+        status:
+          type: string
+          description: Updated account status
+          enum:
+            - ACTIVE
+            - INACTIVE
+    AccountBalance:
+      type: object
+      description: Account balance details
+      properties:
+        accountId:
+          type: string
+          description: Account identifier
+        currency:
+          type: string
+          description: Balance currency in ISO 4217 format
+        workingBalance:
+          type: number
+          format: double
+          description: Current working balance
+        availableBalance:
+          type: number
+          format: double
+          description: Balance available for transactions
+        lockedAmount:
+          type: number
+          format: double
+          description: Amount held or locked
+        clearedBalance:
+          type: number
+          format: double
+          description: Cleared funds balance
+    Transaction:
+      type: object
+      description: Account transaction record
+      properties:
+        transactionId:
+          type: string
+          description: Unique transaction identifier
+        accountId:
+          type: string
+          description: Associated account identifier
+        transactionType:
+          type: string
+          description: Type of transaction
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        currency:
+          type: string
+          description: Transaction currency in ISO 4217 format
+        debitOrCredit:
+          type: string
+          description: Whether the transaction is a debit or credit
+          enum:
+            - DEBIT
+            - CREDIT
+        bookingDate:
+          type: string
+          format: date
+          description: Date the transaction was booked
+        valueDate:
+          type: string
+          format: date
+          description: Value date of the transaction
+        description:
+          type: string
+          description: Transaction narrative description
+        reference:
+          type: string
+          description: Transaction reference number
+    Deposit:
+      type: object
+      description: Deposit arrangement
+      properties:
+        depositId:
+          type: string
+          description: Unique deposit identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        depositType:
+          type: string
+          description: Type of deposit
+          enum:
+            - TERM
+            - CALL
+            - SAVINGS
+        currency:
+          type: string
+          description: Deposit currency in ISO 4217 format
+        principalAmount:
+          type: number
+          format: double
+          description: Original deposit principal amount
+        interestRate:
+          type: number
+          format: double
+          description: Applied interest rate
+        maturityDate:
+          type: string
+          format: date
+          description: Maturity date for term deposits
+        status:
+          type: string
+          description: Current deposit status
+    Loan:
+      type: object
+      description: Loan arrangement
+      properties:
+        loanId:
+          type: string
+          description: Unique loan identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        loanType:
+          type: string
+          description: Type of loan
+        currency:
+          type: string
+          description: Loan currency in ISO 4217 format
+        principalAmount:
+          type: number
+          format: double
+          description: Original loan principal amount
+        outstandingBalance:
+          type: number
+          format: double
+          description: Current outstanding balance
+        interestRate:
+          type: number
+          format: double
+          description: Applied interest rate
+        term:
+          type: integer
+          description: Loan term in months
+        startDate:
+          type: string
+          format: date
+          description: Loan start date
+        maturityDate:
+          type: string
+          format: date
+          description: Loan maturity date
+        repaymentFrequency:
+          type: string
+          description: Frequency of repayments
+          enum:
+            - MONTHLY
+            - QUARTERLY
+            - SEMI_ANNUAL
+            - ANNUAL
+        status:
+          type: string
+          description: Current loan status
+    LoanCreate:
+      type: object
+      description: Request body for creating a new loan
+      required:
+        - customerId
+        - productId
+        - currency
+        - principalAmount
+        - term
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier for the borrower
+        productId:
+          type: string
+          description: Loan product identifier
+        currency:
+          type: string
+          description: Loan currency in ISO 4217 format
+          pattern: '^[A-Z]{3}$'
+        principalAmount:
+          type: number
+          format: double
+          description: Requested loan amount
+          minimum: 0
+        term:
+          type: integer
+          description: Loan term in months
+          minimum: 1
+    PaymentOrder:
+      type: object
+      description: Payment order for fund transfer
+      properties:
+        paymentOrderId:
+          type: string
+          description: Unique payment order identifier
+        debitAccountId:
+          type: string
+          description: Originating account identifier
+        creditAccountId:
+          type: string
+          description: Destination account identifier
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+        paymentType:
+          type: string
+          description: Type of payment
+          enum:
+            - INTERNAL
+            - DOMESTIC
+            - INTERNATIONAL
+            - SEPA
+            - SWIFT
+        status:
+          type: string
+          description: Current payment order status
+          enum:
+            - PENDING
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+            - CANCELLED
+        valueDate:
+          type: string
+          format: date
+          description: Value date for the payment
+        reference:
+          type: string
+          description: Payment reference
+        beneficiaryName:
+          type: string
+          description: Name of the payment beneficiary
+    PaymentOrderCreate:
+      type: object
+      description: Request body for creating a payment order
+      required:
+        - debitAccountId
+        - amount
+        - currency
+        - paymentType
+      properties:
+        debitAccountId:
+          type: string
+          description: Originating account identifier
+        creditAccountId:
+          type: string
+          description: Destination account identifier
+        beneficiaryId:
+          type: string
+          description: Registered beneficiary identifier
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+          minimum: 0
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+          pattern: '^[A-Z]{3}$'
+        paymentType:
+          type: string
+          description: Type of payment
+          enum:
+            - INTERNAL
+            - DOMESTIC
+            - INTERNATIONAL
+            - SEPA
+            - SWIFT
+        valueDate:
+          type: string
+          format: date
+          description: Requested value date
+        reference:
+          type: string
+          description: Payment reference
+          maxLength: 140
+    StandingOrder:
+      type: object
+      description: Standing order instruction for recurring payments
+      properties:
+        standingOrderId:
+          type: string
+          description: Unique standing order identifier
+        accountId:
+          type: string
+          description: Source account identifier
+        beneficiaryId:
+          type: string
+          description: Beneficiary identifier
+        amount:
+          type: number
+          format: double
+          description: Payment amount per execution
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+        frequency:
+          type: string
+          description: Execution frequency
+          enum:
+            - DAILY
+            - WEEKLY
+            - MONTHLY
+            - QUARTERLY
+            - ANNUAL
+        startDate:
+          type: string
+          format: date
+          description: First execution date
+        endDate:
+          type: string
+          format: date
+          description: Last execution date
+        status:
+          type: string
+          description: Standing order status
+    DirectDebit:
+      type: object
+      description: Direct debit mandate and instruction
+      properties:
+        directDebitId:
+          type: string
+          description: Unique direct debit identifier
+        accountId:
+          type: string
+          description: Account to be debited
+        mandateReference:
+          type: string
+          description: Direct debit mandate reference
+        creditorName:
+          type: string
+          description: Name of the creditor
+        amount:
+          type: number
+          format: double
+          description: Direct debit amount
+        currency:
+          type: string
+          description: Currency in ISO 4217 format
+        frequency:
+          type: string
+          description: Collection frequency
+        status:
+          type: string
+          description: Mandate status
+    Customer:
+      type: object
+      description: Customer record
+      properties:
+        customerId:
+          type: string
+          description: Unique customer identifier
+        customerType:
+          type: string
+          description: Customer classification
+          enum:
+            - INDIVIDUAL
+            - CORPORATE
+        title:
+          type: string
+          description: Customer title
+        firstName:
+          type: string
+          description: First name for individual customers
+        lastName:
+          type: string
+          description: Last name for individual customers
+        companyName:
+          type: string
+          description: Company name for corporate customers
+        dateOfBirth:
+          type: string
+          format: date
+          description: Date of birth for individual customers
+        nationality:
+          type: string
+          description: ISO 3166-1 alpha-2 nationality code
+        kycStatus:
+          type: string
+          description: KYC verification status
+          enum:
+            - VERIFIED
+            - PENDING
+            - REJECTED
+        status:
+          type: string
+          description: Customer record status
+          enum:
+            - ACTIVE
+            - INACTIVE
+            - CLOSED
+        addresses:
+          type: array
+          description: Customer addresses
+          items:
+            $ref: '#/components/schemas/Address'
+    CustomerCreate:
+      type: object
+      description: Request body for creating a customer
+      required:
+        - customerType
+        - lastName
+      properties:
+        customerType:
+          type: string
+          description: Customer classification
+          enum:
+            - INDIVIDUAL
+            - CORPORATE
+        title:
+          type: string
+          description: Customer title
+        firstName:
+          type: string
+          description: First name
+        lastName:
+          type: string
+          description: Last name or company name
+        dateOfBirth:
+          type: string
+          format: date
+          description: Date of birth
+        nationality:
+          type: string
+          description: ISO 3166-1 alpha-2 nationality code
+    CustomerUpdate:
+      type: object
+      description: Request body for updating customer details
+      properties:
+        title:
+          type: string
+          description: Updated title
+        firstName:
+          type: string
+          description: Updated first name
+        lastName:
+          type: string
+          description: Updated last name
+        addresses:
+          type: array
+          description: Updated addresses
+          items:
+            $ref: '#/components/schemas/Address'
+    Address:
+      type: object
+      description: Physical address
+      properties:
+        addressType:
+          type: string
+          description: Type of address
+          enum:
+            - RESIDENTIAL
+            - BUSINESS
+            - CORRESPONDENCE
+        addressLine1:
+          type: string
+          description: First line of address
+        addressLine2:
+          type: string
+          description: Second line of address
+        city:
+          type: string
+          description: City name
+        state:
+          type: string
+          description: State or province
+        postalCode:
+          type: string
+          description: Postal or zip code
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+    Beneficiary:
+      type: object
+      description: Payment beneficiary
+      properties:
+        beneficiaryId:
+          type: string
+          description: Unique beneficiary identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        beneficiaryName:
+          type: string
+          description: Beneficiary display name
+        accountNumber:
+          type: string
+          description: Beneficiary account number
+        iban:
+          type: string
+          description: Beneficiary IBAN
+        bic:
+          type: string
+          description: Beneficiary bank BIC/SWIFT code
+        bankName:
+          type: string
+          description: Beneficiary bank name
+        country:
+          type: string
+          description: Beneficiary country code
+    Product:
+      type: object
+      description: Banking product definition
+      properties:
+        productId:
+          type: string
+          description: Unique product identifier
+        productName:
+          type: string
+          description: Product display name
+        productGroup:
+          type: string
+          description: Product category group
+        currency:
+          type: string
+          description: Default product currency
+        description:
+          type: string
+          description: Product description
+        status:
+          type: string
+          description: Product availability status
+    Currency:
+      type: object
+      description: Currency reference data
+      properties:
+        currencyCode:
+          type: string
+          description: ISO 4217 currency code
+          pattern: '^[A-Z]{3}$'
+        currencyName:
+          type: string
+          description: Currency display name
+        decimalPlaces:
+          type: integer
+          description: Number of decimal places
+        status:
+          type: string
+          description: Currency status
+    Country:
+      type: object
+      description: Country reference data
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          pattern: '^[A-Z]{2}$'
+        countryName:
+          type: string
+          description: Country display name
+    IbanStructure:
+      type: object
+      description: IBAN validation structure
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        ibanLength:
+          type: integer
+          description: Expected IBAN length for the country
+        format:
+          type: string
+          description: IBAN format pattern
+    BundleArrangement:
+      type: object
+      description: Bundle arrangement grouping multiple accounts
+      properties:
+        bundleId:
+          type: string
+          description: Unique bundle identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        bundleName:
+          type: string
+          description: Bundle display name
+        productId:
+          type: string
+          description: Bundle product identifier
+        arrangements:
+          type: array
+          description: List of arrangements in the bundle
+          items:
+            type: object
+            properties:
+              arrangementId:
+                type: string
+                description: Arrangement identifier
+              productId:
+                type: string
+                description: Product identifier
+        status:
+          type: string
+          description: Bundle status
+    BundleArrangementCreate:
+      type: object
+      description: Request body for creating a bundle arrangement
+      required:
+        - customerId
+        - productId
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        productId:
+          type: string
+          description: Bundle product identifier
+        bundleName:
+          type: string
+          description: Optional bundle name
+        arrangements:
+          type: array
+          description: Arrangement identifiers to include
+          items:
+            type: string
+    Configuration:
+      type: object
+      description: System configuration setting
+      properties:
+        configurationId:
+          type: string
+          description: Configuration identifier
+        configurationGroup:
+          type: string
+          description: Configuration category group
+        key:
+          type: string
+          description: Configuration key
+        value:
+          type: string
+          description: Configuration value
+    ApiMetadata:
+      type: object
+      description: API resource metadata
+      properties:
+        apiName:
+          type: string
+          description: API resource name
+        apiVersion:
+          type: string
+          description: API version
+        description:
+          type: string
+          description: API resource description
+        path:
+          type: string
+          description: API resource path
+    SystemStatus:
+      type: object
+      description: System status information
+      properties:
+        status:
+          type: string
+          description: Current system operational status
+          enum:
+            - OPERATIONAL
+            - DEGRADED
+            - MAINTENANCE
+        version:
+          type: string
+          description: System version
+        uptime:
+          type: string
+          description: System uptime duration
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message

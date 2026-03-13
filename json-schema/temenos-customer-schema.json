@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://temenos.com/schemas/temenos/customer.json",
+  "title": "Temenos Customer",
+  "description": "Schema for Temenos customer records including individual and corporate customers with personal data, addresses, identification documents, KYC status, and relationship information.",
+  "type": "object",
+  "required": ["customerId", "customerType", "status"],
+  "properties": {
+    "customerId": {
+      "type": "string",
+      "description": "Unique customer identifier assigned by the Temenos system"
+    },
+    "customerType": {
+      "type": "string",
+      "description": "Classification of the customer",
+      "enum": ["INDIVIDUAL", "CORPORATE"]
+    },
+    "title": {
+      "type": "string",
+      "description": "Customer honorific title",
+      "enum": ["Mr", "Mrs", "Ms", "Dr", "Prof"]
+    },
+    "firstName": {
+      "type": "string",
+      "description": "First name for individual customers",
+      "maxLength": 100
+    },
+    "middleName": {
+      "type": "string",
+      "description": "Middle name for individual customers",
+      "maxLength": 100
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Last name for individual customers or company name for corporate",
+      "maxLength": 200
+    },
+    "companyName": {
+      "type": "string",
+      "description": "Company name for corporate customers",
+      "maxLength": 200
+    },
+    "dateOfBirth": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Date of birth for individual customers"
+    },
+    "nationality": {
+      "type": "string",
+      "description": "Nationality in ISO 3166-1 alpha-2 format",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "countryOfResidence": {
+      "type": "string",
+      "description": "Country of residence in ISO 3166-1 alpha-2 format",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "language": {
+      "type": "string",
+      "description": "Preferred language in ISO 639-1 format",
+      "pattern": "^[a-z]{2}$"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Primary email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Primary phone number in E.164 format",
+      "pattern": "^\\+[1-9][0-9]{1,14}$"
+    },
+    "kycStatus": {
+      "type": "string",
+      "description": "Know Your Customer verification status",
+      "enum": ["VERIFIED", "PENDING", "REJECTED", "EXPIRED", "NOT_STARTED"]
+    },
+    "riskRating": {
+      "type": "string",
+      "description": "Customer risk rating from compliance assessment",
+      "enum": ["LOW", "MEDIUM", "HIGH", "VERY_HIGH"]
+    },
+    "status": {
+      "type": "string",
+      "description": "Customer record status",
+      "enum": ["ACTIVE", "INACTIVE", "CLOSED", "SUSPENDED"]
+    },
+    "onboardingDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the customer was onboarded"
+    },
+    "addresses": {
+      "type": "array",
+      "description": "Customer addresses",
+      "items": {
+        "$ref": "#/$defs/Address"
+      }
+    },
+    "identificationDocuments": {
+      "type": "array",
+      "description": "Identity verification documents",
+      "items": {
+        "$ref": "#/$defs/IdentificationDocument"
+      }
+    },
+    "segment": {
+      "type": "string",
+      "description": "Customer segmentation category"
+    },
+    "relationshipManager": {
+      "type": "string",
+      "description": "Assigned relationship manager identifier"
+    }
+  },
+  "$defs": {
+    "Address": {
+      "type": "object",
+      "description": "Physical or mailing address",
+      "required": ["addressType", "country"],
+      "properties": {
+        "addressType": {
+          "type": "string",
+          "description": "Type of address",
+          "enum": ["RESIDENTIAL", "BUSINESS", "CORRESPONDENCE", "REGISTERED"]
+        },
+        "addressLine1": {
+          "type": "string",
+          "description": "First line of the address",
+          "maxLength": 200
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Second line of the address",
+          "maxLength": 200
+        },
+        "city": {
+          "type": "string",
+          "description": "City name",
+          "maxLength": 100
+        },
+        "state": {
+          "type": "string",
+          "description": "State, province, or region",
+          "maxLength": 100
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal or zip code",
+          "maxLength": 20
+        },
+        "country": {
+          "type": "string",
+          "description": "Country in ISO 3166-1 alpha-2 format",
+          "pattern": "^[A-Z]{2}$"
+        }
+      }
+    },
+    "IdentificationDocument": {
+      "type": "object",
+      "description": "Identity verification document",
+      "required": ["documentType", "documentNumber"],
+      "properties": {
+        "documentType": {
+          "type": "string",
+          "description": "Type of identification document",
+          "enum": ["PASSPORT", "NATIONAL_ID", "DRIVING_LICENSE", "TAX_ID", "COMPANY_REGISTRATION"]
+        },
+        "documentNumber": {
+          "type": "string",
+          "description": "Document number or identifier"
+        },
+        "issuingCountry": {
+          "type": "string",
+          "description": "Country that issued the document",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "issueDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date the document was issued"
+        },
+        "expiryDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Document expiry date"
+        }
+      }
+    }
+  }
+}

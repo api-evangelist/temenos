@@ -1,0 +1,808 @@
+openapi: 3.1.0
+info:
+  title: Temenos Transact Microservices API
+  description: >-
+    Cloud-native microservices APIs for Temenos Transact providing callback
+    registry for long-running transactions, event store for business and
+    system events, configuration management, user entitlements, service
+    orchestration, application metering, and traceability for non-repudiation
+    across all API services.
+  version: '1.0.0'
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+externalDocs:
+  description: Temenos Transact Microservices API Documentation
+  url: https://developer.temenos.com/transact-microservice-apis
+servers:
+  - url: https://api.temenos.com/transact/microservices/v1
+    description: Temenos Transact Microservices API - Production
+security:
+  - bearerAuth: []
+tags:
+  - name: Callback Registry
+    description: >-
+      Register callback URLs to receive notifications when long-running
+      transaction processing completes.
+  - name: Event Store
+    description: >-
+      Retrieve business and system events raised from Temenos Transact
+      and Infinity products.
+  - name: Configuration Management
+    description: >-
+      Centralized configuration services for managing application
+      configurations under specific configuration groups.
+  - name: Entitlements
+    description: >-
+      Manage user entitlements and role assignments for specific
+      products based on entitlement policies.
+  - name: Service Orchestrator
+    description: >-
+      Create and manage service orchestration sequences for executing
+      business operations spanning different applications.
+  - name: Application Metering
+    description: >-
+      Store and retrieve consumed business values and API usage metrics
+      across Transact and Infinity systems.
+  - name: Traceability
+    description: >-
+      Non-repudiation capabilities providing detailed request and
+      response message information for executed API services.
+paths:
+  /callbacks:
+    get:
+      operationId: listCallbacks
+      summary: List registered callbacks
+      description: >-
+        Retrieve the list of registered callback URLs for receiving
+        notifications about long-running transaction results.
+      tags:
+        - Callback Registry
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of callbacks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Callback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: registerCallback
+      summary: Register callback URL
+      description: >-
+        Register a callback URL for receiving notifications when
+        long-running transaction processing completes.
+      tags:
+        - Callback Registry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CallbackCreate'
+      responses:
+        '201':
+          description: Callback registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /callbacks/{callbackId}:
+    delete:
+      operationId: removeCallback
+      summary: Remove callback registration
+      description: >-
+        Remove a previously registered callback URL.
+      tags:
+        - Callback Registry
+      parameters:
+        - name: callbackId
+          in: path
+          required: true
+          description: Callback registration identifier
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Callback removed successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /events:
+    get:
+      operationId: listEvents
+      summary: List events
+      description: >-
+        Retrieve business and system events from the event store raised
+        by Temenos Transact and Infinity products. Supports filtering
+        by event type, date range, and source.
+      tags:
+        - Event Store
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: eventType
+          in: query
+          description: Filter by event type
+          schema:
+            type: string
+            enum:
+              - BUSINESS
+              - SYSTEM
+        - name: source
+          in: query
+          description: Filter by event source
+          schema:
+            type: string
+        - name: dateFrom
+          in: query
+          description: Start date filter
+          schema:
+            type: string
+            format: date-time
+        - name: dateTo
+          in: query
+          description: End date filter
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Successful retrieval of events
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /events/{eventId}:
+    get:
+      operationId: getEvent
+      summary: Get event details
+      description: >-
+        Retrieve detailed information for a specific event including
+        the full event payload and processing metadata.
+      tags:
+        - Event Store
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          description: Event identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of event details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /configurations:
+    get:
+      operationId: listConfigurations
+      summary: List configurations
+      description: >-
+        Retrieve application configurations organized by configuration
+        groups for centralized configuration management.
+      tags:
+        - Configuration Management
+      parameters:
+        - name: configGroup
+          in: query
+          description: Filter by configuration group
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of configurations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Configuration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createConfiguration
+      summary: Create configuration
+      description: >-
+        Create a new configuration entry within a specific configuration
+        group for application settings management.
+      tags:
+        - Configuration Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationCreate'
+      responses:
+        '201':
+          description: Configuration created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Configuration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /entitlements:
+    get:
+      operationId: listEntitlements
+      summary: List user entitlements
+      description: >-
+        Retrieve user entitlements and role assignments across products
+        based on configured entitlement policies.
+      tags:
+        - Entitlements
+      parameters:
+        - name: userId
+          in: query
+          description: Filter by user identifier
+          schema:
+            type: string
+        - name: productId
+          in: query
+          description: Filter by product identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of entitlements
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Entitlement'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createEntitlement
+      summary: Assign entitlement
+      description: >-
+        Assign entitlements and roles to a user for specific products
+        based on entitlement policies.
+      tags:
+        - Entitlements
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntitlementCreate'
+      responses:
+        '201':
+          description: Entitlement assigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entitlement'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /orchestrations:
+    get:
+      operationId: listOrchestrations
+      summary: List orchestration sequences
+      description: >-
+        Retrieve service orchestration sequence definitions for
+        executing multi-step business operations.
+      tags:
+        - Service Orchestrator
+      responses:
+        '200':
+          description: Successful retrieval of orchestrations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Orchestration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createOrchestration
+      summary: Create orchestration sequence
+      description: >-
+        Create a new service orchestration sequence defining the order
+        of business operations across different applications.
+      tags:
+        - Service Orchestrator
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrchestrationCreate'
+      responses:
+        '201':
+          description: Orchestration created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Orchestration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /orchestrations/{orchestrationId}/execute:
+    post:
+      operationId: executeOrchestration
+      summary: Execute orchestration sequence
+      description: >-
+        Trigger execution of a defined service orchestration sequence
+        with provided input parameters.
+      tags:
+        - Service Orchestrator
+      parameters:
+        - name: orchestrationId
+          in: path
+          required: true
+          description: Orchestration sequence identifier
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inputParameters:
+                  type: object
+                  description: Input parameters for the orchestration
+                  additionalProperties: true
+      responses:
+        '202':
+          description: Orchestration execution started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrchestrationExecution'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /metering/records:
+    get:
+      operationId: listMeteringRecords
+      summary: List metering records
+      description: >-
+        Retrieve API usage metrics and consumed business values from
+        Transact and Infinity systems.
+      tags:
+        - Application Metering
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: dateFrom
+          in: query
+          description: Start date
+          schema:
+            type: string
+            format: date
+        - name: dateTo
+          in: query
+          description: End date
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successful retrieval of metering records
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MeteringRecord'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /traceability/{serviceId}:
+    get:
+      operationId: getTraceabilityRecord
+      summary: Get traceability record
+      description: >-
+        Retrieve detailed request and response message information for
+        an executed API service providing non-repudiation evidence.
+      tags:
+        - Traceability
+      parameters:
+        - name: serviceId
+          in: path
+          required: true
+          description: Service execution identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of traceability record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceabilityRecord'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
+    Callback:
+      type: object
+      description: Registered callback
+      properties:
+        callbackId:
+          type: string
+          description: Callback identifier
+        callbackUrl:
+          type: string
+          format: uri
+          description: Callback URL
+        transactionType:
+          type: string
+          description: Transaction type filter
+        status:
+          type: string
+          description: Registration status
+    CallbackCreate:
+      type: object
+      description: Callback registration request
+      required:
+        - callbackUrl
+      properties:
+        callbackUrl:
+          type: string
+          format: uri
+          description: Callback URL to register
+        transactionType:
+          type: string
+          description: Transaction type to filter
+    Event:
+      type: object
+      description: Business or system event
+      properties:
+        eventId:
+          type: string
+          description: Event identifier
+        eventType:
+          type: string
+          description: Event classification
+          enum:
+            - BUSINESS
+            - SYSTEM
+        eventName:
+          type: string
+          description: Event name
+        source:
+          type: string
+          description: Event source application
+        payload:
+          type: object
+          description: Event payload data
+          additionalProperties: true
+        timestamp:
+          type: string
+          format: date-time
+          description: Event timestamp
+        correlationId:
+          type: string
+          description: Correlation identifier for tracing
+    Configuration:
+      type: object
+      description: Application configuration
+      properties:
+        configurationId:
+          type: string
+          description: Configuration identifier
+        configGroup:
+          type: string
+          description: Configuration group
+        key:
+          type: string
+          description: Configuration key
+        value:
+          type: string
+          description: Configuration value
+    ConfigurationCreate:
+      type: object
+      description: Configuration creation request
+      required:
+        - configGroup
+        - key
+        - value
+      properties:
+        configGroup:
+          type: string
+          description: Configuration group
+        key:
+          type: string
+          description: Configuration key
+        value:
+          type: string
+          description: Configuration value
+    Entitlement:
+      type: object
+      description: User entitlement
+      properties:
+        entitlementId:
+          type: string
+          description: Entitlement identifier
+        userId:
+          type: string
+          description: User identifier
+        productId:
+          type: string
+          description: Product identifier
+        role:
+          type: string
+          description: Assigned role
+        permissions:
+          type: array
+          description: Granted permissions
+          items:
+            type: string
+        status:
+          type: string
+          description: Entitlement status
+    EntitlementCreate:
+      type: object
+      description: Entitlement assignment request
+      required:
+        - userId
+        - productId
+        - role
+      properties:
+        userId:
+          type: string
+          description: User identifier
+        productId:
+          type: string
+          description: Product identifier
+        role:
+          type: string
+          description: Role to assign
+    Orchestration:
+      type: object
+      description: Service orchestration sequence
+      properties:
+        orchestrationId:
+          type: string
+          description: Orchestration identifier
+        name:
+          type: string
+          description: Orchestration name
+        description:
+          type: string
+          description: Orchestration description
+        steps:
+          type: array
+          description: Orchestration steps
+          items:
+            type: object
+            properties:
+              stepOrder:
+                type: integer
+                description: Step order
+              serviceName:
+                type: string
+                description: Service to invoke
+              operationId:
+                type: string
+                description: Operation to execute
+        status:
+          type: string
+          description: Orchestration status
+    OrchestrationCreate:
+      type: object
+      description: Orchestration creation request
+      required:
+        - name
+        - steps
+      properties:
+        name:
+          type: string
+          description: Orchestration name
+        description:
+          type: string
+          description: Orchestration description
+        steps:
+          type: array
+          description: Orchestration steps
+          items:
+            type: object
+            required:
+              - stepOrder
+              - serviceName
+              - operationId
+            properties:
+              stepOrder:
+                type: integer
+              serviceName:
+                type: string
+              operationId:
+                type: string
+    OrchestrationExecution:
+      type: object
+      description: Orchestration execution status
+      properties:
+        executionId:
+          type: string
+          description: Execution identifier
+        orchestrationId:
+          type: string
+          description: Orchestration identifier
+        status:
+          type: string
+          description: Execution status
+          enum:
+            - STARTED
+            - IN_PROGRESS
+            - COMPLETED
+            - FAILED
+        startTime:
+          type: string
+          format: date-time
+          description: Start timestamp
+    MeteringRecord:
+      type: object
+      description: API usage metering record
+      properties:
+        recordId:
+          type: string
+          description: Record identifier
+        serviceName:
+          type: string
+          description: Service name
+        operationId:
+          type: string
+          description: Operation identifier
+        callCount:
+          type: integer
+          description: Number of API calls
+        date:
+          type: string
+          format: date
+          description: Metering date
+    TraceabilityRecord:
+      type: object
+      description: Service traceability record
+      properties:
+        serviceId:
+          type: string
+          description: Service execution identifier
+        serviceName:
+          type: string
+          description: Service name
+        requestTimestamp:
+          type: string
+          format: date-time
+          description: Request timestamp
+        responseTimestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+        requestPayload:
+          type: object
+          description: Request message payload
+          additionalProperties: true
+        responsePayload:
+          type: object
+          description: Response message payload
+          additionalProperties: true
+        statusCode:
+          type: integer
+          description: Response status code
+        userId:
+          type: string
+          description: Executing user
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description

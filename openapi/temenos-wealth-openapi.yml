@@ -1,0 +1,916 @@
+openapi: 3.1.0
+info:
+  title: Temenos Wealth API
+  description: >-
+    Integrated portfolio management and securities trading platform APIs for
+    wealth managers and private bankers. Provides enterprise APIs across
+    holdings, inventory, order, party, reference, meta, and system categories
+    for managing portfolios, executing trades across a wide range of
+    instruments from fixed income and equities through ETD and OTC
+    derivatives to structured products and fund types.
+  version: '1.0.0'
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+externalDocs:
+  description: Temenos Wealth API Documentation
+  url: https://developer.temenos.com/wealth-api
+servers:
+  - url: https://api.temenos.com/wealth/v1
+    description: Temenos Wealth API - Production
+security:
+  - bearerAuth: []
+tags:
+  - name: Holdings
+    description: >-
+      Manage wealth holdings and portfolio positions including valuations,
+      account balances, and instrument positions across asset classes.
+  - name: Inventory
+    description: >-
+      Inventory operations for securities and instrument data management
+      providing master data for the wealth management platform.
+  - name: Order
+    description: >-
+      Securities trading order management including order creation,
+      execution, amendment, and cancellation across equity, fixed income,
+      derivatives, and fund instruments.
+  - name: Party
+    description: >-
+      Customer and relationship management for wealth clients including
+      investor profiles, advisor assignments, and mandate configurations.
+  - name: Reference
+    description: >-
+      Reference data management for wealth operations including security
+      master data, market data, and instrument classification.
+  - name: Meta
+    description: >-
+      Metadata and dataset browsing service for API discovery and
+      configuration management.
+  - name: System
+    description: >-
+      System-level operations and administration for the wealth management
+      platform.
+paths:
+  /holdings/portfolios:
+    get:
+      operationId: listPortfolios
+      summary: List portfolios
+      description: >-
+        Retrieve a list of investment portfolios for wealth clients
+        including portfolio valuations, benchmark assignments, and
+        investment mandate details.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: customerId
+          in: query
+          description: Filter portfolios by customer identifier
+          schema:
+            type: string
+        - name: advisorId
+          in: query
+          description: Filter by assigned advisor
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of portfolios
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Portfolio'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPortfolio
+      summary: Create portfolio
+      description: >-
+        Create a new investment portfolio for a wealth client with
+        specified investment mandate, benchmark, and risk profile.
+      tags:
+        - Holdings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortfolioCreate'
+      responses:
+        '201':
+          description: Portfolio created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Portfolio'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /holdings/portfolios/{portfolioId}:
+    get:
+      operationId: getPortfolio
+      summary: Get portfolio details
+      description: >-
+        Retrieve detailed portfolio information including current
+        valuation, asset allocation, performance metrics, and linked
+        account details.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/portfolioId'
+      responses:
+        '200':
+          description: Successful retrieval of portfolio details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Portfolio'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: closePortfolio
+      summary: Close portfolio
+      description: >-
+        Close an investment portfolio after all positions have been
+        liquidated and settled.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/portfolioId'
+      responses:
+        '200':
+          description: Portfolio closed successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /holdings/portfolios/{portfolioId}/positions:
+    get:
+      operationId: listPortfolioPositions
+      summary: List portfolio positions
+      description: >-
+        Retrieve investment positions within a portfolio including
+        equities, bonds, derivatives, funds, and cash positions with
+        current market valuations.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/portfolioId'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: assetClass
+          in: query
+          description: Filter by asset class
+          schema:
+            type: string
+            enum:
+              - EQUITY
+              - FIXED_INCOME
+              - DERIVATIVES
+              - FUNDS
+              - CASH
+              - ALTERNATIVES
+      responses:
+        '200':
+          description: Successful retrieval of positions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Position'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /holdings/portfolios/{portfolioId}/valuation:
+    get:
+      operationId: getPortfolioValuation
+      summary: Get portfolio valuation
+      description: >-
+        Retrieve the current or historical valuation of a portfolio
+        including total market value, unrealized gains and losses,
+        and asset allocation breakdown.
+      tags:
+        - Holdings
+      parameters:
+        - $ref: '#/components/parameters/portfolioId'
+        - name: valuationDate
+          in: query
+          description: Valuation date for historical lookups
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successful retrieval of valuation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortfolioValuation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /order/securities:
+    get:
+      operationId: listSecurityOrders
+      summary: List security orders
+      description: >-
+        Retrieve securities trading orders across all portfolios with
+        filtering by status, instrument type, and date range.
+      tags:
+        - Order
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: portfolioId
+          in: query
+          description: Filter by portfolio
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by order status
+          schema:
+            type: string
+            enum:
+              - PENDING
+              - SUBMITTED
+              - PARTIALLY_FILLED
+              - FILLED
+              - CANCELLED
+              - REJECTED
+      responses:
+        '200':
+          description: Successful retrieval of orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SecurityOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSecurityOrder
+      summary: Create security order
+      description: >-
+        Place a new securities trading order for buying or selling
+        instruments including equities, bonds, derivatives, and funds
+        with specified order type and validity.
+      tags:
+        - Order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecurityOrderCreate'
+      responses:
+        '201':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecurityOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /order/securities/{orderId}:
+    get:
+      operationId: getSecurityOrder
+      summary: Get security order details
+      description: >-
+        Retrieve detailed information for a security order including
+        execution details, fill history, and settlement status.
+      tags:
+        - Order
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: Unique order identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecurityOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: cancelSecurityOrder
+      summary: Cancel security order
+      description: >-
+        Cancel a pending or partially filled security order before
+        full execution.
+      tags:
+        - Order
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: Order identifier to cancel
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Order cancelled successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /party/clients:
+    get:
+      operationId: listWealthClients
+      summary: List wealth clients
+      description: >-
+        Retrieve wealth management clients including their investor
+        profiles, risk assessments, advisor assignments, and investment
+        mandates.
+      tags:
+        - Party
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of clients
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WealthClient'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /inventory/securities:
+    get:
+      operationId: listSecurities
+      summary: List securities
+      description: >-
+        Retrieve the securities master data inventory including equities,
+        bonds, derivatives, and funds with their classification details
+        and market identifiers.
+      tags:
+        - Inventory
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pageStart'
+        - name: assetClass
+          in: query
+          description: Filter by asset class
+          schema:
+            type: string
+        - name: exchange
+          in: query
+          description: Filter by exchange
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of securities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Security'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reference/markets:
+    get:
+      operationId: listMarkets
+      summary: List markets
+      description: >-
+        Retrieve reference data for supported markets and exchanges
+        including trading hours, settlement cycles, and market status.
+      tags:
+        - Reference
+      responses:
+        '200':
+          description: Successful retrieval of markets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Market'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    portfolioId:
+      name: portfolioId
+      in: path
+      required: true
+      description: Unique portfolio identifier
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
+    Portfolio:
+      type: object
+      description: Investment portfolio
+      properties:
+        portfolioId:
+          type: string
+          description: Unique portfolio identifier
+        customerId:
+          type: string
+          description: Associated customer
+        portfolioName:
+          type: string
+          description: Portfolio display name
+        currency:
+          type: string
+          description: Portfolio base currency
+        mandateType:
+          type: string
+          description: Investment mandate type
+          enum:
+            - DISCRETIONARY
+            - ADVISORY
+            - EXECUTION_ONLY
+        riskProfile:
+          type: string
+          description: Client risk profile
+          enum:
+            - CONSERVATIVE
+            - MODERATE
+            - BALANCED
+            - GROWTH
+            - AGGRESSIVE
+        benchmarkId:
+          type: string
+          description: Assigned benchmark identifier
+        totalValue:
+          type: number
+          format: double
+          description: Total portfolio market value
+        advisorId:
+          type: string
+          description: Assigned advisor identifier
+        openDate:
+          type: string
+          format: date
+          description: Portfolio opening date
+        status:
+          type: string
+          description: Portfolio status
+          enum:
+            - ACTIVE
+            - CLOSED
+            - SUSPENDED
+    PortfolioCreate:
+      type: object
+      description: Portfolio creation request
+      required:
+        - customerId
+        - currency
+        - mandateType
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        portfolioName:
+          type: string
+          description: Portfolio name
+        currency:
+          type: string
+          description: Base currency in ISO 4217 format
+          pattern: '^[A-Z]{3}$'
+        mandateType:
+          type: string
+          description: Investment mandate type
+          enum:
+            - DISCRETIONARY
+            - ADVISORY
+            - EXECUTION_ONLY
+        riskProfile:
+          type: string
+          description: Risk profile
+          enum:
+            - CONSERVATIVE
+            - MODERATE
+            - BALANCED
+            - GROWTH
+            - AGGRESSIVE
+        benchmarkId:
+          type: string
+          description: Benchmark assignment
+        advisorId:
+          type: string
+          description: Advisor assignment
+    Position:
+      type: object
+      description: Portfolio position
+      properties:
+        positionId:
+          type: string
+          description: Position identifier
+        portfolioId:
+          type: string
+          description: Portfolio identifier
+        securityId:
+          type: string
+          description: Security identifier
+        securityName:
+          type: string
+          description: Security name
+        assetClass:
+          type: string
+          description: Asset class
+          enum:
+            - EQUITY
+            - FIXED_INCOME
+            - DERIVATIVES
+            - FUNDS
+            - CASH
+            - ALTERNATIVES
+        quantity:
+          type: number
+          format: double
+          description: Position quantity
+        averageCost:
+          type: number
+          format: double
+          description: Average cost per unit
+        marketPrice:
+          type: number
+          format: double
+          description: Current market price
+        marketValue:
+          type: number
+          format: double
+          description: Current market value
+        unrealizedPnL:
+          type: number
+          format: double
+          description: Unrealized profit and loss
+        currency:
+          type: string
+          description: Position currency
+        weight:
+          type: number
+          format: double
+          description: Position weight in portfolio as percentage
+    PortfolioValuation:
+      type: object
+      description: Portfolio valuation summary
+      properties:
+        portfolioId:
+          type: string
+          description: Portfolio identifier
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date
+        totalMarketValue:
+          type: number
+          format: double
+          description: Total market value
+        totalCost:
+          type: number
+          format: double
+          description: Total cost basis
+        unrealizedPnL:
+          type: number
+          format: double
+          description: Total unrealized P&L
+        currency:
+          type: string
+          description: Valuation currency
+        assetAllocation:
+          type: array
+          description: Asset allocation breakdown
+          items:
+            type: object
+            properties:
+              assetClass:
+                type: string
+                description: Asset class name
+              marketValue:
+                type: number
+                format: double
+                description: Market value in asset class
+              weight:
+                type: number
+                format: double
+                description: Percentage weight
+    SecurityOrder:
+      type: object
+      description: Securities trading order
+      properties:
+        orderId:
+          type: string
+          description: Unique order identifier
+        portfolioId:
+          type: string
+          description: Portfolio identifier
+        securityId:
+          type: string
+          description: Security identifier
+        side:
+          type: string
+          description: Order side
+          enum:
+            - BUY
+            - SELL
+        orderType:
+          type: string
+          description: Order type
+          enum:
+            - MARKET
+            - LIMIT
+            - STOP
+            - STOP_LIMIT
+        quantity:
+          type: number
+          format: double
+          description: Order quantity
+        limitPrice:
+          type: number
+          format: double
+          description: Limit price for limit orders
+        filledQuantity:
+          type: number
+          format: double
+          description: Executed quantity
+        averagePrice:
+          type: number
+          format: double
+          description: Average execution price
+        status:
+          type: string
+          description: Order status
+          enum:
+            - PENDING
+            - SUBMITTED
+            - PARTIALLY_FILLED
+            - FILLED
+            - CANCELLED
+            - REJECTED
+        validity:
+          type: string
+          description: Order validity
+          enum:
+            - DAY
+            - GTC
+            - GTD
+        createdDate:
+          type: string
+          format: date-time
+          description: Order creation timestamp
+    SecurityOrderCreate:
+      type: object
+      description: Security order creation request
+      required:
+        - portfolioId
+        - securityId
+        - side
+        - orderType
+        - quantity
+      properties:
+        portfolioId:
+          type: string
+          description: Portfolio identifier
+        securityId:
+          type: string
+          description: Security identifier
+        side:
+          type: string
+          description: Order side
+          enum:
+            - BUY
+            - SELL
+        orderType:
+          type: string
+          description: Order type
+          enum:
+            - MARKET
+            - LIMIT
+            - STOP
+            - STOP_LIMIT
+        quantity:
+          type: number
+          format: double
+          description: Order quantity
+          minimum: 0
+        limitPrice:
+          type: number
+          format: double
+          description: Limit price for limit/stop-limit orders
+        stopPrice:
+          type: number
+          format: double
+          description: Stop price for stop/stop-limit orders
+        validity:
+          type: string
+          description: Order validity
+          enum:
+            - DAY
+            - GTC
+            - GTD
+          default: DAY
+        expiryDate:
+          type: string
+          format: date
+          description: Expiry date for GTD orders
+    WealthClient:
+      type: object
+      description: Wealth management client
+      properties:
+        clientId:
+          type: string
+          description: Client identifier
+        name:
+          type: string
+          description: Client name
+        clientType:
+          type: string
+          description: Client classification
+          enum:
+            - PRIVATE
+            - INSTITUTIONAL
+            - CORPORATE
+        riskProfile:
+          type: string
+          description: Investment risk profile
+        advisorId:
+          type: string
+          description: Assigned advisor
+        totalAUM:
+          type: number
+          format: double
+          description: Total assets under management
+        currency:
+          type: string
+          description: Reporting currency
+        status:
+          type: string
+          description: Client status
+    Security:
+      type: object
+      description: Security master data
+      properties:
+        securityId:
+          type: string
+          description: Internal security identifier
+        isin:
+          type: string
+          description: ISIN code
+          pattern: '^[A-Z]{2}[A-Z0-9]{9}[0-9]$'
+        ticker:
+          type: string
+          description: Ticker symbol
+        securityName:
+          type: string
+          description: Security name
+        assetClass:
+          type: string
+          description: Asset class classification
+        exchange:
+          type: string
+          description: Primary listing exchange
+        currency:
+          type: string
+          description: Trading currency
+        country:
+          type: string
+          description: Country of issue
+        lastPrice:
+          type: number
+          format: double
+          description: Last traded price
+    Market:
+      type: object
+      description: Market reference data
+      properties:
+        marketId:
+          type: string
+          description: Market identifier
+        marketName:
+          type: string
+          description: Market name
+        country:
+          type: string
+          description: Market country
+        currency:
+          type: string
+          description: Default trading currency
+        settlementCycle:
+          type: string
+          description: Standard settlement cycle
+        status:
+          type: string
+          description: Market operating status
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
