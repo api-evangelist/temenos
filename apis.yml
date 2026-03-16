@@ -3,7 +3,7 @@ description: APIs for Temenos banking and financial services platform, providing
 image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
 url: https://www.temenos.com
 created: '2024'
-modified: '2026-03-09'
+modified: '2026-03-16'
 specificationVersion: '0.18'
 apis:
 - name: Temenos Transact API
