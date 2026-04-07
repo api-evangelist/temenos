@@ -30,14 +30,14 @@ tags:
     description: >-
       Access banking-specific analytical data from the Analytics Data Store
       for reporting, dashboards, and business intelligence use cases.
-  - name: Operational Data Store
-    description: >-
-      Access near real-time operational data from the Operational Data Store
-      for operational reporting and API-driven integration use cases.
   - name: Data Streaming
     description: >-
       Manage event streaming configurations for capturing data replication
       events from committed transactions in real time.
+  - name: Operational Data Store
+    description: >-
+      Access near real-time operational data from the Operational Data Store
+      for operational reporting and API-driven integration use cases.
 paths:
   /analytics/accounts:
     get:

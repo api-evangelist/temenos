@@ -26,36 +26,32 @@ servers:
 security:
   - bearerAuth: []
 tags:
-  - name: Pricing Quotation
-    description: >-
-      Simulate account or arrangement creation and transaction events to
-      determine applicable pricing details including interest rates, fees,
-      and cashback with negotiation support.
-  - name: Package Details
-    description: >-
-      Create, amend, and manage package arrangements that bundle customer
-      accounts for combined pricing benefits.
-  - name: Pricing Adjustment
-    description: >-
-      Apply manual pricing adjustments including fee and interest rate
-      modifications with expiry settings and negotiation workflows.
-  - name: Party Details
-    description: >-
-      Retrieve customer contracts, pricing information, related parties,
-      and eligibility status within the pricing system.
   - name: Accounts Arrangement Details
     description: >-
       Calculate payoff amounts, adjust closure charges, process early
       deposit redemptions, and handle external arrangement balances.
+  - name: Package Details
+    description: >-
+      Create, amend, and manage package arrangements that bundle customer
+      accounts for combined pricing benefits.
+  - name: Party Details
+    description: >-
+      Retrieve customer contracts, pricing information, related parties,
+      and eligibility status within the pricing system.
+  - name: Pricing Adjustment
+    description: >-
+      Apply manual pricing adjustments including fee and interest rate
+      modifications with expiry settings and negotiation workflows.
   - name: Pricing Arrangement Details
     description: >-
       Retrieve interest rate details, activity charges, transaction
       pricing, periodic fees, and account event history within the
       pricing system.
-  - name: Pricing Transparency
+  - name: Pricing Quotation
     description: >-
-      Access pricing transparency information including fee breakdowns,
-      benefit details, and rule qualification outcomes.
+      Simulate account or arrangement creation and transaction events to
+      determine applicable pricing details including interest rates, fees,
+      and cashback with negotiation support.
   - name: Promotions
     description: >-
       Create and manage promotional arrangements for parties with

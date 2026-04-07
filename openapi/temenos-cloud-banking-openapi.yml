@@ -37,14 +37,14 @@ tags:
     description: >-
       Commercial lending operations including loan origination, facility
       management, and repayment processing.
-  - name: Trade Finance
-    description: >-
-      Trade finance operations including letters of credit, guarantees,
-      documentary collections, and trade document management.
   - name: Payments
     description: >-
       Country-specific payment processing including domestic and
       international transfers with local clearing integration.
+  - name: Trade Finance
+    description: >-
+      Trade finance operations including letters of credit, guarantees,
+      documentary collections, and trade document management.
 paths:
   /accounts:
     get:

@@ -38,6 +38,10 @@ tags:
       Manage customer and institution holdings including accounts, deposits,
       loans, treasury positions, and Islamic finance arrangements with over
       107 endpoints.
+  - name: Meta
+    description: >-
+      API ecosystem management and metadata retrieval for discovering
+      available API resources and capabilities with 6 endpoints.
   - name: Order
     description: >-
       Handle payment instructions and transaction orders including ACH, wire
@@ -57,18 +61,14 @@ tags:
     description: >-
       General reference data management including currencies, countries,
       IBAN structures, bank codes, and other lookup data with 64 endpoints.
-  - name: Meta
-    description: >-
-      API ecosystem management and metadata retrieval for discovering
-      available API resources and capabilities with 6 endpoints.
-  - name: System
-    description: >-
-      Core system functionality and administration including system
-      configuration, audit, and operational management with 25 endpoints.
   - name: Settings
     description: >-
       Configuration management for system-wide and user-specific settings
       with 6 endpoints.
+  - name: System
+    description: >-
+      Core system functionality and administration including system
+      configuration, audit, and operational management with 25 endpoints.
 paths:
   /holdings/accounts:
     get:

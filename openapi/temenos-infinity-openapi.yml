@@ -34,30 +34,30 @@ tags:
     description: >-
       Manage retail and business banking accounts including current accounts,
       savings accounts, and digital wallet accounts across all channels.
-  - name: Customers
-    description: >-
-      Create and manage customer profiles, preferences, and digital identities
-      across omnichannel touchpoints.
-  - name: Transactions
-    description: >-
-      Access transaction history and details for customer accounts with
-      support for filtering, pagination, and multi-channel views.
-  - name: Payments
-    description: >-
-      Initiate and manage payments including domestic transfers, international
-      transfers, and bill payments across digital channels.
   - name: Cards
     description: >-
       Manage debit and credit cards including card controls, spending limits,
       activation, blocking, and PIN management through digital channels.
-  - name: Notifications
-    description: >-
-      Configure and manage customer notification preferences and delivery
-      across push notifications, SMS, and email channels.
   - name: Consent
     description: >-
       Manage customer consent for Open Banking data sharing and third-party
       provider access under PSD2 regulations.
+  - name: Customers
+    description: >-
+      Create and manage customer profiles, preferences, and digital identities
+      across omnichannel touchpoints.
+  - name: Notifications
+    description: >-
+      Configure and manage customer notification preferences and delivery
+      across push notifications, SMS, and email channels.
+  - name: Payments
+    description: >-
+      Initiate and manage payments including domestic transfers, international
+      transfers, and bill payments across digital channels.
+  - name: Transactions
+    description: >-
+      Access transaction history and details for customer accounts with
+      support for filtering, pagination, and multi-channel views.
 paths:
   /accounts:
     get:

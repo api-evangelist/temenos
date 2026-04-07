@@ -28,10 +28,6 @@ servers:
 security:
   - bearerAuth: []
 tags:
-  - name: Payment Orders
-    description: >-
-      Initiate, view, and manage payment orders for domestic and international
-      fund transfers with support for SEPA, SWIFT, and internal transfers.
   - name: Bulk Payments
     description: >-
       Handle bulk payment file uploads and manual entry for batch payment
@@ -40,26 +36,30 @@ tags:
     description: >-
       Manage direct debit instructions and mandate collections for recurring
       payment scenarios including SEPA direct debits.
-  - name: Standing Orders
-    description: >-
-      Create and manage standing order instructions for automated recurring
-      payment execution.
-  - name: Payment Stops
-    description: >-
-      Create and manage stop instructions for individual payments based on
-      cheque details, transaction amounts, or payment references.
-  - name: Request to Pay
-    description: >-
-      Enable request-to-pay functionality and information exchange between
-      payers, payees, and RTP clearing systems.
-  - name: PSD2 Accounts
-    description: >-
-      PSD2 compliant account information access for authorized third-party
-      providers under Berlin Group standards.
   - name: Payment Configuration
     description: >-
       Configuration APIs for payment order application setup, clearing
       channels, and payment routing management.
+  - name: Payment Orders
+    description: >-
+      Initiate, view, and manage payment orders for domestic and international
+      fund transfers with support for SEPA, SWIFT, and internal transfers.
+  - name: Payment Stops
+    description: >-
+      Create and manage stop instructions for individual payments based on
+      cheque details, transaction amounts, or payment references.
+  - name: PSD2 Accounts
+    description: >-
+      PSD2 compliant account information access for authorized third-party
+      providers under Berlin Group standards.
+  - name: Request to Pay
+    description: >-
+      Enable request-to-pay functionality and information exchange between
+      payers, payees, and RTP clearing systems.
+  - name: Standing Orders
+    description: >-
+      Create and manage standing order instructions for automated recurring
+      payment execution.
 paths:
   /paymentOrders:
     get:

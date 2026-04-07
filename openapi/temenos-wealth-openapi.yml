@@ -47,14 +47,6 @@ tags:
     description: >-
       Reference data management for wealth operations including security
       master data, market data, and instrument classification.
-  - name: Meta
-    description: >-
-      Metadata and dataset browsing service for API discovery and
-      configuration management.
-  - name: System
-    description: >-
-      System-level operations and administration for the wealth management
-      platform.
 paths:
   /holdings/portfolios:
     get:

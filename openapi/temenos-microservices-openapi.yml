@@ -25,14 +25,14 @@ servers:
 security:
   - bearerAuth: []
 tags:
+  - name: Application Metering
+    description: >-
+      Store and retrieve consumed business values and API usage metrics
+      across Transact and Infinity systems.
   - name: Callback Registry
     description: >-
       Register callback URLs to receive notifications when long-running
       transaction processing completes.
-  - name: Event Store
-    description: >-
-      Retrieve business and system events raised from Temenos Transact
-      and Infinity products.
   - name: Configuration Management
     description: >-
       Centralized configuration services for managing application
@@ -41,14 +41,14 @@ tags:
     description: >-
       Manage user entitlements and role assignments for specific
       products based on entitlement policies.
+  - name: Event Store
+    description: >-
+      Retrieve business and system events raised from Temenos Transact
+      and Infinity products.
   - name: Service Orchestrator
     description: >-
       Create and manage service orchestration sequences for executing
       business operations spanning different applications.
-  - name: Application Metering
-    description: >-
-      Store and retrieve consumed business values and API usage metrics
-      across Transact and Infinity systems.
   - name: Traceability
     description: >-
       Non-repudiation capabilities providing detailed request and

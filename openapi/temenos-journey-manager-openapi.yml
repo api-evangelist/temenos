@@ -41,14 +41,14 @@ tags:
     description: >-
       Manage service definitions and parameters for journey integration
       services.
-  - name: Transactions
-    description: >-
-      Create and manage customer journey transactions including form
-      submissions and workflow processing.
   - name: Tasks
     description: >-
       Manage tasks within customer journey workflows including
       assignment, completion, and status tracking.
+  - name: Transactions
+    description: >-
+      Create and manage customer journey transactions including form
+      submissions and workflow processing.
   - name: Workspaces
     description: >-
       Workspaces portal APIs for external system integration with

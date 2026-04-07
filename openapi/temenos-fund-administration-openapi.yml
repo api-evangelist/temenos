@@ -27,11 +27,6 @@ servers:
 security:
   - bearerAuth: []
 tags:
-  - name: Party
-    description: >-
-      Manage distributor, investor, and financial institution data including
-      addresses, AML compliance, bank accounts, FATCA/CRS, KYC details,
-      and distribution agreements with 38 endpoints.
   - name: Holdings
     description: >-
       Manage fund investment positions including deposits, capital
@@ -42,6 +37,11 @@ tags:
       Handle instruction processing and payment management including cash
       receipts, dividend payments, order creation and cancellation, payment
       amendments, and stock exchange transactions with 17 endpoints.
+  - name: Party
+    description: >-
+      Manage distributor, investor, and financial institution data including
+      addresses, AML compliance, bank accounts, FATCA/CRS, KYC details,
+      and distribution agreements with 38 endpoints.
   - name: Product
     description: >-
       Configure fund and share class settings including anti-dilution levies,
@@ -52,10 +52,6 @@ tags:
       Manage reference data including exchange rates, interest rates,
       security prices, swap rates, holiday calendars, and location
       definitions with 11 endpoints.
-  - name: System
-    description: >-
-      System-level configuration including outbound trigger tables for
-      event-driven communications.
 paths:
   /party/investors:
     get:
