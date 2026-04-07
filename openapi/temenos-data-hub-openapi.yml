@@ -42,7 +42,7 @@ paths:
   /analytics/accounts:
     get:
       operationId: listAnalyticsAccounts
-      summary: List analytics account data
+      summary: Temenos List analytics account data
       description: >-
         Retrieve analytical account data from the ADS including balance
         histories, transaction volumes, and account metrics for
@@ -83,7 +83,7 @@ paths:
   /analytics/transactions:
     get:
       operationId: listAnalyticsTransactions
-      summary: List analytics transaction data
+      summary: Temenos List analytics transaction data
       description: >-
         Retrieve analytical transaction data from the ADS for intra-day
         and historical transaction analysis with aggregation support.
@@ -128,7 +128,7 @@ paths:
   /analytics/customers:
     get:
       operationId: listAnalyticsCustomers
-      summary: List analytics customer data
+      summary: Temenos List analytics customer data
       description: >-
         Retrieve analytical customer data including customer segmentation
         metrics, product holdings summaries, and relationship indicators.
@@ -156,7 +156,7 @@ paths:
   /operational/accounts:
     get:
       operationId: listOperationalAccounts
-      summary: List operational account data
+      summary: Temenos List operational account data
       description: >-
         Retrieve near real-time operational account data from the ODS
         for integration use cases with current balances and status.
@@ -184,7 +184,7 @@ paths:
   /operational/transactions:
     get:
       operationId: listOperationalTransactions
-      summary: List operational transaction data
+      summary: Temenos List operational transaction data
       description: >-
         Retrieve near real-time transaction data from the ODS for
         operational reporting and real-time integration.
@@ -217,7 +217,7 @@ paths:
   /streaming/configurations:
     get:
       operationId: listStreamingConfigurations
-      summary: List streaming configurations
+      summary: Temenos List streaming configurations
       description: >-
         Retrieve event streaming configurations for data replication
         and real-time event capture from committed transactions.
@@ -239,7 +239,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createStreamingConfiguration
-      summary: Create streaming configuration
+      summary: Temenos Create streaming configuration
       description: >-
         Create a new event streaming configuration to capture data
         replication events when transactions are committed to the system.

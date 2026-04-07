@@ -64,7 +64,7 @@ paths:
   /paymentOrders:
     get:
       operationId: listPaymentOrders
-      summary: List payment orders
+      summary: Temenos List payment orders
       description: >-
         Retrieve a list of payment orders with optional filtering by status,
         date range, payment type, and originating account. Returns payment
@@ -132,7 +132,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createPaymentOrder
-      summary: Create payment order
+      summary: Temenos Create payment order
       description: >-
         Initiate a new payment order for fund transfer. Supports SEPA credit
         transfers, instant SEPA payments, SWIFT cross-border transfers,
@@ -161,7 +161,7 @@ paths:
   /paymentOrders/{paymentOrderId}:
     get:
       operationId: getPaymentOrder
-      summary: Get payment order details
+      summary: Temenos Get payment order details
       description: >-
         Retrieve detailed information for a specific payment order including
         processing status, clearing details, and beneficiary information.
@@ -183,7 +183,7 @@ paths:
   /paymentOrders/{paymentOrderId}/status:
     get:
       operationId: getPaymentOrderStatus
-      summary: Get payment order status
+      summary: Temenos Get payment order status
       description: >-
         Retrieve the current processing status of a payment order including
         clearing status, booking confirmation, and any error details.
@@ -205,7 +205,7 @@ paths:
   /bulkPayments:
     get:
       operationId: listBulkPayments
-      summary: List bulk payment batches
+      summary: Temenos List bulk payment batches
       description: >-
         Retrieve a list of bulk payment batches with their processing status
         and summary information including total amounts and payment counts.
@@ -243,7 +243,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createBulkPayment
-      summary: Create bulk payment batch
+      summary: Temenos Create bulk payment batch
       description: >-
         Initiate a bulk payment batch by uploading payment instructions for
         batch processing. Supports file upload and manual entry with
@@ -270,7 +270,7 @@ paths:
   /bulkPayments/{batchId}/approve:
     post:
       operationId: approveBulkPayment
-      summary: Approve bulk payment batch
+      summary: Temenos Approve bulk payment batch
       description: >-
         Approve a bulk payment batch for processing after review. Applies
         the configured approval workflow rules.
@@ -292,7 +292,7 @@ paths:
   /directDebits:
     get:
       operationId: listDirectDebits
-      summary: List direct debit mandates
+      summary: Temenos List direct debit mandates
       description: >-
         Retrieve direct debit instructions and mandate collections including
         SEPA direct debits with creditor details, amounts, and collection
@@ -326,7 +326,7 @@ paths:
   /directDebits/{directDebitId}:
     get:
       operationId: getDirectDebit
-      summary: Get direct debit details
+      summary: Temenos Get direct debit details
       description: >-
         Retrieve detailed information for a specific direct debit mandate
         including collection history and next collection date.
@@ -353,7 +353,7 @@ paths:
   /standingOrders:
     get:
       operationId: listStandingOrders
-      summary: List standing orders
+      summary: Temenos List standing orders
       description: >-
         Retrieve standing order instructions for recurring payments with
         their frequency, amounts, beneficiary details, and execution
@@ -386,7 +386,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createStandingOrder
-      summary: Create standing order
+      summary: Temenos Create standing order
       description: >-
         Create a new standing order instruction for automated recurring
         payments with specified frequency, amount, and beneficiary.
@@ -412,7 +412,7 @@ paths:
   /paymentStops:
     get:
       operationId: listPaymentStops
-      summary: List payment stop requests
+      summary: Temenos List payment stop requests
       description: >-
         Retrieve active payment stop instructions including stops based
         on cheque details, transaction amounts, or payment references.
@@ -444,7 +444,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createPaymentStop
-      summary: Create payment stop request
+      summary: Temenos Create payment stop request
       description: >-
         Create a stop instruction for individual payments based on cheque
         number, transaction amount range, or payment reference to prevent
@@ -471,7 +471,7 @@ paths:
   /requestToPay:
     get:
       operationId: listRequestToPay
-      summary: List request-to-pay messages
+      summary: Temenos List request-to-pay messages
       description: >-
         Retrieve request-to-pay messages including incoming requests for
         payment and outgoing payment requests with their resolution status.
@@ -506,7 +506,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createRequestToPay
-      summary: Create request-to-pay
+      summary: Temenos Create request-to-pay
       description: >-
         Initiate a new request-to-pay message to a payer through the RTP
         clearing system. Includes payee details, amount, and payment terms.
@@ -532,7 +532,7 @@ paths:
   /psd2/accounts:
     get:
       operationId: listPsd2Accounts
-      summary: List PSD2 accounts
+      summary: Temenos List PSD2 accounts
       description: >-
         Retrieve account information for authorized third-party provider
         access under PSD2 Berlin Group standards. Requires valid consent
@@ -563,7 +563,7 @@ paths:
   /configuration/paymentRoutes:
     get:
       operationId: listPaymentRoutes
-      summary: List payment routing configurations
+      summary: Temenos List payment routing configurations
       description: >-
         Retrieve payment routing configurations including clearing channel
         assignments and payment type routing rules.

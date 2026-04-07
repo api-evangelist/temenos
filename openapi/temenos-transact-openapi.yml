@@ -73,7 +73,7 @@ paths:
   /holdings/accounts:
     get:
       operationId: listAccounts
-      summary: List accounts
+      summary: Temenos List accounts
       description: >-
         Retrieve a list of customer accounts across all account types
         including current accounts, savings accounts, deposit accounts,
@@ -114,7 +114,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createAccount
-      summary: Create account arrangement
+      summary: Temenos Create account arrangement
       description: >-
         Create a new account arrangement for a customer. The arrangement
         architecture supports creating various account types including
@@ -142,7 +142,7 @@ paths:
   /holdings/accounts/{accountId}:
     get:
       operationId: getAccount
-      summary: Get account details
+      summary: Temenos Get account details
       description: >-
         Retrieve detailed information for a specific account including
         balances, status, product details, and arrangement properties.
@@ -163,7 +163,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: updateAccount
-      summary: Update account arrangement
+      summary: Temenos Update account arrangement
       description: >-
         Update an existing account arrangement including modifying
         account properties, status, and configuration settings.
@@ -193,7 +193,7 @@ paths:
   /holdings/accounts/{accountId}/balances:
     get:
       operationId: getAccountBalances
-      summary: Get account balances
+      summary: Temenos Get account balances
       description: >-
         Retrieve balance information for a specific account including
         working balance, available balance, locked amount, and cleared
@@ -216,7 +216,7 @@ paths:
   /holdings/accounts/{accountId}/transactions:
     get:
       operationId: listAccountTransactions
-      summary: List account transactions
+      summary: Temenos List account transactions
       description: >-
         Retrieve transaction history for a specific account with support
         for date range filtering, transaction type filtering, and
@@ -265,7 +265,7 @@ paths:
   /holdings/deposits:
     get:
       operationId: listDeposits
-      summary: List deposit arrangements
+      summary: Temenos List deposit arrangements
       description: >-
         Retrieve a list of deposit arrangements including term deposits,
         call deposits, and savings deposits with their maturity dates,
@@ -299,7 +299,7 @@ paths:
   /holdings/loans:
     get:
       operationId: listLoans
-      summary: List loan arrangements
+      summary: Temenos List loan arrangements
       description: >-
         Retrieve a list of loan arrangements including personal loans,
         mortgage loans, and corporate lending with their outstanding
@@ -332,7 +332,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createLoan
-      summary: Create loan arrangement
+      summary: Temenos Create loan arrangement
       description: >-
         Create a new loan arrangement for a customer specifying loan
         amount, term, interest rate, and repayment schedule details.
@@ -358,7 +358,7 @@ paths:
   /order/paymentOrders:
     get:
       operationId: listPaymentOrders
-      summary: List payment orders
+      summary: Temenos List payment orders
       description: >-
         Retrieve a list of payment orders including domestic transfers,
         international transfers, SEPA payments, and standing orders.
@@ -401,7 +401,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createPaymentOrder
-      summary: Create payment order
+      summary: Temenos Create payment order
       description: >-
         Initiate a new payment order for domestic or international fund
         transfers. Supports SEPA credit transfers, SWIFT payments, ACH
@@ -428,7 +428,7 @@ paths:
   /order/standingOrders:
     get:
       operationId: listStandingOrders
-      summary: List standing orders
+      summary: Temenos List standing orders
       description: >-
         Retrieve a list of standing order instructions for recurring
         payment processing including frequency, amount, and beneficiary
@@ -462,7 +462,7 @@ paths:
   /order/directDebits:
     get:
       operationId: listDirectDebits
-      summary: List direct debit mandates
+      summary: Temenos List direct debit mandates
       description: >-
         Retrieve direct debit instructions and mandate collections for
         recurring payment scenarios including SEPA direct debits.
@@ -495,7 +495,7 @@ paths:
   /party/customers:
     get:
       operationId: listCustomers
-      summary: List customers
+      summary: Temenos List customers
       description: >-
         Retrieve a list of customers including individual and corporate
         customers with their basic profile information, KYC status,
@@ -531,7 +531,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createCustomer
-      summary: Create customer
+      summary: Temenos Create customer
       description: >-
         Create a new customer record for onboarding including personal
         details, address information, identification documents, and
@@ -558,7 +558,7 @@ paths:
   /party/customers/{customerId}:
     get:
       operationId: getCustomer
-      summary: Get customer details
+      summary: Temenos Get customer details
       description: >-
         Retrieve detailed customer information including personal data,
         addresses, contact details, identification documents, KYC status,
@@ -580,7 +580,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: updateCustomer
-      summary: Update customer details
+      summary: Temenos Update customer details
       description: >-
         Update existing customer information including personal data,
         address changes, contact preferences, and KYC documentation.
@@ -610,7 +610,7 @@ paths:
   /party/beneficiaries:
     get:
       operationId: listBeneficiaries
-      summary: List beneficiaries
+      summary: Temenos List beneficiaries
       description: >-
         Retrieve a list of registered beneficiaries for payment
         processing including their account details and bank information.
@@ -643,7 +643,7 @@ paths:
   /product/products:
     get:
       operationId: listProducts
-      summary: List banking products
+      summary: Temenos List banking products
       description: >-
         Retrieve the product catalogue including current account products,
         savings products, deposit products, loan products, and Islamic
@@ -677,7 +677,7 @@ paths:
   /reference/currencies:
     get:
       operationId: listCurrencies
-      summary: List currencies
+      summary: Temenos List currencies
       description: >-
         Retrieve the list of supported currencies with their ISO codes,
         names, decimal places, and exchange rate information.
@@ -705,7 +705,7 @@ paths:
   /reference/countries:
     get:
       operationId: listCountries
-      summary: List countries
+      summary: Temenos List countries
       description: >-
         Retrieve the list of supported countries with their ISO codes,
         names, and associated regulatory information.
@@ -733,7 +733,7 @@ paths:
   /reference/ibanStructures:
     get:
       operationId: listIbanStructures
-      summary: List IBAN structures
+      summary: Temenos List IBAN structures
       description: >-
         Retrieve IBAN validation structures by country including the
         expected format, length, and check digit calculation rules.
@@ -763,7 +763,7 @@ paths:
   /meta/apis:
     get:
       operationId: listApis
-      summary: List available APIs
+      summary: Temenos List available APIs
       description: >-
         Retrieve metadata about available API resources and capabilities
         in the Temenos Transact platform for API discovery and navigation.
@@ -786,7 +786,7 @@ paths:
   /system/status:
     get:
       operationId: getSystemStatus
-      summary: Get system status
+      summary: Temenos Get system status
       description: >-
         Retrieve the current system status including operational state,
         version information, and system health indicators.
@@ -804,7 +804,7 @@ paths:
   /enterprise/bundleArrangements:
     get:
       operationId: listBundleArrangements
-      summary: List bundle arrangements
+      summary: Temenos List bundle arrangements
       description: >-
         Retrieve bundle arrangements that group multiple customer accounts
         and products together for combined pricing benefits and package
@@ -837,7 +837,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createBundleArrangement
-      summary: Create bundle arrangement
+      summary: Temenos Create bundle arrangement
       description: >-
         Create a new bundle arrangement to group customer accounts and
         products for combined benefits and package pricing.
@@ -863,7 +863,7 @@ paths:
   /settings/configurations:
     get:
       operationId: listConfigurations
-      summary: List system configurations
+      summary: Temenos List system configurations
       description: >-
         Retrieve system-wide and user-specific configuration settings
         for the Temenos Transact platform.

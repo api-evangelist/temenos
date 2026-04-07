@@ -49,7 +49,7 @@ paths:
   /accounts:
     get:
       operationId: listCmbAccounts
-      summary: List commercial banking accounts
+      summary: Temenos List commercial banking accounts
       description: >-
         Retrieve commercial banking accounts with country-specific product
         details and regulatory compliance status.
@@ -86,7 +86,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createCmbAccount
-      summary: Create commercial banking account
+      summary: Temenos Create commercial banking account
       description: >-
         Create a new commercial banking account using pre-configured
         regional product templates with local regulatory compliance.
@@ -112,7 +112,7 @@ paths:
   /deposits:
     get:
       operationId: listCmbDeposits
-      summary: List deposits
+      summary: Temenos List deposits
       description: >-
         Retrieve deposit products with country-specific terms, rates,
         and regulatory classification.
@@ -140,7 +140,7 @@ paths:
   /lending/facilities:
     get:
       operationId: listLendingFacilities
-      summary: List lending facilities
+      summary: Temenos List lending facilities
       description: >-
         Retrieve commercial lending facilities including credit lines,
         term loans, and revolving facilities with utilization details.
@@ -172,7 +172,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createLendingFacility
-      summary: Create lending facility
+      summary: Temenos Create lending facility
       description: >-
         Originate a new lending facility with specified terms, collateral,
         and repayment conditions.
@@ -198,7 +198,7 @@ paths:
   /tradeFinance/lettersOfCredit:
     get:
       operationId: listLettersOfCredit
-      summary: List letters of credit
+      summary: Temenos List letters of credit
       description: >-
         Retrieve letters of credit including import and export LCs
         with their document status and amendment history.
@@ -226,7 +226,7 @@ paths:
   /tradeFinance/guarantees:
     get:
       operationId: listGuarantees
-      summary: List guarantees
+      summary: Temenos List guarantees
       description: >-
         Retrieve bank guarantees and standby letters of credit with
         their terms, beneficiaries, and expiry dates.
@@ -254,7 +254,7 @@ paths:
   /payments:
     post:
       operationId: createCmbPayment
-      summary: Create payment
+      summary: Temenos Create payment
       description: >-
         Initiate a payment through country-specific clearing channels
         with local regulatory validation and compliance checks.

@@ -60,7 +60,7 @@ paths:
   /party/investors:
     get:
       operationId: listInvestors
-      summary: List investors
+      summary: Temenos List investors
       description: >-
         Retrieve a list of investors with their master data including
         personal details, investment accounts, tax residence information,
@@ -88,7 +88,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createInvestor
-      summary: Create investor
+      summary: Temenos Create investor
       description: >-
         Create a new investor master record with personal details,
         address information, bank account details, and tax residence
@@ -115,7 +115,7 @@ paths:
   /party/distributors:
     get:
       operationId: listDistributors
-      summary: List distributors
+      summary: Temenos List distributors
       description: >-
         Retrieve a list of fund distributors with their details including
         distribution agreements, commission structures, and cutoff
@@ -144,7 +144,7 @@ paths:
   /party/aml/screenings:
     get:
       operationId: listAmlScreenings
-      summary: List AML screenings
+      summary: Temenos List AML screenings
       description: >-
         Retrieve anti-money laundering screening results including blocking
         codes, monitoring information, and compliance documentation for
@@ -171,7 +171,7 @@ paths:
   /party/fatca:
     get:
       operationId: listFatcaRecords
-      summary: List FATCA/CRS records
+      summary: Temenos List FATCA/CRS records
       description: >-
         Retrieve FATCA and CRS tax compliance documentation and status
         information for investors across jurisdictions.
@@ -197,7 +197,7 @@ paths:
   /holdings/positions:
     get:
       operationId: listPositions
-      summary: List fund positions
+      summary: Temenos List fund positions
       description: >-
         Retrieve investment positions across funds including equities,
         bonds, derivatives, and other securities with current valuations
@@ -231,7 +231,7 @@ paths:
   /holdings/transactions:
     get:
       operationId: listHoldingsTransactions
-      summary: List holdings transactions
+      summary: Temenos List holdings transactions
       description: >-
         Retrieve securities transactions including equity trades, bond
         transactions, FX spot and forward deals, futures, options, and
@@ -280,7 +280,7 @@ paths:
   /holdings/dividends:
     post:
       operationId: bookDividend
-      summary: Book dividend transaction
+      summary: Temenos Book dividend transaction
       description: >-
         Book a dividend or coupon distribution transaction for a fund
         including income distributions and reinvestment processing.
@@ -306,7 +306,7 @@ paths:
   /order/instructions:
     get:
       operationId: listInstructions
-      summary: List order instructions
+      summary: Temenos List order instructions
       description: >-
         Retrieve order instructions for subscription, redemption, switch,
         and transfer operations across fund share classes.
@@ -348,7 +348,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createInstruction
-      summary: Create order instruction
+      summary: Temenos Create order instruction
       description: >-
         Create a new order instruction for subscription, redemption, switch,
         or transfer operations with share class and quantity details.
@@ -374,7 +374,7 @@ paths:
   /order/sharePrices:
     post:
       operationId: createSharePrice
-      summary: Set share price
+      summary: Temenos Set share price
       description: >-
         Set the net asset value (NAV) based share price for a fund share
         class for a specific valuation date.
@@ -400,7 +400,7 @@ paths:
   /product/funds:
     get:
       operationId: listFunds
-      summary: List funds
+      summary: Temenos List funds
       description: >-
         Retrieve the list of funds with their master data including fund
         type, domicile, base currency, manager information, and promoter
@@ -428,7 +428,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createFund
-      summary: Create fund
+      summary: Temenos Create fund
       description: >-
         Create a new fund master record with fund type, domicile, base
         currency, manager assignment, and regulatory configuration.
@@ -454,7 +454,7 @@ paths:
   /product/shareClasses:
     get:
       operationId: listShareClasses
-      summary: List share classes
+      summary: Temenos List share classes
       description: >-
         Retrieve share class configurations for funds including pricing
         details, fee structures, distribution policies, and investor
@@ -488,7 +488,7 @@ paths:
   /reference/exchangeRates:
     post:
       operationId: injectExchangeRates
-      summary: Inject exchange rates
+      summary: Temenos Inject exchange rates
       description: >-
         Load daily foreign exchange rates for fund valuation and
         multi-currency position calculations.
@@ -510,7 +510,7 @@ paths:
   /reference/securityPrices:
     post:
       operationId: injectSecurityPrices
-      summary: Inject security prices
+      summary: Temenos Inject security prices
       description: >-
         Import market security prices for portfolio valuation including
         equity prices, bond prices, and derivative valuations.

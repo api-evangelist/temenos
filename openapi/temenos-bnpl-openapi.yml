@@ -41,7 +41,7 @@ paths:
   /offers:
     post:
       operationId: createCreditOffer
-      summary: Create credit offer
+      summary: Temenos Create credit offer
       description: >-
         Generate a BNPL credit offer using Explainable AI decisioning
         based on customer data, purchase amount, and configured product
@@ -69,7 +69,7 @@ paths:
   /offers/{offerId}:
     get:
       operationId: getCreditOffer
-      summary: Get credit offer details
+      summary: Temenos Get credit offer details
       description: >-
         Retrieve details of a generated credit offer including terms,
         repayment schedule, and AI decisioning explanation.
@@ -96,7 +96,7 @@ paths:
   /offers/{offerId}/accept:
     post:
       operationId: acceptCreditOffer
-      summary: Accept credit offer
+      summary: Temenos Accept credit offer
       description: >-
         Accept a BNPL credit offer to initiate loan creation and
         merchant settlement processing.
@@ -123,7 +123,7 @@ paths:
   /loans:
     get:
       operationId: listBnplLoans
-      summary: List BNPL loans
+      summary: Temenos List BNPL loans
       description: >-
         Retrieve BNPL loans with their repayment status, payment
         schedules, and outstanding balances.
@@ -166,7 +166,7 @@ paths:
   /loans/{loanId}:
     get:
       operationId: getBnplLoan
-      summary: Get BNPL loan details
+      summary: Temenos Get BNPL loan details
       description: >-
         Retrieve detailed BNPL loan information including payment
         schedule, payment history, and outstanding balance.
@@ -193,7 +193,7 @@ paths:
   /merchants:
     get:
       operationId: listMerchants
-      summary: List merchants
+      summary: Temenos List merchants
       description: >-
         Retrieve registered merchants with their BNPL integration
         configurations and settlement details.

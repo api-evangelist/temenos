@@ -57,7 +57,7 @@ paths:
   /callbacks:
     get:
       operationId: listCallbacks
-      summary: List registered callbacks
+      summary: Temenos List registered callbacks
       description: >-
         Retrieve the list of registered callback URLs for receiving
         notifications about long-running transaction results.
@@ -82,7 +82,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: registerCallback
-      summary: Register callback URL
+      summary: Temenos Register callback URL
       description: >-
         Register a callback URL for receiving notifications when
         long-running transaction processing completes.
@@ -108,7 +108,7 @@ paths:
   /callbacks/{callbackId}:
     delete:
       operationId: removeCallback
-      summary: Remove callback registration
+      summary: Temenos Remove callback registration
       description: >-
         Remove a previously registered callback URL.
       tags:
@@ -130,7 +130,7 @@ paths:
   /events:
     get:
       operationId: listEvents
-      summary: List events
+      summary: Temenos List events
       description: >-
         Retrieve business and system events from the event store raised
         by Temenos Transact and Infinity products. Supports filtering
@@ -184,7 +184,7 @@ paths:
   /events/{eventId}:
     get:
       operationId: getEvent
-      summary: Get event details
+      summary: Temenos Get event details
       description: >-
         Retrieve detailed information for a specific event including
         the full event payload and processing metadata.
@@ -211,7 +211,7 @@ paths:
   /configurations:
     get:
       operationId: listConfigurations
-      summary: List configurations
+      summary: Temenos List configurations
       description: >-
         Retrieve application configurations organized by configuration
         groups for centralized configuration management.
@@ -239,7 +239,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createConfiguration
-      summary: Create configuration
+      summary: Temenos Create configuration
       description: >-
         Create a new configuration entry within a specific configuration
         group for application settings management.
@@ -265,7 +265,7 @@ paths:
   /entitlements:
     get:
       operationId: listEntitlements
-      summary: List user entitlements
+      summary: Temenos List user entitlements
       description: >-
         Retrieve user entitlements and role assignments across products
         based on configured entitlement policies.
@@ -298,7 +298,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createEntitlement
-      summary: Assign entitlement
+      summary: Temenos Assign entitlement
       description: >-
         Assign entitlements and roles to a user for specific products
         based on entitlement policies.
@@ -324,7 +324,7 @@ paths:
   /orchestrations:
     get:
       operationId: listOrchestrations
-      summary: List orchestration sequences
+      summary: Temenos List orchestration sequences
       description: >-
         Retrieve service orchestration sequence definitions for
         executing multi-step business operations.
@@ -346,7 +346,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createOrchestration
-      summary: Create orchestration sequence
+      summary: Temenos Create orchestration sequence
       description: >-
         Create a new service orchestration sequence defining the order
         of business operations across different applications.
@@ -372,7 +372,7 @@ paths:
   /orchestrations/{orchestrationId}/execute:
     post:
       operationId: executeOrchestration
-      summary: Execute orchestration sequence
+      summary: Temenos Execute orchestration sequence
       description: >-
         Trigger execution of a defined service orchestration sequence
         with provided input parameters.
@@ -410,7 +410,7 @@ paths:
   /metering/records:
     get:
       operationId: listMeteringRecords
-      summary: List metering records
+      summary: Temenos List metering records
       description: >-
         Retrieve API usage metrics and consumed business values from
         Transact and Infinity systems.
@@ -450,7 +450,7 @@ paths:
   /traceability/{serviceId}:
     get:
       operationId: getTraceabilityRecord
-      summary: Get traceability record
+      summary: Temenos Get traceability record
       description: >-
         Retrieve detailed request and response message information for
         an executed API service providing non-repudiation evidence.
