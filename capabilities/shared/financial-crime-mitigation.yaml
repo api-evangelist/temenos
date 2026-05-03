@@ -1,0 +1,245 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Temenos Financial Crime Mitigation API"
+  description: "Anti-money laundering, fraud detection, KYC, sanctions screening, and transaction monitoring API for compliance and risk management."
+  tags:
+    - AML
+    - Compliance
+    - KYC
+    - Risk Management
+    - Sanctions Screening
+    - Fraud Detection
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TEMENOS_FCM_TOKEN: TEMENOS_FCM_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: fcm
+      baseUri: https://api.temenos.com/fcm/v1
+      description: "Temenos Financial Crime Mitigation API"
+      authentication:
+        type: bearer
+        token: "{{TEMENOS_FCM_TOKEN}}"
+      resources:
+        - name: risk-scores
+          path: /customers/{customerId}/riskScore
+          description: "Customer risk scoring"
+          operations:
+            - name: get-customer-risk-score
+              method: GET
+              description: "Get customer risk score"
+              inputParameters:
+                - name: customerId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Customer identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: compute-customer-risk-score
+              method: POST
+              description: "Compute updated customer risk score"
+              inputParameters:
+                - name: customerId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Customer identifier"
+              body:
+                type: json
+                data:
+                  scoreType: "{{tools.scoreType}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: sanction-alerts
+          path: /customers/{customerId}/sanctionAlerts
+          description: "Sanction screening alerts"
+          operations:
+            - name: get-customer-sanction-alerts
+              method: GET
+              description: "Get sanction alerts for a customer"
+              inputParameters:
+                - name: customerId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Customer identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: all-sanction-alerts
+          path: /sanctionAlerts
+          description: "All sanction alerts"
+          operations:
+            - name: list-all-sanction-alerts
+              method: GET
+              description: "List all sanctions alerts across customers"
+              inputParameters:
+                - name: page_size
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Records per page"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: onboarding-screening
+          path: /screenings/onboarding
+          description: "Onboarding KYC screening"
+          operations:
+            - name: screen-onboarding-customer
+              method: POST
+              description: "Screen a customer during onboarding"
+              body:
+                type: json
+                data:
+                  customerId: "{{tools.customerId}}"
+                  checkTypes: "{{tools.checkTypes}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: transaction-scanning
+          path: /transactions/scan
+          description: "Transaction message scanning"
+          operations:
+            - name: scan-transaction-message
+              method: POST
+              description: "Scan a transaction message for AML indicators"
+              body:
+                type: json
+                data:
+                  transactionId: "{{tools.transactionId}}"
+                  message: "{{tools.message}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: monitoring-alerts
+          path: /alerts
+          description: "Transaction monitoring alerts"
+          operations:
+            - name: list-monitoring-alerts
+              method: GET
+              description: "List transaction monitoring alerts"
+              inputParameters:
+                - name: page_size
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Records per page"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-alert
+              method: GET
+              description: "Get monitoring alert details"
+              inputParameters:
+                - name: alertId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Alert identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-alert
+              method: PUT
+              description: "Update alert status or resolution"
+              inputParameters:
+                - name: alertId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Alert identifier"
+              body:
+                type: json
+                data:
+                  status: "{{tools.status}}"
+                  resolution: "{{tools.resolution}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8102
+      namespace: fcm-api
+      resources:
+        - path: /v1/risk-scores
+          name: risk-scores
+          description: "Customer risk scores"
+          operations:
+            - method: GET
+              name: get-risk-score
+              description: "Get customer risk score"
+              call: "fcm.get-customer-risk-score"
+              with:
+                customerId: "rest.customerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9102
+      namespace: fcm-mcp
+      transport: http
+      tools:
+        - name: get-customer-risk-score
+          description: "Get AML risk score for a customer"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "fcm.get-customer-risk-score"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: screen-onboarding-customer
+          description: "Run KYC screening for a new customer"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "fcm.screen-onboarding-customer"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-monitoring-alerts
+          description: "List AML monitoring alerts"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "fcm.list-monitoring-alerts"
+          outputParameters:
+            - type: object
+              mapping: "$."

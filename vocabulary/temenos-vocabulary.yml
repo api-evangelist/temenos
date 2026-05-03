@@ -1,0 +1,201 @@
+name: Temenos Vocabulary
+description: Domain vocabulary and taxonomy for the Temenos banking and financial services platform, covering core banking, payments, wealth management, compliance, and digital banking concepts.
+version: "1.0.0"
+created: "2026-05-03"
+modified: "2026-05-03"
+
+domains:
+  - name: Core Banking
+    description: Fundamental banking concepts relating to accounts, customers, transactions, and products
+    terms:
+      - term: Account Arrangement
+        definition: A contractual banking relationship between a customer and the bank defining account type, product, terms, and conditions. Temenos refers to accounts as arrangements to reflect their modular configuration.
+        synonyms: [Account, Banking Account, Current Account, Savings Account]
+        tags: [Accounts, Core Banking]
+
+      - term: Holdings
+        definition: The category of Temenos Transact APIs covering account balances, positions, deposits, loans, and financial holdings. Maps to the /holdings path prefix.
+        synonyms: [Account Holdings, Financial Holdings]
+        tags: [Accounts, Core Banking]
+
+      - term: Party
+        definition: The Temenos Transact API category for customer and counterparty management. Covers customers, beneficiaries, and related entities. Maps to the /party path prefix.
+        synonyms: [Customer, Counterparty]
+        tags: [Customers, Core Banking]
+
+      - term: Bundle Arrangement
+        definition: A packaged product offering combining multiple banking products and services under a single contract or relationship. Used for premium accounts, combined loans, or package deals.
+        synonyms: [Package, Product Bundle]
+        tags: [Products, Core Banking]
+
+      - term: Modular Architecture
+        definition: Temenos T24/Transact design principle where banking products are assembled from reusable business components rather than monolithic configurations.
+        tags: [Architecture, Core Banking]
+
+  - name: Payments
+    description: Payment processing, clearing, and settlement concepts
+    terms:
+      - term: Payment Order
+        definition: An instruction to transfer funds from a debit account to a beneficiary. Supports SEPA, SWIFT, domestic, and internal transfer types.
+        synonyms: [Transfer, Wire, Payment Instruction]
+        tags: [Payments]
+
+      - term: SEPA Credit Transfer
+        definition: Single Euro Payments Area credit transfer for euro-denominated payments between European accounts. The standard payment rail within the EU/EEA using IBAN and BIC.
+        abbreviation: SCT
+        synonyms: [SEPA Payment, SCT]
+        tags: [Payments, SEPA]
+
+      - term: Instant SEPA
+        definition: SEPA Instant Credit Transfer (SCT Inst) providing near-real-time payment execution within the EU, typically completing in under 10 seconds.
+        abbreviation: SCT Inst
+        synonyms: [Instant Payment, Real-Time Payment]
+        tags: [Payments, SEPA, Real-Time]
+
+      - term: Standing Order
+        definition: A pre-authorized recurring payment instruction to transfer a fixed amount at regular intervals (weekly, monthly, etc.).
+        synonyms: [Recurring Payment, Automated Transfer]
+        tags: [Payments]
+
+      - term: Direct Debit
+        definition: A payment collection method where the payee initiates transfers from the payer's account based on a pre-authorized mandate. SEPA Direct Debit (SDD) is the European standard.
+        abbreviation: DD, SDD
+        synonyms: [Debit Collection, Pull Payment]
+        tags: [Payments, SEPA]
+
+      - term: Bulk Payment
+        definition: A batch payment file containing multiple individual payment instructions processed together, typically used for payroll or supplier payments.
+        synonyms: [Batch Payment, Bulk Transfer]
+        tags: [Payments]
+
+      - term: Request to Pay
+        definition: A messaging layer allowing payees to request payment from payers, separating the payment request from the actual payment execution. Part of the SEPA RTP scheme.
+        abbreviation: RTP
+        synonyms: [Payment Request, RTP]
+        tags: [Payments, Open Banking]
+
+      - term: Payment Hub
+        definition: The Temenos Payments Hub (TPH) — a centralized payment processing engine supporting multi-rail, multi-currency payment orchestration across SEPA, SWIFT, and domestic schemes.
+        abbreviation: TPH
+        tags: [Payments, Architecture]
+
+      - term: Clearing Channel
+        definition: The payment scheme or network used to settle a payment (e.g., SEPA, SWIFT, BACS, Faster Payments).
+        synonyms: [Payment Scheme, Payment Rail]
+        tags: [Payments]
+
+  - name: Compliance And Risk
+    description: Financial crime mitigation, regulatory compliance, and risk management concepts
+    terms:
+      - term: KYC
+        definition: Know Your Customer — the regulatory process of verifying the identity, suitability, and risks of a customer. Includes identity verification, sanctions screening, and PEP checks.
+        abbreviation: KYC
+        synonyms: [Customer Due Diligence, Identity Verification]
+        tags: [Compliance, KYC]
+
+      - term: AML
+        definition: Anti-Money Laundering — regulatory frameworks and controls designed to prevent criminals from concealing illegally obtained funds as legitimate income.
+        abbreviation: AML
+        synonyms: [Anti-Money Laundering, Money Laundering Prevention]
+        tags: [Compliance, AML]
+
+      - term: Sanctions Screening
+        definition: The process of checking customers, transactions, and counterparties against government and international sanctions lists (OFAC, EU, UN) to prevent prohibited transactions.
+        synonyms: [Watchlist Screening, OFAC Screening]
+        tags: [Compliance, Sanctions]
+
+      - term: PEP
+        definition: Politically Exposed Person — an individual who is or has been entrusted with a prominent public function. PEPs require enhanced due diligence under AML regulations.
+        abbreviation: PEP
+        synonyms: [Politically Exposed Person]
+        tags: [Compliance, KYC]
+
+      - term: Risk Score
+        definition: A numerical score assigned to a customer or transaction representing the level of money laundering or financial crime risk. Used to determine enhanced due diligence requirements.
+        synonyms: [AML Risk Score, Customer Risk Rating]
+        tags: [Compliance, Risk Management]
+
+      - term: Transaction Monitoring
+        definition: Automated system for analyzing banking transactions in real-time or batch mode to identify suspicious patterns indicative of money laundering, fraud, or other financial crime.
+        synonyms: [AML Monitoring, Behavioral Monitoring]
+        tags: [Compliance, AML]
+
+      - term: FATCA
+        definition: Foreign Account Tax Compliance Act — US legislation requiring foreign financial institutions to report US persons' financial accounts to the IRS.
+        abbreviation: FATCA
+        tags: [Compliance, Regulatory]
+
+  - name: Wealth Management
+    description: Investment portfolio, securities, and private banking concepts
+    terms:
+      - term: Portfolio
+        definition: A collection of financial investments (stocks, bonds, funds, cash) held by an investor managed through the Temenos Wealth platform.
+        synonyms: [Investment Portfolio, Fund Portfolio]
+        tags: [Wealth Management, Portfolio]
+
+      - term: Security Order
+        definition: An instruction to buy or sell a financial instrument (equity, bond, ETF, derivative) within a portfolio. Routed through the Temenos Wealth trading platform.
+        synonyms: [Trade Order, Investment Order]
+        tags: [Wealth Management, Trading]
+
+      - term: Multifonds
+        definition: The Temenos fund administration platform providing fund accounting, transfer agency, and investor servicing for investment fund managers and administrators.
+        tags: [Wealth Management, Fund Administration]
+
+      - term: Portfolio Valuation
+        definition: The current market value of all positions in a portfolio, calculated using latest security prices and foreign exchange rates.
+        synonyms: [Portfolio Value, NAV, Mark-to-Market]
+        tags: [Wealth Management, Valuation]
+
+  - name: Digital Banking
+    description: Omnichannel digital banking and customer experience concepts
+    terms:
+      - term: Infinity
+        definition: The Temenos digital banking platform providing omnichannel experiences for retail and business banking customers across web, mobile, and branch channels.
+        tags: [Digital Banking, Omnichannel]
+
+      - term: Journey Manager
+        definition: Temenos platform for designing and executing customer digital journeys including onboarding, loan applications, and service requests. Uses a form-based orchestration model.
+        tags: [Digital Banking, Onboarding, Workflow]
+
+      - term: Transact Fluent
+        definition: The REST API layer of Temenos Journey Manager enabling integration of external systems with customer journey orchestration workflows.
+        tags: [Digital Banking, API, Workflow]
+
+      - term: Maestro API
+        definition: Temenos Journey Manager orchestration API for controlling and managing long-running multi-step banking workflows.
+        tags: [Digital Banking, Workflow]
+
+  - name: Platform
+    description: Infrastructure, cloud, and platform architecture concepts
+    terms:
+      - term: Temenos Banking Cloud
+        definition: Temenos cloud-native SaaS delivery model for banking platforms, providing multi-tenant, elastic banking infrastructure with integrated API management.
+        synonyms: [TBC, Banking Cloud]
+        tags: [Cloud, Platform]
+
+      - term: Analytics Data Store
+        definition: High-performance near-real-time analytics database layer in Temenos Transact Data Hub, enabling intra-day analytics on banking data.
+        abbreviation: ADS
+        tags: [Analytics, Data Hub]
+
+      - term: Operational Data Store
+        definition: Operational database layer in Temenos Transact Data Hub providing current and historical banking data for reporting and operational analytics.
+        abbreviation: ODS
+        tags: [Analytics, Data Hub]
+
+      - term: Transact Microservices
+        definition: Cloud-native microservice APIs for Temenos Transact covering callback registry, event store, configuration management, user entitlements, and service orchestration.
+        tags: [Microservices, Platform]
+
+      - term: BNPL
+        definition: Buy Now Pay Later — a consumer lending product embedded at point of sale allowing customers to pay in installments. Temenos BNPL uses explainable AI for credit decisioning.
+        abbreviation: BNPL
+        synonyms: [Buy Now Pay Later, Installment Lending]
+        tags: [Lending, Consumer Finance]
+
+      - term: CMB
+        definition: Commercial and Country Model Bank — Temenos pre-packaged banking configurations for specific markets (UK, US, Australia, Canada, etc.) with pre-wired API integrations.
+        abbreviation: CMB
+        synonyms: [Country Model Bank, Cloud Banking]
+        tags: [Platform, Commercial Banking]

@@ -1,0 +1,258 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Temenos Compliance And Risk"
+  description: "Compliance and financial crime management workflow combining Financial Crime Mitigation and core Transact APIs. Used by compliance officers, AML analysts, and risk teams to screen customers, monitor transactions, and manage regulatory risk."
+  tags:
+    - Compliance
+    - AML
+    - Risk Management
+    - KYC
+    - Sanctions Screening
+    - Financial Crime
+    - Banking
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TEMENOS_FCM_TOKEN: TEMENOS_FCM_TOKEN
+      TEMENOS_TRANSACT_TOKEN: TEMENOS_TRANSACT_TOKEN
+
+capability:
+  consumes:
+    - import: fcm
+      location: ./shared/financial-crime-mitigation.yaml
+    - import: transact
+      location: ./shared/transact.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: compliance-risk-api
+      description: "Unified REST API for Temenos compliance and risk management."
+      resources:
+        - path: /v1/customers/{customerId}/risk-score
+          name: risk-score
+          description: "Customer risk scoring"
+          operations:
+            - method: GET
+              name: get-risk-score
+              description: "Get customer AML risk score"
+              call: "fcm.get-customer-risk-score"
+              with:
+                customerId: "rest.customerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: compute-risk-score
+              description: "Compute updated customer risk score"
+              call: "fcm.compute-customer-risk-score"
+              with:
+                customerId: "rest.customerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/customers/{customerId}/sanction-alerts
+          name: sanction-alerts
+          description: "Customer sanction screening alerts"
+          operations:
+            - method: GET
+              name: get-sanction-alerts
+              description: "Get sanctions alerts for a customer"
+              call: "fcm.get-customer-sanction-alerts"
+              with:
+                customerId: "rest.customerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/sanction-alerts
+          name: all-sanction-alerts
+          description: "All sanction screening alerts"
+          operations:
+            - method: GET
+              name: list-sanction-alerts
+              description: "List all sanctions alerts"
+              call: "fcm.list-all-sanction-alerts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/screenings/onboarding
+          name: onboarding-screening
+          description: "Onboarding KYC screening"
+          operations:
+            - method: POST
+              name: screen-customer
+              description: "Screen a customer for onboarding compliance"
+              call: "fcm.screen-onboarding-customer"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/transactions/scan
+          name: transaction-scanning
+          description: "Transaction AML scanning"
+          operations:
+            - method: POST
+              name: scan-transaction
+              description: "Scan a transaction for AML indicators"
+              call: "fcm.scan-transaction-message"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/monitoring-alerts
+          name: monitoring-alerts
+          description: "Transaction monitoring alerts"
+          operations:
+            - method: GET
+              name: list-alerts
+              description: "List transaction monitoring alerts"
+              call: "fcm.list-monitoring-alerts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/monitoring-alerts/{alertId}
+          name: alert-detail
+          description: "Single monitoring alert"
+          operations:
+            - method: GET
+              name: get-alert
+              description: "Get alert details"
+              call: "fcm.get-alert"
+              with:
+                alertId: "rest.alertId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PUT
+              name: update-alert
+              description: "Update alert status or resolution"
+              call: "fcm.update-alert"
+              with:
+                alertId: "rest.alertId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/customers
+          name: customers
+          description: "Customer lookups for compliance context"
+          operations:
+            - method: GET
+              name: get-customer
+              description: "Get customer details for compliance review"
+              call: "transact.get-customer"
+              with:
+                customerId: "rest.customerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9091
+      namespace: compliance-risk-mcp
+      transport: http
+      description: "MCP server for AI-assisted compliance and financial crime management."
+      tools:
+        - name: get-customer-risk-score
+          description: "Get AML risk score for a customer"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "fcm.get-customer-risk-score"
+          with:
+            customerId: "tools.customerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: compute-customer-risk-score
+          description: "Compute and refresh a customer risk score"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "fcm.compute-customer-risk-score"
+          with:
+            customerId: "tools.customerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: screen-onboarding-customer
+          description: "Run full KYC and sanctions screening for a new customer"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "fcm.screen-onboarding-customer"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-customer-sanction-alerts
+          description: "Get sanctions screening alerts for a specific customer"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "fcm.get-customer-sanction-alerts"
+          with:
+            customerId: "tools.customerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-sanction-alerts
+          description: "List all sanctions alerts across all customers"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "fcm.list-all-sanction-alerts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: scan-transaction-for-aml
+          description: "Scan a transaction message for AML indicators and suspicious patterns"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "fcm.scan-transaction-message"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-monitoring-alerts
+          description: "List open AML transaction monitoring alerts"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "fcm.list-monitoring-alerts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: resolve-monitoring-alert
+          description: "Update the status or resolution of a monitoring alert"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "fcm.update-alert"
+          with:
+            alertId: "tools.alertId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-customer-for-review
+          description: "Get customer profile for compliance review context"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "transact.get-customer"
+          with:
+            customerId: "tools.customerId"
+          outputParameters:
+            - type: object
+              mapping: "$."

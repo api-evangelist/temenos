@@ -1,0 +1,132 @@
+{
+  "name": "Temenos Customer",
+  "description": "Structure documentation for Temenos banking customer records covering individual and corporate customers",
+  "fields": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "required": true,
+      "description": "Unique customer identifier",
+      "example": "C-200456"
+    },
+    {
+      "name": "customerType",
+      "type": "string",
+      "required": true,
+      "description": "Customer classification",
+      "enum": ["INDIVIDUAL", "CORPORATE", "SME", "WEALTH"],
+      "example": "INDIVIDUAL"
+    },
+    {
+      "name": "firstName",
+      "type": "string",
+      "required": false,
+      "description": "Given name (individual customers)",
+      "example": "Emily"
+    },
+    {
+      "name": "lastName",
+      "type": "string",
+      "required": false,
+      "description": "Family name (individual customers)",
+      "example": "Carter"
+    },
+    {
+      "name": "companyName",
+      "type": "string",
+      "required": false,
+      "description": "Legal company name (corporate customers)",
+      "example": "Acme Ltd"
+    },
+    {
+      "name": "dateOfBirth",
+      "type": "string",
+      "format": "date",
+      "required": false,
+      "description": "Date of birth (individual customers)",
+      "example": "1988-07-22"
+    },
+    {
+      "name": "nationality",
+      "type": "string",
+      "required": false,
+      "description": "ISO 3166-1 alpha-2 nationality code",
+      "example": "GB"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "format": "email",
+      "required": false,
+      "description": "Primary email address",
+      "example": "emily.carter@example.com"
+    },
+    {
+      "name": "mobileNumber",
+      "type": "string",
+      "required": false,
+      "description": "Mobile phone number in E.164 format",
+      "example": "+447712345678"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true,
+      "description": "Customer status",
+      "enum": ["ACTIVE", "INACTIVE", "SUSPENDED", "DECEASED"],
+      "example": "ACTIVE"
+    },
+    {
+      "name": "kycStatus",
+      "type": "string",
+      "required": false,
+      "description": "Know Your Customer verification status",
+      "enum": ["PENDING", "VERIFIED", "FAILED", "EXPIRED"],
+      "example": "VERIFIED"
+    },
+    {
+      "name": "address",
+      "type": "object",
+      "required": false,
+      "description": "Primary postal address",
+      "fields": [
+        {
+          "name": "line1",
+          "type": "string",
+          "required": true,
+          "description": "First address line",
+          "example": "14 Maple Street"
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "required": true,
+          "description": "City",
+          "example": "London"
+        },
+        {
+          "name": "postCode",
+          "type": "string",
+          "required": false,
+          "description": "Postal or zip code",
+          "example": "EC1A 1BB"
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": true,
+          "description": "ISO 3166-1 alpha-2 country code",
+          "example": "GB"
+        }
+      ]
+    },
+    {
+      "name": "createdAt",
+      "type": "string",
+      "format": "date-time",
+      "required": false,
+      "description": "Timestamp when the customer record was created",
+      "example": "2026-05-03T10:30:00Z"
+    }
+  ]
+}

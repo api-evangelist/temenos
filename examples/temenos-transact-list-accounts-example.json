@@ -1,0 +1,64 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.temenos.com/transact/v1/holdings/accounts",
+    "headers": {
+      "Authorization": "Bearer {jwt_token}",
+      "Accept": "application/json"
+    },
+    "queryParameters": {
+      "customerId": "C-100001",
+      "accountType": "CURRENT",
+      "page_size": 25,
+      "page_start": 0
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "header": {
+        "page_size": 25,
+        "page_start": 0,
+        "total_size": 3
+      },
+      "body": [
+        {
+          "accountId": "ACC-GB12345",
+          "customerId": "C-100001",
+          "accountName": "Personal Current Account",
+          "accountType": "CURRENT",
+          "productId": "PROD-CURR-GB-001",
+          "currency": "GBP",
+          "status": "ACTIVE",
+          "openDate": "2022-03-15",
+          "branchId": "BR-LONDON-001"
+        },
+        {
+          "accountId": "ACC-GB12346",
+          "customerId": "C-100001",
+          "accountName": "Savings Account",
+          "accountType": "SAVINGS",
+          "productId": "PROD-SAV-GB-002",
+          "currency": "GBP",
+          "status": "ACTIVE",
+          "openDate": "2022-05-20",
+          "branchId": "BR-LONDON-001"
+        },
+        {
+          "accountId": "ACC-EUR98765",
+          "customerId": "C-100001",
+          "accountName": "EUR Current Account",
+          "accountType": "CURRENT",
+          "productId": "PROD-CURR-EUR-001",
+          "currency": "EUR",
+          "status": "ACTIVE",
+          "openDate": "2023-01-10",
+          "branchId": "BR-LONDON-001"
+        }
+      ]
+    }
+  }
+}

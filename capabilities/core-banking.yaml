@@ -1,0 +1,317 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Temenos Core Banking"
+  description: "Unified core banking workflow combining Transact and Payments APIs for account management, customer operations, and payment processing. Used by retail and corporate banking teams to manage the complete customer banking lifecycle."
+  tags:
+    - Banking
+    - Core Banking
+    - Accounts
+    - Payments
+    - Customers
+    - Transactions
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TEMENOS_TRANSACT_TOKEN: TEMENOS_TRANSACT_TOKEN
+      TEMENOS_PAYMENTS_TOKEN: TEMENOS_PAYMENTS_TOKEN
+
+capability:
+  consumes:
+    - import: transact
+      location: ./shared/transact.yaml
+    - import: payments
+      location: ./shared/payments.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: core-banking-api
+      description: "Unified REST API for Temenos core banking operations."
+      resources:
+        - path: /v1/accounts
+          name: accounts
+          description: "Customer account management"
+          operations:
+            - method: GET
+              name: list-accounts
+              description: "List customer accounts"
+              call: "transact.list-accounts"
+              with:
+                customerId: "rest.customerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-account
+              description: "Create a new account arrangement"
+              call: "transact.create-account"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/accounts/{accountId}
+          name: account-detail
+          description: "Single account operations"
+          operations:
+            - method: GET
+              name: get-account
+              description: "Get account details"
+              call: "transact.get-account"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/accounts/{accountId}/balances
+          name: account-balances
+          description: "Account balance information"
+          operations:
+            - method: GET
+              name: get-balances
+              description: "Get account balances"
+              call: "transact.get-account-balances"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/accounts/{accountId}/transactions
+          name: account-transactions
+          description: "Account transaction history"
+          operations:
+            - method: GET
+              name: list-transactions
+              description: "List account transactions"
+              call: "transact.list-account-transactions"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/customers
+          name: customers
+          description: "Customer management"
+          operations:
+            - method: GET
+              name: list-customers
+              description: "List customers"
+              call: "transact.list-customers"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-customer
+              description: "Create a new customer"
+              call: "transact.create-customer"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/customers/{customerId}
+          name: customer-detail
+          description: "Single customer operations"
+          operations:
+            - method: GET
+              name: get-customer
+              description: "Get customer details"
+              call: "transact.get-customer"
+              with:
+                customerId: "rest.customerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/payment-orders
+          name: payment-orders
+          description: "Payment order management"
+          operations:
+            - method: GET
+              name: list-payment-orders
+              description: "List payment orders"
+              call: "payments.list-payment-orders"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-payment-order
+              description: "Create a payment order"
+              call: "payments.create-payment-order"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/standing-orders
+          name: standing-orders
+          description: "Recurring standing orders"
+          operations:
+            - method: GET
+              name: list-standing-orders
+              description: "List standing orders"
+              call: "payments.list-standing-orders"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-standing-order
+              description: "Create a standing order"
+              call: "payments.create-standing-order"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/direct-debits
+          name: direct-debits
+          description: "Direct debit mandates"
+          operations:
+            - method: GET
+              name: list-direct-debits
+              description: "List direct debit mandates"
+              call: "payments.list-direct-debits"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: core-banking-mcp
+      transport: http
+      description: "MCP server for AI-assisted core banking operations."
+      tools:
+        - name: list-accounts
+          description: "List banking accounts for a customer"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "transact.list-accounts"
+          with:
+            customerId: "tools.customerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-account
+          description: "Get details for a specific bank account"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "transact.get-account"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-account-balances
+          description: "Get current balances for a bank account"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "transact.get-account-balances"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-account-transactions
+          description: "List transaction history for a bank account"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "transact.list-account-transactions"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-account
+          description: "Create a new banking account arrangement"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "transact.create-account"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-customers
+          description: "List banking customers"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "transact.list-customers"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-customer
+          description: "Get customer details"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "transact.get-customer"
+          with:
+            customerId: "tools.customerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-customer
+          description: "Create a new banking customer"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "transact.create-customer"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-payment-orders
+          description: "List payment orders"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "payments.list-payment-orders"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-payment-order
+          description: "Create a new payment order (SEPA, SWIFT, domestic)"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "payments.create-payment-order"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-standing-orders
+          description: "List recurring standing orders"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "payments.list-standing-orders"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-standing-order
+          description: "Set up a new recurring standing order"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "payments.create-standing-order"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-direct-debits
+          description: "List direct debit mandates"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "payments.list-direct-debits"
+          outputParameters:
+            - type: object
+              mapping: "$."

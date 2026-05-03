@@ -62,7 +62,7 @@ paths:
   /accounts:
     get:
       operationId: listAccounts
-      summary: Temenos List customer accounts
+      summary: List Customer Accounts
       description: >-
         Retrieve a list of customer accounts across all account types visible
         through the digital banking channel. Returns account summary information
@@ -101,7 +101,7 @@ paths:
   /accounts/{accountId}:
     get:
       operationId: getAccount
-      summary: Temenos Get account details
+      summary: Get Account Details
       description: >-
         Retrieve detailed information for a specific customer account including
         balances, product details, interest rates, and associated services.
@@ -123,7 +123,7 @@ paths:
   /accounts/{accountId}/transactions:
     get:
       operationId: listAccountTransactions
-      summary: Temenos List account transactions
+      summary: List Account Transactions
       description: >-
         Retrieve transaction history for a specific account. Supports filtering
         by date range, amount, transaction type, and text search across
@@ -172,7 +172,7 @@ paths:
   /customers/{customerId}:
     get:
       operationId: getCustomer
-      summary: Temenos Get customer profile
+      summary: Get Customer Profile
       description: >-
         Retrieve customer profile information including personal details,
         contact information, preferences, and linked accounts across the
@@ -194,7 +194,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: updateCustomer
-      summary: Temenos Update customer profile
+      summary: Update Customer Profile
       description: >-
         Update customer profile information including contact details,
         communication preferences, and notification settings.
@@ -224,7 +224,7 @@ paths:
   /payments:
     post:
       operationId: createPayment
-      summary: Temenos Initiate a payment
+      summary: Initiate A Payment
       description: >-
         Initiate a new payment from a customer account. Supports domestic
         transfers, international transfers, and bill payments. The payment
@@ -251,7 +251,7 @@ paths:
   /payments/{paymentId}:
     get:
       operationId: getPayment
-      summary: Temenos Get payment status
+      summary: Get Payment Status
       description: >-
         Retrieve the current status and details of a previously initiated
         payment including processing status, timestamps, and confirmation
@@ -279,7 +279,7 @@ paths:
   /cards:
     get:
       operationId: listCards
-      summary: Temenos List customer cards
+      summary: List Customer Cards
       description: >-
         Retrieve a list of debit and credit cards associated with the customer
         across all linked accounts.
@@ -305,7 +305,7 @@ paths:
   /cards/{cardId}:
     put:
       operationId: updateCardControls
-      summary: Temenos Update card controls
+      summary: Update Card Controls
       description: >-
         Update card settings including spending limits, transaction type
         controls, geographic restrictions, and contactless payment settings.
@@ -340,7 +340,7 @@ paths:
   /notifications/preferences:
     get:
       operationId: getNotificationPreferences
-      summary: Temenos Get notification preferences
+      summary: Get Notification Preferences
       description: >-
         Retrieve the customer notification preferences including enabled
         channels, event subscriptions, and delivery settings.
@@ -357,7 +357,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     put:
       operationId: updateNotificationPreferences
-      summary: Temenos Update notification preferences
+      summary: Update Notification Preferences
       description: >-
         Update the customer notification preferences for banking events
         such as transactions, balance thresholds, and security alerts.
@@ -383,7 +383,7 @@ paths:
   /consents:
     post:
       operationId: createConsent
-      summary: Temenos Create consent record
+      summary: Create Consent Record
       description: >-
         Create a new consent record for Open Banking data sharing, authorizing
         a third-party provider to access specified account information or
@@ -410,7 +410,7 @@ paths:
   /consents/{consentId}:
     get:
       operationId: getConsent
-      summary: Temenos Get consent details
+      summary: Get Consent Details
       description: >-
         Retrieve the details and current status of a consent record including
         authorized scopes, expiration, and third-party provider information.
@@ -436,7 +436,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: revokeConsent
-      summary: Temenos Revoke consent
+      summary: Revoke Consent
       description: >-
         Revoke an existing consent, immediately terminating the third-party
         provider access to the authorized account data or payment initiation

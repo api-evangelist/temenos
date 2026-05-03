@@ -57,7 +57,7 @@ paths:
   /packages:
     get:
       operationId: listApplicationPackages
-      summary: Temenos List application packages
+      summary: List Application Packages
       description: >-
         Retrieve the list of available application packages with their
         metadata and version information.
@@ -79,7 +79,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: uploadApplicationPackage
-      summary: Temenos Upload application package
+      summary: Upload Application Package
       description: >-
         Upload a new application package archive for deployment in
         the Journey Manager platform.
@@ -110,7 +110,7 @@ paths:
   /packages/{packageId}:
     get:
       operationId: getApplicationPackage
-      summary: Temenos Get application package
+      summary: Get Application Package
       description: >-
         Retrieve a specific application package with its metadata
         and configuration details.
@@ -136,7 +136,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteApplicationPackage
-      summary: Temenos Delete application package
+      summary: Delete Application Package
       description: >-
         Remove an application package from the Journey Manager platform.
       tags:
@@ -158,7 +158,7 @@ paths:
   /delivery/submissions:
     get:
       operationId: listSubmissions
-      summary: Temenos List submissions
+      summary: List Submissions
       description: >-
         Retrieve a list of form submissions pending delivery processing.
       tags:
@@ -183,7 +183,7 @@ paths:
   /delivery/submissions/{submissionId}:
     get:
       operationId: getSubmission
-      summary: Temenos Get submission details
+      summary: Get Submission Details
       description: >-
         Retrieve detailed submission data including form field values
         and submission metadata.
@@ -210,7 +210,7 @@ paths:
   /delivery/submissions/{submissionId}/complete:
     post:
       operationId: completeDelivery
-      summary: Temenos Complete delivery
+      summary: Complete Delivery
       description: >-
         Mark a submission delivery as completed after successful
         processing by the receiving system.
@@ -233,7 +233,7 @@ paths:
   /formGroups:
     get:
       operationId: listFormGroups
-      summary: Temenos List form groups
+      summary: List Form Groups
       description: >-
         Retrieve all form group configurations for organizing and
         categorizing customer journey forms.
@@ -255,7 +255,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createFormGroup
-      summary: Temenos Create form group
+      summary: Create Form Group
       description: >-
         Create a new form group for organizing customer journey forms.
       tags:
@@ -280,7 +280,7 @@ paths:
   /services:
     get:
       operationId: listServiceDefinitions
-      summary: Temenos List service definitions
+      summary: List Service Definitions
       description: >-
         Retrieve service definitions for journey integration services
         with their parameters and configurations.
@@ -302,7 +302,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createServiceDefinition
-      summary: Temenos Create service definition
+      summary: Create Service Definition
       description: >-
         Create a new service definition for integration within
         customer journey workflows.
@@ -328,7 +328,7 @@ paths:
   /transactions:
     get:
       operationId: listTransactions
-      summary: Temenos List transactions
+      summary: List Transactions
       description: >-
         Retrieve customer journey transactions including their current
         status, form data, and workflow position.
@@ -366,7 +366,7 @@ paths:
   /tasks:
     get:
       operationId: listTasks
-      summary: Temenos List tasks
+      summary: List Tasks
       description: >-
         Retrieve tasks within journey workflows including assignment
         and completion status.
@@ -408,7 +408,7 @@ paths:
   /workspaces:
     get:
       operationId: listWorkspaces
-      summary: Temenos List workspaces
+      summary: List Workspaces
       description: >-
         Retrieve available workspaces in the Journey Manager portal
         for external system integration.

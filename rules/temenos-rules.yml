@@ -1,0 +1,149 @@
+extends: spectral:oas
+rules:
+
+  # Enforce Temenos bearer auth on all operations
+  temenos-security-bearer-required:
+    description: All Temenos API operations must declare bearerAuth or oauth2 security
+    message: "Operation '{{operationId}}' is missing required Temenos security scheme (bearerAuth or oauth2)"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: security
+      function: truthy
+
+  # Enforce operation IDs in camelCase
+  temenos-operation-id-camel-case:
+    description: OperationIds must use camelCase following Temenos convention
+    message: "operationId '{{value}}' should use camelCase (e.g. listAccounts, createPaymentOrder)"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  # Enforce Title Case summaries
+  temenos-summary-title-case:
+    description: Operation summaries must use Title Case
+    message: "Summary '{{value}}' should use Title Case"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9 ]+$"
+
+  # Enforce tags on all operations
+  temenos-operation-tags-required:
+    description: All operations must have at least one tag for grouping
+    message: "Operation '{{operationId}}' must have at least one tag"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: truthy
+
+  # Enforce descriptions on all operations
+  temenos-operation-description-required:
+    description: All operations must have a description
+    message: "Operation is missing a description"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: description
+      function: truthy
+
+  # Enforce pagination parameters on GET list operations
+  temenos-get-list-pagination:
+    description: GET operations returning arrays should support page_size and page_start pagination
+    message: "List operation should include page_size and page_start query parameters"
+    severity: info
+    given: "$.paths[*].get"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          properties:
+            operationId:
+              pattern: "^list"
+
+  # Enforce ISO 4217 currency codes
+  temenos-currency-iso-format:
+    description: Currency fields should use ISO 4217 three-letter codes
+    message: "Currency schema should enforce ISO 4217 format with pattern '^[A-Z]{3}$'"
+    severity: info
+    given: "$.components.schemas[*].properties.currency"
+    then:
+      field: pattern
+      function: truthy
+
+  # Enforce standard error response components
+  temenos-standard-error-responses:
+    description: Operations should reference standard Temenos error responses
+    message: "Operation should define 401 Unauthorized response"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      field: "401"
+      function: truthy
+
+  # Enforce 404 on GET single resource operations
+  temenos-get-single-404-response:
+    description: GET operations for single resources should define 404 response
+    message: "Single resource GET should define a 404 Not Found response"
+    severity: warn
+    given: "$.paths[*~'\\{[a-zA-Z]+\\}$'].get.responses"
+    then:
+      field: "404"
+      function: truthy
+
+  # Enforce kebab-case path segments
+  temenos-path-kebab-case:
+    description: Path segments must use kebab-case (lowercase with hyphens)
+    message: "Path segment '{{value}}' should use kebab-case"
+    severity: warn
+    given: "$.paths[*~'[A-Z_]']"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "[A-Z_]"
+
+  # Enforce consistent server URLs
+  temenos-server-url-required:
+    description: API spec must define at least one server URL
+    message: "API spec is missing server URLs"
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: truthy
+
+  # Enforce contact information
+  temenos-info-contact-required:
+    description: API spec must include contact information
+    message: "API spec is missing contact information in info"
+    severity: warn
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  # Enforce license information
+  temenos-info-license-required:
+    description: API spec must include license information
+    message: "API spec is missing license information in info"
+    severity: warn
+    given: "$.info"
+    then:
+      field: license
+      function: truthy
+
+  # Enforce response schemas on 200/201 responses
+  temenos-success-response-schema:
+    description: Successful responses must include a response schema
+    message: "200/201 response is missing a schema definition"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch].responses[200,201].content.application/json"
+    then:
+      field: schema
+      function: truthy

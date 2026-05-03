@@ -1,0 +1,247 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Temenos Wealth Management"
+  description: "Integrated wealth management workflow combining the Temenos Wealth API and Transact API for portfolio management, securities trading, and client banking. Used by wealth managers and private bankers to manage client portfolios and execute investment strategies."
+  tags:
+    - Wealth Management
+    - Portfolio Management
+    - Securities Trading
+    - Private Banking
+    - Investment Management
+    - Banking
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TEMENOS_WEALTH_TOKEN: TEMENOS_WEALTH_TOKEN
+      TEMENOS_TRANSACT_TOKEN: TEMENOS_TRANSACT_TOKEN
+
+capability:
+  consumes:
+    - import: wealth
+      location: ./shared/wealth.yaml
+    - import: transact
+      location: ./shared/transact.yaml
+
+  exposes:
+    - type: rest
+      port: 8082
+      namespace: wealth-management-api
+      description: "Unified REST API for Temenos wealth management operations."
+      resources:
+        - path: /v1/portfolios
+          name: portfolios
+          description: "Investment portfolio management"
+          operations:
+            - method: GET
+              name: list-portfolios
+              description: "List investment portfolios"
+              call: "wealth.list-portfolios"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-portfolio
+              description: "Create a new investment portfolio"
+              call: "wealth.create-portfolio"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/portfolios/{portfolioId}/positions
+          name: portfolio-positions
+          description: "Portfolio holdings positions"
+          operations:
+            - method: GET
+              name: list-positions
+              description: "List positions in a portfolio"
+              call: "wealth.list-portfolio-positions"
+              with:
+                portfolioId: "rest.portfolioId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/portfolios/{portfolioId}/valuation
+          name: portfolio-valuation
+          description: "Portfolio valuation"
+          operations:
+            - method: GET
+              name: get-valuation
+              description: "Get portfolio valuation"
+              call: "wealth.get-portfolio-valuation"
+              with:
+                portfolioId: "rest.portfolioId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/securities
+          name: securities
+          description: "Securities reference data"
+          operations:
+            - method: GET
+              name: list-securities
+              description: "List available securities"
+              call: "wealth.list-securities"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/security-orders
+          name: security-orders
+          description: "Securities order execution"
+          operations:
+            - method: GET
+              name: list-orders
+              description: "List security orders"
+              call: "wealth.list-security-orders"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: place-order
+              description: "Place a security order"
+              call: "wealth.create-security-order"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/clients
+          name: wealth-clients
+          description: "Wealth management clients"
+          operations:
+            - method: GET
+              name: list-clients
+              description: "List wealth management clients"
+              call: "wealth.list-wealth-clients"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/client-accounts
+          name: client-accounts
+          description: "Client banking accounts (from Transact)"
+          operations:
+            - method: GET
+              name: list-accounts
+              description: "List client banking accounts"
+              call: "transact.list-accounts"
+              with:
+                customerId: "rest.customerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9092
+      namespace: wealth-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted wealth management and portfolio operations."
+      tools:
+        - name: list-portfolios
+          description: "List investment portfolios for wealth clients"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "wealth.list-portfolios"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-portfolio
+          description: "Create a new investment portfolio for a client"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "wealth.create-portfolio"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-portfolio-positions
+          description: "List current holdings positions in a portfolio"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "wealth.list-portfolio-positions"
+          with:
+            portfolioId: "tools.portfolioId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-portfolio-valuation
+          description: "Get the current market value and performance of a portfolio"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "wealth.get-portfolio-valuation"
+          with:
+            portfolioId: "tools.portfolioId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-securities
+          description: "List available securities for investment"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "wealth.list-securities"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: place-security-order
+          description: "Place a buy or sell order for a security"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "wealth.create-security-order"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: cancel-security-order
+          description: "Cancel a pending securities order"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "wealth.cancel-security-order"
+          with:
+            orderId: "tools.orderId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-security-orders
+          description: "List pending and executed security orders"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "wealth.list-security-orders"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-client-accounts
+          description: "List banking accounts associated with a wealth client"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "transact.list-accounts"
+          with:
+            customerId: "tools.customerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-client-account-balances
+          description: "Get account balances for a wealth client's banking account"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "transact.get-account-balances"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."

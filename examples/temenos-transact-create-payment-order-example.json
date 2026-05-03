@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.temenos.com/transact/v1/order/paymentOrders",
+    "headers": {
+      "Authorization": "Bearer {jwt_token}",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "debitAccountId": "ACC-GB12345",
+      "creditAccountId": "ACC-GB99000",
+      "amount": 1500.00,
+      "currency": "GBP",
+      "paymentType": "DOMESTIC",
+      "beneficiaryName": "John Smith",
+      "beneficiaryReference": "Invoice-2026-001",
+      "executionDate": "2026-05-03",
+      "description": "Invoice payment"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "paymentOrderId": "PO-20260503-00123",
+      "status": "PENDING",
+      "debitAccountId": "ACC-GB12345",
+      "creditAccountId": "ACC-GB99000",
+      "amount": 1500.00,
+      "currency": "GBP",
+      "paymentType": "DOMESTIC",
+      "beneficiaryName": "John Smith",
+      "beneficiaryReference": "Invoice-2026-001",
+      "executionDate": "2026-05-03",
+      "createdAt": "2026-05-03T09:15:00Z",
+      "description": "Invoice payment"
+    }
+  }
+}

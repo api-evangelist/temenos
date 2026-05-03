@@ -1,0 +1,60 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.temenos.com/fcm/v1/kycScreening",
+    "headers": {
+      "Authorization": "Bearer {jwt_token}",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "customerId": "C-200456",
+      "screeningType": "ONBOARDING",
+      "checkTypes": ["IDENTITY", "SANCTIONS", "PEP", "ADVERSE_MEDIA"],
+      "documentDetails": {
+        "documentType": "PASSPORT",
+        "documentNumber": "GB-123456789",
+        "issuingCountry": "GB",
+        "expiryDate": "2032-07-22"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "screeningId": "SCR-20260503-45678",
+      "customerId": "C-200456",
+      "screeningType": "ONBOARDING",
+      "status": "COMPLETED",
+      "overallResult": "PASS",
+      "checks": [
+        {
+          "checkType": "IDENTITY",
+          "result": "PASS",
+          "confidence": 0.97
+        },
+        {
+          "checkType": "SANCTIONS",
+          "result": "PASS",
+          "matchCount": 0
+        },
+        {
+          "checkType": "PEP",
+          "result": "PASS",
+          "matchCount": 0
+        },
+        {
+          "checkType": "ADVERSE_MEDIA",
+          "result": "PASS",
+          "matchCount": 0
+        }
+      ],
+      "completedAt": "2026-05-03T10:35:22Z",
+      "riskScore": 12,
+      "riskLevel": "LOW"
+    }
+  }
+}

@@ -3,7 +3,7 @@ description: APIs for Temenos banking and financial services platform, providing
 image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
 url: https://www.temenos.com
 created: '2024'
-modified: '2026-03-16'
+modified: '2026-05-03'
 specificationVersion: '0.18'
 apis:
   - name: Temenos Transact API
@@ -368,6 +368,22 @@ common:
     url: json-schema/temenos-payment-order-schema.json
   - type: JSONSchema
     url: json-schema/temenos-event-schema.json
+  - type: JSONStructure
+    url: json-structure/temenos-account-structure.json
+  - type: JSONStructure
+    url: json-structure/temenos-payment-order-structure.json
+  - type: JSONStructure
+    url: json-structure/temenos-customer-structure.json
+  - type: SpectralRules
+    url: rules/temenos-rules.yml
+  - type: NaftikoCapabilities
+    url: capabilities/core-banking.yaml
+  - type: NaftikoCapabilities
+    url: capabilities/compliance-and-risk.yaml
+  - type: NaftikoCapabilities
+    url: capabilities/wealth-management.yaml
+  - type: Vocabulary
+    url: vocabulary/temenos-vocabulary.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

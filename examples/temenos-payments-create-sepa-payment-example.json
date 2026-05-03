@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.temenos.com/payments/v1/paymentOrders",
+    "headers": {
+      "Authorization": "Bearer {jwt_token}",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "debitAccountId": "DE89370400440532013000",
+      "amount": 2500.00,
+      "currency": "EUR",
+      "paymentType": "SEPA_CREDIT",
+      "beneficiary": {
+        "name": "Acme GmbH",
+        "iban": "DE12500105170648489890",
+        "bic": "INGDDEFFXXX",
+        "address": {
+          "country": "DE"
+        }
+      },
+      "remittanceInfo": "Contract payment 2026-05",
+      "executionDate": "2026-05-04"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "paymentOrderId": "PAY-SEPA-20260503-00789",
+      "status": "PROCESSING",
+      "paymentType": "SEPA_CREDIT",
+      "debitAccountId": "DE89370400440532013000",
+      "amount": 2500.00,
+      "currency": "EUR",
+      "beneficiary": {
+        "name": "Acme GmbH",
+        "iban": "DE12500105170648489890",
+        "bic": "INGDDEFFXXX"
+      },
+      "remittanceInfo": "Contract payment 2026-05",
+      "executionDate": "2026-05-04",
+      "createdAt": "2026-05-03T11:00:00Z",
+      "clearingChannel": "SEPA"
+    }
+  }
+}

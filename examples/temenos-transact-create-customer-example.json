@@ -1,0 +1,53 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.temenos.com/transact/v1/party/customers",
+    "headers": {
+      "Authorization": "Bearer {jwt_token}",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "customerType": "INDIVIDUAL",
+      "firstName": "Emily",
+      "lastName": "Carter",
+      "dateOfBirth": "1988-07-22",
+      "nationality": "GB",
+      "email": "emily.carter@example.com",
+      "mobileNumber": "+447712345678",
+      "address": {
+        "line1": "14 Maple Street",
+        "city": "London",
+        "postCode": "EC1A 1BB",
+        "country": "GB"
+      },
+      "residency": "GB",
+      "preferredLanguage": "EN"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "customerId": "C-200456",
+      "customerType": "INDIVIDUAL",
+      "firstName": "Emily",
+      "lastName": "Carter",
+      "dateOfBirth": "1988-07-22",
+      "nationality": "GB",
+      "email": "emily.carter@example.com",
+      "mobileNumber": "+447712345678",
+      "status": "ACTIVE",
+      "kycStatus": "PENDING",
+      "createdAt": "2026-05-03T10:30:00Z",
+      "address": {
+        "line1": "14 Maple Street",
+        "city": "London",
+        "postCode": "EC1A 1BB",
+        "country": "GB"
+      }
+    }
+  }
+}

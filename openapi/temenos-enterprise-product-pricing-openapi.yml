@@ -60,7 +60,7 @@ paths:
   /quotations/simulate:
     post:
       operationId: simulateArrangementCreation
-      summary: Temenos Simulate account creation pricing
+      summary: Simulate Account Creation Pricing
       description: >-
         Simulate the creation of an arrangement or account to determine
         applicable pricing details including interest rates, fees, and
@@ -89,7 +89,7 @@ paths:
   /quotations/simulateEvent:
     post:
       operationId: simulateEventPricing
-      summary: Temenos Simulate event pricing
+      summary: Simulate Event Pricing
       description: >-
         Simulate an activity or transaction event such as an ATM
         withdrawal, partial redemption, or funds transfer to determine
@@ -116,7 +116,7 @@ paths:
   /quotations/{quotationReference}:
     get:
       operationId: getQuotationDetails
-      summary: Temenos Get quotation details
+      summary: Get Quotation Details
       description: >-
         Retrieve pricing details of a simulated quotation. If the
         quotation has been negotiated, returns final pricing details
@@ -143,7 +143,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: amendQuotationPricing
-      summary: Temenos Amend quotation pricing
+      summary: Amend Quotation Pricing
       description: >-
         Amend pricing details such as interest rates or fees for an
         existing simulated quotation reference as part of pricing
@@ -179,7 +179,7 @@ paths:
   /packages:
     get:
       operationId: listPackages
-      summary: Temenos List package arrangements
+      summary: List Package Arrangements
       description: >-
         Retrieve package arrangements that bundle customer accounts
         for combined pricing benefits with primary and linked account
@@ -212,7 +212,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createPackage
-      summary: Temenos Create package arrangement
+      summary: Create Package Arrangement
       description: >-
         Create a new package arrangement to bundle customer accounts
         for combined pricing benefits and promotions.
@@ -238,7 +238,7 @@ paths:
   /packages/{packageId}/pricing:
     get:
       operationId: getPackagePricing
-      summary: Temenos Get package pricing details
+      summary: Get Package Pricing Details
       description: >-
         Retrieve periodic pricing events and benefit details within
         specific periods for a package arrangement.
@@ -265,7 +265,7 @@ paths:
   /party/{customerId}/contracts:
     get:
       operationId: getCustomerContracts
-      summary: Temenos Get customer contracts and accounts
+      summary: Get Customer Contracts And Accounts
       description: >-
         Retrieve all holdings, contracts, and accounts for a party
         within the pricing system.
@@ -297,7 +297,7 @@ paths:
   /party/{customerId}/pricing:
     get:
       operationId: getCustomerPricing
-      summary: Temenos Get customer pricing
+      summary: Get Customer Pricing
       description: >-
         Retrieve all pricing information for a customer including
         pricing identifiers and applied benefit adjustments.
@@ -329,7 +329,7 @@ paths:
   /arrangements/{arrangementId}/payoff:
     get:
       operationId: calculatePayoffAmount
-      summary: Temenos Calculate payoff amount
+      summary: Calculate Payoff Amount
       description: >-
         Compute the closure costs for an arrangement including
         outstanding interest, charges, and early termination penalties.
@@ -356,7 +356,7 @@ paths:
   /arrangements/{arrangementId}/interestRates:
     get:
       operationId: getArrangementInterestRates
-      summary: Temenos Get arrangement interest rates
+      summary: Get Arrangement Interest Rates
       description: >-
         Retrieve interest rate details for an arrangement including
         base rates, applied benefits, and effective net rates.
@@ -383,7 +383,7 @@ paths:
   /arrangements/{arrangementId}/charges:
     get:
       operationId: getArrangementCharges
-      summary: Temenos Get arrangement charges
+      summary: Get Arrangement Charges
       description: >-
         Retrieve activity charge fees and periodic charge fees for an
         arrangement including account opening, closure, and recurring
@@ -416,7 +416,7 @@ paths:
   /promotions:
     post:
       operationId: createPromotion
-      summary: Temenos Create promotion arrangement
+      summary: Create Promotion Arrangement
       description: >-
         Establish a promotional arrangement for a party with promotional
         codes enabling special pricing benefits.

@@ -1,0 +1,117 @@
+{
+  "name": "Temenos Payment Order",
+  "description": "Structure documentation for Temenos payment orders covering domestic, SEPA, SWIFT, and internal transfers",
+  "fields": [
+    {
+      "name": "paymentOrderId",
+      "type": "string",
+      "required": true,
+      "description": "Unique payment order identifier",
+      "example": "PO-20260503-00123"
+    },
+    {
+      "name": "debitAccountId",
+      "type": "string",
+      "required": true,
+      "description": "Account to debit for the payment",
+      "example": "ACC-GB12345"
+    },
+    {
+      "name": "creditAccountId",
+      "type": "string",
+      "required": false,
+      "description": "Account to credit (for internal transfers)",
+      "example": "ACC-GB99000"
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "required": true,
+      "description": "Payment amount",
+      "example": 1500.00
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "required": true,
+      "description": "ISO 4217 payment currency",
+      "pattern": "^[A-Z]{3}$",
+      "example": "GBP"
+    },
+    {
+      "name": "paymentType",
+      "type": "string",
+      "required": true,
+      "description": "Type of payment",
+      "enum": ["SEPA_CREDIT", "INSTANT_SEPA", "SWIFT", "DOMESTIC", "INTERNAL"],
+      "example": "SEPA_CREDIT"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true,
+      "description": "Current processing status",
+      "enum": ["PENDING", "PROCESSING", "COMPLETED", "FAILED", "CANCELLED"],
+      "example": "PROCESSING"
+    },
+    {
+      "name": "beneficiary",
+      "type": "object",
+      "required": false,
+      "description": "Beneficiary information for external payments",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": "Beneficiary full name",
+          "example": "Acme GmbH"
+        },
+        {
+          "name": "iban",
+          "type": "string",
+          "required": false,
+          "description": "Beneficiary IBAN",
+          "example": "DE12500105170648489890"
+        },
+        {
+          "name": "bic",
+          "type": "string",
+          "required": false,
+          "description": "Beneficiary BIC/SWIFT code",
+          "example": "INGDDEFFXXX"
+        }
+      ]
+    },
+    {
+      "name": "executionDate",
+      "type": "string",
+      "format": "date",
+      "required": false,
+      "description": "Requested execution date",
+      "example": "2026-05-04"
+    },
+    {
+      "name": "clearingChannel",
+      "type": "string",
+      "required": false,
+      "description": "Payment clearing channel used",
+      "example": "SEPA"
+    },
+    {
+      "name": "remittanceInfo",
+      "type": "string",
+      "required": false,
+      "description": "Payment reference or remittance information",
+      "example": "Invoice payment May 2026"
+    },
+    {
+      "name": "createdAt",
+      "type": "string",
+      "format": "date-time",
+      "required": false,
+      "description": "Timestamp when the order was created",
+      "example": "2026-05-03T11:00:00Z"
+    }
+  ]
+}

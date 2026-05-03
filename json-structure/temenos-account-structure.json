@@ -1,0 +1,102 @@
+{
+  "name": "Temenos Banking Account",
+  "description": "Structure documentation for Temenos banking account arrangements",
+  "fields": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Unique account identifier assigned by Temenos",
+      "example": "ACC-GB12345"
+    },
+    {
+      "name": "customerId",
+      "type": "string",
+      "required": true,
+      "description": "Identifier of the account owner customer",
+      "example": "C-100001"
+    },
+    {
+      "name": "accountName",
+      "type": "string",
+      "required": false,
+      "description": "Display name for the account",
+      "example": "Personal Current Account"
+    },
+    {
+      "name": "accountType",
+      "type": "string",
+      "required": true,
+      "description": "Account type classification",
+      "enum": ["CURRENT", "SAVINGS", "DEPOSIT", "LOAN", "MORTGAGE", "ISLAMIC"],
+      "example": "CURRENT"
+    },
+    {
+      "name": "productId",
+      "type": "string",
+      "required": false,
+      "description": "Product identifier defining terms and conditions",
+      "example": "PROD-CURR-GB-001"
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "required": true,
+      "description": "ISO 4217 three-letter currency code",
+      "pattern": "^[A-Z]{3}$",
+      "example": "GBP"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true,
+      "description": "Current operational status",
+      "enum": ["ACTIVE", "INACTIVE", "CLOSED", "DORMANT", "SUSPENDED"],
+      "example": "ACTIVE"
+    },
+    {
+      "name": "openingDate",
+      "type": "string",
+      "format": "date",
+      "required": false,
+      "description": "Date the account was opened",
+      "example": "2022-03-15"
+    },
+    {
+      "name": "branchId",
+      "type": "string",
+      "required": false,
+      "description": "Identifier of the managing branch",
+      "example": "BR-LONDON-001"
+    },
+    {
+      "name": "balances",
+      "type": "object",
+      "required": false,
+      "description": "Account balance information",
+      "fields": [
+        {
+          "name": "currentBalance",
+          "type": "number",
+          "required": false,
+          "description": "Current ledger balance",
+          "example": 15423.50
+        },
+        {
+          "name": "availableBalance",
+          "type": "number",
+          "required": false,
+          "description": "Available balance for transactions",
+          "example": 14423.50
+        },
+        {
+          "name": "blockedAmount",
+          "type": "number",
+          "required": false,
+          "description": "Amount blocked or reserved",
+          "example": 1000.00
+        }
+      ]
+    }
+  ]
+}
