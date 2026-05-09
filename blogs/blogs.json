@@ -1,0 +1,13 @@
+{
+  "repo": "temenos",
+  "feeds": [
+    {
+      "source": "https://www.temenos.com/news",
+      "feed_url": "https://www.temenos.com/feed/",
+      "title": "Temenos",
+      "saved": 0
+    }
+  ],
+  "fetched": "2026-05-09T20:17:51Z",
+  "post_count": 0
+}
