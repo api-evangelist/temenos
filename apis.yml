@@ -384,6 +384,10 @@ common:
     url: capabilities/wealth-management.yaml
   - type: Vocabulary
     url: vocabulary/temenos-vocabulary.yml
+  - type: Integrations
+    url: https://www.temenos.com/partners/
+integrations:
+  - name: Become a Partner
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
