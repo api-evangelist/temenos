@@ -214,7 +214,7 @@ apis:
         url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
       - type: SDKs
         url: https://journey.temenos.com/api/sdk/introduction/
-      - type: Change Log
+      - type: ChangeLog
         url: https://journey.temenos.com/index.php/resources/release-notes
       - type: OpenAPI
         url: openapi/temenos-journey-manager-openapi.yml
@@ -306,19 +306,19 @@ common:
     url: https://developer.temenos.com
   - type: Portal
     url: https://apidocs.temenos.com/getting-started
-  - type: Getting Started
+  - type: GettingStarted
     url: https://developer.temenos.com/article/welcome-developers
   - type: Authentication
     url: https://developer.temenos.com/authentication
-  - type: Rate Limits
+  - type: RateLimits
     url: https://developer.temenos.com/rate-limits
   - type: Support
     url: https://www.temenos.com/customer-support/
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.temenos.com/legal-information/privacy-policy/
-  - type: Status Page
+  - type: StatusPage
     url: https://status.temenos.com
   - type: Sandbox
     url: https://sandbox.temenos.com
@@ -344,13 +344,13 @@ common:
     url: https://www.temenos.com/legal-information/
   - type: Login
     url: https://basecamp.temenos.com/login
-  - type: Sign Up
+  - type: SignUp
     url: https://developer.temenos.com/article/get-an-api-key
   - type: Website
     url: https://www.temenos.com
   - type: Documentation
     url: https://docs.temenos.com/
-  - type: Change Log
+  - type: ChangeLog
     url: https://developer.temenos.com/release-notes
   - type: Marketplace
     url: https://www.temenos.com/community/marketplace/
@@ -358,7 +358,7 @@ common:
     url: https://developer.temenos.com/stacks
   - type: TermsOfUse
     url: https://developer.temenos.com/temenos-developer-community-terms-use
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/temenos-context.jsonld
   - type: JSONSchema
     url: json-schema/temenos-account-schema.json
