@@ -1,0 +1,389 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Transact API — Holdings
+  description: 'Temenos Transact API — Holdings. 9 operations. Lead operation: List Accounts. Self-contained Naftiko capability
+    covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Holdings
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: transact-holdings
+    baseUri: https://api.temenos.com/transact/v1
+    description: Temenos Transact API — Holdings business capability. Self-contained, no shared references.
+    resources:
+    - name: holdings-accounts
+      path: /holdings/accounts
+      operations:
+      - name: listaccounts
+        method: GET
+        description: List Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customerId
+          in: query
+          type: string
+          description: Filter accounts by customer identifier
+        - name: accountType
+          in: query
+          type: string
+          description: Filter by account type
+      - name: createaccount
+        method: POST
+        description: Create Account Arrangement
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: holdings-accounts-accountId
+      path: /holdings/accounts/{accountId}
+      operations:
+      - name: getaccount
+        method: GET
+        description: Get Account Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateaccount
+        method: PUT
+        description: Update Account Arrangement
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: holdings-accounts-accountId-balances
+      path: /holdings/accounts/{accountId}/balances
+      operations:
+      - name: getaccountbalances
+        method: GET
+        description: Get Account Balances
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: holdings-accounts-accountId-transactions
+      path: /holdings/accounts/{accountId}/transactions
+      operations:
+      - name: listaccounttransactions
+        method: GET
+        description: List Account Transactions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dateFrom
+          in: query
+          type: string
+          description: Start date for transaction filter in ISO 8601 format
+        - name: dateTo
+          in: query
+          type: string
+          description: End date for transaction filter in ISO 8601 format
+        - name: transactionType
+          in: query
+          type: string
+          description: Filter by transaction type
+    - name: holdings-deposits
+      path: /holdings/deposits
+      operations:
+      - name: listdeposits
+        method: GET
+        description: List Deposit Arrangements
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customerId
+          in: query
+          type: string
+          description: Filter deposits by customer identifier
+    - name: holdings-loans
+      path: /holdings/loans
+      operations:
+      - name: listloans
+        method: GET
+        description: List Loan Arrangements
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customerId
+          in: query
+          type: string
+          description: Filter loans by customer identifier
+      - name: createloan
+        method: POST
+        description: Create Loan Arrangement
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: transact-holdings-rest
+    port: 8080
+    description: REST adapter for Temenos Transact API — Holdings. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/holdings/accounts
+      name: holdings-accounts
+      description: REST surface for holdings-accounts.
+      operations:
+      - method: GET
+        name: listaccounts
+        description: List Accounts
+        call: transact-holdings.listaccounts
+        with:
+          customerId: rest.customerId
+          accountType: rest.accountType
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createaccount
+        description: Create Account Arrangement
+        call: transact-holdings.createaccount
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/holdings/accounts/{accountid}
+      name: holdings-accounts-accountid
+      description: REST surface for holdings-accounts-accountId.
+      operations:
+      - method: GET
+        name: getaccount
+        description: Get Account Details
+        call: transact-holdings.getaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateaccount
+        description: Update Account Arrangement
+        call: transact-holdings.updateaccount
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/holdings/accounts/{accountid}/balances
+      name: holdings-accounts-accountid-balances
+      description: REST surface for holdings-accounts-accountId-balances.
+      operations:
+      - method: GET
+        name: getaccountbalances
+        description: Get Account Balances
+        call: transact-holdings.getaccountbalances
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/holdings/accounts/{accountid}/transactions
+      name: holdings-accounts-accountid-transactions
+      description: REST surface for holdings-accounts-accountId-transactions.
+      operations:
+      - method: GET
+        name: listaccounttransactions
+        description: List Account Transactions
+        call: transact-holdings.listaccounttransactions
+        with:
+          dateFrom: rest.dateFrom
+          dateTo: rest.dateTo
+          transactionType: rest.transactionType
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/holdings/deposits
+      name: holdings-deposits
+      description: REST surface for holdings-deposits.
+      operations:
+      - method: GET
+        name: listdeposits
+        description: List Deposit Arrangements
+        call: transact-holdings.listdeposits
+        with:
+          customerId: rest.customerId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/holdings/loans
+      name: holdings-loans
+      description: REST surface for holdings-loans.
+      operations:
+      - method: GET
+        name: listloans
+        description: List Loan Arrangements
+        call: transact-holdings.listloans
+        with:
+          customerId: rest.customerId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createloan
+        description: Create Loan Arrangement
+        call: transact-holdings.createloan
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: transact-holdings-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Transact API — Holdings. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-accounts
+      description: List Accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-holdings.listaccounts
+      with:
+        customerId: tools.customerId
+        accountType: tools.accountType
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-account-arrangement
+      description: Create Account Arrangement
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: transact-holdings.createaccount
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-account-details
+      description: Get Account Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-holdings.getaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-account-arrangement
+      description: Update Account Arrangement
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: transact-holdings.updateaccount
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-account-balances
+      description: Get Account Balances
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-holdings.getaccountbalances
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-account-transactions
+      description: List Account Transactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-holdings.listaccounttransactions
+      with:
+        dateFrom: tools.dateFrom
+        dateTo: tools.dateTo
+        transactionType: tools.transactionType
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-deposit-arrangements
+      description: List Deposit Arrangements
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-holdings.listdeposits
+      with:
+        customerId: tools.customerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-loan-arrangements
+      description: List Loan Arrangements
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-holdings.listloans
+      with:
+        customerId: tools.customerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-loan-arrangement
+      description: Create Loan Arrangement
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: transact-holdings.createloan
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

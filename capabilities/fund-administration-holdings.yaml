@@ -1,0 +1,168 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Fund Administration API — Holdings
+  description: 'Temenos Fund Administration API — Holdings. 3 operations. Lead operation: Book Dividend Transaction. Self-contained
+    Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Holdings
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: fund-administration-holdings
+    baseUri: https://api.temenos.com/funds/v1
+    description: Temenos Fund Administration API — Holdings business capability. Self-contained, no shared references.
+    resources:
+    - name: holdings-dividends
+      path: /holdings/dividends
+      operations:
+      - name: bookdividend
+        method: POST
+        description: Book Dividend Transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: holdings-positions
+      path: /holdings/positions
+      operations:
+      - name: listpositions
+        method: GET
+        description: List Fund Positions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fundId
+          in: query
+          type: string
+          description: Filter by fund identifier
+    - name: holdings-transactions
+      path: /holdings/transactions
+      operations:
+      - name: listholdingstransactions
+        method: GET
+        description: List Holdings Transactions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fundId
+          in: query
+          type: string
+          description: Filter by fund identifier
+        - name: transactionType
+          in: query
+          type: string
+          description: Filter by transaction type
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: fund-administration-holdings-rest
+    port: 8080
+    description: REST adapter for Temenos Fund Administration API — Holdings. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/holdings/dividends
+      name: holdings-dividends
+      description: REST surface for holdings-dividends.
+      operations:
+      - method: POST
+        name: bookdividend
+        description: Book Dividend Transaction
+        call: fund-administration-holdings.bookdividend
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/holdings/positions
+      name: holdings-positions
+      description: REST surface for holdings-positions.
+      operations:
+      - method: GET
+        name: listpositions
+        description: List Fund Positions
+        call: fund-administration-holdings.listpositions
+        with:
+          fundId: rest.fundId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/holdings/transactions
+      name: holdings-transactions
+      description: REST surface for holdings-transactions.
+      operations:
+      - method: GET
+        name: listholdingstransactions
+        description: List Holdings Transactions
+        call: fund-administration-holdings.listholdingstransactions
+        with:
+          fundId: rest.fundId
+          transactionType: rest.transactionType
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: fund-administration-holdings-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Fund Administration API — Holdings. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: book-dividend-transaction
+      description: Book Dividend Transaction
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: fund-administration-holdings.bookdividend
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-fund-positions
+      description: List Fund Positions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fund-administration-holdings.listpositions
+      with:
+        fundId: tools.fundId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-holdings-transactions
+      description: List Holdings Transactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fund-administration-holdings.listholdingstransactions
+      with:
+        fundId: tools.fundId
+        transactionType: tools.transactionType
+      outputParameters:
+      - type: object
+        mapping: $.

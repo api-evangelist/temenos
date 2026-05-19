@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Cloud Banking (CMB) API — Payments
+  description: 'Temenos Cloud Banking (CMB) API — Payments. 1 operations. Lead operation: Create Payment. Self-contained Naftiko
+    capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Payments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cloud-banking-payments
+    baseUri: https://api.temenos.com/cmb/v1
+    description: Temenos Cloud Banking (CMB) API — Payments business capability. Self-contained, no shared references.
+    resources:
+    - name: payments
+      path: /payments
+      operations:
+      - name: createcmbpayment
+        method: POST
+        description: Create Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cloud-banking-payments-rest
+    port: 8080
+    description: REST adapter for Temenos Cloud Banking (CMB) API — Payments. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/payments
+      name: payments
+      description: REST surface for payments.
+      operations:
+      - method: POST
+        name: createcmbpayment
+        description: Create Payment
+        call: cloud-banking-payments.createcmbpayment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cloud-banking-payments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Cloud Banking (CMB) API — Payments. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: create-payment
+      description: Create Payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-banking-payments.createcmbpayment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

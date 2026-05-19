@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Transact Microservices API — Traceability
+  description: 'Temenos Transact Microservices API — Traceability. 1 operations. Lead operation: Get Traceability Record.
+    Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Traceability
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microservices-traceability
+    baseUri: https://api.temenos.com/transact/microservices/v1
+    description: Temenos Transact Microservices API — Traceability business capability. Self-contained, no shared references.
+    resources:
+    - name: traceability-serviceId
+      path: /traceability/{serviceId}
+      operations:
+      - name: gettraceabilityrecord
+        method: GET
+        description: Get Traceability Record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: serviceId
+          in: path
+          type: string
+          description: Service execution identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: microservices-traceability-rest
+    port: 8080
+    description: REST adapter for Temenos Transact Microservices API — Traceability. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/traceability/{serviceid}
+      name: traceability-serviceid
+      description: REST surface for traceability-serviceId.
+      operations:
+      - method: GET
+        name: gettraceabilityrecord
+        description: Get Traceability Record
+        call: microservices-traceability.gettraceabilityrecord
+        with:
+          serviceId: rest.serviceId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: microservices-traceability-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Transact Microservices API — Traceability. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: get-traceability-record
+      description: Get Traceability Record
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microservices-traceability.gettraceabilityrecord
+      with:
+        serviceId: tools.serviceId
+      outputParameters:
+      - type: object
+        mapping: $.

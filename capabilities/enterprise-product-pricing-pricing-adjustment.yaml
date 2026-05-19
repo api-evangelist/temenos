@@ -1,0 +1,88 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Enterprise Product and Pricing API — Pricing Adjustment
+  description: 'Temenos Enterprise Product and Pricing API — Pricing Adjustment. 1 operations. Lead operation: Amend Quotation
+    Pricing. Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Pricing Adjustment
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: enterprise-product-pricing-pricing-adjustment
+    baseUri: https://api.temenos.com/enterprise-pricing/v1
+    description: Temenos Enterprise Product and Pricing API — Pricing Adjustment business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: quotations-quotationReference
+      path: /quotations/{quotationReference}
+      operations:
+      - name: amendquotationpricing
+        method: PUT
+        description: Amend Quotation Pricing
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: quotationReference
+          in: path
+          type: string
+          description: Quotation reference identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: enterprise-product-pricing-pricing-adjustment-rest
+    port: 8080
+    description: REST adapter for Temenos Enterprise Product and Pricing API — Pricing Adjustment. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/quotations/{quotationreference}
+      name: quotations-quotationreference
+      description: REST surface for quotations-quotationReference.
+      operations:
+      - method: PUT
+        name: amendquotationpricing
+        description: Amend Quotation Pricing
+        call: enterprise-product-pricing-pricing-adjustment.amendquotationpricing
+        with:
+          quotationReference: rest.quotationReference
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: enterprise-product-pricing-pricing-adjustment-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Enterprise Product and Pricing API — Pricing Adjustment. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: amend-quotation-pricing
+      description: Amend Quotation Pricing
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: enterprise-product-pricing-pricing-adjustment.amendquotationpricing
+      with:
+        quotationReference: tools.quotationReference
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

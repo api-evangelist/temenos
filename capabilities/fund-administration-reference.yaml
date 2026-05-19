@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Fund Administration API — Reference
+  description: 'Temenos Fund Administration API — Reference. 2 operations. Lead operation: Inject Exchange Rates. Self-contained
+    Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Reference
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: fund-administration-reference
+    baseUri: https://api.temenos.com/funds/v1
+    description: Temenos Fund Administration API — Reference business capability. Self-contained, no shared references.
+    resources:
+    - name: reference-exchangeRates
+      path: /reference/exchangeRates
+      operations:
+      - name: injectexchangerates
+        method: POST
+        description: Inject Exchange Rates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: reference-securityPrices
+      path: /reference/securityPrices
+      operations:
+      - name: injectsecurityprices
+        method: POST
+        description: Inject Security Prices
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: fund-administration-reference-rest
+    port: 8080
+    description: REST adapter for Temenos Fund Administration API — Reference. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/reference/exchangerates
+      name: reference-exchangerates
+      description: REST surface for reference-exchangeRates.
+      operations:
+      - method: POST
+        name: injectexchangerates
+        description: Inject Exchange Rates
+        call: fund-administration-reference.injectexchangerates
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/reference/securityprices
+      name: reference-securityprices
+      description: REST surface for reference-securityPrices.
+      operations:
+      - method: POST
+        name: injectsecurityprices
+        description: Inject Security Prices
+        call: fund-administration-reference.injectsecurityprices
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: fund-administration-reference-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Fund Administration API — Reference. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: inject-exchange-rates
+      description: Inject Exchange Rates
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: fund-administration-reference.injectexchangerates
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: inject-security-prices
+      description: Inject Security Prices
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: fund-administration-reference.injectsecurityprices
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

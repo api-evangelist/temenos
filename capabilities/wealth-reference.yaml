@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Wealth API — Reference
+  description: 'Temenos Wealth API — Reference. 1 operations. Lead operation: List Markets. Self-contained Naftiko capability
+    covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Reference
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wealth-reference
+    baseUri: https://api.temenos.com/wealth/v1
+    description: Temenos Wealth API — Reference business capability. Self-contained, no shared references.
+    resources:
+    - name: reference-markets
+      path: /reference/markets
+      operations:
+      - name: listmarkets
+        method: GET
+        description: List Markets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: wealth-reference-rest
+    port: 8080
+    description: REST adapter for Temenos Wealth API — Reference. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/reference/markets
+      name: reference-markets
+      description: REST surface for reference-markets.
+      operations:
+      - method: GET
+        name: listmarkets
+        description: List Markets
+        call: wealth-reference.listmarkets
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wealth-reference-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Wealth API — Reference. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-markets
+      description: List Markets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: wealth-reference.listmarkets
+      outputParameters:
+      - type: object
+        mapping: $.

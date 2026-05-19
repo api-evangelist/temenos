@@ -1,0 +1,123 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Enterprise Product and Pricing API — Pricing Arrangement Details
+  description: 'Temenos Enterprise Product and Pricing API — Pricing Arrangement Details. 2 operations. Lead operation: Get
+    Arrangement Charges. Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Pricing Arrangement Details
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: enterprise-product-pricing-pricing-arrangement-details
+    baseUri: https://api.temenos.com/enterprise-pricing/v1
+    description: Temenos Enterprise Product and Pricing API — Pricing Arrangement Details business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: arrangements-arrangementId-charges
+      path: /arrangements/{arrangementId}/charges
+      operations:
+      - name: getarrangementcharges
+        method: GET
+        description: Get Arrangement Charges
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: arrangementId
+          in: path
+          type: string
+          description: Arrangement identifier
+          required: true
+    - name: arrangements-arrangementId-interestRates
+      path: /arrangements/{arrangementId}/interestRates
+      operations:
+      - name: getarrangementinterestrates
+        method: GET
+        description: Get Arrangement Interest Rates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: arrangementId
+          in: path
+          type: string
+          description: Arrangement identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: enterprise-product-pricing-pricing-arrangement-details-rest
+    port: 8080
+    description: REST adapter for Temenos Enterprise Product and Pricing API — Pricing Arrangement Details. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/arrangements/{arrangementid}/charges
+      name: arrangements-arrangementid-charges
+      description: REST surface for arrangements-arrangementId-charges.
+      operations:
+      - method: GET
+        name: getarrangementcharges
+        description: Get Arrangement Charges
+        call: enterprise-product-pricing-pricing-arrangement-details.getarrangementcharges
+        with:
+          arrangementId: rest.arrangementId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/arrangements/{arrangementid}/interestrates
+      name: arrangements-arrangementid-interestrates
+      description: REST surface for arrangements-arrangementId-interestRates.
+      operations:
+      - method: GET
+        name: getarrangementinterestrates
+        description: Get Arrangement Interest Rates
+        call: enterprise-product-pricing-pricing-arrangement-details.getarrangementinterestrates
+        with:
+          arrangementId: rest.arrangementId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: enterprise-product-pricing-pricing-arrangement-details-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Enterprise Product and Pricing API — Pricing Arrangement Details. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: get-arrangement-charges
+      description: Get Arrangement Charges
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: enterprise-product-pricing-pricing-arrangement-details.getarrangementcharges
+      with:
+        arrangementId: tools.arrangementId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-arrangement-interest-rates
+      description: Get Arrangement Interest Rates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: enterprise-product-pricing-pricing-arrangement-details.getarrangementinterestrates
+      with:
+        arrangementId: tools.arrangementId
+      outputParameters:
+      - type: object
+        mapping: $.

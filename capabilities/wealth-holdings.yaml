@@ -1,0 +1,259 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Wealth API — Holdings
+  description: 'Temenos Wealth API — Holdings. 6 operations. Lead operation: List Portfolios. Self-contained Naftiko capability
+    covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Holdings
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wealth-holdings
+    baseUri: https://api.temenos.com/wealth/v1
+    description: Temenos Wealth API — Holdings business capability. Self-contained, no shared references.
+    resources:
+    - name: holdings-portfolios
+      path: /holdings/portfolios
+      operations:
+      - name: listportfolios
+        method: GET
+        description: List Portfolios
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customerId
+          in: query
+          type: string
+          description: Filter portfolios by customer identifier
+        - name: advisorId
+          in: query
+          type: string
+          description: Filter by assigned advisor
+      - name: createportfolio
+        method: POST
+        description: Create Portfolio
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: holdings-portfolios-portfolioId
+      path: /holdings/portfolios/{portfolioId}
+      operations:
+      - name: getportfolio
+        method: GET
+        description: Get Portfolio Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: closeportfolio
+        method: DELETE
+        description: Close Portfolio
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: holdings-portfolios-portfolioId-positions
+      path: /holdings/portfolios/{portfolioId}/positions
+      operations:
+      - name: listportfoliopositions
+        method: GET
+        description: List Portfolio Positions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: assetClass
+          in: query
+          type: string
+          description: Filter by asset class
+    - name: holdings-portfolios-portfolioId-valuation
+      path: /holdings/portfolios/{portfolioId}/valuation
+      operations:
+      - name: getportfoliovaluation
+        method: GET
+        description: Get Portfolio Valuation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: valuationDate
+          in: query
+          type: string
+          description: Valuation date for historical lookups
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: wealth-holdings-rest
+    port: 8080
+    description: REST adapter for Temenos Wealth API — Holdings. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/holdings/portfolios
+      name: holdings-portfolios
+      description: REST surface for holdings-portfolios.
+      operations:
+      - method: GET
+        name: listportfolios
+        description: List Portfolios
+        call: wealth-holdings.listportfolios
+        with:
+          customerId: rest.customerId
+          advisorId: rest.advisorId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createportfolio
+        description: Create Portfolio
+        call: wealth-holdings.createportfolio
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/holdings/portfolios/{portfolioid}
+      name: holdings-portfolios-portfolioid
+      description: REST surface for holdings-portfolios-portfolioId.
+      operations:
+      - method: GET
+        name: getportfolio
+        description: Get Portfolio Details
+        call: wealth-holdings.getportfolio
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: closeportfolio
+        description: Close Portfolio
+        call: wealth-holdings.closeportfolio
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/holdings/portfolios/{portfolioid}/positions
+      name: holdings-portfolios-portfolioid-positions
+      description: REST surface for holdings-portfolios-portfolioId-positions.
+      operations:
+      - method: GET
+        name: listportfoliopositions
+        description: List Portfolio Positions
+        call: wealth-holdings.listportfoliopositions
+        with:
+          assetClass: rest.assetClass
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/holdings/portfolios/{portfolioid}/valuation
+      name: holdings-portfolios-portfolioid-valuation
+      description: REST surface for holdings-portfolios-portfolioId-valuation.
+      operations:
+      - method: GET
+        name: getportfoliovaluation
+        description: Get Portfolio Valuation
+        call: wealth-holdings.getportfoliovaluation
+        with:
+          valuationDate: rest.valuationDate
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wealth-holdings-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Wealth API — Holdings. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-portfolios
+      description: List Portfolios
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: wealth-holdings.listportfolios
+      with:
+        customerId: tools.customerId
+        advisorId: tools.advisorId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-portfolio
+      description: Create Portfolio
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: wealth-holdings.createportfolio
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-portfolio-details
+      description: Get Portfolio Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: wealth-holdings.getportfolio
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: close-portfolio
+      description: Close Portfolio
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: wealth-holdings.closeportfolio
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-portfolio-positions
+      description: List Portfolio Positions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: wealth-holdings.listportfoliopositions
+      with:
+        assetClass: tools.assetClass
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-portfolio-valuation
+      description: Get Portfolio Valuation
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: wealth-holdings.getportfoliovaluation
+      with:
+        valuationDate: tools.valuationDate
+      outputParameters:
+      - type: object
+        mapping: $.

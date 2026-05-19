@@ -1,0 +1,165 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Enterprise Product and Pricing API — Pricing Quotation
+  description: 'Temenos Enterprise Product and Pricing API — Pricing Quotation. 3 operations. Lead operation: Simulate Account
+    Creation Pricing. Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Pricing Quotation
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: enterprise-product-pricing-pricing-quotation
+    baseUri: https://api.temenos.com/enterprise-pricing/v1
+    description: Temenos Enterprise Product and Pricing API — Pricing Quotation business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: quotations-simulate
+      path: /quotations/simulate
+      operations:
+      - name: simulatearrangementcreation
+        method: POST
+        description: Simulate Account Creation Pricing
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: quotations-simulateEvent
+      path: /quotations/simulateEvent
+      operations:
+      - name: simulateeventpricing
+        method: POST
+        description: Simulate Event Pricing
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: quotations-quotationReference
+      path: /quotations/{quotationReference}
+      operations:
+      - name: getquotationdetails
+        method: GET
+        description: Get Quotation Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: quotationReference
+          in: path
+          type: string
+          description: Quotation reference identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: enterprise-product-pricing-pricing-quotation-rest
+    port: 8080
+    description: REST adapter for Temenos Enterprise Product and Pricing API — Pricing Quotation. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/quotations/simulate
+      name: quotations-simulate
+      description: REST surface for quotations-simulate.
+      operations:
+      - method: POST
+        name: simulatearrangementcreation
+        description: Simulate Account Creation Pricing
+        call: enterprise-product-pricing-pricing-quotation.simulatearrangementcreation
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/quotations/simulateevent
+      name: quotations-simulateevent
+      description: REST surface for quotations-simulateEvent.
+      operations:
+      - method: POST
+        name: simulateeventpricing
+        description: Simulate Event Pricing
+        call: enterprise-product-pricing-pricing-quotation.simulateeventpricing
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/quotations/{quotationreference}
+      name: quotations-quotationreference
+      description: REST surface for quotations-quotationReference.
+      operations:
+      - method: GET
+        name: getquotationdetails
+        description: Get Quotation Details
+        call: enterprise-product-pricing-pricing-quotation.getquotationdetails
+        with:
+          quotationReference: rest.quotationReference
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: enterprise-product-pricing-pricing-quotation-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Enterprise Product and Pricing API — Pricing Quotation. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: simulate-account-creation-pricing
+      description: Simulate Account Creation Pricing
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: enterprise-product-pricing-pricing-quotation.simulatearrangementcreation
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: simulate-event-pricing
+      description: Simulate Event Pricing
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: enterprise-product-pricing-pricing-quotation.simulateeventpricing
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-quotation-details
+      description: Get Quotation Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: enterprise-product-pricing-pricing-quotation.getquotationdetails
+      with:
+        quotationReference: tools.quotationReference
+      outputParameters:
+      - type: object
+        mapping: $.

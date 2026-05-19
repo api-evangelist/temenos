@@ -1,0 +1,155 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Transact Microservices API — Service Orchestrator
+  description: 'Temenos Transact Microservices API — Service Orchestrator. 3 operations. Lead operation: List Orchestration
+    Sequences. Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Service Orchestrator
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microservices-service-orchestrator
+    baseUri: https://api.temenos.com/transact/microservices/v1
+    description: Temenos Transact Microservices API — Service Orchestrator business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: orchestrations
+      path: /orchestrations
+      operations:
+      - name: listorchestrations
+        method: GET
+        description: List Orchestration Sequences
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createorchestration
+        method: POST
+        description: Create Orchestration Sequence
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: orchestrations-orchestrationId-execute
+      path: /orchestrations/{orchestrationId}/execute
+      operations:
+      - name: executeorchestration
+        method: POST
+        description: Execute Orchestration Sequence
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orchestrationId
+          in: path
+          type: string
+          description: Orchestration sequence identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: microservices-service-orchestrator-rest
+    port: 8080
+    description: REST adapter for Temenos Transact Microservices API — Service Orchestrator. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/orchestrations
+      name: orchestrations
+      description: REST surface for orchestrations.
+      operations:
+      - method: GET
+        name: listorchestrations
+        description: List Orchestration Sequences
+        call: microservices-service-orchestrator.listorchestrations
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createorchestration
+        description: Create Orchestration Sequence
+        call: microservices-service-orchestrator.createorchestration
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orchestrations/{orchestrationid}/execute
+      name: orchestrations-orchestrationid-execute
+      description: REST surface for orchestrations-orchestrationId-execute.
+      operations:
+      - method: POST
+        name: executeorchestration
+        description: Execute Orchestration Sequence
+        call: microservices-service-orchestrator.executeorchestration
+        with:
+          orchestrationId: rest.orchestrationId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: microservices-service-orchestrator-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Transact Microservices API — Service Orchestrator. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: list-orchestration-sequences
+      description: List Orchestration Sequences
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microservices-service-orchestrator.listorchestrations
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-orchestration-sequence
+      description: Create Orchestration Sequence
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: microservices-service-orchestrator.createorchestration
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: execute-orchestration-sequence
+      description: Execute Orchestration Sequence
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: microservices-service-orchestrator.executeorchestration
+      with:
+        orchestrationId: tools.orchestrationId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

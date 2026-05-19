@@ -1,0 +1,145 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Financial Crime Mitigation API — Customer Risk Assessment
+  description: 'Temenos Financial Crime Mitigation API — Customer Risk Assessment. 3 operations. Lead operation: Submit Customer
+    KYC Form. Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Customer Risk Assessment
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: financial-crime-mitigation-customer-risk-assessment
+    baseUri: https://api.temenos.com/fcm/v1
+    description: Temenos Financial Crime Mitigation API — Customer Risk Assessment business capability. Self-contained, no
+      shared references.
+    resources:
+    - name: kyc-customers-formSubmission
+      path: /kyc/customers/formSubmission
+      operations:
+      - name: submitcustomerform
+        method: POST
+        description: Submit Customer KYC Form
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: kyc-customers-customerId-riskScore
+      path: /kyc/customers/{customerId}/riskScore
+      operations:
+      - name: getcustomerriskscore
+        method: GET
+        description: Get Customer Risk Score
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: kyc-customers-customerId-riskScore-compute
+      path: /kyc/customers/{customerId}/riskScore/compute
+      operations:
+      - name: computecustomerriskscore
+        method: POST
+        description: Compute Customer Risk Score
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: financial-crime-mitigation-customer-risk-assessment-rest
+    port: 8080
+    description: REST adapter for Temenos Financial Crime Mitigation API — Customer Risk Assessment. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/kyc/customers/formsubmission
+      name: kyc-customers-formsubmission
+      description: REST surface for kyc-customers-formSubmission.
+      operations:
+      - method: POST
+        name: submitcustomerform
+        description: Submit Customer KYC Form
+        call: financial-crime-mitigation-customer-risk-assessment.submitcustomerform
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/kyc/customers/{customerid}/riskscore
+      name: kyc-customers-customerid-riskscore
+      description: REST surface for kyc-customers-customerId-riskScore.
+      operations:
+      - method: GET
+        name: getcustomerriskscore
+        description: Get Customer Risk Score
+        call: financial-crime-mitigation-customer-risk-assessment.getcustomerriskscore
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/kyc/customers/{customerid}/riskscore/compute
+      name: kyc-customers-customerid-riskscore-compute
+      description: REST surface for kyc-customers-customerId-riskScore-compute.
+      operations:
+      - method: POST
+        name: computecustomerriskscore
+        description: Compute Customer Risk Score
+        call: financial-crime-mitigation-customer-risk-assessment.computecustomerriskscore
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: financial-crime-mitigation-customer-risk-assessment-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Financial Crime Mitigation API — Customer Risk Assessment. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: submit-customer-kyc-form
+      description: Submit Customer KYC Form
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: financial-crime-mitigation-customer-risk-assessment.submitcustomerform
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-customer-risk-score
+      description: Get Customer Risk Score
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: financial-crime-mitigation-customer-risk-assessment.getcustomerriskscore
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: compute-customer-risk-score
+      description: Compute Customer Risk Score
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: financial-crime-mitigation-customer-risk-assessment.computecustomerriskscore
+      outputParameters:
+      - type: object
+        mapping: $.

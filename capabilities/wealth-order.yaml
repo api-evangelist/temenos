@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Wealth API — Order
+  description: 'Temenos Wealth API — Order. 4 operations. Lead operation: List Security Orders. Self-contained Naftiko capability
+    covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Order
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wealth-order
+    baseUri: https://api.temenos.com/wealth/v1
+    description: Temenos Wealth API — Order business capability. Self-contained, no shared references.
+    resources:
+    - name: order-securities
+      path: /order/securities
+      operations:
+      - name: listsecurityorders
+        method: GET
+        description: List Security Orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: portfolioId
+          in: query
+          type: string
+          description: Filter by portfolio
+        - name: status
+          in: query
+          type: string
+          description: Filter by order status
+      - name: createsecurityorder
+        method: POST
+        description: Create Security Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: order-securities-orderId
+      path: /order/securities/{orderId}
+      operations:
+      - name: getsecurityorder
+        method: GET
+        description: Get Security Order Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderId
+          in: path
+          type: string
+          description: Unique order identifier
+          required: true
+      - name: cancelsecurityorder
+        method: DELETE
+        description: Cancel Security Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderId
+          in: path
+          type: string
+          description: Order identifier to cancel
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: wealth-order-rest
+    port: 8080
+    description: REST adapter for Temenos Wealth API — Order. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/order/securities
+      name: order-securities
+      description: REST surface for order-securities.
+      operations:
+      - method: GET
+        name: listsecurityorders
+        description: List Security Orders
+        call: wealth-order.listsecurityorders
+        with:
+          portfolioId: rest.portfolioId
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createsecurityorder
+        description: Create Security Order
+        call: wealth-order.createsecurityorder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/order/securities/{orderid}
+      name: order-securities-orderid
+      description: REST surface for order-securities-orderId.
+      operations:
+      - method: GET
+        name: getsecurityorder
+        description: Get Security Order Details
+        call: wealth-order.getsecurityorder
+        with:
+          orderId: rest.orderId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: cancelsecurityorder
+        description: Cancel Security Order
+        call: wealth-order.cancelsecurityorder
+        with:
+          orderId: rest.orderId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wealth-order-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Wealth API — Order. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-security-orders
+      description: List Security Orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: wealth-order.listsecurityorders
+      with:
+        portfolioId: tools.portfolioId
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-security-order
+      description: Create Security Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: wealth-order.createsecurityorder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-security-order-details
+      description: Get Security Order Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: wealth-order.getsecurityorder
+      with:
+        orderId: tools.orderId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-security-order
+      description: Cancel Security Order
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: wealth-order.cancelsecurityorder
+      with:
+        orderId: tools.orderId
+      outputParameters:
+      - type: object
+        mapping: $.

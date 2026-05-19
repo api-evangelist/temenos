@@ -1,0 +1,114 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Payments API — Standing Orders
+  description: 'Temenos Payments API — Standing Orders. 2 operations. Lead operation: List Standing Orders. Self-contained
+    Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Standing Orders
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: payments-standing-orders
+    baseUri: https://api.temenos.com/payments/v1
+    description: Temenos Payments API — Standing Orders business capability. Self-contained, no shared references.
+    resources:
+    - name: standingOrders
+      path: /standingOrders
+      operations:
+      - name: liststandingorders
+        method: GET
+        description: List Standing Orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: query
+          type: string
+          description: Filter by originating account identifier
+      - name: createstandingorder
+        method: POST
+        description: Create Standing Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: payments-standing-orders-rest
+    port: 8080
+    description: REST adapter for Temenos Payments API — Standing Orders. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/standingorders
+      name: standingorders
+      description: REST surface for standingOrders.
+      operations:
+      - method: GET
+        name: liststandingorders
+        description: List Standing Orders
+        call: payments-standing-orders.liststandingorders
+        with:
+          accountId: rest.accountId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createstandingorder
+        description: Create Standing Order
+        call: payments-standing-orders.createstandingorder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: payments-standing-orders-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Payments API — Standing Orders. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-standing-orders
+      description: List Standing Orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payments-standing-orders.liststandingorders
+      with:
+        accountId: tools.accountId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-standing-order
+      description: Create Standing Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: payments-standing-orders.createstandingorder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

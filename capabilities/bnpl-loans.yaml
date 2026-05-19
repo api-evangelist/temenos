@@ -1,0 +1,127 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Buy Now Pay Later API — Loans
+  description: 'Temenos Buy Now Pay Later API — Loans. 2 operations. Lead operation: List BNPL Loans. Self-contained Naftiko
+    capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Loans
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: bnpl-loans
+    baseUri: https://api.temenos.com/bnpl/v1
+    description: Temenos Buy Now Pay Later API — Loans business capability. Self-contained, no shared references.
+    resources:
+    - name: loans
+      path: /loans
+      operations:
+      - name: listbnplloans
+        method: GET
+        description: List BNPL Loans
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customerId
+          in: query
+          type: string
+          description: Filter by customer
+        - name: status
+          in: query
+          type: string
+          description: Filter by loan status
+    - name: loans-loanId
+      path: /loans/{loanId}
+      operations:
+      - name: getbnplloan
+        method: GET
+        description: Get BNPL Loan Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: loanId
+          in: path
+          type: string
+          description: Loan identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: bnpl-loans-rest
+    port: 8080
+    description: REST adapter for Temenos Buy Now Pay Later API — Loans. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/loans
+      name: loans
+      description: REST surface for loans.
+      operations:
+      - method: GET
+        name: listbnplloans
+        description: List BNPL Loans
+        call: bnpl-loans.listbnplloans
+        with:
+          customerId: rest.customerId
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/loans/{loanid}
+      name: loans-loanid
+      description: REST surface for loans-loanId.
+      operations:
+      - method: GET
+        name: getbnplloan
+        description: Get BNPL Loan Details
+        call: bnpl-loans.getbnplloan
+        with:
+          loanId: rest.loanId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: bnpl-loans-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Buy Now Pay Later API — Loans. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-bnpl-loans
+      description: List BNPL Loans
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: bnpl-loans.listbnplloans
+      with:
+        customerId: tools.customerId
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-bnpl-loan-details
+      description: Get BNPL Loan Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: bnpl-loans.getbnplloan
+      with:
+        loanId: tools.loanId
+      outputParameters:
+      - type: object
+        mapping: $.

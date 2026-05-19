@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Payments API — PSD2 Accounts
+  description: 'Temenos Payments API — PSD2 Accounts. 1 operations. Lead operation: List PSD2 Accounts. Self-contained Naftiko
+    capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - PSD2 Accounts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: payments-psd2-accounts
+    baseUri: https://api.temenos.com/payments/v1
+    description: Temenos Payments API — PSD2 Accounts business capability. Self-contained, no shared references.
+    resources:
+    - name: psd2-accounts
+      path: /psd2/accounts
+      operations:
+      - name: listpsd2accounts
+        method: GET
+        description: List PSD2 Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: consentId
+          in: header
+          type: string
+          description: PSD2 consent identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: payments-psd2-accounts-rest
+    port: 8080
+    description: REST adapter for Temenos Payments API — PSD2 Accounts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/psd2/accounts
+      name: psd2-accounts
+      description: REST surface for psd2-accounts.
+      operations:
+      - method: GET
+        name: listpsd2accounts
+        description: List PSD2 Accounts
+        call: payments-psd2-accounts.listpsd2accounts
+        with:
+          consentId: rest.consentId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: payments-psd2-accounts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Payments API — PSD2 Accounts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-psd2-accounts
+      description: List PSD2 Accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payments-psd2-accounts.listpsd2accounts
+      with:
+        consentId: tools.consentId
+      outputParameters:
+      - type: object
+        mapping: $.

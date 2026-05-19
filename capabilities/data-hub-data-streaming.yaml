@@ -1,0 +1,105 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Transact Data Hub API — Data Streaming
+  description: 'Temenos Transact Data Hub API — Data Streaming. 2 operations. Lead operation: List Streaming Configurations.
+    Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Data Streaming
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: data-hub-data-streaming
+    baseUri: https://api.temenos.com/transact-data-hub/v1
+    description: Temenos Transact Data Hub API — Data Streaming business capability. Self-contained, no shared references.
+    resources:
+    - name: streaming-configurations
+      path: /streaming/configurations
+      operations:
+      - name: liststreamingconfigurations
+        method: GET
+        description: List Streaming Configurations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createstreamingconfiguration
+        method: POST
+        description: Create Streaming Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: data-hub-data-streaming-rest
+    port: 8080
+    description: REST adapter for Temenos Transact Data Hub API — Data Streaming. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/streaming/configurations
+      name: streaming-configurations
+      description: REST surface for streaming-configurations.
+      operations:
+      - method: GET
+        name: liststreamingconfigurations
+        description: List Streaming Configurations
+        call: data-hub-data-streaming.liststreamingconfigurations
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createstreamingconfiguration
+        description: Create Streaming Configuration
+        call: data-hub-data-streaming.createstreamingconfiguration
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: data-hub-data-streaming-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Transact Data Hub API — Data Streaming. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-streaming-configurations
+      description: List Streaming Configurations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: data-hub-data-streaming.liststreamingconfigurations
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-streaming-configuration
+      description: Create Streaming Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: data-hub-data-streaming.createstreamingconfiguration
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

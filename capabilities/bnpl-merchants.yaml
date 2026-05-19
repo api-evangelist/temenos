@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Buy Now Pay Later API — Merchants
+  description: 'Temenos Buy Now Pay Later API — Merchants. 1 operations. Lead operation: List Merchants. Self-contained Naftiko
+    capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Merchants
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: bnpl-merchants
+    baseUri: https://api.temenos.com/bnpl/v1
+    description: Temenos Buy Now Pay Later API — Merchants business capability. Self-contained, no shared references.
+    resources:
+    - name: merchants
+      path: /merchants
+      operations:
+      - name: listmerchants
+        method: GET
+        description: List Merchants
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: bnpl-merchants-rest
+    port: 8080
+    description: REST adapter for Temenos Buy Now Pay Later API — Merchants. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/merchants
+      name: merchants
+      description: REST surface for merchants.
+      operations:
+      - method: GET
+        name: listmerchants
+        description: List Merchants
+        call: bnpl-merchants.listmerchants
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: bnpl-merchants-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Buy Now Pay Later API — Merchants. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-merchants
+      description: List Merchants
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: bnpl-merchants.listmerchants
+      outputParameters:
+      - type: object
+        mapping: $.

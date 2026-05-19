@@ -1,0 +1,164 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Buy Now Pay Later API — Credit Offers
+  description: 'Temenos Buy Now Pay Later API — Credit Offers. 3 operations. Lead operation: Create Credit Offer. Self-contained
+    Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Credit Offers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: bnpl-credit-offers
+    baseUri: https://api.temenos.com/bnpl/v1
+    description: Temenos Buy Now Pay Later API — Credit Offers business capability. Self-contained, no shared references.
+    resources:
+    - name: offers
+      path: /offers
+      operations:
+      - name: createcreditoffer
+        method: POST
+        description: Create Credit Offer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: offers-offerId
+      path: /offers/{offerId}
+      operations:
+      - name: getcreditoffer
+        method: GET
+        description: Get Credit Offer Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offerId
+          in: path
+          type: string
+          description: Offer identifier
+          required: true
+    - name: offers-offerId-accept
+      path: /offers/{offerId}/accept
+      operations:
+      - name: acceptcreditoffer
+        method: POST
+        description: Accept Credit Offer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offerId
+          in: path
+          type: string
+          description: Offer identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: bnpl-credit-offers-rest
+    port: 8080
+    description: REST adapter for Temenos Buy Now Pay Later API — Credit Offers. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/offers
+      name: offers
+      description: REST surface for offers.
+      operations:
+      - method: POST
+        name: createcreditoffer
+        description: Create Credit Offer
+        call: bnpl-credit-offers.createcreditoffer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/offers/{offerid}
+      name: offers-offerid
+      description: REST surface for offers-offerId.
+      operations:
+      - method: GET
+        name: getcreditoffer
+        description: Get Credit Offer Details
+        call: bnpl-credit-offers.getcreditoffer
+        with:
+          offerId: rest.offerId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/offers/{offerid}/accept
+      name: offers-offerid-accept
+      description: REST surface for offers-offerId-accept.
+      operations:
+      - method: POST
+        name: acceptcreditoffer
+        description: Accept Credit Offer
+        call: bnpl-credit-offers.acceptcreditoffer
+        with:
+          offerId: rest.offerId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: bnpl-credit-offers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Buy Now Pay Later API — Credit Offers. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: create-credit-offer
+      description: Create Credit Offer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: bnpl-credit-offers.createcreditoffer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-credit-offer-details
+      description: Get Credit Offer Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: bnpl-credit-offers.getcreditoffer
+      with:
+        offerId: tools.offerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: accept-credit-offer
+      description: Accept Credit Offer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: bnpl-credit-offers.acceptcreditoffer
+      with:
+        offerId: tools.offerId
+      outputParameters:
+      - type: object
+        mapping: $.

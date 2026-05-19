@@ -1,0 +1,114 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Payments API — Payment Stops
+  description: 'Temenos Payments API — Payment Stops. 2 operations. Lead operation: List Payment Stop Requests. Self-contained
+    Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Payment Stops
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: payments-payment-stops
+    baseUri: https://api.temenos.com/payments/v1
+    description: Temenos Payments API — Payment Stops business capability. Self-contained, no shared references.
+    resources:
+    - name: paymentStops
+      path: /paymentStops
+      operations:
+      - name: listpaymentstops
+        method: GET
+        description: List Payment Stop Requests
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: query
+          type: string
+          description: Filter by account identifier
+      - name: createpaymentstop
+        method: POST
+        description: Create Payment Stop Request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: payments-payment-stops-rest
+    port: 8080
+    description: REST adapter for Temenos Payments API — Payment Stops. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/paymentstops
+      name: paymentstops
+      description: REST surface for paymentStops.
+      operations:
+      - method: GET
+        name: listpaymentstops
+        description: List Payment Stop Requests
+        call: payments-payment-stops.listpaymentstops
+        with:
+          accountId: rest.accountId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpaymentstop
+        description: Create Payment Stop Request
+        call: payments-payment-stops.createpaymentstop
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: payments-payment-stops-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Payments API — Payment Stops. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-payment-stop-requests
+      description: List Payment Stop Requests
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payments-payment-stops.listpaymentstops
+      with:
+        accountId: tools.accountId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-payment-stop-request
+      description: Create Payment Stop Request
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: payments-payment-stops.createpaymentstop
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

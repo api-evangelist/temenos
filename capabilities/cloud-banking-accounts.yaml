@@ -1,0 +1,120 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Cloud Banking (CMB) API — Accounts
+  description: 'Temenos Cloud Banking (CMB) API — Accounts. 2 operations. Lead operation: List Commercial Banking Accounts.
+    Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Accounts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cloud-banking-accounts
+    baseUri: https://api.temenos.com/cmb/v1
+    description: Temenos Cloud Banking (CMB) API — Accounts business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts
+      path: /accounts
+      operations:
+      - name: listcmbaccounts
+        method: GET
+        description: List Commercial Banking Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customerId
+          in: query
+          type: string
+          description: Filter by customer
+        - name: region
+          in: query
+          type: string
+          description: Filter by regional market
+      - name: createcmbaccount
+        method: POST
+        description: Create Commercial Banking Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cloud-banking-accounts-rest
+    port: 8080
+    description: REST adapter for Temenos Cloud Banking (CMB) API — Accounts. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/accounts
+      name: accounts
+      description: REST surface for accounts.
+      operations:
+      - method: GET
+        name: listcmbaccounts
+        description: List Commercial Banking Accounts
+        call: cloud-banking-accounts.listcmbaccounts
+        with:
+          customerId: rest.customerId
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcmbaccount
+        description: Create Commercial Banking Account
+        call: cloud-banking-accounts.createcmbaccount
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cloud-banking-accounts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Cloud Banking (CMB) API — Accounts. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-commercial-banking-accounts
+      description: List Commercial Banking Accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-banking-accounts.listcmbaccounts
+      with:
+        customerId: tools.customerId
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-commercial-banking-account
+      description: Create Commercial Banking Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-banking-accounts.createcmbaccount
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

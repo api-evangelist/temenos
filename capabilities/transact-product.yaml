@@ -1,0 +1,79 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Transact API — Product
+  description: 'Temenos Transact API — Product. 1 operations. Lead operation: List Banking Products. Self-contained Naftiko
+    capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Product
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: transact-product
+    baseUri: https://api.temenos.com/transact/v1
+    description: Temenos Transact API — Product business capability. Self-contained, no shared references.
+    resources:
+    - name: product-products
+      path: /product/products
+      operations:
+      - name: listproducts
+        method: GET
+        description: List Banking Products
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: productGroup
+          in: query
+          type: string
+          description: Filter by product group
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: transact-product-rest
+    port: 8080
+    description: REST adapter for Temenos Transact API — Product. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/product/products
+      name: product-products
+      description: REST surface for product-products.
+      operations:
+      - method: GET
+        name: listproducts
+        description: List Banking Products
+        call: transact-product.listproducts
+        with:
+          productGroup: rest.productGroup
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: transact-product-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Transact API — Product. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-banking-products
+      description: List Banking Products
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-product.listproducts
+      with:
+        productGroup: tools.productGroup
+      outputParameters:
+      - type: object
+        mapping: $.

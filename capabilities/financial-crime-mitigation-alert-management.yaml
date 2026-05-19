@@ -1,0 +1,123 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Financial Crime Mitigation API — Alert Management
+  description: 'Temenos Financial Crime Mitigation API — Alert Management. 2 operations. Lead operation: Get Alert Details.
+    Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Alert Management
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: financial-crime-mitigation-alert-management
+    baseUri: https://api.temenos.com/fcm/v1
+    description: Temenos Financial Crime Mitigation API — Alert Management business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: alerts-alertId
+      path: /alerts/{alertId}
+      operations:
+      - name: getalert
+        method: GET
+        description: Get Alert Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: alertId
+          in: path
+          type: string
+          description: Unique alert identifier
+          required: true
+      - name: updatealert
+        method: PUT
+        description: Update Alert Disposition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: alertId
+          in: path
+          type: string
+          description: Unique alert identifier
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: financial-crime-mitigation-alert-management-rest
+    port: 8080
+    description: REST adapter for Temenos Financial Crime Mitigation API — Alert Management. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/alerts/{alertid}
+      name: alerts-alertid
+      description: REST surface for alerts-alertId.
+      operations:
+      - method: GET
+        name: getalert
+        description: Get Alert Details
+        call: financial-crime-mitigation-alert-management.getalert
+        with:
+          alertId: rest.alertId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatealert
+        description: Update Alert Disposition
+        call: financial-crime-mitigation-alert-management.updatealert
+        with:
+          alertId: rest.alertId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: financial-crime-mitigation-alert-management-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Financial Crime Mitigation API — Alert Management. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: get-alert-details
+      description: Get Alert Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: financial-crime-mitigation-alert-management.getalert
+      with:
+        alertId: tools.alertId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-alert-disposition
+      description: Update Alert Disposition
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: financial-crime-mitigation-alert-management.updatealert
+      with:
+        alertId: tools.alertId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

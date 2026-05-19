@@ -1,0 +1,162 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Fund Administration API — Order
+  description: 'Temenos Fund Administration API — Order. 3 operations. Lead operation: List Order Instructions. Self-contained
+    Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Order
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: fund-administration-order
+    baseUri: https://api.temenos.com/funds/v1
+    description: Temenos Fund Administration API — Order business capability. Self-contained, no shared references.
+    resources:
+    - name: order-instructions
+      path: /order/instructions
+      operations:
+      - name: listinstructions
+        method: GET
+        description: List Order Instructions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fundId
+          in: query
+          type: string
+          description: Filter by fund identifier
+        - name: instructionType
+          in: query
+          type: string
+          description: Filter by instruction type
+      - name: createinstruction
+        method: POST
+        description: Create Order Instruction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: order-sharePrices
+      path: /order/sharePrices
+      operations:
+      - name: createshareprice
+        method: POST
+        description: Set Share Price
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: fund-administration-order-rest
+    port: 8080
+    description: REST adapter for Temenos Fund Administration API — Order. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/order/instructions
+      name: order-instructions
+      description: REST surface for order-instructions.
+      operations:
+      - method: GET
+        name: listinstructions
+        description: List Order Instructions
+        call: fund-administration-order.listinstructions
+        with:
+          fundId: rest.fundId
+          instructionType: rest.instructionType
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createinstruction
+        description: Create Order Instruction
+        call: fund-administration-order.createinstruction
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/order/shareprices
+      name: order-shareprices
+      description: REST surface for order-sharePrices.
+      operations:
+      - method: POST
+        name: createshareprice
+        description: Set Share Price
+        call: fund-administration-order.createshareprice
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: fund-administration-order-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Fund Administration API — Order. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-order-instructions
+      description: List Order Instructions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fund-administration-order.listinstructions
+      with:
+        fundId: tools.fundId
+        instructionType: tools.instructionType
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-order-instruction
+      description: Create Order Instruction
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: fund-administration-order.createinstruction
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-share-price
+      description: Set Share Price
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: fund-administration-order.createshareprice
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,81 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Enterprise Product and Pricing API — Accounts Arrangement Details
+  description: 'Temenos Enterprise Product and Pricing API — Accounts Arrangement Details. 1 operations. Lead operation: Calculate
+    Payoff Amount. Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Accounts Arrangement Details
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: enterprise-product-pricing-accounts-arrangement-details
+    baseUri: https://api.temenos.com/enterprise-pricing/v1
+    description: Temenos Enterprise Product and Pricing API — Accounts Arrangement Details business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: arrangements-arrangementId-payoff
+      path: /arrangements/{arrangementId}/payoff
+      operations:
+      - name: calculatepayoffamount
+        method: GET
+        description: Calculate Payoff Amount
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: arrangementId
+          in: path
+          type: string
+          description: Arrangement identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: enterprise-product-pricing-accounts-arrangement-details-rest
+    port: 8080
+    description: REST adapter for Temenos Enterprise Product and Pricing API — Accounts Arrangement Details. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/arrangements/{arrangementid}/payoff
+      name: arrangements-arrangementid-payoff
+      description: REST surface for arrangements-arrangementId-payoff.
+      operations:
+      - method: GET
+        name: calculatepayoffamount
+        description: Calculate Payoff Amount
+        call: enterprise-product-pricing-accounts-arrangement-details.calculatepayoffamount
+        with:
+          arrangementId: rest.arrangementId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: enterprise-product-pricing-accounts-arrangement-details-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Enterprise Product and Pricing API — Accounts Arrangement Details. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: calculate-payoff-amount
+      description: Calculate Payoff Amount
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: enterprise-product-pricing-accounts-arrangement-details.calculatepayoffamount
+      with:
+        arrangementId: tools.arrangementId
+      outputParameters:
+      - type: object
+        mapping: $.

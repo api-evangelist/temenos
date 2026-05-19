@@ -1,0 +1,147 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Transact Microservices API — Callback Registry
+  description: 'Temenos Transact Microservices API — Callback Registry. 3 operations. Lead operation: List Registered Callbacks.
+    Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Callback Registry
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microservices-callback-registry
+    baseUri: https://api.temenos.com/transact/microservices/v1
+    description: Temenos Transact Microservices API — Callback Registry business capability. Self-contained, no shared references.
+    resources:
+    - name: callbacks
+      path: /callbacks
+      operations:
+      - name: listcallbacks
+        method: GET
+        description: List Registered Callbacks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: registercallback
+        method: POST
+        description: Register Callback URL
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: callbacks-callbackId
+      path: /callbacks/{callbackId}
+      operations:
+      - name: removecallback
+        method: DELETE
+        description: Remove Callback Registration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: callbackId
+          in: path
+          type: string
+          description: Callback registration identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: microservices-callback-registry-rest
+    port: 8080
+    description: REST adapter for Temenos Transact Microservices API — Callback Registry. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/callbacks
+      name: callbacks
+      description: REST surface for callbacks.
+      operations:
+      - method: GET
+        name: listcallbacks
+        description: List Registered Callbacks
+        call: microservices-callback-registry.listcallbacks
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: registercallback
+        description: Register Callback URL
+        call: microservices-callback-registry.registercallback
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/callbacks/{callbackid}
+      name: callbacks-callbackid
+      description: REST surface for callbacks-callbackId.
+      operations:
+      - method: DELETE
+        name: removecallback
+        description: Remove Callback Registration
+        call: microservices-callback-registry.removecallback
+        with:
+          callbackId: rest.callbackId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: microservices-callback-registry-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Transact Microservices API — Callback Registry. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: list-registered-callbacks
+      description: List Registered Callbacks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microservices-callback-registry.listcallbacks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: register-callback-url
+      description: Register Callback URL
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: microservices-callback-registry.registercallback
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-callback-registration
+      description: Remove Callback Registration
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: microservices-callback-registry.removecallback
+      with:
+        callbackId: tools.callbackId
+      outputParameters:
+      - type: object
+        mapping: $.

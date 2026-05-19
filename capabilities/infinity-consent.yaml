@@ -1,0 +1,157 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Infinity Digital Banking API — Consent
+  description: 'Temenos Infinity Digital Banking API — Consent. 3 operations. Lead operation: Create Consent Record. Self-contained
+    Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Consent
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: infinity-consent
+    baseUri: https://api.temenos.com/infinity/v1
+    description: Temenos Infinity Digital Banking API — Consent business capability. Self-contained, no shared references.
+    resources:
+    - name: consents
+      path: /consents
+      operations:
+      - name: createconsent
+        method: POST
+        description: Create Consent Record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: consents-consentId
+      path: /consents/{consentId}
+      operations:
+      - name: getconsent
+        method: GET
+        description: Get Consent Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: consentId
+          in: path
+          type: string
+          description: Unique consent identifier
+          required: true
+      - name: revokeconsent
+        method: DELETE
+        description: Revoke Consent
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: consentId
+          in: path
+          type: string
+          description: Unique consent identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: infinity-consent-rest
+    port: 8080
+    description: REST adapter for Temenos Infinity Digital Banking API — Consent. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/consents
+      name: consents
+      description: REST surface for consents.
+      operations:
+      - method: POST
+        name: createconsent
+        description: Create Consent Record
+        call: infinity-consent.createconsent
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/consents/{consentid}
+      name: consents-consentid
+      description: REST surface for consents-consentId.
+      operations:
+      - method: GET
+        name: getconsent
+        description: Get Consent Details
+        call: infinity-consent.getconsent
+        with:
+          consentId: rest.consentId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: revokeconsent
+        description: Revoke Consent
+        call: infinity-consent.revokeconsent
+        with:
+          consentId: rest.consentId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: infinity-consent-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Infinity Digital Banking API — Consent. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: create-consent-record
+      description: Create Consent Record
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: infinity-consent.createconsent
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-consent-details
+      description: Get Consent Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: infinity-consent.getconsent
+      with:
+        consentId: tools.consentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: revoke-consent
+      description: Revoke Consent
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: infinity-consent.revokeconsent
+      with:
+        consentId: tools.consentId
+      outputParameters:
+      - type: object
+        mapping: $.

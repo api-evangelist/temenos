@@ -1,0 +1,146 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Fund Administration API — Product
+  description: 'Temenos Fund Administration API — Product. 3 operations. Lead operation: List Funds. Self-contained Naftiko
+    capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Product
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: fund-administration-product
+    baseUri: https://api.temenos.com/funds/v1
+    description: Temenos Fund Administration API — Product business capability. Self-contained, no shared references.
+    resources:
+    - name: product-funds
+      path: /product/funds
+      operations:
+      - name: listfunds
+        method: GET
+        description: List Funds
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createfund
+        method: POST
+        description: Create Fund
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: product-shareClasses
+      path: /product/shareClasses
+      operations:
+      - name: listshareclasses
+        method: GET
+        description: List Share Classes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fundId
+          in: query
+          type: string
+          description: Filter by fund identifier
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: fund-administration-product-rest
+    port: 8080
+    description: REST adapter for Temenos Fund Administration API — Product. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/product/funds
+      name: product-funds
+      description: REST surface for product-funds.
+      operations:
+      - method: GET
+        name: listfunds
+        description: List Funds
+        call: fund-administration-product.listfunds
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createfund
+        description: Create Fund
+        call: fund-administration-product.createfund
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/product/shareclasses
+      name: product-shareclasses
+      description: REST surface for product-shareClasses.
+      operations:
+      - method: GET
+        name: listshareclasses
+        description: List Share Classes
+        call: fund-administration-product.listshareclasses
+        with:
+          fundId: rest.fundId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: fund-administration-product-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Fund Administration API — Product. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-funds
+      description: List Funds
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fund-administration-product.listfunds
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-fund
+      description: Create Fund
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: fund-administration-product.createfund
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-share-classes
+      description: List Share Classes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fund-administration-product.listshareclasses
+      with:
+        fundId: tools.fundId
+      outputParameters:
+      - type: object
+        mapping: $.

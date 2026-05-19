@@ -1,0 +1,143 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Transact API — Reference
+  description: 'Temenos Transact API — Reference. 3 operations. Lead operation: List Countries. Self-contained Naftiko capability
+    covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Reference
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: transact-reference
+    baseUri: https://api.temenos.com/transact/v1
+    description: Temenos Transact API — Reference business capability. Self-contained, no shared references.
+    resources:
+    - name: reference-countries
+      path: /reference/countries
+      operations:
+      - name: listcountries
+        method: GET
+        description: List Countries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: reference-currencies
+      path: /reference/currencies
+      operations:
+      - name: listcurrencies
+        method: GET
+        description: List Currencies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: reference-ibanStructures
+      path: /reference/ibanStructures
+      operations:
+      - name: listibanstructures
+        method: GET
+        description: List IBAN Structures
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: countryCode
+          in: query
+          type: string
+          description: Filter by ISO 3166-1 alpha-2 country code
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: transact-reference-rest
+    port: 8080
+    description: REST adapter for Temenos Transact API — Reference. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/reference/countries
+      name: reference-countries
+      description: REST surface for reference-countries.
+      operations:
+      - method: GET
+        name: listcountries
+        description: List Countries
+        call: transact-reference.listcountries
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/reference/currencies
+      name: reference-currencies
+      description: REST surface for reference-currencies.
+      operations:
+      - method: GET
+        name: listcurrencies
+        description: List Currencies
+        call: transact-reference.listcurrencies
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/reference/ibanstructures
+      name: reference-ibanstructures
+      description: REST surface for reference-ibanStructures.
+      operations:
+      - method: GET
+        name: listibanstructures
+        description: List IBAN Structures
+        call: transact-reference.listibanstructures
+        with:
+          countryCode: rest.countryCode
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: transact-reference-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Transact API — Reference. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-countries
+      description: List Countries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-reference.listcountries
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-currencies
+      description: List Currencies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-reference.listcurrencies
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-iban-structures
+      description: List IBAN Structures
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-reference.listibanstructures
+      with:
+        countryCode: tools.countryCode
+      outputParameters:
+      - type: object
+        mapping: $.

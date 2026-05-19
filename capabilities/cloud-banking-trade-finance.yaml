@@ -1,0 +1,102 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Cloud Banking (CMB) API — Trade Finance
+  description: 'Temenos Cloud Banking (CMB) API — Trade Finance. 2 operations. Lead operation: List Guarantees. Self-contained
+    Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Trade Finance
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cloud-banking-trade-finance
+    baseUri: https://api.temenos.com/cmb/v1
+    description: Temenos Cloud Banking (CMB) API — Trade Finance business capability. Self-contained, no shared references.
+    resources:
+    - name: tradeFinance-guarantees
+      path: /tradeFinance/guarantees
+      operations:
+      - name: listguarantees
+        method: GET
+        description: List Guarantees
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: tradeFinance-lettersOfCredit
+      path: /tradeFinance/lettersOfCredit
+      operations:
+      - name: listlettersofcredit
+        method: GET
+        description: List Letters Of Credit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cloud-banking-trade-finance-rest
+    port: 8080
+    description: REST adapter for Temenos Cloud Banking (CMB) API — Trade Finance. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/tradefinance/guarantees
+      name: tradefinance-guarantees
+      description: REST surface for tradeFinance-guarantees.
+      operations:
+      - method: GET
+        name: listguarantees
+        description: List Guarantees
+        call: cloud-banking-trade-finance.listguarantees
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/tradefinance/lettersofcredit
+      name: tradefinance-lettersofcredit
+      description: REST surface for tradeFinance-lettersOfCredit.
+      operations:
+      - method: GET
+        name: listlettersofcredit
+        description: List Letters Of Credit
+        call: cloud-banking-trade-finance.listlettersofcredit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cloud-banking-trade-finance-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Cloud Banking (CMB) API — Trade Finance. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-guarantees
+      description: List Guarantees
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-banking-trade-finance.listguarantees
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-letters-credit
+      description: List Letters Of Credit
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-banking-trade-finance.listlettersofcredit
+      outputParameters:
+      - type: object
+        mapping: $.

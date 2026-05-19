@@ -1,0 +1,202 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Transact API — Order
+  description: 'Temenos Transact API — Order. 4 operations. Lead operation: List Direct Debit Mandates. Self-contained Naftiko
+    capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Order
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: transact-order
+    baseUri: https://api.temenos.com/transact/v1
+    description: Temenos Transact API — Order business capability. Self-contained, no shared references.
+    resources:
+    - name: order-directDebits
+      path: /order/directDebits
+      operations:
+      - name: listdirectdebits
+        method: GET
+        description: List Direct Debit Mandates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: query
+          type: string
+          description: Filter direct debits by account
+    - name: order-paymentOrders
+      path: /order/paymentOrders
+      operations:
+      - name: listpaymentorders
+        method: GET
+        description: List Payment Orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: query
+          type: string
+          description: Filter payment orders by originating account
+        - name: status
+          in: query
+          type: string
+          description: Filter by payment order status
+      - name: createpaymentorder
+        method: POST
+        description: Create Payment Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: order-standingOrders
+      path: /order/standingOrders
+      operations:
+      - name: liststandingorders
+        method: GET
+        description: List Standing Orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: query
+          type: string
+          description: Filter standing orders by account
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: transact-order-rest
+    port: 8080
+    description: REST adapter for Temenos Transact API — Order. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/order/directdebits
+      name: order-directdebits
+      description: REST surface for order-directDebits.
+      operations:
+      - method: GET
+        name: listdirectdebits
+        description: List Direct Debit Mandates
+        call: transact-order.listdirectdebits
+        with:
+          accountId: rest.accountId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/order/paymentorders
+      name: order-paymentorders
+      description: REST surface for order-paymentOrders.
+      operations:
+      - method: GET
+        name: listpaymentorders
+        description: List Payment Orders
+        call: transact-order.listpaymentorders
+        with:
+          accountId: rest.accountId
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpaymentorder
+        description: Create Payment Order
+        call: transact-order.createpaymentorder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/order/standingorders
+      name: order-standingorders
+      description: REST surface for order-standingOrders.
+      operations:
+      - method: GET
+        name: liststandingorders
+        description: List Standing Orders
+        call: transact-order.liststandingorders
+        with:
+          accountId: rest.accountId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: transact-order-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Transact API — Order. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-direct-debit-mandates
+      description: List Direct Debit Mandates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-order.listdirectdebits
+      with:
+        accountId: tools.accountId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-payment-orders
+      description: List Payment Orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-order.listpaymentorders
+      with:
+        accountId: tools.accountId
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-payment-order
+      description: Create Payment Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: transact-order.createpaymentorder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-standing-orders
+      description: List Standing Orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-order.liststandingorders
+      with:
+        accountId: tools.accountId
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Transact API — System
+  description: 'Temenos Transact API — System. 1 operations. Lead operation: Get System Status. Self-contained Naftiko capability
+    covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - System
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: transact-system
+    baseUri: https://api.temenos.com/transact/v1
+    description: Temenos Transact API — System business capability. Self-contained, no shared references.
+    resources:
+    - name: system-status
+      path: /system/status
+      operations:
+      - name: getsystemstatus
+        method: GET
+        description: Get System Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: transact-system-rest
+    port: 8080
+    description: REST adapter for Temenos Transact API — System. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/system/status
+      name: system-status
+      description: REST surface for system-status.
+      operations:
+      - method: GET
+        name: getsystemstatus
+        description: Get System Status
+        call: transact-system.getsystemstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: transact-system-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Transact API — System. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-system-status
+      description: Get System Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transact-system.getsystemstatus
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,157 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Enterprise Product and Pricing API — Package Details
+  description: 'Temenos Enterprise Product and Pricing API — Package Details. 3 operations. Lead operation: List Package Arrangements.
+    Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Package Details
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: enterprise-product-pricing-package-details
+    baseUri: https://api.temenos.com/enterprise-pricing/v1
+    description: Temenos Enterprise Product and Pricing API — Package Details business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: packages
+      path: /packages
+      operations:
+      - name: listpackages
+        method: GET
+        description: List Package Arrangements
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customerId
+          in: query
+          type: string
+          description: Filter by customer
+      - name: createpackage
+        method: POST
+        description: Create Package Arrangement
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: packages-packageId-pricing
+      path: /packages/{packageId}/pricing
+      operations:
+      - name: getpackagepricing
+        method: GET
+        description: Get Package Pricing Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: packageId
+          in: path
+          type: string
+          description: Package arrangement identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: enterprise-product-pricing-package-details-rest
+    port: 8080
+    description: REST adapter for Temenos Enterprise Product and Pricing API — Package Details. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/packages
+      name: packages
+      description: REST surface for packages.
+      operations:
+      - method: GET
+        name: listpackages
+        description: List Package Arrangements
+        call: enterprise-product-pricing-package-details.listpackages
+        with:
+          customerId: rest.customerId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpackage
+        description: Create Package Arrangement
+        call: enterprise-product-pricing-package-details.createpackage
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/packages/{packageid}/pricing
+      name: packages-packageid-pricing
+      description: REST surface for packages-packageId-pricing.
+      operations:
+      - method: GET
+        name: getpackagepricing
+        description: Get Package Pricing Details
+        call: enterprise-product-pricing-package-details.getpackagepricing
+        with:
+          packageId: rest.packageId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: enterprise-product-pricing-package-details-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Enterprise Product and Pricing API — Package Details. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: list-package-arrangements
+      description: List Package Arrangements
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: enterprise-product-pricing-package-details.listpackages
+      with:
+        customerId: tools.customerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-package-arrangement
+      description: Create Package Arrangement
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: enterprise-product-pricing-package-details.createpackage
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-package-pricing-details
+      description: Get Package Pricing Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: enterprise-product-pricing-package-details.getpackagepricing
+      with:
+        packageId: tools.packageId
+      outputParameters:
+      - type: object
+        mapping: $.

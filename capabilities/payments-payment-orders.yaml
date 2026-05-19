@@ -1,0 +1,202 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Payments API — Payment Orders
+  description: 'Temenos Payments API — Payment Orders. 4 operations. Lead operation: List Payment Orders. Self-contained Naftiko
+    capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Payment Orders
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: payments-payment-orders
+    baseUri: https://api.temenos.com/payments/v1
+    description: Temenos Payments API — Payment Orders business capability. Self-contained, no shared references.
+    resources:
+    - name: paymentOrders
+      path: /paymentOrders
+      operations:
+      - name: listpaymentorders
+        method: GET
+        description: List Payment Orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: query
+          type: string
+          description: Filter by originating account identifier
+        - name: status
+          in: query
+          type: string
+          description: Filter by payment order status
+        - name: paymentType
+          in: query
+          type: string
+          description: Filter by payment type
+        - name: dateFrom
+          in: query
+          type: string
+          description: Filter payments from this date
+        - name: dateTo
+          in: query
+          type: string
+          description: Filter payments up to this date
+      - name: createpaymentorder
+        method: POST
+        description: Create Payment Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: paymentOrders-paymentOrderId
+      path: /paymentOrders/{paymentOrderId}
+      operations:
+      - name: getpaymentorder
+        method: GET
+        description: Get Payment Order Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: paymentOrders-paymentOrderId-status
+      path: /paymentOrders/{paymentOrderId}/status
+      operations:
+      - name: getpaymentorderstatus
+        method: GET
+        description: Get Payment Order Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: payments-payment-orders-rest
+    port: 8080
+    description: REST adapter for Temenos Payments API — Payment Orders. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/paymentorders
+      name: paymentorders
+      description: REST surface for paymentOrders.
+      operations:
+      - method: GET
+        name: listpaymentorders
+        description: List Payment Orders
+        call: payments-payment-orders.listpaymentorders
+        with:
+          accountId: rest.accountId
+          status: rest.status
+          paymentType: rest.paymentType
+          dateFrom: rest.dateFrom
+          dateTo: rest.dateTo
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpaymentorder
+        description: Create Payment Order
+        call: payments-payment-orders.createpaymentorder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/paymentorders/{paymentorderid}
+      name: paymentorders-paymentorderid
+      description: REST surface for paymentOrders-paymentOrderId.
+      operations:
+      - method: GET
+        name: getpaymentorder
+        description: Get Payment Order Details
+        call: payments-payment-orders.getpaymentorder
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/paymentorders/{paymentorderid}/status
+      name: paymentorders-paymentorderid-status
+      description: REST surface for paymentOrders-paymentOrderId-status.
+      operations:
+      - method: GET
+        name: getpaymentorderstatus
+        description: Get Payment Order Status
+        call: payments-payment-orders.getpaymentorderstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: payments-payment-orders-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Payments API — Payment Orders. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-payment-orders
+      description: List Payment Orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payments-payment-orders.listpaymentorders
+      with:
+        accountId: tools.accountId
+        status: tools.status
+        paymentType: tools.paymentType
+        dateFrom: tools.dateFrom
+        dateTo: tools.dateTo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-payment-order
+      description: Create Payment Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: payments-payment-orders.createpaymentorder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-payment-order-details
+      description: Get Payment Order Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payments-payment-orders.getpaymentorder
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-payment-order-status
+      description: Get Payment Order Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payments-payment-orders.getpaymentorderstatus
+      outputParameters:
+      - type: object
+        mapping: $.

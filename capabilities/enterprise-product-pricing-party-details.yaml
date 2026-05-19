@@ -1,0 +1,123 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Enterprise Product and Pricing API — Party Details
+  description: 'Temenos Enterprise Product and Pricing API — Party Details. 2 operations. Lead operation: Get Customer Contracts
+    And Accounts. Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Party Details
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: enterprise-product-pricing-party-details
+    baseUri: https://api.temenos.com/enterprise-pricing/v1
+    description: Temenos Enterprise Product and Pricing API — Party Details business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: party-customerId-contracts
+      path: /party/{customerId}/contracts
+      operations:
+      - name: getcustomercontracts
+        method: GET
+        description: Get Customer Contracts And Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customerId
+          in: path
+          type: string
+          description: Customer identifier
+          required: true
+    - name: party-customerId-pricing
+      path: /party/{customerId}/pricing
+      operations:
+      - name: getcustomerpricing
+        method: GET
+        description: Get Customer Pricing
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customerId
+          in: path
+          type: string
+          description: Customer identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: enterprise-product-pricing-party-details-rest
+    port: 8080
+    description: REST adapter for Temenos Enterprise Product and Pricing API — Party Details. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/party/{customerid}/contracts
+      name: party-customerid-contracts
+      description: REST surface for party-customerId-contracts.
+      operations:
+      - method: GET
+        name: getcustomercontracts
+        description: Get Customer Contracts And Accounts
+        call: enterprise-product-pricing-party-details.getcustomercontracts
+        with:
+          customerId: rest.customerId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/party/{customerid}/pricing
+      name: party-customerid-pricing
+      description: REST surface for party-customerId-pricing.
+      operations:
+      - method: GET
+        name: getcustomerpricing
+        description: Get Customer Pricing
+        call: enterprise-product-pricing-party-details.getcustomerpricing
+        with:
+          customerId: rest.customerId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: enterprise-product-pricing-party-details-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Enterprise Product and Pricing API — Party Details. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: get-customer-contracts-and-accounts
+      description: Get Customer Contracts And Accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: enterprise-product-pricing-party-details.getcustomercontracts
+      with:
+        customerId: tools.customerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-customer-pricing
+      description: Get Customer Pricing
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: enterprise-product-pricing-party-details.getcustomerpricing
+      with:
+        customerId: tools.customerId
+      outputParameters:
+      - type: object
+        mapping: $.

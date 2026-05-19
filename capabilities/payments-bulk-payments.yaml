@@ -1,0 +1,146 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Payments API — Bulk Payments
+  description: 'Temenos Payments API — Bulk Payments. 3 operations. Lead operation: List Bulk Payment Batches. Self-contained
+    Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Bulk Payments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: payments-bulk-payments
+    baseUri: https://api.temenos.com/payments/v1
+    description: Temenos Payments API — Bulk Payments business capability. Self-contained, no shared references.
+    resources:
+    - name: bulkPayments
+      path: /bulkPayments
+      operations:
+      - name: listbulkpayments
+        method: GET
+        description: List Bulk Payment Batches
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter by batch processing status
+      - name: createbulkpayment
+        method: POST
+        description: Create Bulk Payment Batch
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: bulkPayments-batchId-approve
+      path: /bulkPayments/{batchId}/approve
+      operations:
+      - name: approvebulkpayment
+        method: POST
+        description: Approve Bulk Payment Batch
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: payments-bulk-payments-rest
+    port: 8080
+    description: REST adapter for Temenos Payments API — Bulk Payments. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/bulkpayments
+      name: bulkpayments
+      description: REST surface for bulkPayments.
+      operations:
+      - method: GET
+        name: listbulkpayments
+        description: List Bulk Payment Batches
+        call: payments-bulk-payments.listbulkpayments
+        with:
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createbulkpayment
+        description: Create Bulk Payment Batch
+        call: payments-bulk-payments.createbulkpayment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/bulkpayments/{batchid}/approve
+      name: bulkpayments-batchid-approve
+      description: REST surface for bulkPayments-batchId-approve.
+      operations:
+      - method: POST
+        name: approvebulkpayment
+        description: Approve Bulk Payment Batch
+        call: payments-bulk-payments.approvebulkpayment
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: payments-bulk-payments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Payments API — Bulk Payments. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-bulk-payment-batches
+      description: List Bulk Payment Batches
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payments-bulk-payments.listbulkpayments
+      with:
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-bulk-payment-batch
+      description: Create Bulk Payment Batch
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: payments-bulk-payments.createbulkpayment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: approve-bulk-payment-batch
+      description: Approve Bulk Payment Batch
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: payments-bulk-payments.approvebulkpayment
+      outputParameters:
+      - type: object
+        mapping: $.

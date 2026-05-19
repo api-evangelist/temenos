@@ -1,0 +1,170 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Temenos Transact Data Hub API — Analytics Data Store
+  description: 'Temenos Transact Data Hub API — Analytics Data Store. 3 operations. Lead operation: List Analytics Account
+    Data. Self-contained Naftiko capability covering one Temenos business surface.'
+  tags:
+  - Temenos
+  - Analytics Data Store
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEMENOS_API_KEY: TEMENOS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: data-hub-analytics-data-store
+    baseUri: https://api.temenos.com/transact-data-hub/v1
+    description: Temenos Transact Data Hub API — Analytics Data Store business capability. Self-contained, no shared references.
+    resources:
+    - name: analytics-accounts
+      path: /analytics/accounts
+      operations:
+      - name: listanalyticsaccounts
+        method: GET
+        description: List Analytics Account Data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dateFrom
+          in: query
+          type: string
+          description: Start date for analytics period
+        - name: dateTo
+          in: query
+          type: string
+          description: End date for analytics period
+    - name: analytics-customers
+      path: /analytics/customers
+      operations:
+      - name: listanalyticscustomers
+        method: GET
+        description: List Analytics Customer Data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: analytics-transactions
+      path: /analytics/transactions
+      operations:
+      - name: listanalyticstransactions
+        method: GET
+        description: List Analytics Transaction Data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dateFrom
+          in: query
+          type: string
+          description: Start date
+        - name: dateTo
+          in: query
+          type: string
+          description: End date
+        - name: accountId
+          in: query
+          type: string
+          description: Filter by account
+    authentication:
+      type: bearer
+      token: '{{env.TEMENOS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: data-hub-analytics-data-store-rest
+    port: 8080
+    description: REST adapter for Temenos Transact Data Hub API — Analytics Data Store. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/analytics/accounts
+      name: analytics-accounts
+      description: REST surface for analytics-accounts.
+      operations:
+      - method: GET
+        name: listanalyticsaccounts
+        description: List Analytics Account Data
+        call: data-hub-analytics-data-store.listanalyticsaccounts
+        with:
+          dateFrom: rest.dateFrom
+          dateTo: rest.dateTo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/analytics/customers
+      name: analytics-customers
+      description: REST surface for analytics-customers.
+      operations:
+      - method: GET
+        name: listanalyticscustomers
+        description: List Analytics Customer Data
+        call: data-hub-analytics-data-store.listanalyticscustomers
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/analytics/transactions
+      name: analytics-transactions
+      description: REST surface for analytics-transactions.
+      operations:
+      - method: GET
+        name: listanalyticstransactions
+        description: List Analytics Transaction Data
+        call: data-hub-analytics-data-store.listanalyticstransactions
+        with:
+          dateFrom: rest.dateFrom
+          dateTo: rest.dateTo
+          accountId: rest.accountId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: data-hub-analytics-data-store-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Temenos Transact Data Hub API — Analytics Data Store. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-analytics-account-data
+      description: List Analytics Account Data
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: data-hub-analytics-data-store.listanalyticsaccounts
+      with:
+        dateFrom: tools.dateFrom
+        dateTo: tools.dateTo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-analytics-customer-data
+      description: List Analytics Customer Data
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: data-hub-analytics-data-store.listanalyticscustomers
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-analytics-transaction-data
+      description: List Analytics Transaction Data
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: data-hub-analytics-data-store.listanalyticstransactions
+      with:
+        dateFrom: tools.dateFrom
+        dateTo: tools.dateTo
+        accountId: tools.accountId
+      outputParameters:
+      - type: object
+        mapping: $.
