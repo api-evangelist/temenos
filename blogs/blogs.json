@@ -2,12 +2,20 @@
   "repo": "temenos",
   "feeds": [
     {
-      "source": "https://www.temenos.com/news",
+      "source": "https://www.temenos.com/feed/",
       "feed_url": "https://www.temenos.com/feed/",
-      "title": "Temenos",
-      "saved": 0
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://developer.temenos.com/article/sandbox-quick-guide",
+      "feed_url": "https://developer.temenos.com/article/sandbox-quick-guide",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-05-17T20:20:35Z",
+  "fetched": "2026-06-01T23:35:02Z",
   "post_count": 0
 }
