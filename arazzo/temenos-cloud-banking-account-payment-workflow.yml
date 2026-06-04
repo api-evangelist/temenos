@@ -1,0 +1,87 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Cloud Banking Open Commercial Account And Pay
+  summary: Open a commercial banking account and make a payment from it.
+  description: >-
+    Commercial banking flow in Temenos Cloud Banking. The workflow opens a
+    commercial account for a corporate customer against a product and currency,
+    then makes a payment from that account to a named beneficiary, returning the
+    initiated payment's identifier and status. Every step inlines its request so
+    the chain is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: cloudBankingApi
+  url: ../openapi/temenos-cloud-banking-openapi.yml
+  type: openapi
+workflows:
+- workflowId: open-account-make-payment
+  summary: Open a commercial account and make a payment from it.
+  description: >-
+    Opens a commercial banking account for a customer and issues a payment from
+    the new account, returning the initiated payment identifier and status.
+  inputs:
+    type: object
+    required:
+    - customerId
+    - productId
+    - currency
+    - amount
+    properties:
+      customerId:
+        type: string
+        description: Corporate customer identifier.
+      productId:
+        type: string
+        description: Product identifier defining the account type.
+      currency:
+        type: string
+        description: Account and payment currency in ISO 4217 format.
+      beneficiaryName:
+        type: string
+        description: Beneficiary name for the payment.
+      beneficiaryAccountId:
+        type: string
+        description: Beneficiary account identifier for the payment.
+      amount:
+        type: number
+        description: Payment amount.
+      reference:
+        type: string
+        description: Payment reference.
+  steps:
+  - stepId: openAccount
+    description: Open a commercial banking account for the corporate customer.
+    operationId: createCmbAccount
+    requestBody:
+      contentType: application/json
+      payload:
+        customerId: $inputs.customerId
+        productId: $inputs.productId
+        currency: $inputs.currency
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      accountId: $response.body#/accountId
+  - stepId: makePayment
+    description: >-
+      Make a payment from the newly opened account to the supplied beneficiary.
+    operationId: createCmbPayment
+    requestBody:
+      contentType: application/json
+      payload:
+        debitAccountId: $steps.openAccount.outputs.accountId
+        beneficiaryName: $inputs.beneficiaryName
+        beneficiaryAccountId: $inputs.beneficiaryAccountId
+        amount: $inputs.amount
+        currency: $inputs.currency
+        reference: $inputs.reference
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      paymentId: $response.body#/paymentId
+      status: $response.body#/status
+      errorCode: $response.body#/errorCode
+  outputs:
+    accountId: $steps.openAccount.outputs.accountId
+    paymentId: $steps.makePayment.outputs.paymentId
+    paymentStatus: $steps.makePayment.outputs.status

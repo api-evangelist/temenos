@@ -1,0 +1,138 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Wealth Open Portfolio And Place Order
+  summary: Open a managed portfolio for a client and place and track a security order.
+  description: >-
+    Wealth and asset-management flow in Temenos Wealth. The workflow opens a
+    portfolio for a client under a chosen mandate and risk profile, places a
+    buy or sell security order against that portfolio, and then polls the order
+    to track execution, branching to a successful end when the order is FILLED
+    and to a partial-fill path when it is PARTIALLY_FILLED. Every step inlines
+    its request so the chain is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: wealthApi
+  url: ../openapi/temenos-wealth-openapi.yml
+  type: openapi
+workflows:
+- workflowId: open-portfolio-place-order
+  summary: Open a portfolio, place a security order, and track its execution.
+  description: >-
+    Opens a managed portfolio for a client, places a security order against it,
+    and polls the order until it reaches a terminal execution status.
+  inputs:
+    type: object
+    required:
+    - customerId
+    - currency
+    - mandateType
+    - securityId
+    - side
+    - orderType
+    - quantity
+    properties:
+      customerId:
+        type: string
+        description: Wealth client identifier the portfolio belongs to.
+      portfolioName:
+        type: string
+        description: Optional display name for the portfolio.
+      currency:
+        type: string
+        description: Portfolio base currency in ISO 4217 format.
+      mandateType:
+        type: string
+        description: Mandate type (DISCRETIONARY, ADVISORY, EXECUTION_ONLY).
+      riskProfile:
+        type: string
+        description: Risk profile (CONSERVATIVE, MODERATE, BALANCED, GROWTH, AGGRESSIVE).
+      securityId:
+        type: string
+        description: Security identifier to trade.
+      side:
+        type: string
+        description: Order side (BUY or SELL).
+      orderType:
+        type: string
+        description: Order type (MARKET, LIMIT, STOP, STOP_LIMIT).
+      quantity:
+        type: number
+        description: Order quantity.
+      limitPrice:
+        type: number
+        description: Limit price for LIMIT and STOP_LIMIT orders.
+  steps:
+  - stepId: openPortfolio
+    description: Open a managed portfolio for the client.
+    operationId: createPortfolio
+    requestBody:
+      contentType: application/json
+      payload:
+        customerId: $inputs.customerId
+        portfolioName: $inputs.portfolioName
+        currency: $inputs.currency
+        mandateType: $inputs.mandateType
+        riskProfile: $inputs.riskProfile
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      portfolioId: $response.body#/portfolioId
+  - stepId: placeOrder
+    description: Place a security order against the newly opened portfolio.
+    operationId: createSecurityOrder
+    requestBody:
+      contentType: application/json
+      payload:
+        portfolioId: $steps.openPortfolio.outputs.portfolioId
+        securityId: $inputs.securityId
+        side: $inputs.side
+        orderType: $inputs.orderType
+        quantity: $inputs.quantity
+        limitPrice: $inputs.limitPrice
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      orderId: $response.body#/orderId
+      status: $response.body#/status
+  - stepId: trackOrder
+    description: >-
+      Poll the security order to track execution, branching on the terminal
+      execution status and retrying while it is pending or submitted.
+    operationId: getSecurityOrder
+    parameters:
+    - name: orderId
+      in: path
+      value: $steps.placeOrder.outputs.orderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      filledQuantity: $response.body#/filledQuantity
+      averagePrice: $response.body#/averagePrice
+    onSuccess:
+    - name: filled
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "FILLED"
+        type: jsonpath
+    - name: partiallyFilled
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "PARTIALLY_FILLED"
+        type: jsonpath
+    - name: stillWorking
+      type: retry
+      retryAfter: 5
+      retryLimit: 12
+      stepId: trackOrder
+      criteria:
+      - context: $response.body
+        condition: $.status == "PENDING" || $.status == "SUBMITTED"
+        type: jsonpath
+  outputs:
+    portfolioId: $steps.openPortfolio.outputs.portfolioId
+    orderId: $steps.placeOrder.outputs.orderId
+    finalStatus: $steps.trackOrder.outputs.status
+    filledQuantity: $steps.trackOrder.outputs.filledQuantity

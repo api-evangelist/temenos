@@ -1,0 +1,112 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Fund Administration Onboard Investor And Place Instruction
+  summary: Onboard an investor and place a fund subscription or redemption instruction for them.
+  description: >-
+    Transfer-agency flow in Temenos Multifonds Fund Administration. The
+    workflow onboards a new investor (the party placing the order), creates an
+    order instruction such as a subscription or redemption against a fund share
+    class, and then confirms it by listing the fund's instructions filtered to
+    the instruction type. Every step inlines its request so the chain is
+    self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: fundAdministrationApi
+  url: ../openapi/temenos-fund-administration-openapi.yml
+  type: openapi
+workflows:
+- workflowId: onboard-investor-place-instruction
+  summary: Onboard an investor and place and confirm a fund order instruction.
+  description: >-
+    Creates an investor party, places a subscription or redemption instruction
+    against a fund share class, and confirms it via the fund's instruction list.
+  inputs:
+    type: object
+    required:
+    - name
+    - investorType
+    - fundId
+    - shareClassId
+    - instructionType
+    properties:
+      name:
+        type: string
+        description: Investor name.
+      investorType:
+        type: string
+        description: Investor type (INDIVIDUAL, INSTITUTIONAL, CORPORATE).
+      nationality:
+        type: string
+        description: ISO 3166-1 alpha-2 nationality code.
+      fundId:
+        type: string
+        description: Target fund identifier.
+      shareClassId:
+        type: string
+        description: Target share class identifier.
+      instructionType:
+        type: string
+        description: Instruction type (SUBSCRIPTION, REDEMPTION, SWITCH, TRANSFER).
+      quantity:
+        type: number
+        description: Number of shares for the instruction.
+      amount:
+        type: number
+        description: Cash amount for the instruction.
+      currency:
+        type: string
+        description: Instruction currency in ISO 4217 format.
+  steps:
+  - stepId: createInvestor
+    description: Onboard the investor placing the order.
+    operationId: createInvestor
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        investorType: $inputs.investorType
+        nationality: $inputs.nationality
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      investorId: $response.body#/investorId
+  - stepId: placeInstruction
+    description: >-
+      Place a fund order instruction for the investor against the supplied
+      share class.
+    operationId: createInstruction
+    requestBody:
+      contentType: application/json
+      payload:
+        investorId: $steps.createInvestor.outputs.investorId
+        fundId: $inputs.fundId
+        shareClassId: $inputs.shareClassId
+        instructionType: $inputs.instructionType
+        quantity: $inputs.quantity
+        amount: $inputs.amount
+        currency: $inputs.currency
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      instructionId: $response.body#/instructionId
+      status: $response.body#/status
+  - stepId: confirmInstruction
+    description: >-
+      List the fund's instructions of this type to confirm the new instruction
+      is recorded.
+    operationId: listInstructions
+    parameters:
+    - name: fundId
+      in: query
+      value: $inputs.fundId
+    - name: instructionType
+      in: query
+      value: $inputs.instructionType
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      instructions: $response.body#/body
+  outputs:
+    investorId: $steps.createInvestor.outputs.investorId
+    instructionId: $steps.placeInstruction.outputs.instructionId
+    instructionStatus: $steps.placeInstruction.outputs.status

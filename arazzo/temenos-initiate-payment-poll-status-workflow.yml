@@ -1,0 +1,142 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Payments Initiate Payment And Poll Status
+  summary: Create a payment order and poll its processing status until it settles.
+  description: >-
+    The canonical Temenos Payment Order Hub flow. The workflow creates a
+    payment order for a SEPA, SWIFT, domestic or internal transfer, reads the
+    created order back, and then polls the dedicated status endpoint, branching
+    to success when the payment is COMPLETED and to a failed terminal state
+    when the payment is FAILED or CANCELLED. Every step inlines its request so
+    the chain can be executed without opening the OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: paymentsApi
+  url: ../openapi/temenos-payments-openapi.yml
+  type: openapi
+workflows:
+- workflowId: initiate-payment-poll-status
+  summary: Initiate a payment order and poll until it completes or fails.
+  description: >-
+    Creates a payment order, confirms it was persisted, and polls the payment
+    status endpoint, branching on the terminal status reported by the hub.
+  inputs:
+    type: object
+    required:
+    - debitAccountId
+    - amount
+    - currency
+    - paymentType
+    properties:
+      debitAccountId:
+        type: string
+        description: Originating account identifier.
+      creditAccountId:
+        type: string
+        description: Destination account identifier for internal transfers.
+      beneficiaryName:
+        type: string
+        description: Beneficiary name for external transfers.
+      beneficiaryIban:
+        type: string
+        description: Beneficiary IBAN for external transfers.
+      beneficiaryBic:
+        type: string
+        description: Beneficiary bank BIC/SWIFT code.
+      amount:
+        type: number
+        description: Payment amount.
+      currency:
+        type: string
+        description: Payment currency in ISO 4217 format.
+      paymentType:
+        type: string
+        description: Payment type (SEPA_CREDIT, INSTANT_SEPA, SWIFT, DOMESTIC, INTERNAL, TARGET2, CROSS_BORDER).
+  steps:
+  - stepId: createPaymentOrder
+    description: Create a payment order for the requested transfer.
+    operationPath: '{$sourceDescriptions.paymentsApi.url}#/paths/~1paymentOrders/post'
+    requestBody:
+      contentType: application/json
+      payload:
+        debitAccountId: $inputs.debitAccountId
+        creditAccountId: $inputs.creditAccountId
+        beneficiaryName: $inputs.beneficiaryName
+        beneficiaryIban: $inputs.beneficiaryIban
+        beneficiaryBic: $inputs.beneficiaryBic
+        amount: $inputs.amount
+        currency: $inputs.currency
+        paymentType: $inputs.paymentType
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      paymentOrderId: $response.body#/paymentOrderId
+      status: $response.body#/status
+  - stepId: getPaymentOrder
+    description: Read the created payment order back to confirm it was persisted.
+    operationPath: '{$sourceDescriptions.paymentsApi.url}#/paths/~1paymentOrders~1{paymentOrderId}/get'
+    parameters:
+    - name: paymentOrderId
+      in: path
+      value: $steps.createPaymentOrder.outputs.paymentOrderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentOrderId: $response.body#/paymentOrderId
+  - stepId: pollStatus
+    description: >-
+      Poll the payment status endpoint and branch on the terminal status:
+      COMPLETED ends the workflow successfully, FAILED or CANCELLED routes to
+      the failure step, and any other status retries.
+    operationId: getPaymentOrderStatus
+    parameters:
+    - name: paymentOrderId
+      in: path
+      value: $steps.getPaymentOrder.outputs.paymentOrderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      bookingStatus: $response.body#/bookingStatus
+      statusReason: $response.body#/statusReason
+    onSuccess:
+    - name: settled
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "COMPLETED"
+        type: jsonpath
+    - name: rejected
+      type: goto
+      stepId: handleFailure
+      criteria:
+      - context: $response.body
+        condition: $.status == "FAILED" || $.status == "CANCELLED"
+        type: jsonpath
+    - name: keepPolling
+      type: retry
+      retryAfter: 5
+      retryLimit: 12
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.status == "PENDING" || $.status == "PROCESSING"
+        type: jsonpath
+  - stepId: handleFailure
+    description: >-
+      Re-read the final status of a payment that did not settle so the failure
+      reason is captured in the workflow outputs.
+    operationId: getPaymentOrderStatus
+    parameters:
+    - name: paymentOrderId
+      in: path
+      value: $steps.getPaymentOrder.outputs.paymentOrderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      statusReason: $response.body#/statusReason
+  outputs:
+    paymentOrderId: $steps.createPaymentOrder.outputs.paymentOrderId
+    finalStatus: $steps.pollStatus.outputs.status
+    bookingStatus: $steps.pollStatus.outputs.bookingStatus

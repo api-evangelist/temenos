@@ -1,0 +1,80 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Infinity Open Banking Consent Grant
+  summary: Create an open-banking consent record for a TPP and confirm it is authorised.
+  description: >-
+    PSD2 / open-banking consent flow in Temenos Infinity. The workflow creates
+    a consent record granting a third-party provider a set of permissions over
+    named accounts until an expiry date, then reads the consent back to confirm
+    its authorisation status before the TPP begins consuming account data or
+    initiating payments. Every step inlines its request so the chain is
+    self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: infinityApi
+  url: ../openapi/temenos-infinity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: open-banking-consent
+  summary: Create a TPP consent and confirm its authorisation status.
+  description: >-
+    Creates an open-banking consent for a third-party provider and retrieves it
+    to confirm the granted permissions and status.
+  inputs:
+    type: object
+    required:
+    - tppId
+    - permissions
+    - expirationDate
+    properties:
+      tppId:
+        type: string
+        description: Third-party provider identifier the consent is granted to.
+      permissions:
+        type: array
+        description: Granted permissions (READ_ACCOUNTS, READ_BALANCES, READ_TRANSACTIONS, INITIATE_PAYMENTS).
+        items:
+          type: string
+      expirationDate:
+        type: string
+        description: Consent expiry date.
+      accountIds:
+        type: array
+        description: Specific account identifiers the consent applies to.
+        items:
+          type: string
+  steps:
+  - stepId: createConsent
+    description: Create the open-banking consent record for the third-party provider.
+    operationId: createConsent
+    requestBody:
+      contentType: application/json
+      payload:
+        tppId: $inputs.tppId
+        permissions: $inputs.permissions
+        expirationDate: $inputs.expirationDate
+        accountIds: $inputs.accountIds
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      consentId: $response.body#/consentId
+      status: $response.body#/status
+  - stepId: confirmConsent
+    description: >-
+      Retrieve the consent to confirm the granted permissions and that it is
+      authorised before the TPP uses it.
+    operationId: getConsent
+    parameters:
+    - name: consentId
+      in: path
+      value: $steps.createConsent.outputs.consentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      consentId: $response.body#/consentId
+      status: $response.body#/status
+      permissions: $response.body#/permissions
+      expirationDate: $response.body#/expirationDate
+  outputs:
+    consentId: $steps.confirmConsent.outputs.consentId
+    consentStatus: $steps.confirmConsent.outputs.status

@@ -1,0 +1,92 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Microservices Define And Execute Orchestration
+  summary: Define a service orchestration sequence and trigger its execution.
+  description: >-
+    Service orchestration flow on the Temenos Banking Microservices platform.
+    The workflow registers a named orchestration sequence describing the
+    ordered service calls to chain, then triggers execution with input
+    parameters and branches on the reported execution status, surfacing whether
+    the run started, is in progress, or failed to launch. Every step inlines
+    its request so the chain is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: microservicesApi
+  url: ../openapi/temenos-microservices-openapi.yml
+  type: openapi
+workflows:
+- workflowId: define-execute-orchestration
+  summary: Create an orchestration sequence and execute it with input parameters.
+  description: >-
+    Defines a service orchestration sequence, then executes it, branching on
+    the execution status returned by the orchestrator.
+  inputs:
+    type: object
+    required:
+    - name
+    - steps
+    properties:
+      name:
+        type: string
+        description: Name of the orchestration sequence.
+      description:
+        type: string
+        description: Description of what the orchestration does.
+      steps:
+        type: array
+        description: Ordered service steps, each with stepOrder, serviceName and operationId.
+        items:
+          type: object
+      inputParameters:
+        type: object
+        description: Input parameters passed to the orchestration at execution time.
+  steps:
+  - stepId: createOrchestration
+    description: Register the orchestration sequence describing the ordered service calls.
+    operationId: createOrchestration
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        description: $inputs.description
+        steps: $inputs.steps
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      orchestrationId: $response.body#/orchestrationId
+      status: $response.body#/status
+  - stepId: executeOrchestration
+    description: >-
+      Trigger execution of the orchestration with the supplied input
+      parameters, branching on the reported execution status.
+    operationId: executeOrchestration
+    parameters:
+    - name: orchestrationId
+      in: path
+      value: $steps.createOrchestration.outputs.orchestrationId
+    requestBody:
+      contentType: application/json
+      payload:
+        inputParameters: $inputs.inputParameters
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      executionId: $response.body#/executionId
+      status: $response.body#/status
+    onSuccess:
+    - name: running
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "STARTED" || $.status == "IN_PROGRESS" || $.status == "COMPLETED"
+        type: jsonpath
+    - name: failed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "FAILED"
+        type: jsonpath
+  outputs:
+    orchestrationId: $steps.createOrchestration.outputs.orchestrationId
+    executionId: $steps.executeOrchestration.outputs.executionId
+    executionStatus: $steps.executeOrchestration.outputs.status

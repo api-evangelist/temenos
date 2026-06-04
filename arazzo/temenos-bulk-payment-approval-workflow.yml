@@ -1,0 +1,92 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Payments Bulk Payment Batch Approval
+  summary: Create a bulk payment batch and push it through the approval workflow.
+  description: >-
+    A maker-checker bulk disbursement flow on the Temenos Payment Order Hub.
+    The workflow creates a bulk payment batch from a common debit account with
+    one or more beneficiary instructions, then submits the batch for approval,
+    branching on whether the batch is APPROVED for processing or REJECTED.
+    Every step inlines its request so the chain is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: paymentsApi
+  url: ../openapi/temenos-payments-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bulk-payment-approval
+  summary: Create a bulk payment batch and approve it for processing.
+  description: >-
+    Creates a bulk payment batch and runs it through the configured approval
+    workflow, branching on the resulting batch status.
+  inputs:
+    type: object
+    required:
+    - debitAccountId
+    - currency
+    - payments
+    properties:
+      debitAccountId:
+        type: string
+        description: Common debit account for the batch.
+      currency:
+        type: string
+        description: Batch currency in ISO 4217 format.
+      valueDate:
+        type: string
+        description: Common value date for all payments in the batch.
+      payments:
+        type: array
+        description: Individual beneficiary payment instructions.
+        items:
+          type: object
+  steps:
+  - stepId: createBatch
+    description: Create a bulk payment batch from the supplied instructions.
+    operationId: createBulkPayment
+    requestBody:
+      contentType: application/json
+      payload:
+        debitAccountId: $inputs.debitAccountId
+        currency: $inputs.currency
+        valueDate: $inputs.valueDate
+        payments: $inputs.payments
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      batchId: $response.body#/batchId
+      status: $response.body#/status
+      paymentCount: $response.body#/paymentCount
+      totalAmount: $response.body#/totalAmount
+  - stepId: approveBatch
+    description: >-
+      Submit the batch for approval and branch on whether it was approved for
+      processing or rejected.
+    operationId: approveBulkPayment
+    parameters:
+    - name: batchId
+      in: path
+      value: $steps.createBatch.outputs.batchId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      batchId: $response.body#/batchId
+      status: $response.body#/status
+    onSuccess:
+    - name: approved
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "APPROVED" || $.status == "PROCESSING" || $.status == "COMPLETED"
+        type: jsonpath
+    - name: rejected
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "REJECTED"
+        type: jsonpath
+  outputs:
+    batchId: $steps.createBatch.outputs.batchId
+    totalAmount: $steps.createBatch.outputs.totalAmount
+    paymentCount: $steps.createBatch.outputs.paymentCount
+    finalStatus: $steps.approveBatch.outputs.status

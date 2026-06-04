@@ -1,0 +1,58 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Journey Manager Complete Submission Delivery
+  summary: Look up a form submission and mark its delivery to the receiving system as complete.
+  description: >-
+    Digital onboarding delivery flow in Temenos Journey Manager. The workflow
+    retrieves a form submission to confirm it exists and inspect its current
+    status, then marks the submission's delivery to the receiving system as
+    complete once it has been processed. Every step inlines its request so the
+    chain is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: journeyManagerApi
+  url: ../openapi/temenos-journey-manager-openapi.yml
+  type: openapi
+workflows:
+- workflowId: complete-submission-delivery
+  summary: Retrieve a submission and complete its delivery.
+  description: >-
+    Looks up a form submission by id and marks its delivery to the receiving
+    system as complete.
+  inputs:
+    type: object
+    required:
+    - submissionId
+    properties:
+      submissionId:
+        type: string
+        description: Identifier of the form submission to complete.
+  steps:
+  - stepId: getSubmission
+    description: >-
+      Retrieve the submission to confirm it exists and capture its current
+      status before completing delivery.
+    operationId: getSubmission
+    parameters:
+    - name: submissionId
+      in: path
+      value: $inputs.submissionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      submissionId: $response.body#/submissionId
+      status: $response.body#/status
+  - stepId: completeDelivery
+    description: >-
+      Mark the submission's delivery to the receiving system as completed after
+      successful processing.
+    operationId: completeDelivery
+    parameters:
+    - name: submissionId
+      in: path
+      value: $steps.getSubmission.outputs.submissionId
+    successCriteria:
+    - condition: $statusCode == 200
+  outputs:
+    submissionId: $steps.getSubmission.outputs.submissionId
+    submissionStatus: $steps.getSubmission.outputs.status

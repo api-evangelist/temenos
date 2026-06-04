@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Transact Onboard Customer And Open Account
+  summary: Create a customer, open an account arrangement for them, and read the account back.
+  description: >-
+    The foundational core-banking onboarding flow in Temenos Transact. The
+    workflow creates a new party (customer) record, opens an account
+    arrangement bound to that customer against a banking product and currency,
+    and then retrieves the freshly opened account so the caller has the
+    confirmed balances and status. Every step inlines its request so the chain
+    can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: transactApi
+  url: ../openapi/temenos-transact-openapi.yml
+  type: openapi
+workflows:
+- workflowId: onboard-customer-open-account
+  summary: Onboard a customer and open their first account in Temenos Transact.
+  description: >-
+    Creates a customer party, opens an account arrangement for that customer
+    using the supplied product and currency, then reads the account back to
+    confirm it is live.
+  inputs:
+    type: object
+    required:
+    - customerType
+    - lastName
+    - productId
+    - currency
+    properties:
+      customerType:
+        type: string
+        description: Customer classification (INDIVIDUAL or CORPORATE).
+      title:
+        type: string
+        description: Customer title (e.g. Mr, Ms).
+      firstName:
+        type: string
+        description: Customer first name.
+      lastName:
+        type: string
+        description: Customer last name or company name.
+      nationality:
+        type: string
+        description: ISO 3166-1 alpha-2 nationality code.
+      productId:
+        type: string
+        description: Product identifier defining the account type and terms.
+      currency:
+        type: string
+        description: Account currency in ISO 4217 format (e.g. USD).
+      accountName:
+        type: string
+        description: Optional display name for the account.
+  steps:
+  - stepId: createCustomer
+    description: >-
+      Create a new customer party record for onboarding with the supplied
+      personal details.
+    operationId: createCustomer
+    requestBody:
+      contentType: application/json
+      payload:
+        customerType: $inputs.customerType
+        title: $inputs.title
+        firstName: $inputs.firstName
+        lastName: $inputs.lastName
+        nationality: $inputs.nationality
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      customerId: $response.body#/customerId
+      kycStatus: $response.body#/kycStatus
+  - stepId: openAccount
+    description: >-
+      Open an account arrangement for the newly created customer against the
+      supplied product and currency.
+    operationId: createAccount
+    requestBody:
+      contentType: application/json
+      payload:
+        customerId: $steps.createCustomer.outputs.customerId
+        productId: $inputs.productId
+        currency: $inputs.currency
+        accountName: $inputs.accountName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      accountId: $response.body#/accountId
+      status: $response.body#/status
+  - stepId: getAccount
+    description: >-
+      Retrieve the opened account to confirm its status and balances are
+      available.
+    operationId: getAccount
+    parameters:
+    - name: accountId
+      in: path
+      value: $steps.openAccount.outputs.accountId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accountId: $response.body#/accountId
+      status: $response.body#/status
+      availableBalance: $response.body#/availableBalance
+  outputs:
+    customerId: $steps.createCustomer.outputs.customerId
+    accountId: $steps.getAccount.outputs.accountId
+    accountStatus: $steps.getAccount.outputs.status

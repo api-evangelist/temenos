@@ -1,0 +1,101 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Transact Originate Loan Arrangement
+  summary: Create a borrower party and originate a loan arrangement for them.
+  description: >-
+    Loan origination flow in Temenos Transact. The workflow creates the
+    borrower as a customer party, then creates a loan arrangement specifying
+    principal, currency and term against a loan product. Finally it reads the
+    loan back through the list endpoint filtered to the borrower to confirm the
+    arrangement is booked. Each step inlines its request so the chain is
+    self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: transactApi
+  url: ../openapi/temenos-transact-openapi.yml
+  type: openapi
+workflows:
+- workflowId: originate-loan-arrangement
+  summary: Onboard a borrower and originate a loan arrangement in Temenos Transact.
+  description: >-
+    Creates the borrower party, originates a loan arrangement with the supplied
+    principal and term, and confirms it by listing the customer's loans.
+  inputs:
+    type: object
+    required:
+    - lastName
+    - productId
+    - currency
+    - principalAmount
+    - term
+    properties:
+      customerType:
+        type: string
+        description: Customer classification (INDIVIDUAL or CORPORATE).
+      firstName:
+        type: string
+        description: Borrower first name.
+      lastName:
+        type: string
+        description: Borrower last name or company name.
+      productId:
+        type: string
+        description: Loan product identifier.
+      currency:
+        type: string
+        description: Loan currency in ISO 4217 format.
+      principalAmount:
+        type: number
+        description: Requested loan principal amount.
+      term:
+        type: integer
+        description: Loan term in months.
+  steps:
+  - stepId: createBorrower
+    description: Create the borrower as a customer party record.
+    operationId: createCustomer
+    requestBody:
+      contentType: application/json
+      payload:
+        customerType: $inputs.customerType
+        firstName: $inputs.firstName
+        lastName: $inputs.lastName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      customerId: $response.body#/customerId
+  - stepId: createLoan
+    description: >-
+      Originate a loan arrangement for the borrower with the supplied
+      principal, currency and term.
+    operationId: createLoan
+    requestBody:
+      contentType: application/json
+      payload:
+        customerId: $steps.createBorrower.outputs.customerId
+        productId: $inputs.productId
+        currency: $inputs.currency
+        principalAmount: $inputs.principalAmount
+        term: $inputs.term
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      loanId: $response.body#/loanId
+      outstandingBalance: $response.body#/outstandingBalance
+  - stepId: confirmLoans
+    description: >-
+      List the borrower's loan arrangements to confirm the new loan is booked
+      against the customer.
+    operationId: listLoans
+    parameters:
+    - name: customerId
+      in: query
+      value: $steps.createBorrower.outputs.customerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      loans: $response.body#/body
+  outputs:
+    customerId: $steps.createBorrower.outputs.customerId
+    loanId: $steps.createLoan.outputs.loanId
+    outstandingBalance: $steps.createLoan.outputs.outstandingBalance

@@ -446,6 +446,51 @@ apis:
     - type: Reference
       url: https://developer.temenos.com/temenos-explorer/docs/developer/plugin-csa/api-methods/
 common:
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+    - url: arazzo/temenos-bnpl-offer-accept-loan-workflow.yml
+      name: Temenos BNPL Generate Offer And Accept Into Loan
+      summary: Generate a buy-now-pay-later offer for a purchase and accept it into an active loan.
+    - url: arazzo/temenos-bulk-payment-approval-workflow.yml
+      name: Temenos Payments Bulk Payment Batch Approval
+      summary: Create a bulk payment batch and push it through the approval workflow.
+    - url: arazzo/temenos-cloud-banking-account-payment-workflow.yml
+      name: Temenos Cloud Banking Open Commercial Account And Pay
+      summary: Open a commercial banking account and make a payment from it.
+    - url: arazzo/temenos-fund-subscription-instruction-workflow.yml
+      name: Temenos Fund Administration Onboard Investor And Place Instruction
+      summary: Onboard an investor and place a fund subscription or redemption instruction for them.
+    - url: arazzo/temenos-infinity-initiate-payment-workflow.yml
+      name: Temenos Infinity Initiate Payment And Track
+      summary: Initiate a digital-banking payment from a customer account and track it to completion.
+    - url: arazzo/temenos-infinity-open-banking-consent-workflow.yml
+      name: Temenos Infinity Open Banking Consent Grant
+      summary: Create an open-banking consent record for a TPP and confirm it is authorised.
+    - url: arazzo/temenos-initiate-payment-poll-status-workflow.yml
+      name: Temenos Payments Initiate Payment And Poll Status
+      summary: Create a payment order and poll its processing status until it settles.
+    - url: arazzo/temenos-journey-complete-submission-delivery-workflow.yml
+      name: Temenos Journey Manager Complete Submission Delivery
+      summary: Look up a form submission and mark its delivery to the receiving system as complete.
+    - url: arazzo/temenos-microservices-orchestration-workflow.yml
+      name: Temenos Microservices Define And Execute Orchestration
+      summary: Define a service orchestration sequence and trigger its execution.
+    - url: arazzo/temenos-onboard-customer-open-account-workflow.yml
+      name: Temenos Transact Onboard Customer And Open Account
+      summary: Create a customer, open an account arrangement for them, and read the account back.
+    - url: arazzo/temenos-originate-loan-arrangement-workflow.yml
+      name: Temenos Transact Originate Loan Arrangement
+      summary: Create a borrower party and originate a loan arrangement for them.
+    - url: arazzo/temenos-screen-and-risk-score-customer-workflow.yml
+      name: Temenos Financial Crime Screen And Risk Score Customer
+      summary: Screen an onboarding customer against sanctions and compute their KYC risk score.
+    - url: arazzo/temenos-simulate-and-retrieve-quotation-workflow.yml
+      name: Temenos Enterprise Pricing Simulate And Retrieve Quotation
+      summary: Simulate the pricing of opening an arrangement and retrieve the saved quotation.
+    - url: arazzo/temenos-wealth-open-portfolio-place-order-workflow.yml
+      name: Temenos Wealth Open Portfolio And Place Order
+      summary: Open a managed portfolio for a client and place and track a security order.
   - type: LinkedIn
     url: https://www.linkedin.com/company/temenos
   - type: Developer Portal

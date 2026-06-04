@@ -1,0 +1,83 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Enterprise Pricing Simulate And Retrieve Quotation
+  summary: Simulate the pricing of opening an arrangement and retrieve the saved quotation.
+  description: >-
+    Pre-sale pricing flow in Temenos Enterprise Pricing. The workflow simulates
+    the pricing of creating an account or lending arrangement for a product,
+    customer and amount, returning the indicative interest rates, fees and
+    cashback, and then retrieves the persisted quotation by its reference so
+    the quoted terms can be presented and later acted upon. Every step inlines
+    its request so the chain is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: enterprisePricingApi
+  url: ../openapi/temenos-enterprise-product-pricing-openapi.yml
+  type: openapi
+workflows:
+- workflowId: simulate-retrieve-quotation
+  summary: Simulate arrangement pricing and retrieve the saved quotation by reference.
+  description: >-
+    Runs a pricing simulation for a product and amount, then retrieves the
+    persisted quotation by the reference returned from the simulation.
+  inputs:
+    type: object
+    required:
+    - productId
+    - currency
+    properties:
+      productId:
+        type: string
+        description: Product identifier to price.
+      customerId:
+        type: string
+        description: Customer identifier for customer-specific pricing.
+      currency:
+        type: string
+        description: Quotation currency in ISO 4217 format.
+      amount:
+        type: number
+        description: Arrangement amount to price.
+      term:
+        type: integer
+        description: Arrangement term used in pricing.
+  steps:
+  - stepId: simulatePricing
+    description: >-
+      Simulate the pricing of opening an arrangement for the supplied product
+      and amount.
+    operationId: simulateArrangementCreation
+    requestBody:
+      contentType: application/json
+      payload:
+        productId: $inputs.productId
+        customerId: $inputs.customerId
+        currency: $inputs.currency
+        amount: $inputs.amount
+        term: $inputs.term
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      quotationReference: $response.body#/quotationReference
+      interestRates: $response.body#/interestRates
+      fees: $response.body#/fees
+  - stepId: retrieveQuotation
+    description: >-
+      Retrieve the persisted quotation by its reference to confirm the quoted
+      terms.
+    operationId: getQuotationDetails
+    parameters:
+    - name: quotationReference
+      in: path
+      value: $steps.simulatePricing.outputs.quotationReference
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      quotationReference: $response.body#/quotationReference
+      interestRates: $response.body#/interestRates
+      fees: $response.body#/fees
+      cashback: $response.body#/cashback
+  outputs:
+    quotationReference: $steps.retrieveQuotation.outputs.quotationReference
+    interestRates: $steps.retrieveQuotation.outputs.interestRates
+    fees: $steps.retrieveQuotation.outputs.fees

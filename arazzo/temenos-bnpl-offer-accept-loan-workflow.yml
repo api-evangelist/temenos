@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Temenos BNPL Generate Offer And Accept Into Loan
+  summary: Generate a buy-now-pay-later offer for a purchase and accept it into an active loan.
+  description: >-
+    Buy-now-pay-later checkout flow in Temenos. The workflow generates a BNPL
+    credit offer for a customer's purchase using Explainable AI decisioning,
+    accepts the first returned offer to create the loan and trigger merchant
+    settlement, and then reads the resulting loan back to confirm its
+    installment schedule and status. Every step inlines its request so the
+    chain is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: bnplApi
+  url: ../openapi/temenos-bnpl-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bnpl-offer-accept-loan
+  summary: Generate a BNPL offer, accept it into a loan, and confirm the loan.
+  description: >-
+    Generates a BNPL credit offer for a purchase, accepts the first offer to
+    create the loan, and retrieves the loan to confirm its installment terms.
+  inputs:
+    type: object
+    required:
+    - customerId
+    - purchaseAmount
+    - currency
+    properties:
+      customerId:
+        type: string
+        description: Customer identifier requesting the BNPL offer.
+      merchantId:
+        type: string
+        description: Merchant identifier for the purchase.
+      purchaseAmount:
+        type: number
+        description: Purchase amount to finance.
+      currency:
+        type: string
+        description: Purchase currency in ISO 4217 format.
+      purchaseDescription:
+        type: string
+        description: Description of the purchase being financed.
+  steps:
+  - stepId: generateOffer
+    description: >-
+      Generate a BNPL credit offer for the purchase using Explainable AI
+      decisioning.
+    operationId: createCreditOffer
+    requestBody:
+      contentType: application/json
+      payload:
+        customerId: $inputs.customerId
+        merchantId: $inputs.merchantId
+        purchaseAmount: $inputs.purchaseAmount
+        currency: $inputs.currency
+        purchaseDescription: $inputs.purchaseDescription
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      offerId: $response.body#/offers/0/offerId
+      decisionExplanation: $response.body#/decisionExplanation
+  - stepId: acceptOffer
+    description: >-
+      Accept the first returned offer to create the loan and trigger merchant
+      settlement.
+    operationId: acceptCreditOffer
+    parameters:
+    - name: offerId
+      in: path
+      value: $steps.generateOffer.outputs.offerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      loanId: $response.body#/loanId
+      status: $response.body#/status
+  - stepId: confirmLoan
+    description: >-
+      Retrieve the created BNPL loan to confirm its installment schedule and
+      status.
+    operationId: getBnplLoan
+    parameters:
+    - name: loanId
+      in: path
+      value: $steps.acceptOffer.outputs.loanId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      loanId: $response.body#/loanId
+      outstandingBalance: $response.body#/outstandingBalance
+      numberOfInstallments: $response.body#/numberOfInstallments
+      nextPaymentDate: $response.body#/nextPaymentDate
+      status: $response.body#/status
+  outputs:
+    offerId: $steps.generateOffer.outputs.offerId
+    loanId: $steps.confirmLoan.outputs.loanId
+    decisionExplanation: $steps.generateOffer.outputs.decisionExplanation
+    loanStatus: $steps.confirmLoan.outputs.status

@@ -1,0 +1,104 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Infinity Initiate Payment And Track
+  summary: Initiate a digital-banking payment from a customer account and track it to completion.
+  description: >-
+    Customer-facing payment flow in the Temenos Infinity digital banking
+    platform. The workflow initiates a payment from a customer account
+    (domestic, international, or bill payment), then polls the payment endpoint
+    to track processing, branching to a successful end when the payment is
+    COMPLETED and to a failure path when it is FAILED or CANCELLED. Every step
+    inlines its request so the chain is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: infinityApi
+  url: ../openapi/temenos-infinity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: infinity-initiate-payment
+  summary: Initiate an Infinity payment and poll until it completes or fails.
+  description: >-
+    Initiates a payment from a customer account and polls its status,
+    branching on the terminal processing status.
+  inputs:
+    type: object
+    required:
+    - debitAccountId
+    - creditAccountId
+    - amount
+    - currency
+    properties:
+      debitAccountId:
+        type: string
+        description: Source customer account identifier.
+      creditAccountId:
+        type: string
+        description: Destination account identifier.
+      amount:
+        type: number
+        description: Payment amount.
+      currency:
+        type: string
+        description: Payment currency in ISO 4217 format.
+      paymentType:
+        type: string
+        description: Payment type (DOMESTIC_TRANSFER, INTERNATIONAL_TRANSFER, BILL_PAYMENT).
+      narrative:
+        type: string
+        description: Optional payment narrative shown to the customer.
+  steps:
+  - stepId: initiatePayment
+    description: Initiate a payment from the customer's debit account.
+    operationId: createPayment
+    requestBody:
+      contentType: application/json
+      payload:
+        debitAccountId: $inputs.debitAccountId
+        creditAccountId: $inputs.creditAccountId
+        amount: $inputs.amount
+        currency: $inputs.currency
+        paymentType: $inputs.paymentType
+        narrative: $inputs.narrative
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      paymentId: $response.body#/paymentId
+      status: $response.body#/status
+  - stepId: trackPayment
+    description: >-
+      Poll the payment to track processing, branching on the terminal status
+      and retrying while it is still pending or processing.
+    operationId: getPayment
+    parameters:
+    - name: paymentId
+      in: path
+      value: $steps.initiatePayment.outputs.paymentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: completed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "COMPLETED"
+        type: jsonpath
+    - name: failed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "FAILED" || $.status == "CANCELLED"
+        type: jsonpath
+    - name: stillProcessing
+      type: retry
+      retryAfter: 5
+      retryLimit: 12
+      stepId: trackPayment
+      criteria:
+      - context: $response.body
+        condition: $.status == "PENDING" || $.status == "PROCESSING"
+        type: jsonpath
+  outputs:
+    paymentId: $steps.initiatePayment.outputs.paymentId
+    finalStatus: $steps.trackPayment.outputs.status

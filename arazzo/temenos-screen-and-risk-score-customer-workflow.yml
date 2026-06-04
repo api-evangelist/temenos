@@ -1,0 +1,125 @@
+arazzo: 1.0.1
+info:
+  title: Temenos Financial Crime Screen And Risk Score Customer
+  summary: Screen an onboarding customer against sanctions and compute their KYC risk score.
+  description: >-
+    Onboarding due-diligence flow in Temenos Financial Crime Mitigation. The
+    workflow screens a prospective customer against sanctions, PEP and adverse
+    media lists, and branches on the screening outcome: a clear result proceeds
+    to compute the customer's risk score and read the resulting rating back,
+    while a match routes to a hold step that surfaces the screening matches for
+    manual review. Every step inlines its request so the chain is
+    self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: financialCrimeApi
+  url: ../openapi/temenos-financial-crime-mitigation-openapi.yml
+  type: openapi
+workflows:
+- workflowId: screen-and-risk-score-customer
+  summary: Sanction-screen a customer and, if clear, compute their risk score.
+  description: >-
+    Screens an onboarding customer, then either computes and reads their risk
+    score when clear or holds for review when a sanctions match is found.
+  inputs:
+    type: object
+    required:
+    - customerId
+    - name
+    properties:
+      customerId:
+        type: string
+        description: Customer identifier being onboarded.
+      name:
+        type: string
+        description: Full legal name to screen.
+      dateOfBirth:
+        type: string
+        description: Date of birth used to disambiguate screening matches.
+      nationality:
+        type: string
+        description: ISO 3166-1 alpha-2 nationality code.
+      address:
+        type: string
+        description: Customer address used in screening.
+  steps:
+  - stepId: screenOnboarding
+    description: >-
+      Screen the onboarding customer against sanctions, PEP and adverse media
+      lists, branching on whether the result is clear or a match was found.
+    operationId: screenOnboardingCustomer
+    requestBody:
+      contentType: application/json
+      payload:
+        customerId: $inputs.customerId
+        name: $inputs.name
+        dateOfBirth: $inputs.dateOfBirth
+        nationality: $inputs.nationality
+        address: $inputs.address
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      screeningId: $response.body#/screeningId
+      status: $response.body#/status
+    onSuccess:
+    - name: clear
+      type: goto
+      stepId: computeRisk
+      criteria:
+      - context: $response.body
+        condition: $.status == "CLEAR"
+        type: jsonpath
+    - name: flagged
+      type: goto
+      stepId: holdForReview
+      criteria:
+      - context: $response.body
+        condition: $.status == "MATCH_FOUND" || $.status == "POTENTIAL_MATCH"
+        type: jsonpath
+  - stepId: computeRisk
+    description: >-
+      Compute the customer's KYC risk score now that screening is clear.
+    operationId: computeCustomerRiskScore
+    parameters:
+    - name: customerId
+      in: path
+      value: $inputs.customerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      overallRiskRating: $response.body#/overallRiskRating
+      riskScore: $response.body#/riskScore
+  - stepId: getRisk
+    description: Read the computed risk score back to confirm the assessed rating.
+    operationId: getCustomerRiskScore
+    parameters:
+    - name: customerId
+      in: path
+      value: $inputs.customerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      overallRiskRating: $response.body#/overallRiskRating
+      riskScore: $response.body#/riskScore
+      assessmentDate: $response.body#/assessmentDate
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: holdForReview
+    description: >-
+      Re-read the sanction alerts for the flagged customer so the matches are
+      captured for manual review.
+    operationId: getCustomerSanctionAlerts
+    parameters:
+    - name: customerId
+      in: path
+      value: $inputs.customerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      alerts: $response.body#/body
+  outputs:
+    screeningId: $steps.screenOnboarding.outputs.screeningId
+    screeningStatus: $steps.screenOnboarding.outputs.status
+    overallRiskRating: $steps.getRisk.outputs.overallRiskRating
+    riskScore: $steps.getRisk.outputs.riskScore
