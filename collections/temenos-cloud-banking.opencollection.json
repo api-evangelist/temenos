@@ -1,0 +1,234 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Cloud Banking (CMB) API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Commercial Banking Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/cmb/v1/accounts",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by customer"
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Filter by regional market"
+              }
+            ]
+          },
+          "docs": "Retrieve commercial banking accounts with country-specific product details and regulatory compliance status."
+        },
+        {
+          "info": {
+            "name": "Create Commercial Banking Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/cmb/v1/accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new commercial banking account using pre-configured regional product templates with local regulatory compliance."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Deposits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Deposits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/cmb/v1/deposits",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve deposit products with country-specific terms, rates, and regulatory classification."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lending",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Lending Facilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/cmb/v1/lending/facilities",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by customer"
+              }
+            ]
+          },
+          "docs": "Retrieve commercial lending facilities including credit lines, term loans, and revolving facilities with utilization details."
+        },
+        {
+          "info": {
+            "name": "Create Lending Facility",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/cmb/v1/lending/facilities",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Originate a new lending facility with specified terms, collateral, and repayment conditions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Trade Finance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Letters Of Credit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/cmb/v1/tradeFinance/lettersOfCredit",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve letters of credit including import and export LCs with their document status and amendment history."
+        },
+        {
+          "info": {
+            "name": "List Guarantees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/cmb/v1/tradeFinance/guarantees",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve bank guarantees and standby letters of credit with their terms, beneficiaries, and expiry dates."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/cmb/v1/payments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a payment through country-specific clearing channels with local regulatory validation and compliance checks."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,380 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Infinity Digital Banking API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Customer Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/infinity/v1/accounts",
+            "params": [
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "pageStart",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset token or page number"
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "query",
+                "description": "Filter accounts by customer identifier"
+              },
+              {
+                "name": "accountType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by account type (e.g., CURRENT, SAVINGS, DEPOSIT)"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of customer accounts across all account types visible through the digital banking channel. Returns account summary information including balances, status, and product details."
+        },
+        {
+          "info": {
+            "name": "Get Account Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/infinity/v1/accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific customer account including balances, product details, interest rates, and associated services."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Account Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/infinity/v1/accounts/:accountId/transactions",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "pageStart",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset token or page number"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for transaction history (ISO 8601 format)"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for transaction history (ISO 8601 format)"
+              },
+              {
+                "name": "transactionType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by transaction type"
+              }
+            ]
+          },
+          "docs": "Retrieve transaction history for a specific account. Supports filtering by date range, amount, transaction type, and text search across narratives."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Customer Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/infinity/v1/customers/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Unique customer identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve customer profile information including personal details, contact information, preferences, and linked accounts across the digital banking platform."
+        },
+        {
+          "info": {
+            "name": "Update Customer Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.temenos.com/infinity/v1/customers/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Unique customer identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update customer profile information including contact details, communication preferences, and notification settings."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate A Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/infinity/v1/payments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a new payment from a customer account. Supports domestic transfers, international transfers, and bill payments. The payment is validated and submitted for processing."
+        },
+        {
+          "info": {
+            "name": "Get Payment Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/infinity/v1/payments/:paymentId",
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique payment identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve the current status and details of a previously initiated payment including processing status, timestamps, and confirmation details."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Cards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Customer Cards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/infinity/v1/cards",
+            "params": [
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "pageStart",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset token or page number"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of debit and credit cards associated with the customer across all linked accounts."
+        },
+        {
+          "info": {
+            "name": "Update Card Controls",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.temenos.com/infinity/v1/cards/:cardId",
+            "params": [
+              {
+                "name": "cardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique card identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update card settings including spending limits, transaction type controls, geographic restrictions, and contactless payment settings."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Notification Preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/infinity/v1/notifications/preferences"
+          },
+          "docs": "Retrieve the customer notification preferences including enabled channels, event subscriptions, and delivery settings."
+        },
+        {
+          "info": {
+            "name": "Update Notification Preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.temenos.com/infinity/v1/notifications/preferences",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the customer notification preferences for banking events such as transactions, balance thresholds, and security alerts."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Consent",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Consent Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/infinity/v1/consents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new consent record for Open Banking data sharing, authorizing a third-party provider to access specified account information or initiate payments under PSD2 regulations."
+        },
+        {
+          "info": {
+            "name": "Get Consent Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/infinity/v1/consents/:consentId",
+            "params": [
+              {
+                "name": "consentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique consent identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve the details and current status of a consent record including authorized scopes, expiration, and third-party provider information."
+        },
+        {
+          "info": {
+            "name": "Revoke Consent",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.temenos.com/infinity/v1/consents/:consentId",
+            "params": [
+              {
+                "name": "consentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique consent identifier"
+              }
+            ]
+          },
+          "docs": "Revoke an existing consent, immediately terminating the third-party provider access to the authorized account data or payment initiation capabilities."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

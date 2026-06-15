@@ -1,0 +1,227 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Transact Data Hub API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics Data Store",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Analytics Account Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact-data-hub/v1/analytics/accounts",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              },
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Start date for analytics period"
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query",
+                "description": "End date for analytics period"
+              }
+            ]
+          },
+          "docs": "Retrieve analytical account data from the ADS including balance histories, transaction volumes, and account metrics for reporting and business intelligence."
+        },
+        {
+          "info": {
+            "name": "List Analytics Transaction Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact-data-hub/v1/analytics/transactions",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              },
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Start date"
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query",
+                "description": "End date"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by account"
+              }
+            ]
+          },
+          "docs": "Retrieve analytical transaction data from the ADS for intra-day and historical transaction analysis with aggregation support."
+        },
+        {
+          "info": {
+            "name": "List Analytics Customer Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact-data-hub/v1/analytics/customers",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              }
+            ]
+          },
+          "docs": "Retrieve analytical customer data including customer segmentation metrics, product holdings summaries, and relationship indicators."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Operational Data Store",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Operational Account Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact-data-hub/v1/operational/accounts",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              }
+            ]
+          },
+          "docs": "Retrieve near real-time operational account data from the ODS for integration use cases with current balances and status."
+        },
+        {
+          "info": {
+            "name": "List Operational Transaction Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact-data-hub/v1/operational/transactions",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by account"
+              }
+            ]
+          },
+          "docs": "Retrieve near real-time transaction data from the ODS for operational reporting and real-time integration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Data Streaming",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Streaming Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact-data-hub/v1/streaming/configurations"
+          },
+          "docs": "Retrieve event streaming configurations for data replication and real-time event capture from committed transactions."
+        },
+        {
+          "info": {
+            "name": "Create Streaming Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/transact-data-hub/v1/streaming/configurations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new event streaming configuration to capture data replication events when transactions are committed to the system."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

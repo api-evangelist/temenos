@@ -1,0 +1,336 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Journey Manager API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Application Packages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Application Packages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://journey.temenos.com/api/v1/packages"
+          },
+          "docs": "Retrieve the list of available application packages with their metadata and version information."
+        },
+        {
+          "info": {
+            "name": "Upload Application Package",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://journey.temenos.com/api/v1/packages",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "archive",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload a new application package archive for deployment in the Journey Manager platform."
+        },
+        {
+          "info": {
+            "name": "Get Application Package",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://journey.temenos.com/api/v1/packages/:packageId",
+            "params": [
+              {
+                "name": "packageId",
+                "value": "",
+                "type": "path",
+                "description": "Package identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific application package with its metadata and configuration details."
+        },
+        {
+          "info": {
+            "name": "Delete Application Package",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://journey.temenos.com/api/v1/packages/:packageId",
+            "params": [
+              {
+                "name": "packageId",
+                "value": "",
+                "type": "path",
+                "description": "Package identifier"
+              }
+            ]
+          },
+          "docs": "Remove an application package from the Journey Manager platform."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Delivery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Submissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://journey.temenos.com/api/v1/delivery/submissions",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of form submissions pending delivery processing."
+        },
+        {
+          "info": {
+            "name": "Get Submission Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://journey.temenos.com/api/v1/delivery/submissions/:submissionId",
+            "params": [
+              {
+                "name": "submissionId",
+                "value": "",
+                "type": "path",
+                "description": "Submission identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed submission data including form field values and submission metadata."
+        },
+        {
+          "info": {
+            "name": "Complete Delivery",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://journey.temenos.com/api/v1/delivery/submissions/:submissionId/complete",
+            "params": [
+              {
+                "name": "submissionId",
+                "value": "",
+                "type": "path",
+                "description": "Submission identifier"
+              }
+            ]
+          },
+          "docs": "Mark a submission delivery as completed after successful processing by the receiving system."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Form Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Form Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://journey.temenos.com/api/v1/formGroups"
+          },
+          "docs": "Retrieve all form group configurations for organizing and categorizing customer journey forms."
+        },
+        {
+          "info": {
+            "name": "Create Form Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://journey.temenos.com/api/v1/formGroups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new form group for organizing customer journey forms."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Service Definitions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Service Definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://journey.temenos.com/api/v1/services"
+          },
+          "docs": "Retrieve service definitions for journey integration services with their parameters and configurations."
+        },
+        {
+          "info": {
+            "name": "Create Service Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://journey.temenos.com/api/v1/services",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new service definition for integration within customer journey workflows."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://journey.temenos.com/api/v1/transactions",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by transaction status"
+              }
+            ]
+          },
+          "docs": "Retrieve customer journey transactions including their current status, form data, and workflow position."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://journey.temenos.com/api/v1/tasks",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              },
+              {
+                "name": "assignee",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assigned user"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by task status"
+              }
+            ]
+          },
+          "docs": "Retrieve tasks within journey workflows including assignment and completion status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://journey.temenos.com/api/v1/workspaces"
+          },
+          "docs": "Retrieve available workspaces in the Journey Manager portal for external system integration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1306 @@
+{
+  "info": {
+    "_postman_id": "c42e1531-d3e4-49dc-971f-c9e5e765bb05",
+    "name": "Temenos Transact Data Hub API",
+    "description": "High-performance APIs built on the near real-time Analytics Data Store (ADS) and Operational Data Store (ODS) from Temenos Transact Data Hub. Provides banking-specific analytical and operational data for comprehensive intra-day and historical analysis, reporting, and integration use cases utilizing real-time data streams and ETL transformations.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:13.000Z",
+    "updatedAt": "2026-06-05T15:19:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c42e1531-d3e4-49dc-971f-c9e5e765bb05"
+  },
+  "item": [
+    {
+      "name": "analytics",
+      "item": [
+        {
+          "name": "accounts",
+          "item": [
+            {
+              "name": "List Analytics Account Data",
+              "id": "bfb9da32-7e20-4370-ba5b-1c33db771c0f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/analytics/accounts?page_size=25&page_start=0&dateFrom=<date>&dateTo=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Start date for analytics period",
+                      "key": "dateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "End date for analytics period",
+                      "key": "dateTo",
+                      "value": "<date>"
+                    }
+                  ]
+                },
+                "description": "Retrieve analytical account data from the ADS including balance histories, transaction volumes, and account metrics for reporting and business intelligence."
+              },
+              "response": [
+                {
+                  "id": "2c9bbcf8-fbac-4e72-8917-736a21c0f58f",
+                  "name": "Successful retrieval of analytics data",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/analytics/accounts?page_size=25&page_start=0&dateFrom=<date>&dateTo=<date>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "analytics",
+                        "accounts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Start date for analytics period",
+                          "key": "dateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "End date for analytics period",
+                          "key": "dateTo",
+                          "value": "<date>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"accountId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"averageBalance\": \"<double>\",\n      \"transactionCount\": \"<integer>\",\n      \"totalDebits\": \"<double>\",\n      \"totalCredits\": \"<double>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"accountId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"averageBalance\": \"<double>\",\n      \"transactionCount\": \"<integer>\",\n      \"totalDebits\": \"<double>\",\n      \"totalCredits\": \"<double>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-2c9bbcf8-fbac-4e72-8917-736a21c0f58f"
+                },
+                {
+                  "id": "7b26e6ee-54e6-4515-86e5-5b8a26aa9a5c",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/analytics/accounts?page_size=25&page_start=0&dateFrom=<date>&dateTo=<date>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "analytics",
+                        "accounts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Start date for analytics period",
+                          "key": "dateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "End date for analytics period",
+                          "key": "dateTo",
+                          "value": "<date>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-7b26e6ee-54e6-4515-86e5-5b8a26aa9a5c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-bfb9da32-7e20-4370-ba5b-1c33db771c0f"
+            }
+          ],
+          "id": "a48e44be-b840-404b-bbb7-cebc92d1b236",
+          "createdAt": "2026-06-05T15:19:14.000Z",
+          "updatedAt": "2026-06-05T15:19:14.000Z",
+          "uid": "35240-a48e44be-b840-404b-bbb7-cebc92d1b236"
+        },
+        {
+          "name": "transactions",
+          "item": [
+            {
+              "name": "List Analytics Transaction Data",
+              "id": "fc701133-9b2e-4bd2-9bd5-88e085349ac5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/analytics/transactions?page_size=25&page_start=0&dateFrom=<date>&dateTo=<date>&accountId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Start date",
+                      "key": "dateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "End date",
+                      "key": "dateTo",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Filter by account",
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieve analytical transaction data from the ADS for intra-day and historical transaction analysis with aggregation support."
+              },
+              "response": [
+                {
+                  "id": "09e0728c-a39d-4045-a733-f98c9ff622b8",
+                  "name": "Successful retrieval of transaction analytics",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/analytics/transactions?page_size=25&page_start=0&dateFrom=<date>&dateTo=<date>&accountId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "analytics",
+                        "transactions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Start date",
+                          "key": "dateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "End date",
+                          "key": "dateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Filter by account",
+                          "key": "accountId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"transactionId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"transactionType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"bookingDate\": \"<date>\",\n      \"valueDate\": \"<date>\",\n      \"channel\": \"<string>\"\n    },\n    {\n      \"transactionId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"transactionType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"bookingDate\": \"<date>\",\n      \"valueDate\": \"<date>\",\n      \"channel\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-09e0728c-a39d-4045-a733-f98c9ff622b8"
+                },
+                {
+                  "id": "8d01920d-fbc9-4c33-a90b-52535a8f8d3b",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/analytics/transactions?page_size=25&page_start=0&dateFrom=<date>&dateTo=<date>&accountId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "analytics",
+                        "transactions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Start date",
+                          "key": "dateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "End date",
+                          "key": "dateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Filter by account",
+                          "key": "accountId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-8d01920d-fbc9-4c33-a90b-52535a8f8d3b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-fc701133-9b2e-4bd2-9bd5-88e085349ac5"
+            }
+          ],
+          "id": "cb497b9c-a1a1-4271-9fce-aae0b77ac352",
+          "createdAt": "2026-06-05T15:19:14.000Z",
+          "updatedAt": "2026-06-05T15:19:14.000Z",
+          "uid": "35240-cb497b9c-a1a1-4271-9fce-aae0b77ac352"
+        },
+        {
+          "name": "customers",
+          "item": [
+            {
+              "name": "List Analytics Customer Data",
+              "id": "ab23c858-67cf-47a5-a44e-8009bd039de7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/analytics/customers?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "customers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieve analytical customer data including customer segmentation metrics, product holdings summaries, and relationship indicators."
+              },
+              "response": [
+                {
+                  "id": "863e713c-a616-4f94-921f-4619beec98f2",
+                  "name": "Successful retrieval of customer analytics",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/analytics/customers?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "analytics",
+                        "customers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"customerId\": \"<string>\",\n      \"segment\": \"<string>\",\n      \"totalProducts\": \"<integer>\",\n      \"totalRelationshipValue\": \"<double>\",\n      \"currency\": \"<string>\"\n    },\n    {\n      \"customerId\": \"<string>\",\n      \"segment\": \"<string>\",\n      \"totalProducts\": \"<integer>\",\n      \"totalRelationshipValue\": \"<double>\",\n      \"currency\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-863e713c-a616-4f94-921f-4619beec98f2"
+                },
+                {
+                  "id": "aeced8bd-066a-42c5-b690-0cc9d8a9da1c",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/analytics/customers?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "analytics",
+                        "customers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-aeced8bd-066a-42c5-b690-0cc9d8a9da1c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-ab23c858-67cf-47a5-a44e-8009bd039de7"
+            }
+          ],
+          "id": "225167cb-f2cc-4a02-808a-da0295553904",
+          "createdAt": "2026-06-05T15:19:14.000Z",
+          "updatedAt": "2026-06-05T15:19:14.000Z",
+          "uid": "35240-225167cb-f2cc-4a02-808a-da0295553904"
+        }
+      ],
+      "id": "33b727b8-b24e-465d-adf5-640367e904cf",
+      "createdAt": "2026-06-05T15:19:14.000Z",
+      "updatedAt": "2026-06-05T15:19:14.000Z",
+      "uid": "35240-33b727b8-b24e-465d-adf5-640367e904cf"
+    },
+    {
+      "name": "operational",
+      "item": [
+        {
+          "name": "accounts",
+          "item": [
+            {
+              "name": "List Operational Account Data",
+              "id": "d33f847d-dd52-44d3-b3e8-748f5cdc091e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/operational/accounts?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "operational",
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieve near real-time operational account data from the ODS for integration use cases with current balances and status."
+              },
+              "response": [
+                {
+                  "id": "bd38d393-8e4e-4fdf-b3e6-6c6ab984a243",
+                  "name": "Successful retrieval of operational data",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/operational/accounts?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operational",
+                        "accounts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"accountId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"currentBalance\": \"<double>\",\n      \"availableBalance\": \"<double>\",\n      \"status\": \"<string>\",\n      \"lastUpdated\": \"<dateTime>\"\n    },\n    {\n      \"accountId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"currentBalance\": \"<double>\",\n      \"availableBalance\": \"<double>\",\n      \"status\": \"<string>\",\n      \"lastUpdated\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-bd38d393-8e4e-4fdf-b3e6-6c6ab984a243"
+                },
+                {
+                  "id": "3fe6589b-6325-4098-bb06-02bcce9e5627",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/operational/accounts?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operational",
+                        "accounts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-3fe6589b-6325-4098-bb06-02bcce9e5627"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-d33f847d-dd52-44d3-b3e8-748f5cdc091e"
+            }
+          ],
+          "id": "d9d3d850-75a4-41a7-baf0-81cb86e5d2d8",
+          "createdAt": "2026-06-05T15:19:14.000Z",
+          "updatedAt": "2026-06-05T15:19:14.000Z",
+          "uid": "35240-d9d3d850-75a4-41a7-baf0-81cb86e5d2d8"
+        },
+        {
+          "name": "transactions",
+          "item": [
+            {
+              "name": "List Operational Transaction Data",
+              "id": "7d03b939-b6b0-4173-85f8-e85944c9aa2e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/operational/transactions?page_size=25&page_start=0&accountId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "operational",
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by account",
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieve near real-time transaction data from the ODS for operational reporting and real-time integration."
+              },
+              "response": [
+                {
+                  "id": "2ad9984d-2a99-4d52-b17f-c49d80e6b091",
+                  "name": "Successful retrieval of operational transactions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/operational/transactions?page_size=25&page_start=0&accountId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operational",
+                        "transactions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by account",
+                          "key": "accountId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"transactionId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"bookingDate\": \"<date>\",\n      \"description\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"transactionId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"bookingDate\": \"<date>\",\n      \"description\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-2ad9984d-2a99-4d52-b17f-c49d80e6b091"
+                },
+                {
+                  "id": "5a5cca67-1ef3-4711-bbd8-bd5e4fd6a3e2",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/operational/transactions?page_size=25&page_start=0&accountId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operational",
+                        "transactions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by account",
+                          "key": "accountId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-5a5cca67-1ef3-4711-bbd8-bd5e4fd6a3e2"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-7d03b939-b6b0-4173-85f8-e85944c9aa2e"
+            }
+          ],
+          "id": "657adc13-b1e2-41bf-b825-29ab87b190e4",
+          "createdAt": "2026-06-05T15:19:14.000Z",
+          "updatedAt": "2026-06-05T15:19:14.000Z",
+          "uid": "35240-657adc13-b1e2-41bf-b825-29ab87b190e4"
+        }
+      ],
+      "id": "affb7504-4e2b-41db-80bb-7475fe406842",
+      "createdAt": "2026-06-05T15:19:14.000Z",
+      "updatedAt": "2026-06-05T15:19:14.000Z",
+      "uid": "35240-affb7504-4e2b-41db-80bb-7475fe406842"
+    },
+    {
+      "name": "streaming",
+      "item": [
+        {
+          "name": "configurations",
+          "item": [
+            {
+              "name": "List Streaming Configurations",
+              "id": "5ea1fe5c-d77b-4240-8c31-d06370ecd7fc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/streaming/configurations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "streaming",
+                    "configurations"
+                  ]
+                },
+                "description": "Retrieve event streaming configurations for data replication and real-time event capture from committed transactions."
+              },
+              "response": [
+                {
+                  "id": "1608263b-9213-4cee-a6f8-060772bd9cb8",
+                  "name": "Successful retrieval of configurations",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/streaming/configurations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "streaming",
+                        "configurations"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"body\": [\n    {\n      \"configurationId\": \"<string>\",\n      \"entityType\": \"<string>\",\n      \"targetTopic\": \"<string>\",\n      \"filterCriteria\": \"<string>\",\n      \"status\": \"INACTIVE\"\n    },\n    {\n      \"configurationId\": \"<string>\",\n      \"entityType\": \"<string>\",\n      \"targetTopic\": \"<string>\",\n      \"filterCriteria\": \"<string>\",\n      \"status\": \"ACTIVE\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-1608263b-9213-4cee-a6f8-060772bd9cb8"
+                },
+                {
+                  "id": "0712828b-b718-43e9-9cae-1e34b2f42240",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/streaming/configurations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "streaming",
+                        "configurations"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-0712828b-b718-43e9-9cae-1e34b2f42240"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-5ea1fe5c-d77b-4240-8c31-d06370ecd7fc"
+            },
+            {
+              "name": "Create Streaming Configuration",
+              "id": "99972f05-5ffd-4202-a4c3-6df771f89490",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entityType\": \"<string>\",\n  \"targetTopic\": \"<string>\",\n  \"filterCriteria\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/streaming/configurations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "streaming",
+                    "configurations"
+                  ]
+                },
+                "description": "Create a new event streaming configuration to capture data replication events when transactions are committed to the system."
+              },
+              "response": [
+                {
+                  "id": "1eea8a15-9f22-4122-a41e-c6025047491a",
+                  "name": "Configuration created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entityType\": \"<string>\",\n  \"targetTopic\": \"<string>\",\n  \"filterCriteria\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/streaming/configurations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "streaming",
+                        "configurations"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"configurationId\": \"<string>\",\n  \"entityType\": \"<string>\",\n  \"targetTopic\": \"<string>\",\n  \"filterCriteria\": \"<string>\",\n  \"status\": \"INACTIVE\"\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-1eea8a15-9f22-4122-a41e-c6025047491a"
+                },
+                {
+                  "id": "a56c90af-b1a7-495e-8848-9df6943e8bf9",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entityType\": \"<string>\",\n  \"targetTopic\": \"<string>\",\n  \"filterCriteria\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/streaming/configurations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "streaming",
+                        "configurations"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-a56c90af-b1a7-495e-8848-9df6943e8bf9"
+                },
+                {
+                  "id": "f124706a-5324-4f32-86c3-51c064724b82",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entityType\": \"<string>\",\n  \"targetTopic\": \"<string>\",\n  \"filterCriteria\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/streaming/configurations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "streaming",
+                        "configurations"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-f124706a-5324-4f32-86c3-51c064724b82"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-99972f05-5ffd-4202-a4c3-6df771f89490"
+            }
+          ],
+          "id": "da9c4e5d-35a5-4425-a046-22a6bc3f2171",
+          "createdAt": "2026-06-05T15:19:14.000Z",
+          "updatedAt": "2026-06-05T15:19:14.000Z",
+          "uid": "35240-da9c4e5d-35a5-4425-a046-22a6bc3f2171"
+        }
+      ],
+      "id": "1b18aafc-410b-4d49-8744-3b2167b464d7",
+      "createdAt": "2026-06-05T15:19:14.000Z",
+      "updatedAt": "2026-06-05T15:19:14.000Z",
+      "uid": "35240-1b18aafc-410b-4d49-8744-3b2167b464d7"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.temenos.com/transact-data-hub/v1"
+    }
+  ]
+}

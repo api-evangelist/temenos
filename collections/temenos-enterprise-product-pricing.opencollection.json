@@ -1,0 +1,319 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Enterprise Product and Pricing API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pricing Quotation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Simulate Account Creation Pricing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/quotations/simulate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulate the creation of an arrangement or account to determine applicable pricing details including interest rates, fees, and cashback. Returns a quotation reference that can be used for negotiating or adjusting pricing details or for creating a new account."
+        },
+        {
+          "info": {
+            "name": "Simulate Event Pricing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/quotations/simulateEvent",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulate an activity or transaction event such as an ATM withdrawal, partial redemption, or funds transfer to determine applicable pricing details and returns a quotation reference."
+        },
+        {
+          "info": {
+            "name": "Get Quotation Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/quotations/:quotationReference",
+            "params": [
+              {
+                "name": "quotationReference",
+                "value": "",
+                "type": "path",
+                "description": "Quotation reference identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve pricing details of a simulated quotation. If the quotation has been negotiated, returns final pricing details including any adjustments applied."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pricing Adjustment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amend Quotation Pricing",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/quotations/:quotationReference",
+            "params": [
+              {
+                "name": "quotationReference",
+                "value": "",
+                "type": "path",
+                "description": "Quotation reference identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Amend pricing details such as interest rates or fees for an existing simulated quotation reference as part of pricing negotiation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Package Details",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Package Arrangements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/packages",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by customer"
+              }
+            ]
+          },
+          "docs": "Retrieve package arrangements that bundle customer accounts for combined pricing benefits with primary and linked account information."
+        },
+        {
+          "info": {
+            "name": "Create Package Arrangement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/packages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new package arrangement to bundle customer accounts for combined pricing benefits and promotions."
+        },
+        {
+          "info": {
+            "name": "Get Package Pricing Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/packages/:packageId/pricing",
+            "params": [
+              {
+                "name": "packageId",
+                "value": "",
+                "type": "path",
+                "description": "Package arrangement identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve periodic pricing events and benefit details within specific periods for a package arrangement."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Party Details",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Customer Contracts And Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/party/:customerId/contracts",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Customer identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve all holdings, contracts, and accounts for a party within the pricing system."
+        },
+        {
+          "info": {
+            "name": "Get Customer Pricing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/party/:customerId/pricing",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Customer identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve all pricing information for a customer including pricing identifiers and applied benefit adjustments."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Accounts Arrangement Details",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Calculate Payoff Amount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/arrangements/:arrangementId/payoff",
+            "params": [
+              {
+                "name": "arrangementId",
+                "value": "",
+                "type": "path",
+                "description": "Arrangement identifier"
+              }
+            ]
+          },
+          "docs": "Compute the closure costs for an arrangement including outstanding interest, charges, and early termination penalties."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pricing Arrangement Details",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Arrangement Interest Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/arrangements/:arrangementId/interestRates",
+            "params": [
+              {
+                "name": "arrangementId",
+                "value": "",
+                "type": "path",
+                "description": "Arrangement identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve interest rate details for an arrangement including base rates, applied benefits, and effective net rates."
+        },
+        {
+          "info": {
+            "name": "Get Arrangement Charges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/arrangements/:arrangementId/charges",
+            "params": [
+              {
+                "name": "arrangementId",
+                "value": "",
+                "type": "path",
+                "description": "Arrangement identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve activity charge fees and periodic charge fees for an arrangement including account opening, closure, and recurring maintenance charges."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Promotions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Promotion Arrangement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/enterprise-pricing/v1/promotions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Establish a promotional arrangement for a party with promotional codes enabling special pricing benefits."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

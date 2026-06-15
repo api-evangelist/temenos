@@ -1,0 +1,3281 @@
+{
+  "info": {
+    "_postman_id": "93ce8686-a501-441e-b979-9e5efa519514",
+    "name": "Temenos Payments API",
+    "description": "Payment processing and management API supporting multiple payment types including SEPA credit transfers, instant SEPA payments, SWIFT cross-border payments, PSD2 compliant open banking payments, request-to-pay, bulk payment initiation, direct debit management, and payment stop requests. Built on Berlin Group PSD2 API standards with full ISO 20022 messaging support and integrated clearing through the Temenos Payments Hub.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:05.000Z",
+    "updatedAt": "2026-06-05T15:19:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-93ce8686-a501-441e-b979-9e5efa519514"
+  },
+  "item": [
+    {
+      "name": "paymentOrders",
+      "item": [
+        {
+          "name": "{paymentOrderId}",
+          "item": [
+            {
+              "name": "status",
+              "item": [
+                {
+                  "name": "Get Payment Order Status",
+                  "id": "1af6957a-67d6-4e08-a5fe-97568ae8d945",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/paymentOrders/:paymentOrderId/status",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "paymentOrders",
+                        ":paymentOrderId",
+                        "status"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1466a702-1212-4ea9-a9c3-7dbb3c897f3d",
+                          "key": "paymentOrderId",
+                          "value": "<string>",
+                          "description": "(Required) Unique payment order identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve the current processing status of a payment order including clearing status, booking confirmation, and any error details."
+                  },
+                  "response": [
+                    {
+                      "id": "50a800d4-16e3-4751-b3f9-db0f0cbb13d6",
+                      "name": "Successful retrieval of payment status",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/paymentOrders/:paymentOrderId/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "paymentOrders",
+                            ":paymentOrderId",
+                            "status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "paymentOrderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"paymentOrderId\": \"<string>\",\n  \"status\": \"PROCESSING\",\n  \"clearingStatus\": \"<string>\",\n  \"bookingStatus\": \"PENDING\",\n  \"statusReason\": \"<string>\",\n  \"lastUpdated\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:19:05.000Z",
+                      "updatedAt": "2026-06-05T15:19:05.000Z",
+                      "uid": "35240-50a800d4-16e3-4751-b3f9-db0f0cbb13d6"
+                    },
+                    {
+                      "id": "ef9f066e-7a81-4ab0-b03f-c62c10a3a041",
+                      "name": "Authentication required or invalid credentials",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/paymentOrders/:paymentOrderId/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "paymentOrders",
+                            ":paymentOrderId",
+                            "status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "paymentOrderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:05.000Z",
+                      "updatedAt": "2026-06-05T15:19:05.000Z",
+                      "uid": "35240-ef9f066e-7a81-4ab0-b03f-c62c10a3a041"
+                    },
+                    {
+                      "id": "5f015615-c680-4b81-9d27-d706aa19fe47",
+                      "name": "Requested resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/paymentOrders/:paymentOrderId/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "paymentOrders",
+                            ":paymentOrderId",
+                            "status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "paymentOrderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:05.000Z",
+                      "updatedAt": "2026-06-05T15:19:05.000Z",
+                      "uid": "35240-5f015615-c680-4b81-9d27-d706aa19fe47"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:05.000Z",
+                  "updatedAt": "2026-06-05T15:19:05.000Z",
+                  "uid": "35240-1af6957a-67d6-4e08-a5fe-97568ae8d945"
+                }
+              ],
+              "id": "44f95ceb-2a2c-461d-ba09-ae3a3915b119",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-44f95ceb-2a2c-461d-ba09-ae3a3915b119"
+            },
+            {
+              "name": "Get Payment Order Details",
+              "id": "16ccfd7c-5485-4921-b267-16133b75cd11",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/paymentOrders/:paymentOrderId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "paymentOrders",
+                    ":paymentOrderId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "eeee318f-5b77-4a85-bb90-440be4082674",
+                      "key": "paymentOrderId",
+                      "value": "<string>",
+                      "description": "(Required) Unique payment order identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve detailed information for a specific payment order including processing status, clearing details, and beneficiary information."
+              },
+              "response": [
+                {
+                  "id": "b1b02fe5-8d28-4b78-a7f3-902e92a34016",
+                  "name": "Successful retrieval of payment order details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/paymentOrders/:paymentOrderId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "paymentOrders",
+                        ":paymentOrderId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "paymentOrderId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"paymentOrderId\": \"<string>\",\n  \"debitAccountId\": \"<string>\",\n  \"creditAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"PBP\",\n  \"paymentType\": \"INTERNAL\",\n  \"status\": \"COMPLETED\",\n  \"valueDate\": \"<date>\",\n  \"executionDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"endToEndId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"remittanceInformation\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:05.000Z",
+                  "updatedAt": "2026-06-05T15:19:05.000Z",
+                  "uid": "35240-b1b02fe5-8d28-4b78-a7f3-902e92a34016"
+                },
+                {
+                  "id": "bd7f4032-564e-4e85-a86f-40dc9f40fd4c",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/paymentOrders/:paymentOrderId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "paymentOrders",
+                        ":paymentOrderId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "paymentOrderId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:05.000Z",
+                  "updatedAt": "2026-06-05T15:19:05.000Z",
+                  "uid": "35240-bd7f4032-564e-4e85-a86f-40dc9f40fd4c"
+                },
+                {
+                  "id": "84798841-c3df-4658-815b-2608407049f8",
+                  "name": "Requested resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/paymentOrders/:paymentOrderId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "paymentOrders",
+                        ":paymentOrderId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "paymentOrderId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:05.000Z",
+                  "updatedAt": "2026-06-05T15:19:05.000Z",
+                  "uid": "35240-84798841-c3df-4658-815b-2608407049f8"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-16ccfd7c-5485-4921-b267-16133b75cd11"
+            }
+          ],
+          "id": "c7b896d4-721b-41d1-ace4-ecb299d4aabb",
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-c7b896d4-721b-41d1-ace4-ecb299d4aabb"
+        },
+        {
+          "name": "List Payment Orders",
+          "id": "1c9f038c-cbb2-4bde-9347-3c56273b5034",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/paymentOrders?page_size=25&page_start=0&accountId=<string>&status=PROCESSING&paymentType=DOMESTIC&dateFrom=<date>&dateTo=<date>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "paymentOrders"
+              ],
+              "query": [
+                {
+                  "description": "Number of records to return per page",
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "description": "Starting record number for pagination",
+                  "key": "page_start",
+                  "value": "0"
+                },
+                {
+                  "description": "Filter by originating account identifier",
+                  "key": "accountId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by payment order status",
+                  "key": "status",
+                  "value": "PROCESSING"
+                },
+                {
+                  "description": "Filter by payment type",
+                  "key": "paymentType",
+                  "value": "DOMESTIC"
+                },
+                {
+                  "description": "Filter payments from this date",
+                  "key": "dateFrom",
+                  "value": "<date>"
+                },
+                {
+                  "description": "Filter payments up to this date",
+                  "key": "dateTo",
+                  "value": "<date>"
+                }
+              ]
+            },
+            "description": "Retrieve a list of payment orders with optional filtering by status, date range, payment type, and originating account. Returns payment details including amounts, beneficiary information, and processing status."
+          },
+          "response": [
+            {
+              "id": "b607793b-b077-4485-b5e5-442a8497b699",
+              "name": "Successful retrieval of payment orders",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/paymentOrders?page_size=25&page_start=0&accountId=<string>&status=PROCESSING&paymentType=DOMESTIC&dateFrom=<date>&dateTo=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "paymentOrders"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by originating account identifier",
+                      "key": "accountId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by payment order status",
+                      "key": "status",
+                      "value": "PROCESSING"
+                    },
+                    {
+                      "description": "Filter by payment type",
+                      "key": "paymentType",
+                      "value": "DOMESTIC"
+                    },
+                    {
+                      "description": "Filter payments from this date",
+                      "key": "dateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Filter payments up to this date",
+                      "key": "dateTo",
+                      "value": "<date>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"paymentOrderId\": \"<string>\",\n      \"debitAccountId\": \"<string>\",\n      \"creditAccountId\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"DDP\",\n      \"paymentType\": \"INTERNAL\",\n      \"status\": \"FAILED\",\n      \"valueDate\": \"<date>\",\n      \"executionDate\": \"<date>\",\n      \"reference\": \"<string>\",\n      \"endToEndId\": \"<string>\",\n      \"beneficiaryName\": \"<string>\",\n      \"beneficiaryIban\": \"<string>\",\n      \"beneficiaryBic\": \"<string>\",\n      \"remittanceInformation\": \"<string>\"\n    },\n    {\n      \"paymentOrderId\": \"<string>\",\n      \"debitAccountId\": \"<string>\",\n      \"creditAccountId\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"AKA\",\n      \"paymentType\": \"INTERNAL\",\n      \"status\": \"COMPLETED\",\n      \"valueDate\": \"<date>\",\n      \"executionDate\": \"<date>\",\n      \"reference\": \"<string>\",\n      \"endToEndId\": \"<string>\",\n      \"beneficiaryName\": \"<string>\",\n      \"beneficiaryIban\": \"<string>\",\n      \"beneficiaryBic\": \"<string>\",\n      \"remittanceInformation\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-b607793b-b077-4485-b5e5-442a8497b699"
+            },
+            {
+              "id": "a3d4f5cd-99fd-4b85-b6f7-1cf2505d71d8",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/paymentOrders?page_size=25&page_start=0&accountId=<string>&status=PROCESSING&paymentType=DOMESTIC&dateFrom=<date>&dateTo=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "paymentOrders"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by originating account identifier",
+                      "key": "accountId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by payment order status",
+                      "key": "status",
+                      "value": "PROCESSING"
+                    },
+                    {
+                      "description": "Filter by payment type",
+                      "key": "paymentType",
+                      "value": "DOMESTIC"
+                    },
+                    {
+                      "description": "Filter payments from this date",
+                      "key": "dateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Filter payments up to this date",
+                      "key": "dateTo",
+                      "value": "<date>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-a3d4f5cd-99fd-4b85-b6f7-1cf2505d71d8"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-1c9f038c-cbb2-4bde-9347-3c56273b5034"
+        },
+        {
+          "name": "Create Payment Order",
+          "id": "4e9562c5-b6f1-4588-8941-fab3c49fe32a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"FSD\",\n  \"paymentType\": \"INTERNAL\",\n  \"creditAccountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"endToEndId\": \"<string>\",\n  \"remittanceInformation\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/paymentOrders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "paymentOrders"
+              ]
+            },
+            "description": "Initiate a new payment order for fund transfer. Supports SEPA credit transfers, instant SEPA payments, SWIFT cross-border transfers, domestic payments, and internal account-to-account transfers. Validates payment details, beneficiary information, and available balance before processing."
+          },
+          "response": [
+            {
+              "id": "7be24ba0-98cf-4a25-a4e2-d4c77b9083eb",
+              "name": "Payment order created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"FSD\",\n  \"paymentType\": \"INTERNAL\",\n  \"creditAccountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"endToEndId\": \"<string>\",\n  \"remittanceInformation\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/paymentOrders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "paymentOrders"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"paymentOrderId\": \"<string>\",\n  \"debitAccountId\": \"<string>\",\n  \"creditAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"PBP\",\n  \"paymentType\": \"INTERNAL\",\n  \"status\": \"COMPLETED\",\n  \"valueDate\": \"<date>\",\n  \"executionDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"endToEndId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"remittanceInformation\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-7be24ba0-98cf-4a25-a4e2-d4c77b9083eb"
+            },
+            {
+              "id": "0039c45f-6f36-41a2-903c-ab89f1e90d93",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"FSD\",\n  \"paymentType\": \"INTERNAL\",\n  \"creditAccountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"endToEndId\": \"<string>\",\n  \"remittanceInformation\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/paymentOrders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "paymentOrders"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-0039c45f-6f36-41a2-903c-ab89f1e90d93"
+            },
+            {
+              "id": "1bfd826e-e7e3-4db4-b06f-def0c8bb0941",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"FSD\",\n  \"paymentType\": \"INTERNAL\",\n  \"creditAccountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"endToEndId\": \"<string>\",\n  \"remittanceInformation\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/paymentOrders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "paymentOrders"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-1bfd826e-e7e3-4db4-b06f-def0c8bb0941"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-4e9562c5-b6f1-4588-8941-fab3c49fe32a"
+        }
+      ],
+      "id": "e9e20396-a497-409e-8759-16337eaf86b5",
+      "createdAt": "2026-06-05T15:19:05.000Z",
+      "updatedAt": "2026-06-05T15:19:05.000Z",
+      "uid": "35240-e9e20396-a497-409e-8759-16337eaf86b5"
+    },
+    {
+      "name": "bulkPayments",
+      "item": [
+        {
+          "name": "{batchId}",
+          "item": [
+            {
+              "name": "approve",
+              "item": [
+                {
+                  "name": "Approve Bulk Payment Batch",
+                  "id": "3b3000ea-26fe-46e7-a295-3c7e7934326f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bulkPayments/:batchId/approve",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bulkPayments",
+                        ":batchId",
+                        "approve"
+                      ],
+                      "variable": [
+                        {
+                          "id": "bea2fc9b-646e-4da9-ba93-6b3917a8e181",
+                          "key": "batchId",
+                          "value": "<string>",
+                          "description": "(Required) Unique bulk payment batch identifier"
+                        }
+                      ]
+                    },
+                    "description": "Approve a bulk payment batch for processing after review. Applies the configured approval workflow rules."
+                  },
+                  "response": [
+                    {
+                      "id": "0dbf5454-ebc9-4da7-8d81-363461056c44",
+                      "name": "Bulk payment batch approved",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bulkPayments/:batchId/approve",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bulkPayments",
+                            ":batchId",
+                            "approve"
+                          ],
+                          "variable": [
+                            {
+                              "key": "batchId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"batchId\": \"<string>\",\n  \"debitAccountId\": \"<string>\",\n  \"totalAmount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"paymentCount\": \"<integer>\",\n  \"status\": \"COMPLETED\",\n  \"createdDate\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:19:05.000Z",
+                      "updatedAt": "2026-06-05T15:19:05.000Z",
+                      "uid": "35240-0dbf5454-ebc9-4da7-8d81-363461056c44"
+                    },
+                    {
+                      "id": "ae2ec858-40f8-4e69-a481-26ffdffe47dc",
+                      "name": "Authentication required or invalid credentials",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bulkPayments/:batchId/approve",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bulkPayments",
+                            ":batchId",
+                            "approve"
+                          ],
+                          "variable": [
+                            {
+                              "key": "batchId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:05.000Z",
+                      "updatedAt": "2026-06-05T15:19:05.000Z",
+                      "uid": "35240-ae2ec858-40f8-4e69-a481-26ffdffe47dc"
+                    },
+                    {
+                      "id": "86091661-9a90-4b3e-a026-5d76a11a10e6",
+                      "name": "Requested resource not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bulkPayments/:batchId/approve",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bulkPayments",
+                            ":batchId",
+                            "approve"
+                          ],
+                          "variable": [
+                            {
+                              "key": "batchId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:05.000Z",
+                      "updatedAt": "2026-06-05T15:19:05.000Z",
+                      "uid": "35240-86091661-9a90-4b3e-a026-5d76a11a10e6"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:05.000Z",
+                  "updatedAt": "2026-06-05T15:19:05.000Z",
+                  "uid": "35240-3b3000ea-26fe-46e7-a295-3c7e7934326f"
+                }
+              ],
+              "id": "3da8299a-18a0-478b-a107-487edb9950d4",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-3da8299a-18a0-478b-a107-487edb9950d4"
+            }
+          ],
+          "id": "08740ef1-ff29-4fa8-bfbc-2ad20fe0901e",
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-08740ef1-ff29-4fa8-bfbc-2ad20fe0901e"
+        },
+        {
+          "name": "List Bulk Payment Batches",
+          "id": "d5422cc3-fe7c-4eca-b2ef-1418bc6b45f3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bulkPayments?page_size=25&page_start=0&status=COMPLETED",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bulkPayments"
+              ],
+              "query": [
+                {
+                  "description": "Number of records to return per page",
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "description": "Starting record number for pagination",
+                  "key": "page_start",
+                  "value": "0"
+                },
+                {
+                  "description": "Filter by batch processing status",
+                  "key": "status",
+                  "value": "COMPLETED"
+                }
+              ]
+            },
+            "description": "Retrieve a list of bulk payment batches with their processing status and summary information including total amounts and payment counts."
+          },
+          "response": [
+            {
+              "id": "ea536c06-f1de-44ab-8d50-82df3d8e7a4d",
+              "name": "Successful retrieval of bulk payment batches",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/bulkPayments?page_size=25&page_start=0&status=COMPLETED",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bulkPayments"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by batch processing status",
+                      "key": "status",
+                      "value": "COMPLETED"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"batchId\": \"<string>\",\n      \"debitAccountId\": \"<string>\",\n      \"totalAmount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"paymentCount\": \"<integer>\",\n      \"status\": \"REJECTED\",\n      \"createdDate\": \"<dateTime>\"\n    },\n    {\n      \"batchId\": \"<string>\",\n      \"debitAccountId\": \"<string>\",\n      \"totalAmount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"paymentCount\": \"<integer>\",\n      \"status\": \"PENDING_APPROVAL\",\n      \"createdDate\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-ea536c06-f1de-44ab-8d50-82df3d8e7a4d"
+            },
+            {
+              "id": "3afe93ca-ba39-433e-8e51-3191428b6fd8",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/bulkPayments?page_size=25&page_start=0&status=COMPLETED",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bulkPayments"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by batch processing status",
+                      "key": "status",
+                      "value": "COMPLETED"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-3afe93ca-ba39-433e-8e51-3191428b6fd8"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-d5422cc3-fe7c-4eca-b2ef-1418bc6b45f3"
+        },
+        {
+          "name": "Create Bulk Payment Batch",
+          "id": "a811933f-31d4-44b1-89bb-78cae8203cd3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"currency\": \"OBV\",\n  \"payments\": [\n    {\n      \"beneficiaryName\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"beneficiaryIban\": \"<string>\",\n      \"reference\": \"<string>\"\n    }\n  ],\n  \"valueDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bulkPayments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bulkPayments"
+              ]
+            },
+            "description": "Initiate a bulk payment batch by uploading payment instructions for batch processing. Supports file upload and manual entry with configurable approval workflows."
+          },
+          "response": [
+            {
+              "id": "4d0fd284-4a1c-4aaf-9519-6bb47bc3ef40",
+              "name": "Bulk payment batch created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"currency\": \"OBV\",\n  \"payments\": [\n    {\n      \"beneficiaryName\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"beneficiaryIban\": \"<string>\",\n      \"reference\": \"<string>\"\n    }\n  ],\n  \"valueDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/bulkPayments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bulkPayments"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"batchId\": \"<string>\",\n  \"debitAccountId\": \"<string>\",\n  \"totalAmount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"paymentCount\": \"<integer>\",\n  \"status\": \"COMPLETED\",\n  \"createdDate\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-4d0fd284-4a1c-4aaf-9519-6bb47bc3ef40"
+            },
+            {
+              "id": "41c8eca7-ed06-46ff-9213-b408bee2483c",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"currency\": \"OBV\",\n  \"payments\": [\n    {\n      \"beneficiaryName\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"beneficiaryIban\": \"<string>\",\n      \"reference\": \"<string>\"\n    }\n  ],\n  \"valueDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/bulkPayments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bulkPayments"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-41c8eca7-ed06-46ff-9213-b408bee2483c"
+            },
+            {
+              "id": "dd56a21c-a2c0-41bd-bdc3-69a673e09461",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"currency\": \"OBV\",\n  \"payments\": [\n    {\n      \"beneficiaryName\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"beneficiaryIban\": \"<string>\",\n      \"reference\": \"<string>\"\n    }\n  ],\n  \"valueDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/bulkPayments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bulkPayments"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-dd56a21c-a2c0-41bd-bdc3-69a673e09461"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-a811933f-31d4-44b1-89bb-78cae8203cd3"
+        }
+      ],
+      "id": "17365af1-f725-4369-b4a8-ba383a42bf45",
+      "createdAt": "2026-06-05T15:19:05.000Z",
+      "updatedAt": "2026-06-05T15:19:05.000Z",
+      "uid": "35240-17365af1-f725-4369-b4a8-ba383a42bf45"
+    },
+    {
+      "name": "directDebits",
+      "item": [
+        {
+          "name": "{directDebitId}",
+          "item": [
+            {
+              "name": "Get Direct Debit Details",
+              "id": "4c679f0f-e6bb-43c3-bad9-b88c3710c13f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/directDebits/:directDebitId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "directDebits",
+                    ":directDebitId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "b1a54810-ec9d-4c07-920d-564cb8439a7e",
+                      "key": "directDebitId",
+                      "value": "<string>",
+                      "description": "(Required) Unique direct debit mandate identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve detailed information for a specific direct debit mandate including collection history and next collection date."
+              },
+              "response": [
+                {
+                  "id": "c6f567da-f4dd-475e-8c5d-3056cf178dae",
+                  "name": "Successful retrieval of direct debit details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/directDebits/:directDebitId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "directDebits",
+                        ":directDebitId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "directDebitId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"directDebitId\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"mandateReference\": \"<string>\",\n  \"creditorName\": \"<string>\",\n  \"creditorId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"frequency\": \"ANNUAL\",\n  \"nextCollectionDate\": \"<date>\",\n  \"status\": \"SUSPENDED\"\n}",
+                  "createdAt": "2026-06-05T15:19:05.000Z",
+                  "updatedAt": "2026-06-05T15:19:05.000Z",
+                  "uid": "35240-c6f567da-f4dd-475e-8c5d-3056cf178dae"
+                },
+                {
+                  "id": "94130cb6-7b50-4c9b-9c73-955d19eee334",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/directDebits/:directDebitId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "directDebits",
+                        ":directDebitId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "directDebitId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:05.000Z",
+                  "updatedAt": "2026-06-05T15:19:05.000Z",
+                  "uid": "35240-94130cb6-7b50-4c9b-9c73-955d19eee334"
+                },
+                {
+                  "id": "67abfc68-6248-4f0f-841b-d2b5e51b91f0",
+                  "name": "Requested resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/directDebits/:directDebitId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "directDebits",
+                        ":directDebitId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "directDebitId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:05.000Z",
+                  "updatedAt": "2026-06-05T15:19:05.000Z",
+                  "uid": "35240-67abfc68-6248-4f0f-841b-d2b5e51b91f0"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-4c679f0f-e6bb-43c3-bad9-b88c3710c13f"
+            }
+          ],
+          "id": "84ee41e6-6c99-451c-937e-4f8923b2e459",
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-84ee41e6-6c99-451c-937e-4f8923b2e459"
+        },
+        {
+          "name": "List Direct Debit Mandates",
+          "id": "7a4128f4-1a2f-48b9-820d-6605207845e5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/directDebits?page_size=25&page_start=0&accountId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "directDebits"
+              ],
+              "query": [
+                {
+                  "description": "Number of records to return per page",
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "description": "Starting record number for pagination",
+                  "key": "page_start",
+                  "value": "0"
+                },
+                {
+                  "description": "Filter by debited account identifier",
+                  "key": "accountId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve direct debit instructions and mandate collections including SEPA direct debits with creditor details, amounts, and collection frequencies."
+          },
+          "response": [
+            {
+              "id": "31766f0f-c352-4147-8356-2e2617f7f004",
+              "name": "Successful retrieval of direct debit mandates",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/directDebits?page_size=25&page_start=0&accountId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "directDebits"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by debited account identifier",
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"directDebitId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"mandateReference\": \"<string>\",\n      \"creditorName\": \"<string>\",\n      \"creditorId\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"ANNUAL\",\n      \"nextCollectionDate\": \"<date>\",\n      \"status\": \"SUSPENDED\"\n    },\n    {\n      \"directDebitId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"mandateReference\": \"<string>\",\n      \"creditorName\": \"<string>\",\n      \"creditorId\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"WEEKLY\",\n      \"nextCollectionDate\": \"<date>\",\n      \"status\": \"ACTIVE\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-31766f0f-c352-4147-8356-2e2617f7f004"
+            },
+            {
+              "id": "6a782a88-a3ce-458c-a99d-dcbbc6546dfe",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/directDebits?page_size=25&page_start=0&accountId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "directDebits"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by debited account identifier",
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-6a782a88-a3ce-458c-a99d-dcbbc6546dfe"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-7a4128f4-1a2f-48b9-820d-6605207845e5"
+        }
+      ],
+      "id": "23714c32-d6d2-4bfa-b63a-6e48865ea88c",
+      "createdAt": "2026-06-05T15:19:05.000Z",
+      "updatedAt": "2026-06-05T15:19:05.000Z",
+      "uid": "35240-23714c32-d6d2-4bfa-b63a-6e48865ea88c"
+    },
+    {
+      "name": "standingOrders",
+      "item": [
+        {
+          "name": "List Standing Orders",
+          "id": "393a4196-6582-4a8b-829b-bb01b2cfd313",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/standingOrders?page_size=25&page_start=0&accountId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "standingOrders"
+              ],
+              "query": [
+                {
+                  "description": "Number of records to return per page",
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "description": "Starting record number for pagination",
+                  "key": "page_start",
+                  "value": "0"
+                },
+                {
+                  "description": "Filter by originating account identifier",
+                  "key": "accountId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve standing order instructions for recurring payments with their frequency, amounts, beneficiary details, and execution status."
+          },
+          "response": [
+            {
+              "id": "cb9f8011-beac-4e1d-ac4d-9f6e8f4aea1e",
+              "name": "Successful retrieval of standing orders",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/standingOrders?page_size=25&page_start=0&accountId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "standingOrders"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by originating account identifier",
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"standingOrderId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"beneficiaryName\": \"<string>\",\n      \"beneficiaryIban\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"DAILY\",\n      \"startDate\": \"<date>\",\n      \"endDate\": \"<date>\",\n      \"nextExecutionDate\": \"<date>\",\n      \"status\": \"COMPLETED\"\n    },\n    {\n      \"standingOrderId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"beneficiaryName\": \"<string>\",\n      \"beneficiaryIban\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"DAILY\",\n      \"startDate\": \"<date>\",\n      \"endDate\": \"<date>\",\n      \"nextExecutionDate\": \"<date>\",\n      \"status\": \"CANCELLED\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-cb9f8011-beac-4e1d-ac4d-9f6e8f4aea1e"
+            },
+            {
+              "id": "d0f75ca2-5acc-42c2-9d98-874a629d0dfc",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/standingOrders?page_size=25&page_start=0&accountId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "standingOrders"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by originating account identifier",
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-d0f75ca2-5acc-42c2-9d98-874a629d0dfc"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-393a4196-6582-4a8b-829b-bb01b2cfd313"
+        },
+        {
+          "name": "Create Standing Order",
+          "id": "b33b0f9f-e40a-4978-a126-f639f6dd7dbc",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"HWJ\",\n  \"frequency\": \"WEEKLY\",\n  \"startDate\": \"<date>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"endDate\": \"<date>\",\n  \"reference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/standingOrders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "standingOrders"
+              ]
+            },
+            "description": "Create a new standing order instruction for automated recurring payments with specified frequency, amount, and beneficiary."
+          },
+          "response": [
+            {
+              "id": "030d806b-9e1f-4ad4-b3aa-0ff8b04f62b8",
+              "name": "Standing order created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"HWJ\",\n  \"frequency\": \"WEEKLY\",\n  \"startDate\": \"<date>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"endDate\": \"<date>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/standingOrders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "standingOrders"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"standingOrderId\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"frequency\": \"DAILY\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"nextExecutionDate\": \"<date>\",\n  \"status\": \"SUSPENDED\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-030d806b-9e1f-4ad4-b3aa-0ff8b04f62b8"
+            },
+            {
+              "id": "67068d29-15c6-47a3-aa8c-ac220e521d6b",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"HWJ\",\n  \"frequency\": \"WEEKLY\",\n  \"startDate\": \"<date>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"endDate\": \"<date>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/standingOrders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "standingOrders"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-67068d29-15c6-47a3-aa8c-ac220e521d6b"
+            },
+            {
+              "id": "57596612-449a-4790-82b4-d5b3ca4f49a9",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"HWJ\",\n  \"frequency\": \"WEEKLY\",\n  \"startDate\": \"<date>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"endDate\": \"<date>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/standingOrders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "standingOrders"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-57596612-449a-4790-82b4-d5b3ca4f49a9"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-b33b0f9f-e40a-4978-a126-f639f6dd7dbc"
+        }
+      ],
+      "id": "57ae536d-80bd-4b86-8210-a0ccba2ffa5e",
+      "createdAt": "2026-06-05T15:19:05.000Z",
+      "updatedAt": "2026-06-05T15:19:05.000Z",
+      "uid": "35240-57ae536d-80bd-4b86-8210-a0ccba2ffa5e"
+    },
+    {
+      "name": "paymentStops",
+      "item": [
+        {
+          "name": "List Payment Stop Requests",
+          "id": "a7c67d00-8839-44f6-a260-2526f274a3d8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/paymentStops?page_size=25&page_start=0&accountId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "paymentStops"
+              ],
+              "query": [
+                {
+                  "description": "Number of records to return per page",
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "description": "Starting record number for pagination",
+                  "key": "page_start",
+                  "value": "0"
+                },
+                {
+                  "description": "Filter by account identifier",
+                  "key": "accountId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve active payment stop instructions including stops based on cheque details, transaction amounts, or payment references."
+          },
+          "response": [
+            {
+              "id": "a79055b8-4d96-42fd-be67-4504ed66659e",
+              "name": "Successful retrieval of payment stops",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/paymentStops?page_size=25&page_start=0&accountId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "paymentStops"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by account identifier",
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"paymentStopId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"stopType\": \"CHEQUE\",\n      \"chequeNumber\": \"<string>\",\n      \"amountFrom\": \"<double>\",\n      \"amountTo\": \"<double>\",\n      \"reference\": \"<string>\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"paymentStopId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"stopType\": \"REFERENCE\",\n      \"chequeNumber\": \"<string>\",\n      \"amountFrom\": \"<double>\",\n      \"amountTo\": \"<double>\",\n      \"reference\": \"<string>\",\n      \"status\": \"EXPIRED\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-a79055b8-4d96-42fd-be67-4504ed66659e"
+            },
+            {
+              "id": "c72e1535-13d0-41dc-8d81-bfe9ea0bf343",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/paymentStops?page_size=25&page_start=0&accountId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "paymentStops"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by account identifier",
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-c72e1535-13d0-41dc-8d81-bfe9ea0bf343"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-a7c67d00-8839-44f6-a260-2526f274a3d8"
+        },
+        {
+          "name": "Create Payment Stop Request",
+          "id": "3b634d45-0fe0-4e44-9252-ec6ffa13888f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": \"<string>\",\n  \"stopType\": \"CHEQUE\",\n  \"chequeNumber\": \"<string>\",\n  \"chequeNumberTo\": \"<string>\",\n  \"amountFrom\": \"<double>\",\n  \"amountTo\": \"<double>\",\n  \"reference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/paymentStops",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "paymentStops"
+              ]
+            },
+            "description": "Create a stop instruction for individual payments based on cheque number, transaction amount range, or payment reference to prevent processing."
+          },
+          "response": [
+            {
+              "id": "732834b9-4b5b-4b6f-ad3c-515efcc3dae1",
+              "name": "Payment stop created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"stopType\": \"CHEQUE\",\n  \"chequeNumber\": \"<string>\",\n  \"chequeNumberTo\": \"<string>\",\n  \"amountFrom\": \"<double>\",\n  \"amountTo\": \"<double>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/paymentStops",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "paymentStops"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"paymentStopId\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"stopType\": \"REFERENCE\",\n  \"chequeNumber\": \"<string>\",\n  \"amountFrom\": \"<double>\",\n  \"amountTo\": \"<double>\",\n  \"reference\": \"<string>\",\n  \"status\": \"EXPIRED\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-732834b9-4b5b-4b6f-ad3c-515efcc3dae1"
+            },
+            {
+              "id": "3ba5eca4-ab8f-471c-b1e3-d6d72a3dac9f",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"stopType\": \"CHEQUE\",\n  \"chequeNumber\": \"<string>\",\n  \"chequeNumberTo\": \"<string>\",\n  \"amountFrom\": \"<double>\",\n  \"amountTo\": \"<double>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/paymentStops",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "paymentStops"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-3ba5eca4-ab8f-471c-b1e3-d6d72a3dac9f"
+            },
+            {
+              "id": "0cbc9c63-1fce-4815-90bc-b9f357ae639a",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"stopType\": \"CHEQUE\",\n  \"chequeNumber\": \"<string>\",\n  \"chequeNumberTo\": \"<string>\",\n  \"amountFrom\": \"<double>\",\n  \"amountTo\": \"<double>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/paymentStops",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "paymentStops"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-0cbc9c63-1fce-4815-90bc-b9f357ae639a"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-3b634d45-0fe0-4e44-9252-ec6ffa13888f"
+        }
+      ],
+      "id": "4fc98bc0-875d-4b70-b6e3-491a678067ac",
+      "createdAt": "2026-06-05T15:19:05.000Z",
+      "updatedAt": "2026-06-05T15:19:05.000Z",
+      "uid": "35240-4fc98bc0-875d-4b70-b6e3-491a678067ac"
+    },
+    {
+      "name": "requestToPay",
+      "item": [
+        {
+          "name": "List Request-to-pay Messages",
+          "id": "9e23ccc4-0da2-46c6-a6a6-dc848496317d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/requestToPay?page_size=25&page_start=0&direction=OUTGOING",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "requestToPay"
+              ],
+              "query": [
+                {
+                  "description": "Number of records to return per page",
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "description": "Starting record number for pagination",
+                  "key": "page_start",
+                  "value": "0"
+                },
+                {
+                  "description": "Filter by request direction",
+                  "key": "direction",
+                  "value": "OUTGOING"
+                }
+              ]
+            },
+            "description": "Retrieve request-to-pay messages including incoming requests for payment and outgoing payment requests with their resolution status."
+          },
+          "response": [
+            {
+              "id": "1fa105fe-336b-45eb-9a0e-1056b5c503c7",
+              "name": "Successful retrieval of request-to-pay messages",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/requestToPay?page_size=25&page_start=0&direction=OUTGOING",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "requestToPay"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by request direction",
+                      "key": "direction",
+                      "value": "OUTGOING"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"rtpId\": \"<string>\",\n      \"direction\": \"OUTGOING\",\n      \"payeeName\": \"<string>\",\n      \"payerName\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"dueDate\": \"<date>\",\n      \"description\": \"<string>\",\n      \"status\": \"EXPIRED\"\n    },\n    {\n      \"rtpId\": \"<string>\",\n      \"direction\": \"OUTGOING\",\n      \"payeeName\": \"<string>\",\n      \"payerName\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"dueDate\": \"<date>\",\n      \"description\": \"<string>\",\n      \"status\": \"PENDING\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-1fa105fe-336b-45eb-9a0e-1056b5c503c7"
+            },
+            {
+              "id": "63b5bfc5-be2e-42b7-8bdd-3d521ddbbef8",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/requestToPay?page_size=25&page_start=0&direction=OUTGOING",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "requestToPay"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by request direction",
+                      "key": "direction",
+                      "value": "OUTGOING"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-63b5bfc5-be2e-42b7-8bdd-3d521ddbbef8"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-9e23ccc4-0da2-46c6-a6a6-dc848496317d"
+        },
+        {
+          "name": "Create Request-to-pay",
+          "id": "b82c1f56-253b-47bb-922d-db4ae26ea385",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payerAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"YAL\",\n  \"dueDate\": \"<date>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/requestToPay",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "requestToPay"
+              ]
+            },
+            "description": "Initiate a new request-to-pay message to a payer through the RTP clearing system. Includes payee details, amount, and payment terms."
+          },
+          "response": [
+            {
+              "id": "2f9a86c9-2ed4-413a-b75a-fdd01e73156e",
+              "name": "Request-to-pay created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"YAL\",\n  \"dueDate\": \"<date>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/requestToPay",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "requestToPay"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"rtpId\": \"<string>\",\n  \"direction\": \"OUTGOING\",\n  \"payeeName\": \"<string>\",\n  \"payerName\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"dueDate\": \"<date>\",\n  \"description\": \"<string>\",\n  \"status\": \"PENDING\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-2f9a86c9-2ed4-413a-b75a-fdd01e73156e"
+            },
+            {
+              "id": "e592994f-1363-4806-bef2-e3e03e0f3e6b",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"YAL\",\n  \"dueDate\": \"<date>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/requestToPay",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "requestToPay"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-e592994f-1363-4806-bef2-e3e03e0f3e6b"
+            },
+            {
+              "id": "518f1e65-3c9e-4b23-9d9d-85646e8acceb",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"YAL\",\n  \"dueDate\": \"<date>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/requestToPay",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "requestToPay"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-518f1e65-3c9e-4b23-9d9d-85646e8acceb"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-b82c1f56-253b-47bb-922d-db4ae26ea385"
+        }
+      ],
+      "id": "a3b32b20-af25-4dc8-83ec-c8efad58c1b0",
+      "createdAt": "2026-06-05T15:19:05.000Z",
+      "updatedAt": "2026-06-05T15:19:05.000Z",
+      "uid": "35240-a3b32b20-af25-4dc8-83ec-c8efad58c1b0"
+    },
+    {
+      "name": "psd2",
+      "item": [
+        {
+          "name": "accounts",
+          "item": [
+            {
+              "name": "List PSD2 Accounts",
+              "id": "be7acb01-19b0-4dd7-8cca-eb014a66b371",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) PSD2 consent identifier",
+                    "key": "consentId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/psd2/accounts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "psd2",
+                    "accounts"
+                  ]
+                },
+                "description": "Retrieve account information for authorized third-party provider access under PSD2 Berlin Group standards. Requires valid consent from the account holder."
+              },
+              "response": [
+                {
+                  "id": "955165d7-0fd5-4112-a975-16d37077b905",
+                  "name": "Successful retrieval of account information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) PSD2 consent identifier",
+                        "key": "consentId",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/psd2/accounts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "psd2",
+                        "accounts"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"accounts\": [\n    {\n      \"resourceId\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"name\": \"<string>\",\n      \"product\": \"<string>\",\n      \"cashAccountType\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"resourceId\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"name\": \"<string>\",\n      \"product\": \"<string>\",\n      \"cashAccountType\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:05.000Z",
+                  "updatedAt": "2026-06-05T15:19:05.000Z",
+                  "uid": "35240-955165d7-0fd5-4112-a975-16d37077b905"
+                },
+                {
+                  "id": "de5c70a7-3f78-41cb-812d-7925382e5fd9",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) PSD2 consent identifier",
+                        "key": "consentId",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/psd2/accounts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "psd2",
+                        "accounts"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:05.000Z",
+                  "updatedAt": "2026-06-05T15:19:05.000Z",
+                  "uid": "35240-de5c70a7-3f78-41cb-812d-7925382e5fd9"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-be7acb01-19b0-4dd7-8cca-eb014a66b371"
+            }
+          ],
+          "id": "03a7fb0e-27df-4ab1-8f17-a66f14db9d6b",
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-03a7fb0e-27df-4ab1-8f17-a66f14db9d6b"
+        }
+      ],
+      "id": "d84b8f43-2374-437c-b8f9-27dd23ad2d9b",
+      "createdAt": "2026-06-05T15:19:05.000Z",
+      "updatedAt": "2026-06-05T15:19:05.000Z",
+      "uid": "35240-d84b8f43-2374-437c-b8f9-27dd23ad2d9b"
+    },
+    {
+      "name": "configuration",
+      "item": [
+        {
+          "name": "paymentRoutes",
+          "item": [
+            {
+              "name": "List Payment Routing Configurations",
+              "id": "9a8ce3be-4de7-4d28-9850-5f2614788bc9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/configuration/paymentRoutes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "configuration",
+                    "paymentRoutes"
+                  ]
+                },
+                "description": "Retrieve payment routing configurations including clearing channel assignments and payment type routing rules."
+              },
+              "response": [
+                {
+                  "id": "059a5ae8-5456-43a0-b912-fdaa53798991",
+                  "name": "Successful retrieval of payment routes",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/configuration/paymentRoutes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "configuration",
+                        "paymentRoutes"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"body\": [\n    {\n      \"routeId\": \"<string>\",\n      \"paymentType\": \"<string>\",\n      \"clearingChannel\": \"<string>\",\n      \"priority\": \"<integer>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"routeId\": \"<string>\",\n      \"paymentType\": \"<string>\",\n      \"clearingChannel\": \"<string>\",\n      \"priority\": \"<integer>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:05.000Z",
+                  "updatedAt": "2026-06-05T15:19:05.000Z",
+                  "uid": "35240-059a5ae8-5456-43a0-b912-fdaa53798991"
+                },
+                {
+                  "id": "93110c6a-ece1-492b-98b6-b62fc651d2ad",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/configuration/paymentRoutes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "configuration",
+                        "paymentRoutes"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:05.000Z",
+                  "updatedAt": "2026-06-05T15:19:05.000Z",
+                  "uid": "35240-93110c6a-ece1-492b-98b6-b62fc651d2ad"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:05.000Z",
+              "updatedAt": "2026-06-05T15:19:05.000Z",
+              "uid": "35240-9a8ce3be-4de7-4d28-9850-5f2614788bc9"
+            }
+          ],
+          "id": "ecf809ce-8845-4bde-981b-45503d76ebe1",
+          "createdAt": "2026-06-05T15:19:05.000Z",
+          "updatedAt": "2026-06-05T15:19:05.000Z",
+          "uid": "35240-ecf809ce-8845-4bde-981b-45503d76ebe1"
+        }
+      ],
+      "id": "6d463abb-6650-494a-81fc-7563ecd5a3af",
+      "createdAt": "2026-06-05T15:19:05.000Z",
+      "updatedAt": "2026-06-05T15:19:05.000Z",
+      "uid": "35240-6d463abb-6650-494a-81fc-7563ecd5a3af"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.temenos.com/payments/v1"
+    }
+  ]
+}

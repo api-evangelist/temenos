@@ -1,0 +1,266 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Financial Crime Mitigation API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customer Risk Assessment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Customer Risk Score",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/fcm/v1/kyc/customers/:customerId/riskScore",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Unique customer identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve the computed risk score for a given customer based on KYC attributes, transaction history, and risk factor analysis. Returns the overall risk rating and contributing risk factors."
+        },
+        {
+          "info": {
+            "name": "Compute Customer Risk Score",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/fcm/v1/kyc/customers/:customerId/riskScore/compute",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Unique customer identifier"
+              }
+            ]
+          },
+          "docs": "Trigger risk score computation for a customer based on their current KYC data, transaction patterns, and configured risk scoring models. Updates the stored risk score."
+        },
+        {
+          "info": {
+            "name": "Submit Customer KYC Form",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/fcm/v1/kyc/customers/formSubmission",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit customer KYC form data for risk scoring evaluation. The submitted data is processed against configured risk models to generate or update the customer risk assessment."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sanction Screening",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Customer Sanction Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/fcm/v1/screening/customers/:customerId/alerts",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Unique customer identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve all sanctions screening alerts for a specific customer including matches against sanctions lists, PEP databases, and adverse media sources."
+        },
+        {
+          "info": {
+            "name": "List All Customer Sanction Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/fcm/v1/screening/customers/alerts",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert status"
+              },
+              {
+                "name": "severity",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert severity"
+              }
+            ]
+          },
+          "docs": "Retrieve the list of outstanding sanctions screening alerts across all customers, indexed by customer identifier. Supports filtering by alert status and severity."
+        },
+        {
+          "info": {
+            "name": "Screen Onboarding Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/fcm/v1/screening/onboarding",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Screen a new customer during onboarding against sanctions lists, PEP databases, and adverse media to verify they are not sanctioned individuals, entities, or politically exposed persons."
+        },
+        {
+          "info": {
+            "name": "Scan Payment Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/fcm/v1/screening/transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Scan a payment message against sanctions lists and screening rules to identify potential matches in beneficiary names, addresses, and other payment details."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transaction Monitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Transaction Monitoring Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/fcm/v1/monitoring/alerts",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert status"
+              },
+              {
+                "name": "ruleId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by monitoring rule identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve alerts generated by AML transaction monitoring rules including suspicious activity patterns and threshold breaches."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Alert Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Alert Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/fcm/v1/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "",
+                "type": "path",
+                "description": "Unique alert identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific alert including match details, investigation notes, and disposition history."
+        },
+        {
+          "info": {
+            "name": "Update Alert Disposition",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.temenos.com/fcm/v1/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "",
+                "type": "path",
+                "description": "Unique alert identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the disposition of an alert including status changes, investigation notes, and closure decisions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

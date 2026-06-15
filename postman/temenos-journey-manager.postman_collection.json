@@ -1,0 +1,2460 @@
+{
+  "info": {
+    "_postman_id": "7adc3e7d-5a47-433f-aead-c466a32a04fe",
+    "name": "Temenos Journey Manager API",
+    "description": "REST APIs for customer journey orchestration allowing external systems to integrate with Temenos Journey Manager for digital onboarding, form processing, and workflow management. Includes Application Package API, Delivery API, Form Groups API, Service Definitions API, Tasks API, Transactions API, Transaction History API, and Workspaces portal API.\n\nContact Support:\n Name: Temenos Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:19.000Z",
+    "updatedAt": "2026-06-05T15:19:19.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7adc3e7d-5a47-433f-aead-c466a32a04fe"
+  },
+  "item": [
+    {
+      "name": "packages",
+      "item": [
+        {
+          "name": "{packageId}",
+          "item": [
+            {
+              "name": "Get Application Package",
+              "id": "f63408ed-a59f-4184-bd7c-0b7db0040b2a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/packages/:packageId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "packages",
+                    ":packageId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "599f5907-4ca8-4f42-b88d-5934dd2cfdbb",
+                      "key": "packageId",
+                      "value": "<string>",
+                      "description": "(Required) Package identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve a specific application package with its metadata and configuration details."
+              },
+              "response": [
+                {
+                  "id": "b4b85490-6dc8-4c4b-af7e-7b4f31be85bc",
+                  "name": "Successful retrieval",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/packages/:packageId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "packages",
+                        ":packageId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "packageId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"packageId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"version\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"createdDate\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:19:19.000Z",
+                  "updatedAt": "2026-06-05T15:19:19.000Z",
+                  "uid": "35240-b4b85490-6dc8-4c4b-af7e-7b4f31be85bc"
+                },
+                {
+                  "id": "25ab4b2e-dabd-4cd2-adf8-fca31e3450df",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/packages/:packageId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "packages",
+                        ":packageId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "packageId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:19.000Z",
+                  "updatedAt": "2026-06-05T15:19:19.000Z",
+                  "uid": "35240-25ab4b2e-dabd-4cd2-adf8-fca31e3450df"
+                },
+                {
+                  "id": "1f84c483-9c5f-40ad-85c3-1515c98da61a",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/packages/:packageId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "packages",
+                        ":packageId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "packageId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:19.000Z",
+                  "updatedAt": "2026-06-05T15:19:19.000Z",
+                  "uid": "35240-1f84c483-9c5f-40ad-85c3-1515c98da61a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-f63408ed-a59f-4184-bd7c-0b7db0040b2a"
+            },
+            {
+              "name": "Delete Application Package",
+              "id": "23de8983-c93f-4915-ba98-395cc6c038d7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/packages/:packageId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "packages",
+                    ":packageId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d0e1fdd0-93a0-46db-b3ae-426d3f49d81e",
+                      "key": "packageId",
+                      "value": "<string>",
+                      "description": "(Required) Package identifier"
+                    }
+                  ]
+                },
+                "description": "Remove an application package from the Journey Manager platform."
+              },
+              "response": [
+                {
+                  "id": "48335303-6a42-46ef-aed5-4d5e9e882113",
+                  "name": "Package deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/packages/:packageId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "packages",
+                        ":packageId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "packageId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:19.000Z",
+                  "updatedAt": "2026-06-05T15:19:19.000Z",
+                  "uid": "35240-48335303-6a42-46ef-aed5-4d5e9e882113"
+                },
+                {
+                  "id": "51dc87a5-94db-4fd7-b755-9bd4ee1fcb72",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/packages/:packageId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "packages",
+                        ":packageId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "packageId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:19.000Z",
+                  "updatedAt": "2026-06-05T15:19:19.000Z",
+                  "uid": "35240-51dc87a5-94db-4fd7-b755-9bd4ee1fcb72"
+                },
+                {
+                  "id": "d358b8eb-62fe-4a3c-934c-fbfc5b5f8355",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/packages/:packageId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "packages",
+                        ":packageId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "packageId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:19.000Z",
+                  "updatedAt": "2026-06-05T15:19:19.000Z",
+                  "uid": "35240-d358b8eb-62fe-4a3c-934c-fbfc5b5f8355"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-23de8983-c93f-4915-ba98-395cc6c038d7"
+            }
+          ],
+          "id": "af15ca0f-1e83-41ea-8b68-efaddef3b6ac",
+          "createdAt": "2026-06-05T15:19:19.000Z",
+          "updatedAt": "2026-06-05T15:19:19.000Z",
+          "uid": "35240-af15ca0f-1e83-41ea-8b68-efaddef3b6ac"
+        },
+        {
+          "name": "List Application Packages",
+          "id": "dc6705f2-6091-4052-a304-9cd752298e62",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/packages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "packages"
+              ]
+            },
+            "description": "Retrieve the list of available application packages with their metadata and version information."
+          },
+          "response": [
+            {
+              "id": "3bae5043-3e6f-4c1b-8814-bfc3b7d5a6e1",
+              "name": "Successful retrieval of packages",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/packages",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "packages"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"body\": [\n    {\n      \"packageId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"<string>\",\n      \"createdDate\": \"<dateTime>\"\n    },\n    {\n      \"packageId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"version\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"<string>\",\n      \"createdDate\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-3bae5043-3e6f-4c1b-8814-bfc3b7d5a6e1"
+            },
+            {
+              "id": "e1b91a2d-5c68-4566-9f6e-a6f22806be57",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/packages",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "packages"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-e1b91a2d-5c68-4566-9f6e-a6f22806be57"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:19.000Z",
+          "updatedAt": "2026-06-05T15:19:19.000Z",
+          "uid": "35240-dc6705f2-6091-4052-a304-9cd752298e62"
+        },
+        {
+          "name": "Upload Application Package",
+          "id": "ba82e3c2-7fbf-45a8-87f3-aa88516ccd98",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": "Application package archive file",
+                  "key": "archive",
+                  "type": "file",
+                  "value": null
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/packages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "packages"
+              ]
+            },
+            "description": "Upload a new application package archive for deployment in the Journey Manager platform."
+          },
+          "response": [
+            {
+              "id": "27f0255b-e53d-4cf7-b4c0-da78376deac7",
+              "name": "Package uploaded successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": "Application package archive file",
+                      "key": "archive",
+                      "type": "file"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/packages",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "packages"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"packageId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"version\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"createdDate\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-27f0255b-e53d-4cf7-b4c0-da78376deac7"
+            },
+            {
+              "id": "12832a8c-206f-4986-9ac4-447d7bbe30df",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": "Application package archive file",
+                      "key": "archive",
+                      "type": "file"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/packages",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "packages"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-12832a8c-206f-4986-9ac4-447d7bbe30df"
+            },
+            {
+              "id": "c1c77649-f215-47aa-9c53-f99bc64821c6",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": "Application package archive file",
+                      "key": "archive",
+                      "type": "file"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/packages",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "packages"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-c1c77649-f215-47aa-9c53-f99bc64821c6"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:19.000Z",
+          "updatedAt": "2026-06-05T15:19:19.000Z",
+          "uid": "35240-ba82e3c2-7fbf-45a8-87f3-aa88516ccd98"
+        }
+      ],
+      "id": "85d63872-ae90-432d-99d2-42e622b97c40",
+      "createdAt": "2026-06-05T15:19:19.000Z",
+      "updatedAt": "2026-06-05T15:19:19.000Z",
+      "uid": "35240-85d63872-ae90-432d-99d2-42e622b97c40"
+    },
+    {
+      "name": "delivery",
+      "item": [
+        {
+          "name": "submissions",
+          "item": [
+            {
+              "name": "{submissionId}",
+              "item": [
+                {
+                  "name": "complete",
+                  "item": [
+                    {
+                      "name": "Complete Delivery",
+                      "id": "34a5ece0-01c6-4ac4-863d-90a5f4a690c0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/delivery/submissions/:submissionId/complete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "delivery",
+                            "submissions",
+                            ":submissionId",
+                            "complete"
+                          ],
+                          "variable": [
+                            {
+                              "id": "e33a623c-197a-4e3c-acaa-52a038d96ea6",
+                              "key": "submissionId",
+                              "value": "<string>",
+                              "description": "(Required) Submission identifier"
+                            }
+                          ]
+                        },
+                        "description": "Mark a submission delivery as completed after successful processing by the receiving system."
+                      },
+                      "response": [
+                        {
+                          "id": "256449e2-62b4-4e5b-a671-951dbce3994a",
+                          "name": "Delivery marked as completed",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/delivery/submissions/:submissionId/complete",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "delivery",
+                                "submissions",
+                                ":submissionId",
+                                "complete"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "submissionId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:19:19.000Z",
+                          "updatedAt": "2026-06-05T15:19:19.000Z",
+                          "uid": "35240-256449e2-62b4-4e5b-a671-951dbce3994a"
+                        },
+                        {
+                          "id": "3ed772b4-71a3-415e-ac78-f3502d5c2606",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/delivery/submissions/:submissionId/complete",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "delivery",
+                                "submissions",
+                                ":submissionId",
+                                "complete"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "submissionId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:19.000Z",
+                          "updatedAt": "2026-06-05T15:19:19.000Z",
+                          "uid": "35240-3ed772b4-71a3-415e-ac78-f3502d5c2606"
+                        },
+                        {
+                          "id": "2f11fc3b-871d-44ee-8b37-d4d0bdbc63c3",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/delivery/submissions/:submissionId/complete",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "delivery",
+                                "submissions",
+                                ":submissionId",
+                                "complete"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "submissionId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:19.000Z",
+                          "updatedAt": "2026-06-05T15:19:19.000Z",
+                          "uid": "35240-2f11fc3b-871d-44ee-8b37-d4d0bdbc63c3"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:19:19.000Z",
+                      "updatedAt": "2026-06-05T15:19:19.000Z",
+                      "uid": "35240-34a5ece0-01c6-4ac4-863d-90a5f4a690c0"
+                    }
+                  ],
+                  "id": "15f95d58-3187-4dc7-8a0a-610b0b2204e1",
+                  "createdAt": "2026-06-05T15:19:19.000Z",
+                  "updatedAt": "2026-06-05T15:19:19.000Z",
+                  "uid": "35240-15f95d58-3187-4dc7-8a0a-610b0b2204e1"
+                },
+                {
+                  "name": "Get Submission Details",
+                  "id": "a358fd83-b232-412f-b15e-8da66dbdb6df",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/delivery/submissions/:submissionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "delivery",
+                        "submissions",
+                        ":submissionId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "9b2b3207-7f9e-46e0-81fa-914f487d4a2d",
+                          "key": "submissionId",
+                          "value": "<string>",
+                          "description": "(Required) Submission identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve detailed submission data including form field values and submission metadata."
+                  },
+                  "response": [
+                    {
+                      "id": "33044cb3-d1e0-4d9a-a9f2-65934aa932b2",
+                      "name": "Successful retrieval",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/delivery/submissions/:submissionId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "delivery",
+                            "submissions",
+                            ":submissionId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "submissionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"submissionId\": \"<string>\",\n  \"formName\": \"<string>\",\n  \"data\": {\n    \"officia_53\": false\n  },\n  \"status\": \"<string>\",\n  \"submittedDate\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:19:19.000Z",
+                      "updatedAt": "2026-06-05T15:19:19.000Z",
+                      "uid": "35240-33044cb3-d1e0-4d9a-a9f2-65934aa932b2"
+                    },
+                    {
+                      "id": "33a4ca58-791f-4d72-9651-215fe51bff43",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/delivery/submissions/:submissionId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "delivery",
+                            "submissions",
+                            ":submissionId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "submissionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:19.000Z",
+                      "updatedAt": "2026-06-05T15:19:19.000Z",
+                      "uid": "35240-33a4ca58-791f-4d72-9651-215fe51bff43"
+                    },
+                    {
+                      "id": "7118df4a-fd78-461a-b0f1-cae4969c711c",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/delivery/submissions/:submissionId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "delivery",
+                            "submissions",
+                            ":submissionId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "submissionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:19.000Z",
+                      "updatedAt": "2026-06-05T15:19:19.000Z",
+                      "uid": "35240-7118df4a-fd78-461a-b0f1-cae4969c711c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:19.000Z",
+                  "updatedAt": "2026-06-05T15:19:19.000Z",
+                  "uid": "35240-a358fd83-b232-412f-b15e-8da66dbdb6df"
+                }
+              ],
+              "id": "516c642e-ebc7-4b9f-828d-527fb042a9ce",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-516c642e-ebc7-4b9f-828d-527fb042a9ce"
+            },
+            {
+              "name": "List Submissions",
+              "id": "aa09e5e3-8fc0-4e60-9a90-30fc864c41db",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/delivery/submissions?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "delivery",
+                    "submissions"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieve a list of form submissions pending delivery processing."
+              },
+              "response": [
+                {
+                  "id": "c7a80708-16a5-4548-9706-41bfa83dfd8f",
+                  "name": "Successful retrieval of submissions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/delivery/submissions?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "delivery",
+                        "submissions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"body\": [\n    {\n      \"submissionId\": \"<string>\",\n      \"formName\": \"<string>\",\n      \"data\": {\n        \"anim4\": true,\n        \"velit_48d\": true,\n        \"aute_61b\": -40555144.581642956,\n        \"Excepteur_02\": \"quis proid\"\n      },\n      \"status\": \"<string>\",\n      \"submittedDate\": \"<dateTime>\"\n    },\n    {\n      \"submissionId\": \"<string>\",\n      \"formName\": \"<string>\",\n      \"data\": {\n        \"est4cf\": false,\n        \"quis___\": 54726585\n      },\n      \"status\": \"<string>\",\n      \"submittedDate\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:19.000Z",
+                  "updatedAt": "2026-06-05T15:19:19.000Z",
+                  "uid": "35240-c7a80708-16a5-4548-9706-41bfa83dfd8f"
+                },
+                {
+                  "id": "d981c6ef-ae33-4412-ab6e-1b8ad64bb543",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/delivery/submissions?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "delivery",
+                        "submissions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:19.000Z",
+                  "updatedAt": "2026-06-05T15:19:19.000Z",
+                  "uid": "35240-d981c6ef-ae33-4412-ab6e-1b8ad64bb543"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-aa09e5e3-8fc0-4e60-9a90-30fc864c41db"
+            }
+          ],
+          "id": "bd2bc6b4-75aa-4f16-a315-402a19a186a1",
+          "createdAt": "2026-06-05T15:19:19.000Z",
+          "updatedAt": "2026-06-05T15:19:19.000Z",
+          "uid": "35240-bd2bc6b4-75aa-4f16-a315-402a19a186a1"
+        }
+      ],
+      "id": "afc1b7a7-45d1-4907-a76f-f2945f1a68b8",
+      "createdAt": "2026-06-05T15:19:19.000Z",
+      "updatedAt": "2026-06-05T15:19:19.000Z",
+      "uid": "35240-afc1b7a7-45d1-4907-a76f-f2945f1a68b8"
+    },
+    {
+      "name": "formGroups",
+      "item": [
+        {
+          "name": "List Form Groups",
+          "id": "859f967c-7b71-4b32-a1a3-4c00546150cb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/formGroups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "formGroups"
+              ]
+            },
+            "description": "Retrieve all form group configurations for organizing and categorizing customer journey forms."
+          },
+          "response": [
+            {
+              "id": "fab736bf-5a09-4b2b-8554-fc53c0af95f2",
+              "name": "Successful retrieval of form groups",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/formGroups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "formGroups"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"body\": [\n    {\n      \"formGroupId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"forms\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"formGroupId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"forms\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-fab736bf-5a09-4b2b-8554-fc53c0af95f2"
+            },
+            {
+              "id": "05849db6-dbec-466c-b9c1-da53595ad5e9",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/formGroups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "formGroups"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-05849db6-dbec-466c-b9c1-da53595ad5e9"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:19.000Z",
+          "updatedAt": "2026-06-05T15:19:19.000Z",
+          "uid": "35240-859f967c-7b71-4b32-a1a3-4c00546150cb"
+        },
+        {
+          "name": "Create Form Group",
+          "id": "03b08792-b2ae-4a98-ac8b-6f4569ad6b4e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/formGroups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "formGroups"
+              ]
+            },
+            "description": "Create a new form group for organizing customer journey forms."
+          },
+          "response": [
+            {
+              "id": "97224d46-85cb-49c4-9224-e896b278ffb2",
+              "name": "Form group created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/formGroups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "formGroups"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"formGroupId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"forms\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-97224d46-85cb-49c4-9224-e896b278ffb2"
+            },
+            {
+              "id": "496e7cc1-f938-485e-a44f-5226b3789362",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/formGroups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "formGroups"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-496e7cc1-f938-485e-a44f-5226b3789362"
+            },
+            {
+              "id": "9e300d06-b244-4c2a-8d95-9578ad377fbd",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/formGroups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "formGroups"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-9e300d06-b244-4c2a-8d95-9578ad377fbd"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:19.000Z",
+          "updatedAt": "2026-06-05T15:19:19.000Z",
+          "uid": "35240-03b08792-b2ae-4a98-ac8b-6f4569ad6b4e"
+        }
+      ],
+      "id": "ebeae1a3-2a6f-4ae1-9d2f-631a53a16810",
+      "createdAt": "2026-06-05T15:19:19.000Z",
+      "updatedAt": "2026-06-05T15:19:19.000Z",
+      "uid": "35240-ebeae1a3-2a6f-4ae1-9d2f-631a53a16810"
+    },
+    {
+      "name": "services",
+      "item": [
+        {
+          "name": "List Service Definitions",
+          "id": "91f16703-24e1-45db-82c4-82f2f1a9ff43",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/services",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "services"
+              ]
+            },
+            "description": "Retrieve service definitions for journey integration services with their parameters and configurations."
+          },
+          "response": [
+            {
+              "id": "f55cd5a6-536a-49ba-87c3-d52682dbc34c",
+              "name": "Successful retrieval",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/services",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"body\": [\n    {\n      \"serviceId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": [\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"required\": \"<boolean>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"required\": \"<boolean>\"\n        }\n      ]\n    },\n    {\n      \"serviceId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": [\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"required\": \"<boolean>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"required\": \"<boolean>\"\n        }\n      ]\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-f55cd5a6-536a-49ba-87c3-d52682dbc34c"
+            },
+            {
+              "id": "a0382597-f9ab-4e9f-8594-af3da2b930e5",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/services",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-a0382597-f9ab-4e9f-8594-af3da2b930e5"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:19.000Z",
+          "updatedAt": "2026-06-05T15:19:19.000Z",
+          "uid": "35240-91f16703-24e1-45db-82c4-82f2f1a9ff43"
+        },
+        {
+          "name": "Create Service Definition",
+          "id": "2c68587f-0b9c-4e52-9105-79c6bfa044f7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/services",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "services"
+              ]
+            },
+            "description": "Create a new service definition for integration within customer journey workflows."
+          },
+          "response": [
+            {
+              "id": "3ea25ded-42a4-4647-9dd1-0c8bab0d7a79",
+              "name": "Service definition created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/services",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"serviceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"parameters\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"required\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"required\": \"<boolean>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-3ea25ded-42a4-4647-9dd1-0c8bab0d7a79"
+            },
+            {
+              "id": "000dcaf9-4d51-45f8-97bb-653dee1a1420",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/services",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-000dcaf9-4d51-45f8-97bb-653dee1a1420"
+            },
+            {
+              "id": "249a3ab4-c95d-4bba-9d58-9468a5901cf2",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/services",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-249a3ab4-c95d-4bba-9d58-9468a5901cf2"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:19.000Z",
+          "updatedAt": "2026-06-05T15:19:19.000Z",
+          "uid": "35240-2c68587f-0b9c-4e52-9105-79c6bfa044f7"
+        }
+      ],
+      "id": "b669ea1f-8728-494e-8d16-5939d749c1a8",
+      "createdAt": "2026-06-05T15:19:19.000Z",
+      "updatedAt": "2026-06-05T15:19:19.000Z",
+      "uid": "35240-b669ea1f-8728-494e-8d16-5939d749c1a8"
+    },
+    {
+      "name": "transactions",
+      "item": [
+        {
+          "name": "List Transactions",
+          "id": "98fbba61-2584-4c03-9972-8166d0aaa2db",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/transactions?page_size=25&page_start=0&status=EXPIRED",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transactions"
+              ],
+              "query": [
+                {
+                  "description": "Records per page",
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "description": "Starting record",
+                  "key": "page_start",
+                  "value": "0"
+                },
+                {
+                  "description": "Filter by transaction status",
+                  "key": "status",
+                  "value": "EXPIRED"
+                }
+              ]
+            },
+            "description": "Retrieve customer journey transactions including their current status, form data, and workflow position."
+          },
+          "response": [
+            {
+              "id": "65b396dd-f0ea-4db5-b45e-1af2e500455f",
+              "name": "Successful retrieval of transactions",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transactions?page_size=25&page_start=0&status=EXPIRED",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by transaction status",
+                      "key": "status",
+                      "value": "EXPIRED"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"transactionId\": \"<string>\",\n      \"journeyName\": \"<string>\",\n      \"status\": \"IN_PROGRESS\",\n      \"currentStep\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"startDate\": \"<dateTime>\",\n      \"lastActivity\": \"<dateTime>\"\n    },\n    {\n      \"transactionId\": \"<string>\",\n      \"journeyName\": \"<string>\",\n      \"status\": \"COMPLETED\",\n      \"currentStep\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"startDate\": \"<dateTime>\",\n      \"lastActivity\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-65b396dd-f0ea-4db5-b45e-1af2e500455f"
+            },
+            {
+              "id": "090b0423-e804-4be4-968c-435a35eb1d62",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transactions?page_size=25&page_start=0&status=EXPIRED",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by transaction status",
+                      "key": "status",
+                      "value": "EXPIRED"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-090b0423-e804-4be4-968c-435a35eb1d62"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:19.000Z",
+          "updatedAt": "2026-06-05T15:19:19.000Z",
+          "uid": "35240-98fbba61-2584-4c03-9972-8166d0aaa2db"
+        }
+      ],
+      "id": "a6781979-2ef8-4775-aea2-4413036cfc8c",
+      "createdAt": "2026-06-05T15:19:19.000Z",
+      "updatedAt": "2026-06-05T15:19:19.000Z",
+      "uid": "35240-a6781979-2ef8-4775-aea2-4413036cfc8c"
+    },
+    {
+      "name": "tasks",
+      "item": [
+        {
+          "name": "List Tasks",
+          "id": "f115813a-af03-40cd-b5cc-c9c1c0e6ab49",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tasks?page_size=25&page_start=0&assignee=<string>&status=PENDING",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tasks"
+              ],
+              "query": [
+                {
+                  "description": "Records per page",
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "description": "Starting record",
+                  "key": "page_start",
+                  "value": "0"
+                },
+                {
+                  "description": "Filter by assigned user",
+                  "key": "assignee",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by task status",
+                  "key": "status",
+                  "value": "PENDING"
+                }
+              ]
+            },
+            "description": "Retrieve tasks within journey workflows including assignment and completion status."
+          },
+          "response": [
+            {
+              "id": "cf3d4169-780c-41a8-9623-ae3797530962",
+              "name": "Successful retrieval of tasks",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tasks?page_size=25&page_start=0&assignee=<string>&status=PENDING",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tasks"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by assigned user",
+                      "key": "assignee",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by task status",
+                      "key": "status",
+                      "value": "PENDING"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"taskId\": \"<string>\",\n      \"transactionId\": \"<string>\",\n      \"taskName\": \"<string>\",\n      \"assignee\": \"<string>\",\n      \"status\": \"PENDING\",\n      \"dueDate\": \"<dateTime>\"\n    },\n    {\n      \"taskId\": \"<string>\",\n      \"transactionId\": \"<string>\",\n      \"taskName\": \"<string>\",\n      \"assignee\": \"<string>\",\n      \"status\": \"IN_PROGRESS\",\n      \"dueDate\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-cf3d4169-780c-41a8-9623-ae3797530962"
+            },
+            {
+              "id": "07038f56-b6ff-4856-8348-6f30c3910064",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tasks?page_size=25&page_start=0&assignee=<string>&status=PENDING",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tasks"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by assigned user",
+                      "key": "assignee",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by task status",
+                      "key": "status",
+                      "value": "PENDING"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-07038f56-b6ff-4856-8348-6f30c3910064"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:19.000Z",
+          "updatedAt": "2026-06-05T15:19:19.000Z",
+          "uid": "35240-f115813a-af03-40cd-b5cc-c9c1c0e6ab49"
+        }
+      ],
+      "id": "5fd9d006-fd7a-441b-96d5-c277a7fa3051",
+      "createdAt": "2026-06-05T15:19:19.000Z",
+      "updatedAt": "2026-06-05T15:19:19.000Z",
+      "uid": "35240-5fd9d006-fd7a-441b-96d5-c277a7fa3051"
+    },
+    {
+      "name": "workspaces",
+      "item": [
+        {
+          "name": "List Workspaces",
+          "id": "65f155c5-a164-4443-902b-d7f4f7322985",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/workspaces",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces"
+              ]
+            },
+            "description": "Retrieve available workspaces in the Journey Manager portal for external system integration."
+          },
+          "response": [
+            {
+              "id": "afa0dee5-2449-4da2-9d83-b8275ce0d3dd",
+              "name": "Successful retrieval of workspaces",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/workspaces",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"body\": [\n    {\n      \"workspaceId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"workspaceId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-afa0dee5-2449-4da2-9d83-b8275ce0d3dd"
+            },
+            {
+              "id": "7836c035-af8d-4cd8-8516-44da50fa60a8",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/workspaces",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:19.000Z",
+              "updatedAt": "2026-06-05T15:19:19.000Z",
+              "uid": "35240-7836c035-af8d-4cd8-8516-44da50fa60a8"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:19.000Z",
+          "updatedAt": "2026-06-05T15:19:19.000Z",
+          "uid": "35240-65f155c5-a164-4443-902b-d7f4f7322985"
+        }
+      ],
+      "id": "674d0892-0d19-48a4-9bdc-9ccce59b0dde",
+      "createdAt": "2026-06-05T15:19:19.000Z",
+      "updatedAt": "2026-06-05T15:19:19.000Z",
+      "uid": "35240-674d0892-0d19-48a4-9bdc-9ccce59b0dde"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://journey.temenos.com/api/v1"
+    }
+  ]
+}

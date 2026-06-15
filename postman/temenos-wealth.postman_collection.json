@@ -1,0 +1,2628 @@
+{
+  "info": {
+    "_postman_id": "2f4ac330-c4d7-46c6-a50c-8ea6d195dac4",
+    "name": "Temenos Wealth API",
+    "description": "Integrated portfolio management and securities trading platform APIs for wealth managers and private bankers. Provides enterprise APIs across holdings, inventory, order, party, reference, meta, and system categories for managing portfolios, executing trades across a wide range of instruments from fixed income and equities through ETD and OTC derivatives to structured products and fund types.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:14.000Z",
+    "updatedAt": "2026-06-05T15:19:15.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2f4ac330-c4d7-46c6-a50c-8ea6d195dac4"
+  },
+  "item": [
+    {
+      "name": "holdings",
+      "item": [
+        {
+          "name": "portfolios",
+          "item": [
+            {
+              "name": "{portfolioId}",
+              "item": [
+                {
+                  "name": "positions",
+                  "item": [
+                    {
+                      "name": "List Portfolio Positions",
+                      "id": "1b0fdb8e-00e3-4d21-bc7f-ee1c6fd4c96e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId/positions?page_size=25&page_start=0&assetClass=FIXED_INCOME",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "holdings",
+                            "portfolios",
+                            ":portfolioId",
+                            "positions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of records per page",
+                              "key": "page_size",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Starting record number",
+                              "key": "page_start",
+                              "value": "0"
+                            },
+                            {
+                              "description": "Filter by asset class",
+                              "key": "assetClass",
+                              "value": "FIXED_INCOME"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "fe603678-6e24-49a4-8cf6-eb8f34abb86d",
+                              "key": "portfolioId",
+                              "value": "<string>",
+                              "description": "(Required) Unique portfolio identifier"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve investment positions within a portfolio including equities, bonds, derivatives, funds, and cash positions with current market valuations."
+                      },
+                      "response": [
+                        {
+                          "id": "98e29d9f-3c70-4225-b622-b45673d8d3fa",
+                          "name": "Successful retrieval of positions",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId/positions?page_size=25&page_start=0&assetClass=FIXED_INCOME",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "holdings",
+                                "portfolios",
+                                ":portfolioId",
+                                "positions"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Number of records per page",
+                                  "key": "page_size",
+                                  "value": "25"
+                                },
+                                {
+                                  "description": "Starting record number",
+                                  "key": "page_start",
+                                  "value": "0"
+                                },
+                                {
+                                  "description": "Filter by asset class",
+                                  "key": "assetClass",
+                                  "value": "FIXED_INCOME"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "portfolioId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"positionId\": \"<string>\",\n      \"portfolioId\": \"<string>\",\n      \"securityId\": \"<string>\",\n      \"securityName\": \"<string>\",\n      \"assetClass\": \"FUNDS\",\n      \"quantity\": \"<double>\",\n      \"averageCost\": \"<double>\",\n      \"marketPrice\": \"<double>\",\n      \"marketValue\": \"<double>\",\n      \"unrealizedPnL\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"weight\": \"<double>\"\n    },\n    {\n      \"positionId\": \"<string>\",\n      \"portfolioId\": \"<string>\",\n      \"securityId\": \"<string>\",\n      \"securityName\": \"<string>\",\n      \"assetClass\": \"FUNDS\",\n      \"quantity\": \"<double>\",\n      \"averageCost\": \"<double>\",\n      \"marketPrice\": \"<double>\",\n      \"marketValue\": \"<double>\",\n      \"unrealizedPnL\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"weight\": \"<double>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:19:15.000Z",
+                          "updatedAt": "2026-06-05T15:19:15.000Z",
+                          "uid": "35240-98e29d9f-3c70-4225-b622-b45673d8d3fa"
+                        },
+                        {
+                          "id": "a17ad96b-af70-4180-896f-83fd0e7a2a40",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId/positions?page_size=25&page_start=0&assetClass=FIXED_INCOME",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "holdings",
+                                "portfolios",
+                                ":portfolioId",
+                                "positions"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Number of records per page",
+                                  "key": "page_size",
+                                  "value": "25"
+                                },
+                                {
+                                  "description": "Starting record number",
+                                  "key": "page_start",
+                                  "value": "0"
+                                },
+                                {
+                                  "description": "Filter by asset class",
+                                  "key": "assetClass",
+                                  "value": "FIXED_INCOME"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "portfolioId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:15.000Z",
+                          "updatedAt": "2026-06-05T15:19:15.000Z",
+                          "uid": "35240-a17ad96b-af70-4180-896f-83fd0e7a2a40"
+                        },
+                        {
+                          "id": "c836ea57-ad47-4c23-9a47-11572dbb9d53",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId/positions?page_size=25&page_start=0&assetClass=FIXED_INCOME",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "holdings",
+                                "portfolios",
+                                ":portfolioId",
+                                "positions"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Number of records per page",
+                                  "key": "page_size",
+                                  "value": "25"
+                                },
+                                {
+                                  "description": "Starting record number",
+                                  "key": "page_start",
+                                  "value": "0"
+                                },
+                                {
+                                  "description": "Filter by asset class",
+                                  "key": "assetClass",
+                                  "value": "FIXED_INCOME"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "portfolioId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:15.000Z",
+                          "updatedAt": "2026-06-05T15:19:15.000Z",
+                          "uid": "35240-c836ea57-ad47-4c23-9a47-11572dbb9d53"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-1b0fdb8e-00e3-4d21-bc7f-ee1c6fd4c96e"
+                    }
+                  ],
+                  "id": "e7d5dd77-2867-4b86-9736-06457b31af23",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-e7d5dd77-2867-4b86-9736-06457b31af23"
+                },
+                {
+                  "name": "valuation",
+                  "item": [
+                    {
+                      "name": "Get Portfolio Valuation",
+                      "id": "2c63cf0d-6f3b-4c4c-aaa9-6e0c7d6e0097",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId/valuation?valuationDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "holdings",
+                            "portfolios",
+                            ":portfolioId",
+                            "valuation"
+                          ],
+                          "query": [
+                            {
+                              "description": "Valuation date for historical lookups",
+                              "key": "valuationDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "f3277b14-6080-4225-b0c9-9a79606040e4",
+                              "key": "portfolioId",
+                              "value": "<string>",
+                              "description": "(Required) Unique portfolio identifier"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve the current or historical valuation of a portfolio including total market value, unrealized gains and losses, and asset allocation breakdown."
+                      },
+                      "response": [
+                        {
+                          "id": "fdaf927d-0000-4dbd-a795-46bc898072cf",
+                          "name": "Successful retrieval of valuation",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId/valuation?valuationDate=<date>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "holdings",
+                                "portfolios",
+                                ":portfolioId",
+                                "valuation"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Valuation date for historical lookups",
+                                  "key": "valuationDate",
+                                  "value": "<date>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "portfolioId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"portfolioId\": \"<string>\",\n  \"valuationDate\": \"<date>\",\n  \"totalMarketValue\": \"<double>\",\n  \"totalCost\": \"<double>\",\n  \"unrealizedPnL\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"assetAllocation\": [\n    {\n      \"assetClass\": \"<string>\",\n      \"marketValue\": \"<double>\",\n      \"weight\": \"<double>\"\n    },\n    {\n      \"assetClass\": \"<string>\",\n      \"marketValue\": \"<double>\",\n      \"weight\": \"<double>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:19:15.000Z",
+                          "updatedAt": "2026-06-05T15:19:15.000Z",
+                          "uid": "35240-fdaf927d-0000-4dbd-a795-46bc898072cf"
+                        },
+                        {
+                          "id": "2a7ea648-e1d6-4157-b7a8-c9e59a0c746f",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId/valuation?valuationDate=<date>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "holdings",
+                                "portfolios",
+                                ":portfolioId",
+                                "valuation"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Valuation date for historical lookups",
+                                  "key": "valuationDate",
+                                  "value": "<date>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "portfolioId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:15.000Z",
+                          "updatedAt": "2026-06-05T15:19:15.000Z",
+                          "uid": "35240-2a7ea648-e1d6-4157-b7a8-c9e59a0c746f"
+                        },
+                        {
+                          "id": "55172fca-0b86-4d91-9535-5e0b48f01292",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId/valuation?valuationDate=<date>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "holdings",
+                                "portfolios",
+                                ":portfolioId",
+                                "valuation"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Valuation date for historical lookups",
+                                  "key": "valuationDate",
+                                  "value": "<date>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "portfolioId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:15.000Z",
+                          "updatedAt": "2026-06-05T15:19:15.000Z",
+                          "uid": "35240-55172fca-0b86-4d91-9535-5e0b48f01292"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-2c63cf0d-6f3b-4c4c-aaa9-6e0c7d6e0097"
+                    }
+                  ],
+                  "id": "fb0d7d6b-2dbb-4f2c-9693-4a39beea786f",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-fb0d7d6b-2dbb-4f2c-9693-4a39beea786f"
+                },
+                {
+                  "name": "Get Portfolio Details",
+                  "id": "9b67d81d-8cad-432a-957e-6682101dc834",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "portfolios",
+                        ":portfolioId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "9bd57d23-964b-489b-ae93-88d8fa5d0a70",
+                          "key": "portfolioId",
+                          "value": "<string>",
+                          "description": "(Required) Unique portfolio identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve detailed portfolio information including current valuation, asset allocation, performance metrics, and linked account details."
+                  },
+                  "response": [
+                    {
+                      "id": "154b896b-b309-4669-906f-50d16c03c735",
+                      "name": "Successful retrieval of portfolio details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "holdings",
+                            "portfolios",
+                            ":portfolioId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "portfolioId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"portfolioId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"portfolioName\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"mandateType\": \"EXECUTION_ONLY\",\n  \"riskProfile\": \"AGGRESSIVE\",\n  \"benchmarkId\": \"<string>\",\n  \"totalValue\": \"<double>\",\n  \"advisorId\": \"<string>\",\n  \"openDate\": \"<date>\",\n  \"status\": \"CLOSED\"\n}",
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-154b896b-b309-4669-906f-50d16c03c735"
+                    },
+                    {
+                      "id": "b52dab0f-3041-493f-a2ea-059584608674",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "holdings",
+                            "portfolios",
+                            ":portfolioId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "portfolioId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-b52dab0f-3041-493f-a2ea-059584608674"
+                    },
+                    {
+                      "id": "3550312d-eeda-4d2a-b3ce-5000847366ef",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "holdings",
+                            "portfolios",
+                            ":portfolioId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "portfolioId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-3550312d-eeda-4d2a-b3ce-5000847366ef"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-9b67d81d-8cad-432a-957e-6682101dc834"
+                },
+                {
+                  "name": "Close Portfolio",
+                  "id": "b287f732-091f-4d6b-b00b-a158fb70ac53",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "portfolios",
+                        ":portfolioId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "54cec69d-052f-4a0b-8858-1a3691acf150",
+                          "key": "portfolioId",
+                          "value": "<string>",
+                          "description": "(Required) Unique portfolio identifier"
+                        }
+                      ]
+                    },
+                    "description": "Close an investment portfolio after all positions have been liquidated and settled."
+                  },
+                  "response": [
+                    {
+                      "id": "529ea1ff-0d53-473b-9f98-1afef1287e6e",
+                      "name": "Portfolio closed successfully",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "holdings",
+                            "portfolios",
+                            ":portfolioId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "portfolioId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-529ea1ff-0d53-473b-9f98-1afef1287e6e"
+                    },
+                    {
+                      "id": "afade6b6-f85d-4f0f-a087-b3a42439caad",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "holdings",
+                            "portfolios",
+                            ":portfolioId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "portfolioId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-afade6b6-f85d-4f0f-a087-b3a42439caad"
+                    },
+                    {
+                      "id": "03053e1f-d19d-4a43-9426-9f9d5cba0902",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/holdings/portfolios/:portfolioId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "holdings",
+                            "portfolios",
+                            ":portfolioId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "portfolioId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-03053e1f-d19d-4a43-9426-9f9d5cba0902"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-b287f732-091f-4d6b-b00b-a158fb70ac53"
+                }
+              ],
+              "id": "e23fb9dd-c2f2-4245-8b0c-53496b6ac423",
+              "createdAt": "2026-06-05T15:19:15.000Z",
+              "updatedAt": "2026-06-05T15:19:15.000Z",
+              "uid": "35240-e23fb9dd-c2f2-4245-8b0c-53496b6ac423"
+            },
+            {
+              "name": "List Portfolios",
+              "id": "05be82ff-7cf0-47e9-9f11-e2ac4567a9c4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/holdings/portfolios?page_size=25&page_start=0&customerId=<string>&advisorId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "holdings",
+                    "portfolios"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter portfolios by customer identifier",
+                      "key": "customerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by assigned advisor",
+                      "key": "advisorId",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieve a list of investment portfolios for wealth clients including portfolio valuations, benchmark assignments, and investment mandate details."
+              },
+              "response": [
+                {
+                  "id": "e34cee10-7108-4053-9eb6-a8d74829487e",
+                  "name": "Successful retrieval of portfolios",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/portfolios?page_size=25&page_start=0&customerId=<string>&advisorId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "portfolios"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter portfolios by customer identifier",
+                          "key": "customerId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by assigned advisor",
+                          "key": "advisorId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"portfolioId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"portfolioName\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"mandateType\": \"DISCRETIONARY\",\n      \"riskProfile\": \"AGGRESSIVE\",\n      \"benchmarkId\": \"<string>\",\n      \"totalValue\": \"<double>\",\n      \"advisorId\": \"<string>\",\n      \"openDate\": \"<date>\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"portfolioId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"portfolioName\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"mandateType\": \"DISCRETIONARY\",\n      \"riskProfile\": \"AGGRESSIVE\",\n      \"benchmarkId\": \"<string>\",\n      \"totalValue\": \"<double>\",\n      \"advisorId\": \"<string>\",\n      \"openDate\": \"<date>\",\n      \"status\": \"ACTIVE\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-e34cee10-7108-4053-9eb6-a8d74829487e"
+                },
+                {
+                  "id": "abd9d178-4729-447a-99ad-5f4a5a3dba66",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/portfolios?page_size=25&page_start=0&customerId=<string>&advisorId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "portfolios"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter portfolios by customer identifier",
+                          "key": "customerId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by assigned advisor",
+                          "key": "advisorId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-abd9d178-4729-447a-99ad-5f4a5a3dba66"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:15.000Z",
+              "updatedAt": "2026-06-05T15:19:15.000Z",
+              "uid": "35240-05be82ff-7cf0-47e9-9f11-e2ac4567a9c4"
+            },
+            {
+              "name": "Create Portfolio",
+              "id": "88fb70f5-5495-4450-8c95-62efb3f69a24",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"currency\": \"EAR\",\n  \"mandateType\": \"ADVISORY\",\n  \"portfolioName\": \"<string>\",\n  \"riskProfile\": \"BALANCED\",\n  \"benchmarkId\": \"<string>\",\n  \"advisorId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/holdings/portfolios",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "holdings",
+                    "portfolios"
+                  ]
+                },
+                "description": "Create a new investment portfolio for a wealth client with specified investment mandate, benchmark, and risk profile."
+              },
+              "response": [
+                {
+                  "id": "59e7ac72-1969-4dd9-956e-33bf5e9a1ca4",
+                  "name": "Portfolio created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"customerId\": \"<string>\",\n  \"currency\": \"EAR\",\n  \"mandateType\": \"ADVISORY\",\n  \"portfolioName\": \"<string>\",\n  \"riskProfile\": \"BALANCED\",\n  \"benchmarkId\": \"<string>\",\n  \"advisorId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/portfolios",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "portfolios"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"portfolioId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"portfolioName\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"mandateType\": \"EXECUTION_ONLY\",\n  \"riskProfile\": \"AGGRESSIVE\",\n  \"benchmarkId\": \"<string>\",\n  \"totalValue\": \"<double>\",\n  \"advisorId\": \"<string>\",\n  \"openDate\": \"<date>\",\n  \"status\": \"CLOSED\"\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-59e7ac72-1969-4dd9-956e-33bf5e9a1ca4"
+                },
+                {
+                  "id": "e57a2f8d-21e9-440c-88ba-32f3488652a8",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"customerId\": \"<string>\",\n  \"currency\": \"EAR\",\n  \"mandateType\": \"ADVISORY\",\n  \"portfolioName\": \"<string>\",\n  \"riskProfile\": \"BALANCED\",\n  \"benchmarkId\": \"<string>\",\n  \"advisorId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/portfolios",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "portfolios"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-e57a2f8d-21e9-440c-88ba-32f3488652a8"
+                },
+                {
+                  "id": "0f250af4-d387-44ee-a372-a9f71dd5b380",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"customerId\": \"<string>\",\n  \"currency\": \"EAR\",\n  \"mandateType\": \"ADVISORY\",\n  \"portfolioName\": \"<string>\",\n  \"riskProfile\": \"BALANCED\",\n  \"benchmarkId\": \"<string>\",\n  \"advisorId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/portfolios",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "portfolios"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-0f250af4-d387-44ee-a372-a9f71dd5b380"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:15.000Z",
+              "updatedAt": "2026-06-05T15:19:15.000Z",
+              "uid": "35240-88fb70f5-5495-4450-8c95-62efb3f69a24"
+            }
+          ],
+          "id": "c7c09694-aec1-493f-b067-3d427e495128",
+          "createdAt": "2026-06-05T15:19:15.000Z",
+          "updatedAt": "2026-06-05T15:19:15.000Z",
+          "uid": "35240-c7c09694-aec1-493f-b067-3d427e495128"
+        }
+      ],
+      "id": "06be0dfc-c62b-4fe8-91b1-26142c3e703d",
+      "createdAt": "2026-06-05T15:19:15.000Z",
+      "updatedAt": "2026-06-05T15:19:15.000Z",
+      "uid": "35240-06be0dfc-c62b-4fe8-91b1-26142c3e703d"
+    },
+    {
+      "name": "order",
+      "item": [
+        {
+          "name": "securities",
+          "item": [
+            {
+              "name": "{orderId}",
+              "item": [
+                {
+                  "name": "Get Security Order Details",
+                  "id": "3660bcac-def6-4270-ad7c-48b9cbd67734",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/order/securities/:orderId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "securities",
+                        ":orderId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "9a2ae885-4182-49cd-9863-50df0ca0533b",
+                          "key": "orderId",
+                          "value": "<string>",
+                          "description": "(Required) Unique order identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve detailed information for a security order including execution details, fill history, and settlement status."
+                  },
+                  "response": [
+                    {
+                      "id": "4e96c0c7-ae2c-40e2-af12-d31120372572",
+                      "name": "Successful retrieval of order details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/order/securities/:orderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "order",
+                            "securities",
+                            ":orderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"orderId\": \"<string>\",\n  \"portfolioId\": \"<string>\",\n  \"securityId\": \"<string>\",\n  \"side\": \"BUY\",\n  \"orderType\": \"STOP\",\n  \"quantity\": \"<double>\",\n  \"limitPrice\": \"<double>\",\n  \"filledQuantity\": \"<double>\",\n  \"averagePrice\": \"<double>\",\n  \"status\": \"REJECTED\",\n  \"validity\": \"GTD\",\n  \"createdDate\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-4e96c0c7-ae2c-40e2-af12-d31120372572"
+                    },
+                    {
+                      "id": "e2021cd2-0329-4112-853d-9dfa420abff0",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/order/securities/:orderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "order",
+                            "securities",
+                            ":orderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-e2021cd2-0329-4112-853d-9dfa420abff0"
+                    },
+                    {
+                      "id": "aa520011-82b2-4299-bad4-feaa8b93ab94",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/order/securities/:orderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "order",
+                            "securities",
+                            ":orderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-aa520011-82b2-4299-bad4-feaa8b93ab94"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-3660bcac-def6-4270-ad7c-48b9cbd67734"
+                },
+                {
+                  "name": "Cancel Security Order",
+                  "id": "68610aa5-40a4-4d62-b9a1-e3d5c0434e55",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/order/securities/:orderId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "securities",
+                        ":orderId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1a243e9d-04b3-47f0-becd-afd38907ff55",
+                          "key": "orderId",
+                          "value": "<string>",
+                          "description": "(Required) Order identifier to cancel"
+                        }
+                      ]
+                    },
+                    "description": "Cancel a pending or partially filled security order before full execution."
+                  },
+                  "response": [
+                    {
+                      "id": "75204bad-6901-4bd6-a67e-84c8d8a72050",
+                      "name": "Order cancelled successfully",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/order/securities/:orderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "order",
+                            "securities",
+                            ":orderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-75204bad-6901-4bd6-a67e-84c8d8a72050"
+                    },
+                    {
+                      "id": "e734fa77-215a-4fcd-9fa8-6cebd133648f",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/order/securities/:orderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "order",
+                            "securities",
+                            ":orderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-e734fa77-215a-4fcd-9fa8-6cebd133648f"
+                    },
+                    {
+                      "id": "b066c204-5f90-459e-9bac-b0891480f379",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/order/securities/:orderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "order",
+                            "securities",
+                            ":orderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:15.000Z",
+                      "updatedAt": "2026-06-05T15:19:15.000Z",
+                      "uid": "35240-b066c204-5f90-459e-9bac-b0891480f379"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-68610aa5-40a4-4d62-b9a1-e3d5c0434e55"
+                }
+              ],
+              "id": "b76f2148-3532-4d01-a610-a50cb4471cff",
+              "createdAt": "2026-06-05T15:19:15.000Z",
+              "updatedAt": "2026-06-05T15:19:15.000Z",
+              "uid": "35240-b76f2148-3532-4d01-a610-a50cb4471cff"
+            },
+            {
+              "name": "List Security Orders",
+              "id": "00a4fbb8-d7db-4c21-a43f-edfda0b87dc5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/order/securities?page_size=25&page_start=0&portfolioId=<string>&status=SUBMITTED",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "order",
+                    "securities"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by portfolio",
+                      "key": "portfolioId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by order status",
+                      "key": "status",
+                      "value": "SUBMITTED"
+                    }
+                  ]
+                },
+                "description": "Retrieve securities trading orders across all portfolios with filtering by status, instrument type, and date range."
+              },
+              "response": [
+                {
+                  "id": "fef29e50-7c97-4742-ad87-82523d61feed",
+                  "name": "Successful retrieval of orders",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/order/securities?page_size=25&page_start=0&portfolioId=<string>&status=SUBMITTED",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "securities"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by portfolio",
+                          "key": "portfolioId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by order status",
+                          "key": "status",
+                          "value": "SUBMITTED"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"orderId\": \"<string>\",\n      \"portfolioId\": \"<string>\",\n      \"securityId\": \"<string>\",\n      \"side\": \"BUY\",\n      \"orderType\": \"STOP_LIMIT\",\n      \"quantity\": \"<double>\",\n      \"limitPrice\": \"<double>\",\n      \"filledQuantity\": \"<double>\",\n      \"averagePrice\": \"<double>\",\n      \"status\": \"PENDING\",\n      \"validity\": \"GTD\",\n      \"createdDate\": \"<dateTime>\"\n    },\n    {\n      \"orderId\": \"<string>\",\n      \"portfolioId\": \"<string>\",\n      \"securityId\": \"<string>\",\n      \"side\": \"SELL\",\n      \"orderType\": \"STOP\",\n      \"quantity\": \"<double>\",\n      \"limitPrice\": \"<double>\",\n      \"filledQuantity\": \"<double>\",\n      \"averagePrice\": \"<double>\",\n      \"status\": \"PARTIALLY_FILLED\",\n      \"validity\": \"DAY\",\n      \"createdDate\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-fef29e50-7c97-4742-ad87-82523d61feed"
+                },
+                {
+                  "id": "dba073f9-29ea-4d95-ac81-be2a6df3491d",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/order/securities?page_size=25&page_start=0&portfolioId=<string>&status=SUBMITTED",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "securities"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by portfolio",
+                          "key": "portfolioId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by order status",
+                          "key": "status",
+                          "value": "SUBMITTED"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-dba073f9-29ea-4d95-ac81-be2a6df3491d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:15.000Z",
+              "updatedAt": "2026-06-05T15:19:15.000Z",
+              "uid": "35240-00a4fbb8-d7db-4c21-a43f-edfda0b87dc5"
+            },
+            {
+              "name": "Create Security Order",
+              "id": "336e5c77-c16e-458b-afc3-23b0686d7e0d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"portfolioId\": \"<string>\",\n  \"securityId\": \"<string>\",\n  \"side\": \"BUY\",\n  \"orderType\": \"STOP\",\n  \"quantity\": \"<double>\",\n  \"limitPrice\": \"<double>\",\n  \"stopPrice\": \"<double>\",\n  \"validity\": \"DAY\",\n  \"expiryDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/order/securities",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "order",
+                    "securities"
+                  ]
+                },
+                "description": "Place a new securities trading order for buying or selling instruments including equities, bonds, derivatives, and funds with specified order type and validity."
+              },
+              "response": [
+                {
+                  "id": "5f87c44b-b203-4586-9465-b0928fb4ab3f",
+                  "name": "Order created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"portfolioId\": \"<string>\",\n  \"securityId\": \"<string>\",\n  \"side\": \"BUY\",\n  \"orderType\": \"STOP\",\n  \"quantity\": \"<double>\",\n  \"limitPrice\": \"<double>\",\n  \"stopPrice\": \"<double>\",\n  \"validity\": \"DAY\",\n  \"expiryDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/order/securities",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "securities"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"orderId\": \"<string>\",\n  \"portfolioId\": \"<string>\",\n  \"securityId\": \"<string>\",\n  \"side\": \"BUY\",\n  \"orderType\": \"STOP\",\n  \"quantity\": \"<double>\",\n  \"limitPrice\": \"<double>\",\n  \"filledQuantity\": \"<double>\",\n  \"averagePrice\": \"<double>\",\n  \"status\": \"REJECTED\",\n  \"validity\": \"GTD\",\n  \"createdDate\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-5f87c44b-b203-4586-9465-b0928fb4ab3f"
+                },
+                {
+                  "id": "bce624fb-6e31-4687-8165-3973551fb01b",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"portfolioId\": \"<string>\",\n  \"securityId\": \"<string>\",\n  \"side\": \"BUY\",\n  \"orderType\": \"STOP\",\n  \"quantity\": \"<double>\",\n  \"limitPrice\": \"<double>\",\n  \"stopPrice\": \"<double>\",\n  \"validity\": \"DAY\",\n  \"expiryDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/order/securities",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "securities"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-bce624fb-6e31-4687-8165-3973551fb01b"
+                },
+                {
+                  "id": "1248b077-8aa3-4d59-9ec6-30a63e7e4207",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"portfolioId\": \"<string>\",\n  \"securityId\": \"<string>\",\n  \"side\": \"BUY\",\n  \"orderType\": \"STOP\",\n  \"quantity\": \"<double>\",\n  \"limitPrice\": \"<double>\",\n  \"stopPrice\": \"<double>\",\n  \"validity\": \"DAY\",\n  \"expiryDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/order/securities",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "securities"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-1248b077-8aa3-4d59-9ec6-30a63e7e4207"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:15.000Z",
+              "updatedAt": "2026-06-05T15:19:15.000Z",
+              "uid": "35240-336e5c77-c16e-458b-afc3-23b0686d7e0d"
+            }
+          ],
+          "id": "fb9ecfe5-5810-40d0-91f5-b4df17a3500d",
+          "createdAt": "2026-06-05T15:19:15.000Z",
+          "updatedAt": "2026-06-05T15:19:15.000Z",
+          "uid": "35240-fb9ecfe5-5810-40d0-91f5-b4df17a3500d"
+        }
+      ],
+      "id": "d2fa9c9c-fc7b-4d8f-8a3e-51de92e959e4",
+      "createdAt": "2026-06-05T15:19:15.000Z",
+      "updatedAt": "2026-06-05T15:19:15.000Z",
+      "uid": "35240-d2fa9c9c-fc7b-4d8f-8a3e-51de92e959e4"
+    },
+    {
+      "name": "party",
+      "item": [
+        {
+          "name": "clients",
+          "item": [
+            {
+              "name": "List Wealth Clients",
+              "id": "bbd6c0f6-c284-4687-803d-4e92c9578b05",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/party/clients?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "party",
+                    "clients"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number",
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieve wealth management clients including their investor profiles, risk assessments, advisor assignments, and investment mandates."
+              },
+              "response": [
+                {
+                  "id": "7b042c38-04ff-4705-8423-f5271b3bbc6a",
+                  "name": "Successful retrieval of clients",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/party/clients?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        "clients"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"clientId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"clientType\": \"PRIVATE\",\n      \"riskProfile\": \"<string>\",\n      \"advisorId\": \"<string>\",\n      \"totalAUM\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"clientId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"clientType\": \"PRIVATE\",\n      \"riskProfile\": \"<string>\",\n      \"advisorId\": \"<string>\",\n      \"totalAUM\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-7b042c38-04ff-4705-8423-f5271b3bbc6a"
+                },
+                {
+                  "id": "200c5bb9-fff4-40df-b693-a1d794b2281f",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/party/clients?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        "clients"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-200c5bb9-fff4-40df-b693-a1d794b2281f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:15.000Z",
+              "updatedAt": "2026-06-05T15:19:15.000Z",
+              "uid": "35240-bbd6c0f6-c284-4687-803d-4e92c9578b05"
+            }
+          ],
+          "id": "f04bf03d-323f-4020-8b53-e0b254a5bdd7",
+          "createdAt": "2026-06-05T15:19:15.000Z",
+          "updatedAt": "2026-06-05T15:19:15.000Z",
+          "uid": "35240-f04bf03d-323f-4020-8b53-e0b254a5bdd7"
+        }
+      ],
+      "id": "2cc871ba-a2b6-49f1-9541-2fdcb2abe29b",
+      "createdAt": "2026-06-05T15:19:15.000Z",
+      "updatedAt": "2026-06-05T15:19:15.000Z",
+      "uid": "35240-2cc871ba-a2b6-49f1-9541-2fdcb2abe29b"
+    },
+    {
+      "name": "inventory",
+      "item": [
+        {
+          "name": "securities",
+          "item": [
+            {
+              "name": "List Securities",
+              "id": "94906421-58aa-4003-a5c9-0310f847ff2b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/inventory/securities?page_size=25&page_start=0&assetClass=<string>&exchange=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "inventory",
+                    "securities"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by asset class",
+                      "key": "assetClass",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by exchange",
+                      "key": "exchange",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieve the securities master data inventory including equities, bonds, derivatives, and funds with their classification details and market identifiers."
+              },
+              "response": [
+                {
+                  "id": "e6f60b16-9f07-462d-99e9-d2396089acd9",
+                  "name": "Successful retrieval of securities",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/inventory/securities?page_size=25&page_start=0&assetClass=<string>&exchange=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "inventory",
+                        "securities"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by asset class",
+                          "key": "assetClass",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by exchange",
+                          "key": "exchange",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"securityId\": \"<string>\",\n      \"isin\": \"GXAJA0N6KPA7\",\n      \"ticker\": \"<string>\",\n      \"securityName\": \"<string>\",\n      \"assetClass\": \"<string>\",\n      \"exchange\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"country\": \"<string>\",\n      \"lastPrice\": \"<double>\"\n    },\n    {\n      \"securityId\": \"<string>\",\n      \"isin\": \"YB5O15E8HZA7\",\n      \"ticker\": \"<string>\",\n      \"securityName\": \"<string>\",\n      \"assetClass\": \"<string>\",\n      \"exchange\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"country\": \"<string>\",\n      \"lastPrice\": \"<double>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-e6f60b16-9f07-462d-99e9-d2396089acd9"
+                },
+                {
+                  "id": "3c0d076b-bafa-420c-a070-7307933effe3",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/inventory/securities?page_size=25&page_start=0&assetClass=<string>&exchange=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "inventory",
+                        "securities"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by asset class",
+                          "key": "assetClass",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by exchange",
+                          "key": "exchange",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-3c0d076b-bafa-420c-a070-7307933effe3"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:15.000Z",
+              "updatedAt": "2026-06-05T15:19:15.000Z",
+              "uid": "35240-94906421-58aa-4003-a5c9-0310f847ff2b"
+            }
+          ],
+          "id": "a26ddbc7-386a-4ecd-8e8f-d8f00c6e9d49",
+          "createdAt": "2026-06-05T15:19:15.000Z",
+          "updatedAt": "2026-06-05T15:19:15.000Z",
+          "uid": "35240-a26ddbc7-386a-4ecd-8e8f-d8f00c6e9d49"
+        }
+      ],
+      "id": "4f4439a4-9f32-4b09-8a10-cf6523943022",
+      "createdAt": "2026-06-05T15:19:15.000Z",
+      "updatedAt": "2026-06-05T15:19:15.000Z",
+      "uid": "35240-4f4439a4-9f32-4b09-8a10-cf6523943022"
+    },
+    {
+      "name": "reference",
+      "item": [
+        {
+          "name": "markets",
+          "item": [
+            {
+              "name": "List Markets",
+              "id": "d33a4ff8-0281-4d1c-9ad9-6a90e6eaeaa4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reference/markets",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reference",
+                    "markets"
+                  ]
+                },
+                "description": "Retrieve reference data for supported markets and exchanges including trading hours, settlement cycles, and market status."
+              },
+              "response": [
+                {
+                  "id": "e1ca4ed0-f925-4e32-a40d-e43af28e7f6d",
+                  "name": "Successful retrieval of markets",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reference/markets",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reference",
+                        "markets"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"body\": [\n    {\n      \"marketId\": \"<string>\",\n      \"marketName\": \"<string>\",\n      \"country\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"settlementCycle\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"marketId\": \"<string>\",\n      \"marketName\": \"<string>\",\n      \"country\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"settlementCycle\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-e1ca4ed0-f925-4e32-a40d-e43af28e7f6d"
+                },
+                {
+                  "id": "f2f3feb2-7aca-4bb1-b253-3790780c4915",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reference/markets",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reference",
+                        "markets"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:15.000Z",
+                  "updatedAt": "2026-06-05T15:19:15.000Z",
+                  "uid": "35240-f2f3feb2-7aca-4bb1-b253-3790780c4915"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:15.000Z",
+              "updatedAt": "2026-06-05T15:19:15.000Z",
+              "uid": "35240-d33a4ff8-0281-4d1c-9ad9-6a90e6eaeaa4"
+            }
+          ],
+          "id": "8cb6a961-77b5-438e-b81c-02b0a052f252",
+          "createdAt": "2026-06-05T15:19:15.000Z",
+          "updatedAt": "2026-06-05T15:19:15.000Z",
+          "uid": "35240-8cb6a961-77b5-438e-b81c-02b0a052f252"
+        }
+      ],
+      "id": "4c9d85b3-ce67-4444-bc1f-e4808842b870",
+      "createdAt": "2026-06-05T15:19:15.000Z",
+      "updatedAt": "2026-06-05T15:19:15.000Z",
+      "uid": "35240-4c9d85b3-ce67-4444-bc1f-e4808842b870"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.temenos.com/wealth/v1"
+    }
+  ]
+}

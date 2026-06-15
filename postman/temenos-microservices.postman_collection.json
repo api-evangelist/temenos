@@ -1,0 +1,2734 @@
+{
+  "info": {
+    "_postman_id": "1b1361e1-de8d-433d-af3e-33024c715293",
+    "name": "Temenos Transact Microservices API",
+    "description": "Cloud-native microservices APIs for Temenos Transact providing callback registry for long-running transactions, event store for business and system events, configuration management, user entitlements, service orchestration, application metering, and traceability for non-repudiation across all API services.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:20.000Z",
+    "updatedAt": "2026-06-05T15:19:22.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1b1361e1-de8d-433d-af3e-33024c715293"
+  },
+  "item": [
+    {
+      "name": "callbacks",
+      "item": [
+        {
+          "name": "{callbackId}",
+          "item": [
+            {
+              "name": "Remove Callback Registration",
+              "id": "71aec0a7-a5e3-4102-bd7a-d109d472996b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/callbacks/:callbackId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "callbacks",
+                    ":callbackId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e582e08d-2442-4aa5-96f5-5fc24e52bc12",
+                      "key": "callbackId",
+                      "value": "<string>",
+                      "description": "(Required) Callback registration identifier"
+                    }
+                  ]
+                },
+                "description": "Remove a previously registered callback URL."
+              },
+              "response": [
+                {
+                  "id": "d40fe4d7-4fc1-4251-9606-f39f3fb7830b",
+                  "name": "Callback removed successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/callbacks/:callbackId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "callbacks",
+                        ":callbackId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "callbackId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:22.000Z",
+                  "updatedAt": "2026-06-05T15:19:22.000Z",
+                  "uid": "35240-d40fe4d7-4fc1-4251-9606-f39f3fb7830b"
+                },
+                {
+                  "id": "4c346cdf-8454-44e6-ae54-b7b698d87f4b",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/callbacks/:callbackId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "callbacks",
+                        ":callbackId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "callbackId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:22.000Z",
+                  "updatedAt": "2026-06-05T15:19:22.000Z",
+                  "uid": "35240-4c346cdf-8454-44e6-ae54-b7b698d87f4b"
+                },
+                {
+                  "id": "26e64080-2221-4c27-b093-f755249b8782",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/callbacks/:callbackId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "callbacks",
+                        ":callbackId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "callbackId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:22.000Z",
+                  "updatedAt": "2026-06-05T15:19:22.000Z",
+                  "uid": "35240-26e64080-2221-4c27-b093-f755249b8782"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:21.000Z",
+              "updatedAt": "2026-06-05T15:19:21.000Z",
+              "uid": "35240-71aec0a7-a5e3-4102-bd7a-d109d472996b"
+            }
+          ],
+          "id": "585c268a-71a1-44b2-bc4f-c6e7bb092483",
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-585c268a-71a1-44b2-bc4f-c6e7bb092483"
+        },
+        {
+          "name": "List Registered Callbacks",
+          "id": "10ab079f-5430-447b-b5f1-d85cac8346ff",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/callbacks?page_size=25&page_start=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "callbacks"
+              ],
+              "query": [
+                {
+                  "description": "Records per page",
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "description": "Starting record",
+                  "key": "page_start",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "Retrieve the list of registered callback URLs for receiving notifications about long-running transaction results."
+          },
+          "response": [
+            {
+              "id": "df6dc665-9832-4d4c-99f2-8975203479f7",
+              "name": "Successful retrieval of callbacks",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/callbacks?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "callbacks"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"body\": [\n    {\n      \"callbackId\": \"<string>\",\n      \"callbackUrl\": \"<uri>\",\n      \"transactionType\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"callbackId\": \"<string>\",\n      \"callbackUrl\": \"<uri>\",\n      \"transactionType\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-df6dc665-9832-4d4c-99f2-8975203479f7"
+            },
+            {
+              "id": "ea326e2e-852c-4250-ac74-83939f896eb1",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/callbacks?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "callbacks"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-ea326e2e-852c-4250-ac74-83939f896eb1"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-10ab079f-5430-447b-b5f1-d85cac8346ff"
+        },
+        {
+          "name": "Register Callback URL",
+          "id": "09d756a7-6002-4468-ab6d-804966233ab4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"callbackUrl\": \"<uri>\",\n  \"transactionType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/callbacks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "callbacks"
+              ]
+            },
+            "description": "Register a callback URL for receiving notifications when long-running transaction processing completes."
+          },
+          "response": [
+            {
+              "id": "0f2e3e85-5f0b-4eb1-90e8-f2a33a4a1555",
+              "name": "Callback registered successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callbackUrl\": \"<uri>\",\n  \"transactionType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/callbacks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "callbacks"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"callbackId\": \"<string>\",\n  \"callbackUrl\": \"<uri>\",\n  \"transactionType\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-0f2e3e85-5f0b-4eb1-90e8-f2a33a4a1555"
+            },
+            {
+              "id": "cc2986c9-75a0-4a4c-8b2d-4dc3f35addb0",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callbackUrl\": \"<uri>\",\n  \"transactionType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/callbacks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "callbacks"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-cc2986c9-75a0-4a4c-8b2d-4dc3f35addb0"
+            },
+            {
+              "id": "3706d46d-837b-4e7c-b38c-5769f25cc5a2",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callbackUrl\": \"<uri>\",\n  \"transactionType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/callbacks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "callbacks"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-3706d46d-837b-4e7c-b38c-5769f25cc5a2"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-09d756a7-6002-4468-ab6d-804966233ab4"
+        }
+      ],
+      "id": "5d9f6969-5de8-46b8-950b-02eb108fae61",
+      "createdAt": "2026-06-05T15:19:21.000Z",
+      "updatedAt": "2026-06-05T15:19:21.000Z",
+      "uid": "35240-5d9f6969-5de8-46b8-950b-02eb108fae61"
+    },
+    {
+      "name": "events",
+      "item": [
+        {
+          "name": "{eventId}",
+          "item": [
+            {
+              "name": "Get Event Details",
+              "id": "6919d3a0-0d96-4e8a-aa21-77218dfb9b23",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/events/:eventId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    ":eventId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "82ac84e3-b784-4b40-8a45-ff80db695305",
+                      "key": "eventId",
+                      "value": "<string>",
+                      "description": "(Required) Event identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve detailed information for a specific event including the full event payload and processing metadata."
+              },
+              "response": [
+                {
+                  "id": "f0fbee2c-1acb-4a77-b226-d2e569b89f33",
+                  "name": "Successful retrieval of event details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"eventId\": \"<string>\",\n  \"eventType\": \"SYSTEM\",\n  \"eventName\": \"<string>\",\n  \"source\": \"<string>\",\n  \"payload\": {\n    \"ullamco__\": false\n  },\n  \"timestamp\": \"<dateTime>\",\n  \"correlationId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:22.000Z",
+                  "updatedAt": "2026-06-05T15:19:22.000Z",
+                  "uid": "35240-f0fbee2c-1acb-4a77-b226-d2e569b89f33"
+                },
+                {
+                  "id": "dc5a3ffd-d855-4845-a83d-0e3931870995",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:22.000Z",
+                  "updatedAt": "2026-06-05T15:19:22.000Z",
+                  "uid": "35240-dc5a3ffd-d855-4845-a83d-0e3931870995"
+                },
+                {
+                  "id": "d82dbe5d-d8c3-4a60-87cd-2c4d42cc6de8",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:22.000Z",
+                  "updatedAt": "2026-06-05T15:19:22.000Z",
+                  "uid": "35240-d82dbe5d-d8c3-4a60-87cd-2c4d42cc6de8"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:21.000Z",
+              "updatedAt": "2026-06-05T15:19:21.000Z",
+              "uid": "35240-6919d3a0-0d96-4e8a-aa21-77218dfb9b23"
+            }
+          ],
+          "id": "f0e86f26-3f1a-4b21-b6df-8bd4a4ab8a6d",
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-f0e86f26-3f1a-4b21-b6df-8bd4a4ab8a6d"
+        },
+        {
+          "name": "List Events",
+          "id": "fbdfcfab-5690-44db-988c-ede0612769f0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/events?page_size=25&page_start=0&eventType=BUSINESS&source=<string>&dateFrom=<dateTime>&dateTo=<dateTime>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events"
+              ],
+              "query": [
+                {
+                  "description": "Records per page",
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "description": "Starting record",
+                  "key": "page_start",
+                  "value": "0"
+                },
+                {
+                  "description": "Filter by event type",
+                  "key": "eventType",
+                  "value": "BUSINESS"
+                },
+                {
+                  "description": "Filter by event source",
+                  "key": "source",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Start date filter",
+                  "key": "dateFrom",
+                  "value": "<dateTime>"
+                },
+                {
+                  "description": "End date filter",
+                  "key": "dateTo",
+                  "value": "<dateTime>"
+                }
+              ]
+            },
+            "description": "Retrieve business and system events from the event store raised by Temenos Transact and Infinity products. Supports filtering by event type, date range, and source."
+          },
+          "response": [
+            {
+              "id": "6b1cf82d-f7b1-4a6b-b101-55185072338a",
+              "name": "Successful retrieval of events",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/events?page_size=25&page_start=0&eventType=BUSINESS&source=<string>&dateFrom=<dateTime>&dateTo=<dateTime>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by event type",
+                      "key": "eventType",
+                      "value": "BUSINESS"
+                    },
+                    {
+                      "description": "Filter by event source",
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start date filter",
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "End date filter",
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"eventId\": \"<string>\",\n      \"eventType\": \"SYSTEM\",\n      \"eventName\": \"<string>\",\n      \"source\": \"<string>\",\n      \"payload\": {\n        \"nulla_3\": true,\n        \"consequat4\": 23935278.175260022\n      },\n      \"timestamp\": \"<dateTime>\",\n      \"correlationId\": \"<string>\"\n    },\n    {\n      \"eventId\": \"<string>\",\n      \"eventType\": \"BUSINESS\",\n      \"eventName\": \"<string>\",\n      \"source\": \"<string>\",\n      \"payload\": {\n        \"nulla0\": 69390479.89551237\n      },\n      \"timestamp\": \"<dateTime>\",\n      \"correlationId\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-6b1cf82d-f7b1-4a6b-b101-55185072338a"
+            },
+            {
+              "id": "f36f75f5-952b-488e-8e1e-09cd89f1d4c5",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/events?page_size=25&page_start=0&eventType=BUSINESS&source=<string>&dateFrom=<dateTime>&dateTo=<dateTime>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by event type",
+                      "key": "eventType",
+                      "value": "BUSINESS"
+                    },
+                    {
+                      "description": "Filter by event source",
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start date filter",
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "End date filter",
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-f36f75f5-952b-488e-8e1e-09cd89f1d4c5"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-fbdfcfab-5690-44db-988c-ede0612769f0"
+        }
+      ],
+      "id": "e123bfc1-f503-4a11-abcf-b0a962af17f1",
+      "createdAt": "2026-06-05T15:19:21.000Z",
+      "updatedAt": "2026-06-05T15:19:21.000Z",
+      "uid": "35240-e123bfc1-f503-4a11-abcf-b0a962af17f1"
+    },
+    {
+      "name": "configurations",
+      "item": [
+        {
+          "name": "List Configurations",
+          "id": "6fe8a1a9-0082-4aa1-bac9-bbf6ef61b83e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/configurations?configGroup=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "configurations"
+              ],
+              "query": [
+                {
+                  "description": "Filter by configuration group",
+                  "key": "configGroup",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve application configurations organized by configuration groups for centralized configuration management."
+          },
+          "response": [
+            {
+              "id": "880c9f37-faa2-4bd5-a80f-ce6359c0f0a7",
+              "name": "Successful retrieval of configurations",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/configurations?configGroup=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "configurations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter by configuration group",
+                      "key": "configGroup",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"body\": [\n    {\n      \"configurationId\": \"<string>\",\n      \"configGroup\": \"<string>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"configurationId\": \"<string>\",\n      \"configGroup\": \"<string>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-880c9f37-faa2-4bd5-a80f-ce6359c0f0a7"
+            },
+            {
+              "id": "ea883399-90ca-4ab7-985a-90f7eeb0141b",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/configurations?configGroup=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "configurations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter by configuration group",
+                      "key": "configGroup",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-ea883399-90ca-4ab7-985a-90f7eeb0141b"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-6fe8a1a9-0082-4aa1-bac9-bbf6ef61b83e"
+        },
+        {
+          "name": "Create Configuration",
+          "id": "1ed985eb-1e73-4e94-8d21-0325ae8c7297",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"configGroup\": \"<string>\",\n  \"key\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/configurations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "configurations"
+              ]
+            },
+            "description": "Create a new configuration entry within a specific configuration group for application settings management."
+          },
+          "response": [
+            {
+              "id": "fff60231-d237-4a1c-bdcd-3403773b2804",
+              "name": "Configuration created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configGroup\": \"<string>\",\n  \"key\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/configurations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "configurations"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"configurationId\": \"<string>\",\n  \"configGroup\": \"<string>\",\n  \"key\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-fff60231-d237-4a1c-bdcd-3403773b2804"
+            },
+            {
+              "id": "2f57d11f-73a6-47a2-b221-ef5f575a5855",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configGroup\": \"<string>\",\n  \"key\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/configurations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "configurations"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-2f57d11f-73a6-47a2-b221-ef5f575a5855"
+            },
+            {
+              "id": "19fd2dc1-f27b-4507-80dc-3cf8823b9be2",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configGroup\": \"<string>\",\n  \"key\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/configurations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "configurations"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-19fd2dc1-f27b-4507-80dc-3cf8823b9be2"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-1ed985eb-1e73-4e94-8d21-0325ae8c7297"
+        }
+      ],
+      "id": "d1a1440f-cdfb-467e-b25d-4788223e5b05",
+      "createdAt": "2026-06-05T15:19:21.000Z",
+      "updatedAt": "2026-06-05T15:19:21.000Z",
+      "uid": "35240-d1a1440f-cdfb-467e-b25d-4788223e5b05"
+    },
+    {
+      "name": "entitlements",
+      "item": [
+        {
+          "name": "List User Entitlements",
+          "id": "394ae075-568d-45f5-98b0-710dcad7a06e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/entitlements?userId=<string>&productId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "entitlements"
+              ],
+              "query": [
+                {
+                  "description": "Filter by user identifier",
+                  "key": "userId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by product identifier",
+                  "key": "productId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve user entitlements and role assignments across products based on configured entitlement policies."
+          },
+          "response": [
+            {
+              "id": "c68163e0-595a-4c51-ade1-ba1f55af3cea",
+              "name": "Successful retrieval of entitlements",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/entitlements?userId=<string>&productId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "entitlements"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter by user identifier",
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by product identifier",
+                      "key": "productId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"body\": [\n    {\n      \"entitlementId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"role\": \"<string>\",\n      \"permissions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"status\": \"<string>\"\n    },\n    {\n      \"entitlementId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"role\": \"<string>\",\n      \"permissions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-c68163e0-595a-4c51-ade1-ba1f55af3cea"
+            },
+            {
+              "id": "2eefdeef-99ec-49b3-816c-0766da25b188",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/entitlements?userId=<string>&productId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "entitlements"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter by user identifier",
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by product identifier",
+                      "key": "productId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-2eefdeef-99ec-49b3-816c-0766da25b188"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-394ae075-568d-45f5-98b0-710dcad7a06e"
+        },
+        {
+          "name": "Assign Entitlement",
+          "id": "59eadb59-f97c-4591-94fa-2e09af38ef78",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"role\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/entitlements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "entitlements"
+              ]
+            },
+            "description": "Assign entitlements and roles to a user for specific products based on entitlement policies."
+          },
+          "response": [
+            {
+              "id": "3c97f9cc-e211-4953-b56c-d96c8208f24f",
+              "name": "Entitlement assigned",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"role\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/entitlements",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "entitlements"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"entitlementId\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"role\": \"<string>\",\n  \"permissions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-3c97f9cc-e211-4953-b56c-d96c8208f24f"
+            },
+            {
+              "id": "0a840d0c-d57a-4239-9ac9-605ca9fe86d9",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"role\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/entitlements",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "entitlements"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-0a840d0c-d57a-4239-9ac9-605ca9fe86d9"
+            },
+            {
+              "id": "55e56527-6734-41d2-8e32-db171231c7ab",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"role\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/entitlements",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "entitlements"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-55e56527-6734-41d2-8e32-db171231c7ab"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-59eadb59-f97c-4591-94fa-2e09af38ef78"
+        }
+      ],
+      "id": "05baec6c-b469-4060-bd22-6bfd307c00c3",
+      "createdAt": "2026-06-05T15:19:21.000Z",
+      "updatedAt": "2026-06-05T15:19:21.000Z",
+      "uid": "35240-05baec6c-b469-4060-bd22-6bfd307c00c3"
+    },
+    {
+      "name": "orchestrations",
+      "item": [
+        {
+          "name": "{orchestrationId}",
+          "item": [
+            {
+              "name": "execute",
+              "item": [
+                {
+                  "name": "Execute Orchestration Sequence",
+                  "id": "54265e0a-4964-454b-a6eb-4b9bfa5e8bfb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputParameters\": {\n    \"tempor858\": true\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orchestrations/:orchestrationId/execute",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orchestrations",
+                        ":orchestrationId",
+                        "execute"
+                      ],
+                      "variable": [
+                        {
+                          "id": "38617d3d-623b-4189-af62-74a78751d597",
+                          "key": "orchestrationId",
+                          "value": "<string>",
+                          "description": "(Required) Orchestration sequence identifier"
+                        }
+                      ]
+                    },
+                    "description": "Trigger execution of a defined service orchestration sequence with provided input parameters."
+                  },
+                  "response": [
+                    {
+                      "id": "607c1fe3-060c-4d0d-982c-9b503e24672d",
+                      "name": "Orchestration execution started",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputParameters\": {\n    \"tempor858\": true\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orchestrations/:orchestrationId/execute",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orchestrations",
+                            ":orchestrationId",
+                            "execute"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orchestrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"executionId\": \"<string>\",\n  \"orchestrationId\": \"<string>\",\n  \"status\": \"IN_PROGRESS\",\n  \"startTime\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:19:22.000Z",
+                      "updatedAt": "2026-06-05T15:19:22.000Z",
+                      "uid": "35240-607c1fe3-060c-4d0d-982c-9b503e24672d"
+                    },
+                    {
+                      "id": "4a64f30f-6994-4d27-a1f5-6f3dca0967c4",
+                      "name": "Invalid request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputParameters\": {\n    \"tempor858\": true\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orchestrations/:orchestrationId/execute",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orchestrations",
+                            ":orchestrationId",
+                            "execute"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orchestrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:22.000Z",
+                      "updatedAt": "2026-06-05T15:19:22.000Z",
+                      "uid": "35240-4a64f30f-6994-4d27-a1f5-6f3dca0967c4"
+                    },
+                    {
+                      "id": "d5faf574-7a93-4f94-8070-8dce4e75c34f",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputParameters\": {\n    \"tempor858\": true\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orchestrations/:orchestrationId/execute",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orchestrations",
+                            ":orchestrationId",
+                            "execute"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orchestrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:22.000Z",
+                      "updatedAt": "2026-06-05T15:19:22.000Z",
+                      "uid": "35240-d5faf574-7a93-4f94-8070-8dce4e75c34f"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:21.000Z",
+                  "updatedAt": "2026-06-05T15:19:21.000Z",
+                  "uid": "35240-54265e0a-4964-454b-a6eb-4b9bfa5e8bfb"
+                }
+              ],
+              "id": "08ef73b0-55e3-4a47-9a5c-ccb29e4a368f",
+              "createdAt": "2026-06-05T15:19:21.000Z",
+              "updatedAt": "2026-06-05T15:19:21.000Z",
+              "uid": "35240-08ef73b0-55e3-4a47-9a5c-ccb29e4a368f"
+            }
+          ],
+          "id": "5a084d5a-1020-47e4-a49f-6a8c3c40604c",
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-5a084d5a-1020-47e4-a49f-6a8c3c40604c"
+        },
+        {
+          "name": "List Orchestration Sequences",
+          "id": "861b4ca9-d60b-4538-9cbe-90206614cde8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orchestrations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orchestrations"
+              ]
+            },
+            "description": "Retrieve service orchestration sequence definitions for executing multi-step business operations."
+          },
+          "response": [
+            {
+              "id": "7b75452a-3f16-4334-a37d-23facf9897a6",
+              "name": "Successful retrieval of orchestrations",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orchestrations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orchestrations"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"body\": [\n    {\n      \"orchestrationId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"steps\": [\n        {\n          \"stepOrder\": \"<integer>\",\n          \"serviceName\": \"<string>\",\n          \"operationId\": \"<string>\"\n        },\n        {\n          \"stepOrder\": \"<integer>\",\n          \"serviceName\": \"<string>\",\n          \"operationId\": \"<string>\"\n        }\n      ],\n      \"status\": \"<string>\"\n    },\n    {\n      \"orchestrationId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"steps\": [\n        {\n          \"stepOrder\": \"<integer>\",\n          \"serviceName\": \"<string>\",\n          \"operationId\": \"<string>\"\n        },\n        {\n          \"stepOrder\": \"<integer>\",\n          \"serviceName\": \"<string>\",\n          \"operationId\": \"<string>\"\n        }\n      ],\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-7b75452a-3f16-4334-a37d-23facf9897a6"
+            },
+            {
+              "id": "6fdc612d-01a2-41c1-8a99-d88ce9b63618",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orchestrations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orchestrations"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-6fdc612d-01a2-41c1-8a99-d88ce9b63618"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-861b4ca9-d60b-4538-9cbe-90206614cde8"
+        },
+        {
+          "name": "Create Orchestration Sequence",
+          "id": "36c1d48b-0acd-482a-b038-87c63d3fa4d8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"steps\": [\n    {\n      \"stepOrder\": \"<integer>\",\n      \"serviceName\": \"<string>\",\n      \"operationId\": \"<string>\"\n    },\n    {\n      \"stepOrder\": \"<integer>\",\n      \"serviceName\": \"<string>\",\n      \"operationId\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orchestrations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orchestrations"
+              ]
+            },
+            "description": "Create a new service orchestration sequence defining the order of business operations across different applications."
+          },
+          "response": [
+            {
+              "id": "df178aed-48c1-40e8-b24d-abdb3ccee01e",
+              "name": "Orchestration created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"steps\": [\n    {\n      \"stepOrder\": \"<integer>\",\n      \"serviceName\": \"<string>\",\n      \"operationId\": \"<string>\"\n    },\n    {\n      \"stepOrder\": \"<integer>\",\n      \"serviceName\": \"<string>\",\n      \"operationId\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orchestrations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orchestrations"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"orchestrationId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"steps\": [\n    {\n      \"stepOrder\": \"<integer>\",\n      \"serviceName\": \"<string>\",\n      \"operationId\": \"<string>\"\n    },\n    {\n      \"stepOrder\": \"<integer>\",\n      \"serviceName\": \"<string>\",\n      \"operationId\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-df178aed-48c1-40e8-b24d-abdb3ccee01e"
+            },
+            {
+              "id": "fc1a1b94-ac6c-4f54-a8b9-2753d68181ff",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"steps\": [\n    {\n      \"stepOrder\": \"<integer>\",\n      \"serviceName\": \"<string>\",\n      \"operationId\": \"<string>\"\n    },\n    {\n      \"stepOrder\": \"<integer>\",\n      \"serviceName\": \"<string>\",\n      \"operationId\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orchestrations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orchestrations"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-fc1a1b94-ac6c-4f54-a8b9-2753d68181ff"
+            },
+            {
+              "id": "3d70687a-0588-430b-b2ba-50acfed0c948",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"steps\": [\n    {\n      \"stepOrder\": \"<integer>\",\n      \"serviceName\": \"<string>\",\n      \"operationId\": \"<string>\"\n    },\n    {\n      \"stepOrder\": \"<integer>\",\n      \"serviceName\": \"<string>\",\n      \"operationId\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orchestrations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orchestrations"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:22.000Z",
+              "updatedAt": "2026-06-05T15:19:22.000Z",
+              "uid": "35240-3d70687a-0588-430b-b2ba-50acfed0c948"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-36c1d48b-0acd-482a-b038-87c63d3fa4d8"
+        }
+      ],
+      "id": "12ac0d3f-ac50-4b66-a3c1-bc85ac8b8080",
+      "createdAt": "2026-06-05T15:19:21.000Z",
+      "updatedAt": "2026-06-05T15:19:21.000Z",
+      "uid": "35240-12ac0d3f-ac50-4b66-a3c1-bc85ac8b8080"
+    },
+    {
+      "name": "metering",
+      "item": [
+        {
+          "name": "records",
+          "item": [
+            {
+              "name": "List Metering Records",
+              "id": "d2fb52a3-bd26-4a6a-bb49-0430b82c5241",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metering/records?page_size=25&page_start=0&dateFrom=<date>&dateTo=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metering",
+                    "records"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Start date",
+                      "key": "dateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "End date",
+                      "key": "dateTo",
+                      "value": "<date>"
+                    }
+                  ]
+                },
+                "description": "Retrieve API usage metrics and consumed business values from Transact and Infinity systems."
+              },
+              "response": [
+                {
+                  "id": "89f0f394-e2ab-44b9-9dec-2472805e5334",
+                  "name": "Successful retrieval of metering records",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/metering/records?page_size=25&page_start=0&dateFrom=<date>&dateTo=<date>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metering",
+                        "records"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Start date",
+                          "key": "dateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "End date",
+                          "key": "dateTo",
+                          "value": "<date>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"recordId\": \"<string>\",\n      \"serviceName\": \"<string>\",\n      \"operationId\": \"<string>\",\n      \"callCount\": \"<integer>\",\n      \"date\": \"<date>\"\n    },\n    {\n      \"recordId\": \"<string>\",\n      \"serviceName\": \"<string>\",\n      \"operationId\": \"<string>\",\n      \"callCount\": \"<integer>\",\n      \"date\": \"<date>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:22.000Z",
+                  "updatedAt": "2026-06-05T15:19:22.000Z",
+                  "uid": "35240-89f0f394-e2ab-44b9-9dec-2472805e5334"
+                },
+                {
+                  "id": "f1b2924c-bfd1-4c28-810e-e56ee70bf43d",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/metering/records?page_size=25&page_start=0&dateFrom=<date>&dateTo=<date>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metering",
+                        "records"
+                      ],
+                      "query": [
+                        {
+                          "description": "Records per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Start date",
+                          "key": "dateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "End date",
+                          "key": "dateTo",
+                          "value": "<date>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:22.000Z",
+                  "updatedAt": "2026-06-05T15:19:22.000Z",
+                  "uid": "35240-f1b2924c-bfd1-4c28-810e-e56ee70bf43d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:21.000Z",
+              "updatedAt": "2026-06-05T15:19:21.000Z",
+              "uid": "35240-d2fb52a3-bd26-4a6a-bb49-0430b82c5241"
+            }
+          ],
+          "id": "2fd1ddf7-6498-4d92-9c0b-5a6a8218505b",
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-2fd1ddf7-6498-4d92-9c0b-5a6a8218505b"
+        }
+      ],
+      "id": "d29810d7-6258-4b29-8f86-3391c8a705dd",
+      "createdAt": "2026-06-05T15:19:21.000Z",
+      "updatedAt": "2026-06-05T15:19:21.000Z",
+      "uid": "35240-d29810d7-6258-4b29-8f86-3391c8a705dd"
+    },
+    {
+      "name": "traceability",
+      "item": [
+        {
+          "name": "{serviceId}",
+          "item": [
+            {
+              "name": "Get Traceability Record",
+              "id": "cd3a0b59-deab-4596-b6e5-f9bcb43a2373",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/traceability/:serviceId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "traceability",
+                    ":serviceId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "1fae59fd-ac4d-4d17-8cee-ad90308454fb",
+                      "key": "serviceId",
+                      "value": "<string>",
+                      "description": "(Required) Service execution identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve detailed request and response message information for an executed API service providing non-repudiation evidence."
+              },
+              "response": [
+                {
+                  "id": "0b4daf21-3b34-4c24-a553-8706b3f5eb76",
+                  "name": "Successful retrieval of traceability record",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/traceability/:serviceId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "traceability",
+                        ":serviceId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "serviceId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"serviceId\": \"<string>\",\n  \"serviceName\": \"<string>\",\n  \"requestTimestamp\": \"<dateTime>\",\n  \"responseTimestamp\": \"<dateTime>\",\n  \"requestPayload\": {\n    \"aute_0f\": -25641466.52379833,\n    \"dolore4\": true\n  },\n  \"responsePayload\": {\n    \"deserunt8_6\": -58710350,\n    \"Lorem_f76\": \"sit aliqua veniam sint\"\n  },\n  \"statusCode\": \"<integer>\",\n  \"userId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:22.000Z",
+                  "updatedAt": "2026-06-05T15:19:22.000Z",
+                  "uid": "35240-0b4daf21-3b34-4c24-a553-8706b3f5eb76"
+                },
+                {
+                  "id": "cbce48de-ffbe-42c0-93d2-24418732307a",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/traceability/:serviceId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "traceability",
+                        ":serviceId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "serviceId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:22.000Z",
+                  "updatedAt": "2026-06-05T15:19:22.000Z",
+                  "uid": "35240-cbce48de-ffbe-42c0-93d2-24418732307a"
+                },
+                {
+                  "id": "6178f3f0-0b86-4009-9562-3549a38bd050",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/traceability/:serviceId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "traceability",
+                        ":serviceId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "serviceId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:22.000Z",
+                  "updatedAt": "2026-06-05T15:19:22.000Z",
+                  "uid": "35240-6178f3f0-0b86-4009-9562-3549a38bd050"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:21.000Z",
+              "updatedAt": "2026-06-05T15:19:21.000Z",
+              "uid": "35240-cd3a0b59-deab-4596-b6e5-f9bcb43a2373"
+            }
+          ],
+          "id": "8f10cfe8-7ae3-46bc-bfcf-1a175c98439b",
+          "createdAt": "2026-06-05T15:19:21.000Z",
+          "updatedAt": "2026-06-05T15:19:21.000Z",
+          "uid": "35240-8f10cfe8-7ae3-46bc-bfcf-1a175c98439b"
+        }
+      ],
+      "id": "e50355d0-d8a2-4c72-9966-2912582351f7",
+      "createdAt": "2026-06-05T15:19:21.000Z",
+      "updatedAt": "2026-06-05T15:19:21.000Z",
+      "uid": "35240-e50355d0-d8a2-4c72-9966-2912582351f7"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.temenos.com/transact/microservices/v1"
+    }
+  ]
+}

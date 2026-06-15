@@ -1,0 +1,378 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Transact Microservices API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Callback Registry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Registered Callbacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact/microservices/v1/callbacks",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              }
+            ]
+          },
+          "docs": "Retrieve the list of registered callback URLs for receiving notifications about long-running transaction results."
+        },
+        {
+          "info": {
+            "name": "Register Callback URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/transact/microservices/v1/callbacks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a callback URL for receiving notifications when long-running transaction processing completes."
+        },
+        {
+          "info": {
+            "name": "Remove Callback Registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.temenos.com/transact/microservices/v1/callbacks/:callbackId",
+            "params": [
+              {
+                "name": "callbackId",
+                "value": "",
+                "type": "path",
+                "description": "Callback registration identifier"
+              }
+            ]
+          },
+          "docs": "Remove a previously registered callback URL."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Event Store",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact/microservices/v1/events",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              },
+              {
+                "name": "eventType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by event type"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter by event source"
+              },
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Start date filter"
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query",
+                "description": "End date filter"
+              }
+            ]
+          },
+          "docs": "Retrieve business and system events from the event store raised by Temenos Transact and Infinity products. Supports filtering by event type, date range, and source."
+        },
+        {
+          "info": {
+            "name": "Get Event Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact/microservices/v1/events/:eventId",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path",
+                "description": "Event identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific event including the full event payload and processing metadata."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Configuration Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact/microservices/v1/configurations",
+            "params": [
+              {
+                "name": "configGroup",
+                "value": "",
+                "type": "query",
+                "description": "Filter by configuration group"
+              }
+            ]
+          },
+          "docs": "Retrieve application configurations organized by configuration groups for centralized configuration management."
+        },
+        {
+          "info": {
+            "name": "Create Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/transact/microservices/v1/configurations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new configuration entry within a specific configuration group for application settings management."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Entitlements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List User Entitlements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact/microservices/v1/entitlements",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user identifier"
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by product identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve user entitlements and role assignments across products based on configured entitlement policies."
+        },
+        {
+          "info": {
+            "name": "Assign Entitlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/transact/microservices/v1/entitlements",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign entitlements and roles to a user for specific products based on entitlement policies."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Service Orchestrator",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Orchestration Sequences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact/microservices/v1/orchestrations"
+          },
+          "docs": "Retrieve service orchestration sequence definitions for executing multi-step business operations."
+        },
+        {
+          "info": {
+            "name": "Create Orchestration Sequence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/transact/microservices/v1/orchestrations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new service orchestration sequence defining the order of business operations across different applications."
+        },
+        {
+          "info": {
+            "name": "Execute Orchestration Sequence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/transact/microservices/v1/orchestrations/:orchestrationId/execute",
+            "params": [
+              {
+                "name": "orchestrationId",
+                "value": "",
+                "type": "path",
+                "description": "Orchestration sequence identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger execution of a defined service orchestration sequence with provided input parameters."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Application Metering",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Metering Records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact/microservices/v1/metering/records",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              },
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Start date"
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query",
+                "description": "End date"
+              }
+            ]
+          },
+          "docs": "Retrieve API usage metrics and consumed business values from Transact and Infinity systems."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Traceability",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Traceability Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/transact/microservices/v1/traceability/:serviceId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "Service execution identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed request and response message information for an executed API service providing non-repudiation evidence."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

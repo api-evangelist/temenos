@@ -1,0 +1,3181 @@
+{
+  "info": {
+    "_postman_id": "97c9aa26-9d3d-4570-a3c9-eb0a257d8922",
+    "name": "Temenos Fund Administration API",
+    "description": "Investment fund management and administration API powered by Temenos Multifonds for fund accounting, transfer agency, and investor servicing. Provides endpoints across party, holdings, order, product, reference, and system API categories with over 150 endpoints covering distributor management, investor data, fund accounting, securities transactions, instruction processing, share class configuration, and reference data injection.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:07.000Z",
+    "updatedAt": "2026-06-05T15:19:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-97c9aa26-9d3d-4570-a3c9-eb0a257d8922"
+  },
+  "item": [
+    {
+      "name": "party",
+      "item": [
+        {
+          "name": "investors",
+          "item": [
+            {
+              "name": "List Investors",
+              "id": "43fe4fe3-3689-4197-8833-4b86b1c479f0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/party/investors?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "party",
+                    "investors"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieve a list of investors with their master data including personal details, investment accounts, tax residence information, and KYC status."
+              },
+              "response": [
+                {
+                  "id": "8059962c-8f08-4707-88a2-62ceefb7dcb5",
+                  "name": "Successful retrieval of investors",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/party/investors?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        "investors"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"investorId\": \"<string>\",\n      \"investorType\": \"INSTITUTIONAL\",\n      \"name\": \"<string>\",\n      \"nationality\": \"<string>\",\n      \"taxResidence\": \"<string>\",\n      \"kycStatus\": \"<string>\",\n      \"fatcaStatus\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"investorId\": \"<string>\",\n      \"investorType\": \"INSTITUTIONAL\",\n      \"name\": \"<string>\",\n      \"nationality\": \"<string>\",\n      \"taxResidence\": \"<string>\",\n      \"kycStatus\": \"<string>\",\n      \"fatcaStatus\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-8059962c-8f08-4707-88a2-62ceefb7dcb5"
+                },
+                {
+                  "id": "c066d50f-de8c-4322-95b7-770e0f87ab74",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/party/investors?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        "investors"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-c066d50f-de8c-4322-95b7-770e0f87ab74"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-43fe4fe3-3689-4197-8833-4b86b1c479f0"
+            },
+            {
+              "name": "Create Investor",
+              "id": "6b92dbdf-afc0-420c-ac79-157cfa7246f3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"investorType\": \"INDIVIDUAL\",\n  \"nationality\": \"<string>\",\n  \"taxResidence\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/party/investors",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "party",
+                    "investors"
+                  ]
+                },
+                "description": "Create a new investor master record with personal details, address information, bank account details, and tax residence documentation."
+              },
+              "response": [
+                {
+                  "id": "fde30e9b-3579-4a87-9ea0-a11269bc7a94",
+                  "name": "Investor created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"investorType\": \"INDIVIDUAL\",\n  \"nationality\": \"<string>\",\n  \"taxResidence\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/party/investors",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        "investors"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"investorId\": \"<string>\",\n  \"investorType\": \"CORPORATE\",\n  \"name\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"taxResidence\": \"<string>\",\n  \"kycStatus\": \"<string>\",\n  \"fatcaStatus\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-fde30e9b-3579-4a87-9ea0-a11269bc7a94"
+                },
+                {
+                  "id": "9b778f1e-fdec-40a0-9563-d3dd40c530b3",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"investorType\": \"INDIVIDUAL\",\n  \"nationality\": \"<string>\",\n  \"taxResidence\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/party/investors",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        "investors"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-9b778f1e-fdec-40a0-9563-d3dd40c530b3"
+                },
+                {
+                  "id": "817f9e8d-cd24-491b-b820-f14b7a72b5e3",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"investorType\": \"INDIVIDUAL\",\n  \"nationality\": \"<string>\",\n  \"taxResidence\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/party/investors",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        "investors"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-817f9e8d-cd24-491b-b820-f14b7a72b5e3"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-6b92dbdf-afc0-420c-ac79-157cfa7246f3"
+            }
+          ],
+          "id": "533eab33-5884-46c2-8bd3-83150a8b73fd",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-533eab33-5884-46c2-8bd3-83150a8b73fd"
+        },
+        {
+          "name": "distributors",
+          "item": [
+            {
+              "name": "List Distributors",
+              "id": "b40a7cf8-d9b2-4707-8ca4-f5ccf0b70ffd",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/party/distributors?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "party",
+                    "distributors"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieve a list of fund distributors with their details including distribution agreements, commission structures, and cutoff configurations."
+              },
+              "response": [
+                {
+                  "id": "415c468b-9a15-4794-88d0-f38c097a3808",
+                  "name": "Successful retrieval of distributors",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/party/distributors?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        "distributors"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"distributorId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"distributionAgreements\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"commissionGroup\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"distributorId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"distributionAgreements\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"commissionGroup\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-415c468b-9a15-4794-88d0-f38c097a3808"
+                },
+                {
+                  "id": "ca7f5aea-0a61-4a03-b75f-34be26fec89f",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/party/distributors?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        "distributors"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-ca7f5aea-0a61-4a03-b75f-34be26fec89f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-b40a7cf8-d9b2-4707-8ca4-f5ccf0b70ffd"
+            }
+          ],
+          "id": "3b7740a6-6f4c-4b4d-8e6e-bc6010d3dd02",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-3b7740a6-6f4c-4b4d-8e6e-bc6010d3dd02"
+        },
+        {
+          "name": "aml",
+          "item": [
+            {
+              "name": "screenings",
+              "item": [
+                {
+                  "name": "List AML Screenings",
+                  "id": "49b91430-745e-4a2b-a4a2-327b452f08f9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/party/aml/screenings?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        "aml",
+                        "screenings"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve anti-money laundering screening results including blocking codes, monitoring information, and compliance documentation for investors and distributors."
+                  },
+                  "response": [
+                    {
+                      "id": "f2a9b38b-00df-4a45-b6dd-0ebaec2034da",
+                      "name": "Successful retrieval of AML screenings",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/party/aml/screenings?page_size=25&page_start=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "party",
+                            "aml",
+                            "screenings"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of records to return per page",
+                              "key": "page_size",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Starting record number for pagination",
+                              "key": "page_start",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"body\": [\n    {\n      \"screeningId\": \"<string>\",\n      \"entityId\": \"<string>\",\n      \"screeningDate\": \"<date>\",\n      \"result\": \"MATCH\",\n      \"blockingCode\": \"<string>\"\n    },\n    {\n      \"screeningId\": \"<string>\",\n      \"entityId\": \"<string>\",\n      \"screeningDate\": \"<date>\",\n      \"result\": \"MATCH\",\n      \"blockingCode\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:07.000Z",
+                      "updatedAt": "2026-06-05T15:19:07.000Z",
+                      "uid": "35240-f2a9b38b-00df-4a45-b6dd-0ebaec2034da"
+                    },
+                    {
+                      "id": "f76a12f2-7ea2-4da1-bc40-7ba23fcdaa6c",
+                      "name": "Authentication required or invalid credentials",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/party/aml/screenings?page_size=25&page_start=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "party",
+                            "aml",
+                            "screenings"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of records to return per page",
+                              "key": "page_size",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Starting record number for pagination",
+                              "key": "page_start",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:07.000Z",
+                      "updatedAt": "2026-06-05T15:19:07.000Z",
+                      "uid": "35240-f76a12f2-7ea2-4da1-bc40-7ba23fcdaa6c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-49b91430-745e-4a2b-a4a2-327b452f08f9"
+                }
+              ],
+              "id": "714dd633-4299-443c-884f-9cea904ff578",
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-714dd633-4299-443c-884f-9cea904ff578"
+            }
+          ],
+          "id": "7ee5cae8-c031-4d4f-9216-2fc13cb6e295",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-7ee5cae8-c031-4d4f-9216-2fc13cb6e295"
+        },
+        {
+          "name": "fatca",
+          "item": [
+            {
+              "name": "List FATCA/CRS Records",
+              "id": "c93b95b8-9d9c-49f9-8187-658f3fa01b44",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/party/fatca?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "party",
+                    "fatca"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieve FATCA and CRS tax compliance documentation and status information for investors across jurisdictions."
+              },
+              "response": [
+                {
+                  "id": "72b89427-e5f6-4ac1-bae1-5be43027a00c",
+                  "name": "Successful retrieval of FATCA/CRS records",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/party/fatca?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        "fatca"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"body\": [\n    {\n      \"recordId\": \"<string>\",\n      \"investorId\": \"<string>\",\n      \"classification\": \"<string>\",\n      \"reportingJurisdiction\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"recordId\": \"<string>\",\n      \"investorId\": \"<string>\",\n      \"classification\": \"<string>\",\n      \"reportingJurisdiction\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-72b89427-e5f6-4ac1-bae1-5be43027a00c"
+                },
+                {
+                  "id": "3cccdc7c-6e66-46db-8481-af7a433fa3a2",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/party/fatca?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        "fatca"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-3cccdc7c-6e66-46db-8481-af7a433fa3a2"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-c93b95b8-9d9c-49f9-8187-658f3fa01b44"
+            }
+          ],
+          "id": "228856b5-9f97-48e7-b65e-9110e03cd041",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-228856b5-9f97-48e7-b65e-9110e03cd041"
+        }
+      ],
+      "id": "f6079a23-5b0e-4cb8-acd4-24bfb26c9432",
+      "createdAt": "2026-06-05T15:19:07.000Z",
+      "updatedAt": "2026-06-05T15:19:07.000Z",
+      "uid": "35240-f6079a23-5b0e-4cb8-acd4-24bfb26c9432"
+    },
+    {
+      "name": "holdings",
+      "item": [
+        {
+          "name": "positions",
+          "item": [
+            {
+              "name": "List Fund Positions",
+              "id": "8a120e65-2ba7-43c3-a1f7-fbb5f7f9eb64",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/holdings/positions?page_size=25&page_start=0&fundId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "holdings",
+                    "positions"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by fund identifier",
+                      "key": "fundId",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieve investment positions across funds including equities, bonds, derivatives, and other securities with current valuations and accounting data."
+              },
+              "response": [
+                {
+                  "id": "96d33a07-ae72-4e04-a685-81bcf13084e5",
+                  "name": "Successful retrieval of positions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/positions?page_size=25&page_start=0&fundId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "positions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by fund identifier",
+                          "key": "fundId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"positionId\": \"<string>\",\n      \"fundId\": \"<string>\",\n      \"securityId\": \"<string>\",\n      \"securityType\": \"FUTURE\",\n      \"quantity\": \"<double>\",\n      \"marketValue\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"valuationDate\": \"<date>\"\n    },\n    {\n      \"positionId\": \"<string>\",\n      \"fundId\": \"<string>\",\n      \"securityId\": \"<string>\",\n      \"securityType\": \"EQUITY\",\n      \"quantity\": \"<double>\",\n      \"marketValue\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"valuationDate\": \"<date>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-96d33a07-ae72-4e04-a685-81bcf13084e5"
+                },
+                {
+                  "id": "b9b176f6-5cb6-4798-9fef-e6ce87d70ce7",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/positions?page_size=25&page_start=0&fundId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "positions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by fund identifier",
+                          "key": "fundId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-b9b176f6-5cb6-4798-9fef-e6ce87d70ce7"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-8a120e65-2ba7-43c3-a1f7-fbb5f7f9eb64"
+            }
+          ],
+          "id": "6063f3f7-50a9-43e2-a0be-dcd59ca7bf54",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-6063f3f7-50a9-43e2-a0be-dcd59ca7bf54"
+        },
+        {
+          "name": "transactions",
+          "item": [
+            {
+              "name": "List Holdings Transactions",
+              "id": "6e28e6cb-0b84-48c9-9a09-a67981639bdc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/holdings/transactions?page_size=25&page_start=0&fundId=<string>&transactionType=CAPITAL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "holdings",
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by fund identifier",
+                      "key": "fundId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by transaction type",
+                      "key": "transactionType",
+                      "value": "CAPITAL"
+                    }
+                  ]
+                },
+                "description": "Retrieve securities transactions including equity trades, bond transactions, FX spot and forward deals, futures, options, and swap bookings across fund portfolios."
+              },
+              "response": [
+                {
+                  "id": "67dd08b1-c006-41b4-a462-ddde20690e9b",
+                  "name": "Successful retrieval of transactions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/transactions?page_size=25&page_start=0&fundId=<string>&transactionType=CAPITAL",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "transactions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by fund identifier",
+                          "key": "fundId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by transaction type",
+                          "key": "transactionType",
+                          "value": "CAPITAL"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"transactionId\": \"<string>\",\n      \"fundId\": \"<string>\",\n      \"securityId\": \"<string>\",\n      \"transactionType\": \"BUY\",\n      \"quantity\": \"<double>\",\n      \"price\": \"<double>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"tradeDate\": \"<date>\",\n      \"settlementDate\": \"<date>\"\n    },\n    {\n      \"transactionId\": \"<string>\",\n      \"fundId\": \"<string>\",\n      \"securityId\": \"<string>\",\n      \"transactionType\": \"SELL\",\n      \"quantity\": \"<double>\",\n      \"price\": \"<double>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"tradeDate\": \"<date>\",\n      \"settlementDate\": \"<date>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-67dd08b1-c006-41b4-a462-ddde20690e9b"
+                },
+                {
+                  "id": "68ef0d8f-ea44-4302-9af1-92c6f7eb6e5d",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/transactions?page_size=25&page_start=0&fundId=<string>&transactionType=CAPITAL",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "transactions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by fund identifier",
+                          "key": "fundId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by transaction type",
+                          "key": "transactionType",
+                          "value": "CAPITAL"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-68ef0d8f-ea44-4302-9af1-92c6f7eb6e5d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-6e28e6cb-0b84-48c9-9a09-a67981639bdc"
+            }
+          ],
+          "id": "bcb57929-bf56-4535-b7b8-5bfe53f71682",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-bcb57929-bf56-4535-b7b8-5bfe53f71682"
+        },
+        {
+          "name": "dividends",
+          "item": [
+            {
+              "name": "Book Dividend Transaction",
+              "id": "6803c97d-4cc9-4ea5-8547-b4aaf8125392",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fundId\": \"<string>\",\n  \"securityId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"exDate\": \"<date>\",\n  \"paymentDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/holdings/dividends",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "holdings",
+                    "dividends"
+                  ]
+                },
+                "description": "Book a dividend or coupon distribution transaction for a fund including income distributions and reinvestment processing."
+              },
+              "response": [
+                {
+                  "id": "949681ee-d178-4450-ad9b-0891c1f6db75",
+                  "name": "Dividend booked successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"fundId\": \"<string>\",\n  \"securityId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"exDate\": \"<date>\",\n  \"paymentDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/dividends",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "dividends"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"transactionId\": \"<string>\",\n  \"fundId\": \"<string>\",\n  \"securityId\": \"<string>\",\n  \"transactionType\": \"BUY\",\n  \"quantity\": \"<double>\",\n  \"price\": \"<double>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"tradeDate\": \"<date>\",\n  \"settlementDate\": \"<date>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-949681ee-d178-4450-ad9b-0891c1f6db75"
+                },
+                {
+                  "id": "e1881562-da68-4e8b-8488-b90d6a8caee5",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"fundId\": \"<string>\",\n  \"securityId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"exDate\": \"<date>\",\n  \"paymentDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/dividends",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "dividends"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-e1881562-da68-4e8b-8488-b90d6a8caee5"
+                },
+                {
+                  "id": "66112873-4fc6-49d5-82ab-e71f91b75c2d",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"fundId\": \"<string>\",\n  \"securityId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"exDate\": \"<date>\",\n  \"paymentDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/holdings/dividends",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "holdings",
+                        "dividends"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-66112873-4fc6-49d5-82ab-e71f91b75c2d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-6803c97d-4cc9-4ea5-8547-b4aaf8125392"
+            }
+          ],
+          "id": "2bb9481f-a835-4378-86a2-c0773b50b9ff",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-2bb9481f-a835-4378-86a2-c0773b50b9ff"
+        }
+      ],
+      "id": "ee808d63-122c-4787-bfcf-848d615e2fb0",
+      "createdAt": "2026-06-05T15:19:07.000Z",
+      "updatedAt": "2026-06-05T15:19:07.000Z",
+      "uid": "35240-ee808d63-122c-4787-bfcf-848d615e2fb0"
+    },
+    {
+      "name": "order",
+      "item": [
+        {
+          "name": "instructions",
+          "item": [
+            {
+              "name": "List Order Instructions",
+              "id": "9d45a17b-296d-44c9-8916-77d6dc48de3a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/order/instructions?page_size=25&page_start=0&fundId=<string>&instructionType=TRANSFER",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "order",
+                    "instructions"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by fund identifier",
+                      "key": "fundId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by instruction type",
+                      "key": "instructionType",
+                      "value": "TRANSFER"
+                    }
+                  ]
+                },
+                "description": "Retrieve order instructions for subscription, redemption, switch, and transfer operations across fund share classes."
+              },
+              "response": [
+                {
+                  "id": "9dca8479-540a-43c2-981c-bb5ea757f140",
+                  "name": "Successful retrieval of instructions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/order/instructions?page_size=25&page_start=0&fundId=<string>&instructionType=TRANSFER",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "instructions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by fund identifier",
+                          "key": "fundId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by instruction type",
+                          "key": "instructionType",
+                          "value": "TRANSFER"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"instructionId\": \"<string>\",\n      \"investorId\": \"<string>\",\n      \"fundId\": \"<string>\",\n      \"shareClassId\": \"<string>\",\n      \"instructionType\": \"SWITCH\",\n      \"quantity\": \"<double>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"status\": \"PENDING\"\n    },\n    {\n      \"instructionId\": \"<string>\",\n      \"investorId\": \"<string>\",\n      \"fundId\": \"<string>\",\n      \"shareClassId\": \"<string>\",\n      \"instructionType\": \"SUBSCRIPTION\",\n      \"quantity\": \"<double>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"status\": \"SETTLED\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-9dca8479-540a-43c2-981c-bb5ea757f140"
+                },
+                {
+                  "id": "88f69ccb-0aba-4247-8f5c-558c9fc54ad8",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/order/instructions?page_size=25&page_start=0&fundId=<string>&instructionType=TRANSFER",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "instructions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by fund identifier",
+                          "key": "fundId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by instruction type",
+                          "key": "instructionType",
+                          "value": "TRANSFER"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-88f69ccb-0aba-4247-8f5c-558c9fc54ad8"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-9d45a17b-296d-44c9-8916-77d6dc48de3a"
+            },
+            {
+              "name": "Create Order Instruction",
+              "id": "e37aede8-434b-4876-9a37-72da7f3f1c13",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"investorId\": \"<string>\",\n  \"fundId\": \"<string>\",\n  \"shareClassId\": \"<string>\",\n  \"instructionType\": \"SWITCH\",\n  \"quantity\": \"<double>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/order/instructions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "order",
+                    "instructions"
+                  ]
+                },
+                "description": "Create a new order instruction for subscription, redemption, switch, or transfer operations with share class and quantity details."
+              },
+              "response": [
+                {
+                  "id": "f7a333ed-4ebe-4bad-b798-cf02cc31f5c7",
+                  "name": "Instruction created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"investorId\": \"<string>\",\n  \"fundId\": \"<string>\",\n  \"shareClassId\": \"<string>\",\n  \"instructionType\": \"SWITCH\",\n  \"quantity\": \"<double>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/order/instructions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "instructions"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"instructionId\": \"<string>\",\n  \"investorId\": \"<string>\",\n  \"fundId\": \"<string>\",\n  \"shareClassId\": \"<string>\",\n  \"instructionType\": \"SUBSCRIPTION\",\n  \"quantity\": \"<double>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"status\": \"PENDING\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-f7a333ed-4ebe-4bad-b798-cf02cc31f5c7"
+                },
+                {
+                  "id": "ee9a5d69-1960-4142-9943-91c3476f77f9",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"investorId\": \"<string>\",\n  \"fundId\": \"<string>\",\n  \"shareClassId\": \"<string>\",\n  \"instructionType\": \"SWITCH\",\n  \"quantity\": \"<double>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/order/instructions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "instructions"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-ee9a5d69-1960-4142-9943-91c3476f77f9"
+                },
+                {
+                  "id": "ef83eb5f-455c-4c2b-aedf-76bbb5d51350",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"investorId\": \"<string>\",\n  \"fundId\": \"<string>\",\n  \"shareClassId\": \"<string>\",\n  \"instructionType\": \"SWITCH\",\n  \"quantity\": \"<double>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/order/instructions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "instructions"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-ef83eb5f-455c-4c2b-aedf-76bbb5d51350"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-e37aede8-434b-4876-9a37-72da7f3f1c13"
+            }
+          ],
+          "id": "f3ac9900-656a-4623-8bab-e4955c51e582",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-f3ac9900-656a-4623-8bab-e4955c51e582"
+        },
+        {
+          "name": "sharePrices",
+          "item": [
+            {
+              "name": "Set Share Price",
+              "id": "eb7a9f36-26f8-41af-a5dc-f129d5c4e8e7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shareClassId\": \"<string>\",\n  \"price\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"valuationDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/order/sharePrices",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "order",
+                    "sharePrices"
+                  ]
+                },
+                "description": "Set the net asset value (NAV) based share price for a fund share class for a specific valuation date."
+              },
+              "response": [
+                {
+                  "id": "8eccfc97-cb14-4945-bdcb-fcc4c1d63983",
+                  "name": "Share price set successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"shareClassId\": \"<string>\",\n  \"price\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"valuationDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/order/sharePrices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "sharePrices"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"shareClassId\": \"<string>\",\n  \"price\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"valuationDate\": \"<date>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-8eccfc97-cb14-4945-bdcb-fcc4c1d63983"
+                },
+                {
+                  "id": "1aa50fab-41d1-4af0-b217-7c791058233d",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"shareClassId\": \"<string>\",\n  \"price\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"valuationDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/order/sharePrices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "sharePrices"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-1aa50fab-41d1-4af0-b217-7c791058233d"
+                },
+                {
+                  "id": "777ac48a-4421-47b2-bd95-affe53bccc0b",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"shareClassId\": \"<string>\",\n  \"price\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"valuationDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/order/sharePrices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "order",
+                        "sharePrices"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-777ac48a-4421-47b2-bd95-affe53bccc0b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-eb7a9f36-26f8-41af-a5dc-f129d5c4e8e7"
+            }
+          ],
+          "id": "b22bcdcc-66d7-4bd9-b898-decb980b15d8",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-b22bcdcc-66d7-4bd9-b898-decb980b15d8"
+        }
+      ],
+      "id": "9f6591d1-2e37-4fcd-add8-0499cf580a58",
+      "createdAt": "2026-06-05T15:19:07.000Z",
+      "updatedAt": "2026-06-05T15:19:07.000Z",
+      "uid": "35240-9f6591d1-2e37-4fcd-add8-0499cf580a58"
+    },
+    {
+      "name": "product",
+      "item": [
+        {
+          "name": "funds",
+          "item": [
+            {
+              "name": "List Funds",
+              "id": "d1001193-3316-49b5-9bf9-3d131602cf6a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/product/funds?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "product",
+                    "funds"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieve the list of funds with their master data including fund type, domicile, base currency, manager information, and promoter details."
+              },
+              "response": [
+                {
+                  "id": "8aa09ad2-8ae3-4ab5-858b-676d9f005510",
+                  "name": "Successful retrieval of funds",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/product/funds?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "product",
+                        "funds"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"fundId\": \"<string>\",\n      \"fundName\": \"<string>\",\n      \"fundType\": \"<string>\",\n      \"domicile\": \"<string>\",\n      \"baseCurrency\": \"<string>\",\n      \"managerId\": \"<string>\",\n      \"promoterId\": \"<string>\",\n      \"inceptionDate\": \"<date>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"fundId\": \"<string>\",\n      \"fundName\": \"<string>\",\n      \"fundType\": \"<string>\",\n      \"domicile\": \"<string>\",\n      \"baseCurrency\": \"<string>\",\n      \"managerId\": \"<string>\",\n      \"promoterId\": \"<string>\",\n      \"inceptionDate\": \"<date>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-8aa09ad2-8ae3-4ab5-858b-676d9f005510"
+                },
+                {
+                  "id": "7c3bea79-de2e-40c3-b3db-75cc6bedea8e",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/product/funds?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "product",
+                        "funds"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-7c3bea79-de2e-40c3-b3db-75cc6bedea8e"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-d1001193-3316-49b5-9bf9-3d131602cf6a"
+            },
+            {
+              "name": "Create Fund",
+              "id": "b3d9eae6-ee90-4c81-87dd-b06b35fd22e0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fundName\": \"<string>\",\n  \"fundType\": \"<string>\",\n  \"domicile\": \"<string>\",\n  \"baseCurrency\": \"YOM\",\n  \"managerId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/product/funds",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "product",
+                    "funds"
+                  ]
+                },
+                "description": "Create a new fund master record with fund type, domicile, base currency, manager assignment, and regulatory configuration."
+              },
+              "response": [
+                {
+                  "id": "28b0534c-68bd-4d08-a19d-da8dd492a3b1",
+                  "name": "Fund created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"fundName\": \"<string>\",\n  \"fundType\": \"<string>\",\n  \"domicile\": \"<string>\",\n  \"baseCurrency\": \"YOM\",\n  \"managerId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/product/funds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "product",
+                        "funds"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"fundId\": \"<string>\",\n  \"fundName\": \"<string>\",\n  \"fundType\": \"<string>\",\n  \"domicile\": \"<string>\",\n  \"baseCurrency\": \"<string>\",\n  \"managerId\": \"<string>\",\n  \"promoterId\": \"<string>\",\n  \"inceptionDate\": \"<date>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-28b0534c-68bd-4d08-a19d-da8dd492a3b1"
+                },
+                {
+                  "id": "c0af2c42-a8e1-46c3-a247-a93482d18fdd",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"fundName\": \"<string>\",\n  \"fundType\": \"<string>\",\n  \"domicile\": \"<string>\",\n  \"baseCurrency\": \"YOM\",\n  \"managerId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/product/funds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "product",
+                        "funds"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-c0af2c42-a8e1-46c3-a247-a93482d18fdd"
+                },
+                {
+                  "id": "84dad010-7d25-4aea-b84c-ed057669d96f",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"fundName\": \"<string>\",\n  \"fundType\": \"<string>\",\n  \"domicile\": \"<string>\",\n  \"baseCurrency\": \"YOM\",\n  \"managerId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/product/funds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "product",
+                        "funds"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-84dad010-7d25-4aea-b84c-ed057669d96f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-b3d9eae6-ee90-4c81-87dd-b06b35fd22e0"
+            }
+          ],
+          "id": "09eba048-7abe-42ae-9b77-601d36b08311",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-09eba048-7abe-42ae-9b77-601d36b08311"
+        },
+        {
+          "name": "shareClasses",
+          "item": [
+            {
+              "name": "List Share Classes",
+              "id": "8a32f7b6-7889-42a5-893e-be68eb71aea6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/product/shareClasses?page_size=25&page_start=0&fundId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "product",
+                    "shareClasses"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number for pagination",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by fund identifier",
+                      "key": "fundId",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieve share class configurations for funds including pricing details, fee structures, distribution policies, and investor eligibility criteria."
+              },
+              "response": [
+                {
+                  "id": "fa23fd7e-9b8b-4eed-a643-6b0a96f4f6de",
+                  "name": "Successful retrieval of share classes",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/product/shareClasses?page_size=25&page_start=0&fundId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "product",
+                        "shareClasses"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by fund identifier",
+                          "key": "fundId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"shareClassId\": \"<string>\",\n      \"fundId\": \"<string>\",\n      \"shareClassName\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"distributionPolicy\": \"ACCUMULATION\",\n      \"managementFee\": \"<double>\",\n      \"performanceFee\": \"<double>\",\n      \"minimumInvestment\": \"<double>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"shareClassId\": \"<string>\",\n      \"fundId\": \"<string>\",\n      \"shareClassName\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"distributionPolicy\": \"DISTRIBUTION\",\n      \"managementFee\": \"<double>\",\n      \"performanceFee\": \"<double>\",\n      \"minimumInvestment\": \"<double>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-fa23fd7e-9b8b-4eed-a643-6b0a96f4f6de"
+                },
+                {
+                  "id": "2bbc2bae-e9b4-460a-8904-1a5b06a61a36",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/product/shareClasses?page_size=25&page_start=0&fundId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "product",
+                        "shareClasses"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number for pagination",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by fund identifier",
+                          "key": "fundId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-2bbc2bae-e9b4-460a-8904-1a5b06a61a36"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-8a32f7b6-7889-42a5-893e-be68eb71aea6"
+            }
+          ],
+          "id": "3e91fbfa-a5e1-4e47-9e42-b8083ecb59aa",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-3e91fbfa-a5e1-4e47-9e42-b8083ecb59aa"
+        }
+      ],
+      "id": "6b85c803-de71-4214-93da-1fe4e4387219",
+      "createdAt": "2026-06-05T15:19:07.000Z",
+      "updatedAt": "2026-06-05T15:19:07.000Z",
+      "uid": "35240-6b85c803-de71-4214-93da-1fe4e4387219"
+    },
+    {
+      "name": "reference",
+      "item": [
+        {
+          "name": "exchangeRates",
+          "item": [
+            {
+              "name": "Inject Exchange Rates",
+              "id": "43d39156-3a97-4114-a222-be9a8efa89a0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rates\": [\n    {\n      \"baseCurrency\": \"<string>\",\n      \"quoteCurrency\": \"<string>\",\n      \"rate\": \"<double>\"\n    },\n    {\n      \"baseCurrency\": \"<string>\",\n      \"quoteCurrency\": \"<string>\",\n      \"rate\": \"<double>\"\n    }\n  ],\n  \"effectiveDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reference/exchangeRates",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reference",
+                    "exchangeRates"
+                  ]
+                },
+                "description": "Load daily foreign exchange rates for fund valuation and multi-currency position calculations."
+              },
+              "response": [
+                {
+                  "id": "107a87f7-0a68-4e48-8438-996061953a4b",
+                  "name": "Exchange rates injected successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"rates\": [\n    {\n      \"baseCurrency\": \"<string>\",\n      \"quoteCurrency\": \"<string>\",\n      \"rate\": \"<double>\"\n    },\n    {\n      \"baseCurrency\": \"<string>\",\n      \"quoteCurrency\": \"<string>\",\n      \"rate\": \"<double>\"\n    }\n  ],\n  \"effectiveDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reference/exchangeRates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reference",
+                        "exchangeRates"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-107a87f7-0a68-4e48-8438-996061953a4b"
+                },
+                {
+                  "id": "5116513f-4d6f-4a45-8f92-e1d2e5d50b21",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"rates\": [\n    {\n      \"baseCurrency\": \"<string>\",\n      \"quoteCurrency\": \"<string>\",\n      \"rate\": \"<double>\"\n    },\n    {\n      \"baseCurrency\": \"<string>\",\n      \"quoteCurrency\": \"<string>\",\n      \"rate\": \"<double>\"\n    }\n  ],\n  \"effectiveDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reference/exchangeRates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reference",
+                        "exchangeRates"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-5116513f-4d6f-4a45-8f92-e1d2e5d50b21"
+                },
+                {
+                  "id": "24a93aee-2e81-4bef-a121-f624e7d21922",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"rates\": [\n    {\n      \"baseCurrency\": \"<string>\",\n      \"quoteCurrency\": \"<string>\",\n      \"rate\": \"<double>\"\n    },\n    {\n      \"baseCurrency\": \"<string>\",\n      \"quoteCurrency\": \"<string>\",\n      \"rate\": \"<double>\"\n    }\n  ],\n  \"effectiveDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reference/exchangeRates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reference",
+                        "exchangeRates"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-24a93aee-2e81-4bef-a121-f624e7d21922"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-43d39156-3a97-4114-a222-be9a8efa89a0"
+            }
+          ],
+          "id": "8c7659ed-b966-42c4-b2e3-adf10dd74055",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-8c7659ed-b966-42c4-b2e3-adf10dd74055"
+        },
+        {
+          "name": "securityPrices",
+          "item": [
+            {
+              "name": "Inject Security Prices",
+              "id": "d4bb6519-e561-4046-974f-f169c9955d0a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prices\": [\n    {\n      \"securityId\": \"<string>\",\n      \"price\": \"<double>\",\n      \"currency\": \"<string>\"\n    },\n    {\n      \"securityId\": \"<string>\",\n      \"price\": \"<double>\",\n      \"currency\": \"<string>\"\n    }\n  ],\n  \"valuationDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reference/securityPrices",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reference",
+                    "securityPrices"
+                  ]
+                },
+                "description": "Import market security prices for portfolio valuation including equity prices, bond prices, and derivative valuations."
+              },
+              "response": [
+                {
+                  "id": "c4f88578-eced-4b7d-ac42-d7d638e49603",
+                  "name": "Security prices injected successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"prices\": [\n    {\n      \"securityId\": \"<string>\",\n      \"price\": \"<double>\",\n      \"currency\": \"<string>\"\n    },\n    {\n      \"securityId\": \"<string>\",\n      \"price\": \"<double>\",\n      \"currency\": \"<string>\"\n    }\n  ],\n  \"valuationDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reference/securityPrices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reference",
+                        "securityPrices"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-c4f88578-eced-4b7d-ac42-d7d638e49603"
+                },
+                {
+                  "id": "fbf50b11-304d-4f28-b97b-41fc6e6d1954",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"prices\": [\n    {\n      \"securityId\": \"<string>\",\n      \"price\": \"<double>\",\n      \"currency\": \"<string>\"\n    },\n    {\n      \"securityId\": \"<string>\",\n      \"price\": \"<double>\",\n      \"currency\": \"<string>\"\n    }\n  ],\n  \"valuationDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reference/securityPrices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reference",
+                        "securityPrices"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-fbf50b11-304d-4f28-b97b-41fc6e6d1954"
+                },
+                {
+                  "id": "ff71fc07-f014-4850-b705-ec6a43e91a4d",
+                  "name": "Authentication required or invalid credentials",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"prices\": [\n    {\n      \"securityId\": \"<string>\",\n      \"price\": \"<double>\",\n      \"currency\": \"<string>\"\n    },\n    {\n      \"securityId\": \"<string>\",\n      \"price\": \"<double>\",\n      \"currency\": \"<string>\"\n    }\n  ],\n  \"valuationDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reference/securityPrices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reference",
+                        "securityPrices"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:07.000Z",
+                  "updatedAt": "2026-06-05T15:19:07.000Z",
+                  "uid": "35240-ff71fc07-f014-4850-b705-ec6a43e91a4d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:07.000Z",
+              "updatedAt": "2026-06-05T15:19:07.000Z",
+              "uid": "35240-d4bb6519-e561-4046-974f-f169c9955d0a"
+            }
+          ],
+          "id": "aa73fd29-c773-4be5-92a5-0e0ef0d9165f",
+          "createdAt": "2026-06-05T15:19:07.000Z",
+          "updatedAt": "2026-06-05T15:19:07.000Z",
+          "uid": "35240-aa73fd29-c773-4be5-92a5-0e0ef0d9165f"
+        }
+      ],
+      "id": "48e741a9-741b-4973-b39c-bbccff616129",
+      "createdAt": "2026-06-05T15:19:07.000Z",
+      "updatedAt": "2026-06-05T15:19:07.000Z",
+      "uid": "35240-48e741a9-741b-4973-b39c-bbccff616129"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.temenos.com/funds/v1"
+    }
+  ]
+}

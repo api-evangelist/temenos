@@ -1,0 +1,170 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Credit Offers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Credit Offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/offers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a BNPL credit offer using Explainable AI decisioning based on customer data, purchase amount, and configured product rules. Returns eligible offer options with interest-free and interest-bearing terms."
+        },
+        {
+          "info": {
+            "name": "Get Credit Offer Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/offers/:offerId",
+            "params": [
+              {
+                "name": "offerId",
+                "value": "",
+                "type": "path",
+                "description": "Offer identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve details of a generated credit offer including terms, repayment schedule, and AI decisioning explanation."
+        },
+        {
+          "info": {
+            "name": "Accept Credit Offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/offers/:offerId/accept",
+            "params": [
+              {
+                "name": "offerId",
+                "value": "",
+                "type": "path",
+                "description": "Offer identifier"
+              }
+            ]
+          },
+          "docs": "Accept a BNPL credit offer to initiate loan creation and merchant settlement processing."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Loans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List BNPL Loans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/loans",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by customer"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by loan status"
+              }
+            ]
+          },
+          "docs": "Retrieve BNPL loans with their repayment status, payment schedules, and outstanding balances."
+        },
+        {
+          "info": {
+            "name": "Get BNPL Loan Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/loans/:loanId",
+            "params": [
+              {
+                "name": "loanId",
+                "value": "",
+                "type": "path",
+                "description": "Loan identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed BNPL loan information including payment schedule, payment history, and outstanding balance."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Merchants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Merchants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/merchants",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve registered merchants with their BNPL integration configurations and settlement details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

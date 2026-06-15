@@ -1,0 +1,3051 @@
+{
+  "info": {
+    "_postman_id": "1f9500fd-9611-4a80-8f3c-89bde6fdd5a2",
+    "name": "Temenos Infinity Digital Banking API",
+    "description": "Digital banking platform API for Temenos Infinity, providing omnichannel customer experiences across retail and business banking channels. Enables integration with Temenos Fabric and Temenos Visualizer for building responsive digital banking applications. Supports Open Banking via PSD2-compliant APIs and connects to over 100 FinTech services through the Temenos MarketPlace. Uses JavaScript frameworks such as React for front-end experience creation and provides REST APIs for accessing banking data as resources in machine-readable JSON format.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:03.000Z",
+    "updatedAt": "2026-06-05T15:19:04.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1f9500fd-9611-4a80-8f3c-89bde6fdd5a2"
+  },
+  "item": [
+    {
+      "name": "accounts",
+      "item": [
+        {
+          "name": "{accountId}",
+          "item": [
+            {
+              "name": "transactions",
+              "item": [
+                {
+                  "name": "List Account Transactions",
+                  "id": "2e6c2cb1-8edf-4d1e-ab3c-6d34fc715e9c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:accountId/transactions?pageSize=25&pageStart=<string>&fromDate=<date>&toDate=<date>&transactionType=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":accountId",
+                        "transactions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "pageSize",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Pagination offset token or page number",
+                          "key": "pageStart",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start date for transaction history (ISO 8601 format)",
+                          "key": "fromDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "End date for transaction history (ISO 8601 format)",
+                          "key": "toDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Filter by transaction type",
+                          "key": "transactionType",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "7cb78407-2547-42e3-b48b-beaae399dbcb",
+                          "key": "accountId",
+                          "value": "<string>",
+                          "description": "(Required) Unique account identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve transaction history for a specific account. Supports filtering by date range, amount, transaction type, and text search across narratives."
+                  },
+                  "response": [
+                    {
+                      "id": "74ee1a34-7088-4a7e-b441-746fc60a7eb1",
+                      "name": "Successfully retrieved transaction list",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:accountId/transactions?pageSize=25&pageStart=<string>&fromDate=<date>&toDate=<date>&transactionType=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":accountId",
+                            "transactions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of records to return per page",
+                              "key": "pageSize",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Pagination offset token or page number",
+                              "key": "pageStart",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Start date for transaction history (ISO 8601 format)",
+                              "key": "fromDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for transaction history (ISO 8601 format)",
+                              "key": "toDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Filter by transaction type",
+                              "key": "transactionType",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"transactions\": [\n    {\n      \"transactionId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"debitOrCredit\": \"CREDIT\",\n      \"bookingDate\": \"<date>\",\n      \"valueDate\": \"<date>\",\n      \"narrative\": \"<string>\",\n      \"transactionType\": \"<string>\"\n    },\n    {\n      \"transactionId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"debitOrCredit\": \"DEBIT\",\n      \"bookingDate\": \"<date>\",\n      \"valueDate\": \"<date>\",\n      \"narrative\": \"<string>\",\n      \"transactionType\": \"<string>\"\n    }\n  ],\n  \"pagination\": {\n    \"pageSize\": \"<integer>\",\n    \"pageStart\": \"<string>\",\n    \"totalRecords\": \"<integer>\",\n    \"hasMore\": \"<boolean>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:19:04.000Z",
+                      "updatedAt": "2026-06-05T15:19:04.000Z",
+                      "uid": "35240-74ee1a34-7088-4a7e-b441-746fc60a7eb1"
+                    },
+                    {
+                      "id": "116ab05b-ff76-4c5f-b4a9-3ea75500a204",
+                      "name": "Authentication credentials missing or invalid",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:accountId/transactions?pageSize=25&pageStart=<string>&fromDate=<date>&toDate=<date>&transactionType=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":accountId",
+                            "transactions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of records to return per page",
+                              "key": "pageSize",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Pagination offset token or page number",
+                              "key": "pageStart",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Start date for transaction history (ISO 8601 format)",
+                              "key": "fromDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for transaction history (ISO 8601 format)",
+                              "key": "toDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Filter by transaction type",
+                              "key": "transactionType",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:04.000Z",
+                      "updatedAt": "2026-06-05T15:19:04.000Z",
+                      "uid": "35240-116ab05b-ff76-4c5f-b4a9-3ea75500a204"
+                    },
+                    {
+                      "id": "daef92d1-35c9-452c-9bef-7a73757c5bc4",
+                      "name": "Requested resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:accountId/transactions?pageSize=25&pageStart=<string>&fromDate=<date>&toDate=<date>&transactionType=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":accountId",
+                            "transactions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of records to return per page",
+                              "key": "pageSize",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Pagination offset token or page number",
+                              "key": "pageStart",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Start date for transaction history (ISO 8601 format)",
+                              "key": "fromDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for transaction history (ISO 8601 format)",
+                              "key": "toDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Filter by transaction type",
+                              "key": "transactionType",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:04.000Z",
+                      "updatedAt": "2026-06-05T15:19:04.000Z",
+                      "uid": "35240-daef92d1-35c9-452c-9bef-7a73757c5bc4"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-2e6c2cb1-8edf-4d1e-ab3c-6d34fc715e9c"
+                }
+              ],
+              "id": "91be8354-08bd-418d-b778-9e9e26276f2c",
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-91be8354-08bd-418d-b778-9e9e26276f2c"
+            },
+            {
+              "name": "Get Account Details",
+              "id": "9e46e877-4791-496d-bc55-887553c30846",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts/:accountId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "fb5539f0-a5ce-4272-8e82-ebf3a26fd916",
+                      "key": "accountId",
+                      "value": "<string>",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve detailed information for a specific customer account including balances, product details, interest rates, and associated services."
+              },
+              "response": [
+                {
+                  "id": "e4e2ee19-ac17-4898-8f17-348db39db1f4",
+                  "name": "Successfully retrieved account details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:accountId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":accountId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "accountId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"accountId\": \"<string>\",\n  \"accountName\": \"<string>\",\n  \"accountType\": \"LOAN\",\n  \"currency\": \"XSR\",\n  \"availableBalance\": \"<number>\",\n  \"currentBalance\": \"<number>\",\n  \"status\": \"ACTIVE\",\n  \"productName\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-e4e2ee19-ac17-4898-8f17-348db39db1f4"
+                },
+                {
+                  "id": "0f3ffc1d-2d27-4c2f-9655-8fe6c8e21893",
+                  "name": "Authentication credentials missing or invalid",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:accountId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":accountId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "accountId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-0f3ffc1d-2d27-4c2f-9655-8fe6c8e21893"
+                },
+                {
+                  "id": "6616871b-7ea7-432b-bc45-8cd1c7036ca0",
+                  "name": "Requested resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:accountId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":accountId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "accountId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-6616871b-7ea7-432b-bc45-8cd1c7036ca0"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-9e46e877-4791-496d-bc55-887553c30846"
+            }
+          ],
+          "id": "a054025a-0f03-484e-8eaa-dc49593cd5b6",
+          "createdAt": "2026-06-05T15:19:04.000Z",
+          "updatedAt": "2026-06-05T15:19:04.000Z",
+          "uid": "35240-a054025a-0f03-484e-8eaa-dc49593cd5b6"
+        },
+        {
+          "name": "List Customer Accounts",
+          "id": "ea499558-def1-4df1-a3aa-1eca59c6b209",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/accounts?pageSize=25&pageStart=<string>&customerId=<string>&accountType=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "accounts"
+              ],
+              "query": [
+                {
+                  "description": "Number of records to return per page",
+                  "key": "pageSize",
+                  "value": "25"
+                },
+                {
+                  "description": "Pagination offset token or page number",
+                  "key": "pageStart",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter accounts by customer identifier",
+                  "key": "customerId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by account type (e.g., CURRENT, SAVINGS, DEPOSIT)",
+                  "key": "accountType",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve a list of customer accounts across all account types visible through the digital banking channel. Returns account summary information including balances, status, and product details."
+          },
+          "response": [
+            {
+              "id": "a24167a7-63f5-4d6f-b77c-448150817bde",
+              "name": "Successfully retrieved list of accounts",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts?pageSize=25&pageStart=<string>&customerId=<string>&accountType=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "pageSize",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Pagination offset token or page number",
+                      "key": "pageStart",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter accounts by customer identifier",
+                      "key": "customerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by account type (e.g., CURRENT, SAVINGS, DEPOSIT)",
+                      "key": "accountType",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"accounts\": [\n    {\n      \"accountId\": \"<string>\",\n      \"accountName\": \"<string>\",\n      \"accountType\": \"DEPOSIT\",\n      \"currency\": \"BHT\",\n      \"availableBalance\": \"<number>\",\n      \"currentBalance\": \"<number>\",\n      \"status\": \"CLOSED\",\n      \"productName\": \"<string>\"\n    },\n    {\n      \"accountId\": \"<string>\",\n      \"accountName\": \"<string>\",\n      \"accountType\": \"CURRENT\",\n      \"currency\": \"EFO\",\n      \"availableBalance\": \"<number>\",\n      \"currentBalance\": \"<number>\",\n      \"status\": \"DORMANT\",\n      \"productName\": \"<string>\"\n    }\n  ],\n  \"pagination\": {\n    \"pageSize\": \"<integer>\",\n    \"pageStart\": \"<string>\",\n    \"totalRecords\": \"<integer>\",\n    \"hasMore\": \"<boolean>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-a24167a7-63f5-4d6f-b77c-448150817bde"
+            },
+            {
+              "id": "5b9f8f6e-fd9f-4315-81c5-92dba5e979ae",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts?pageSize=25&pageStart=<string>&customerId=<string>&accountType=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "pageSize",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Pagination offset token or page number",
+                      "key": "pageStart",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter accounts by customer identifier",
+                      "key": "customerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by account type (e.g., CURRENT, SAVINGS, DEPOSIT)",
+                      "key": "accountType",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-5b9f8f6e-fd9f-4315-81c5-92dba5e979ae"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:04.000Z",
+          "updatedAt": "2026-06-05T15:19:04.000Z",
+          "uid": "35240-ea499558-def1-4df1-a3aa-1eca59c6b209"
+        }
+      ],
+      "id": "b84b6e13-7e9e-456b-bcb5-6020575e5083",
+      "createdAt": "2026-06-05T15:19:04.000Z",
+      "updatedAt": "2026-06-05T15:19:04.000Z",
+      "uid": "35240-b84b6e13-7e9e-456b-bcb5-6020575e5083"
+    },
+    {
+      "name": "customers",
+      "item": [
+        {
+          "name": "{customerId}",
+          "item": [
+            {
+              "name": "Get Customer Profile",
+              "id": "0bb6a4ef-b3f7-4c56-b188-3dd8a46c51a5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/customers/:customerId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers",
+                    ":customerId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e8bbfac7-d47a-4b06-8f31-591b943ea845",
+                      "key": "customerId",
+                      "value": "<string>",
+                      "description": "(Required) Unique customer identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve customer profile information including personal details, contact information, preferences, and linked accounts across the digital banking platform."
+              },
+              "response": [
+                {
+                  "id": "00adde6b-61ff-4593-94c8-bf857e4d53fc",
+                  "name": "Successfully retrieved customer profile",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:customerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":customerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"customerId\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"dateOfBirth\": \"<date>\",\n  \"address\": {\n    \"addressLine1\": \"<string>\",\n    \"addressLine2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"country\": \"MF\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-00adde6b-61ff-4593-94c8-bf857e4d53fc"
+                },
+                {
+                  "id": "d9c70860-22d2-4a0b-a37c-01e770020ea5",
+                  "name": "Authentication credentials missing or invalid",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:customerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":customerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-d9c70860-22d2-4a0b-a37c-01e770020ea5"
+                },
+                {
+                  "id": "acd7acd3-6be7-491c-be97-17b2dca35044",
+                  "name": "Requested resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:customerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":customerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-acd7acd3-6be7-491c-be97-17b2dca35044"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-0bb6a4ef-b3f7-4c56-b188-3dd8a46c51a5"
+            },
+            {
+              "name": "Update Customer Profile",
+              "id": "8944e3da-ac49-49b1-bd7f-0af281623169",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"address\": {\n    \"addressLine1\": \"<string>\",\n    \"addressLine2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"country\": \"AE\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/customers/:customerId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers",
+                    ":customerId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "a89cb31e-5531-4357-a3ad-a31ab2634dc4",
+                      "key": "customerId",
+                      "value": "<string>",
+                      "description": "(Required) Unique customer identifier"
+                    }
+                  ]
+                },
+                "description": "Update customer profile information including contact details, communication preferences, and notification settings."
+              },
+              "response": [
+                {
+                  "id": "2b6ba286-61f4-4d41-b06f-db18a02fc5b3",
+                  "name": "Successfully updated customer profile",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"address\": {\n    \"addressLine1\": \"<string>\",\n    \"addressLine2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"country\": \"AE\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:customerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":customerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"customerId\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"dateOfBirth\": \"<date>\",\n  \"address\": {\n    \"addressLine1\": \"<string>\",\n    \"addressLine2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"country\": \"MF\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-2b6ba286-61f4-4d41-b06f-db18a02fc5b3"
+                },
+                {
+                  "id": "4c4a4de5-3ce3-4cc7-957b-6872f5165aad",
+                  "name": "Invalid request parameters or payload",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"address\": {\n    \"addressLine1\": \"<string>\",\n    \"addressLine2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"country\": \"AE\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:customerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":customerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-4c4a4de5-3ce3-4cc7-957b-6872f5165aad"
+                },
+                {
+                  "id": "09f83b53-abe6-4244-81cd-76534132eaf8",
+                  "name": "Authentication credentials missing or invalid",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"address\": {\n    \"addressLine1\": \"<string>\",\n    \"addressLine2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"country\": \"AE\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:customerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":customerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-09f83b53-abe6-4244-81cd-76534132eaf8"
+                },
+                {
+                  "id": "321e0fcb-9470-4f0f-be48-f986715d610e",
+                  "name": "Requested resource not found",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"address\": {\n    \"addressLine1\": \"<string>\",\n    \"addressLine2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"country\": \"AE\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:customerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":customerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-321e0fcb-9470-4f0f-be48-f986715d610e"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-8944e3da-ac49-49b1-bd7f-0af281623169"
+            }
+          ],
+          "id": "34f55456-5acb-40dc-9524-37f279c7ba25",
+          "createdAt": "2026-06-05T15:19:04.000Z",
+          "updatedAt": "2026-06-05T15:19:04.000Z",
+          "uid": "35240-34f55456-5acb-40dc-9524-37f279c7ba25"
+        }
+      ],
+      "id": "6b158ca3-14a8-4a5a-8956-9c237dde045a",
+      "createdAt": "2026-06-05T15:19:04.000Z",
+      "updatedAt": "2026-06-05T15:19:04.000Z",
+      "uid": "35240-6b158ca3-14a8-4a5a-8956-9c237dde045a"
+    },
+    {
+      "name": "payments",
+      "item": [
+        {
+          "name": "{paymentId}",
+          "item": [
+            {
+              "name": "Get Payment Status",
+              "id": "b40ab210-5e60-4956-871a-787d5f15cca1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payments/:paymentId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "c2649e6d-9794-4560-8438-5f9873aef6fd",
+                      "key": "paymentId",
+                      "value": "<string>",
+                      "description": "(Required) Unique payment identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve the current status and details of a previously initiated payment including processing status, timestamps, and confirmation details."
+              },
+              "response": [
+                {
+                  "id": "66695808-7e3b-457d-8dda-a714f312ac01",
+                  "name": "Successfully retrieved payment details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/:paymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        ":paymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "paymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"paymentId\": \"<string>\",\n  \"status\": \"PROCESSING\",\n  \"debitAccountId\": \"<string>\",\n  \"creditAccountId\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"createdDate\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-66695808-7e3b-457d-8dda-a714f312ac01"
+                },
+                {
+                  "id": "ebfaec96-2265-49da-b4a9-71ab4b9014a3",
+                  "name": "Authentication credentials missing or invalid",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/:paymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        ":paymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "paymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-ebfaec96-2265-49da-b4a9-71ab4b9014a3"
+                },
+                {
+                  "id": "75af581b-2362-4dcf-9bfa-e415e5e311a8",
+                  "name": "Requested resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/:paymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        ":paymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "paymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-75af581b-2362-4dcf-9bfa-e415e5e311a8"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-b40ab210-5e60-4956-871a-787d5f15cca1"
+            }
+          ],
+          "id": "81f0f4ec-8131-4d07-864a-080ca73ec05b",
+          "createdAt": "2026-06-05T15:19:04.000Z",
+          "updatedAt": "2026-06-05T15:19:04.000Z",
+          "uid": "35240-81f0f4ec-8131-4d07-864a-080ca73ec05b"
+        },
+        {
+          "name": "Initiate A Payment",
+          "id": "ac47d52a-4ae5-4eb3-af67-ad47f2250a30",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"creditAccountId\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"ICA\",\n  \"paymentType\": \"INTERNATIONAL_TRANSFER\",\n  \"narrative\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments"
+              ]
+            },
+            "description": "Initiate a new payment from a customer account. Supports domestic transfers, international transfers, and bill payments. The payment is validated and submitted for processing."
+          },
+          "response": [
+            {
+              "id": "0de7ff0f-cfb2-4ccc-88b7-fc22bdda0e4b",
+              "name": "Payment successfully initiated",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"creditAccountId\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"ICA\",\n  \"paymentType\": \"INTERNATIONAL_TRANSFER\",\n  \"narrative\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"paymentId\": \"<string>\",\n  \"status\": \"PROCESSING\",\n  \"debitAccountId\": \"<string>\",\n  \"creditAccountId\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"createdDate\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-0de7ff0f-cfb2-4ccc-88b7-fc22bdda0e4b"
+            },
+            {
+              "id": "0fdefeec-3f47-49fe-a7cc-23c43f003ca2",
+              "name": "Invalid request parameters or payload",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"creditAccountId\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"ICA\",\n  \"paymentType\": \"INTERNATIONAL_TRANSFER\",\n  \"narrative\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-0fdefeec-3f47-49fe-a7cc-23c43f003ca2"
+            },
+            {
+              "id": "cc12c26d-098b-4221-b123-784eed804dfa",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"creditAccountId\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"ICA\",\n  \"paymentType\": \"INTERNATIONAL_TRANSFER\",\n  \"narrative\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-cc12c26d-098b-4221-b123-784eed804dfa"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:04.000Z",
+          "updatedAt": "2026-06-05T15:19:04.000Z",
+          "uid": "35240-ac47d52a-4ae5-4eb3-af67-ad47f2250a30"
+        }
+      ],
+      "id": "f1f4994d-2412-4569-ada0-c5f5a770a078",
+      "createdAt": "2026-06-05T15:19:04.000Z",
+      "updatedAt": "2026-06-05T15:19:04.000Z",
+      "uid": "35240-f1f4994d-2412-4569-ada0-c5f5a770a078"
+    },
+    {
+      "name": "cards",
+      "item": [
+        {
+          "name": "{cardId}",
+          "item": [
+            {
+              "name": "Update Card Controls",
+              "id": "367fb7ba-07c1-4f17-bcb3-aaafc74db6c9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contactlessEnabled\": \"<boolean>\",\n  \"onlineTransactionsEnabled\": \"<boolean>\",\n  \"dailySpendingLimit\": \"<number>\",\n  \"atmWithdrawalLimit\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/cards/:cardId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "cards",
+                    ":cardId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "028730e5-19b8-4981-a026-3465f889281f",
+                      "key": "cardId",
+                      "value": "<string>",
+                      "description": "(Required) Unique card identifier"
+                    }
+                  ]
+                },
+                "description": "Update card settings including spending limits, transaction type controls, geographic restrictions, and contactless payment settings."
+              },
+              "response": [
+                {
+                  "id": "7ace8bb6-570b-481f-8adc-559a47e3ff11",
+                  "name": "Successfully updated card controls",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"contactlessEnabled\": \"<boolean>\",\n  \"onlineTransactionsEnabled\": \"<boolean>\",\n  \"dailySpendingLimit\": \"<number>\",\n  \"atmWithdrawalLimit\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/cards/:cardId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "cards",
+                        ":cardId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "cardId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"cardId\": \"<string>\",\n  \"cardNumber\": \"<string>\",\n  \"cardType\": \"DEBIT\",\n  \"status\": \"ACTIVE\",\n  \"expiryDate\": \"<string>\",\n  \"accountId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-7ace8bb6-570b-481f-8adc-559a47e3ff11"
+                },
+                {
+                  "id": "371373dc-c29b-4ae8-9bd4-e05200bf1cb2",
+                  "name": "Invalid request parameters or payload",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"contactlessEnabled\": \"<boolean>\",\n  \"onlineTransactionsEnabled\": \"<boolean>\",\n  \"dailySpendingLimit\": \"<number>\",\n  \"atmWithdrawalLimit\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/cards/:cardId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "cards",
+                        ":cardId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "cardId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-371373dc-c29b-4ae8-9bd4-e05200bf1cb2"
+                },
+                {
+                  "id": "afcb5fcb-3b92-4755-8478-3066de49f51c",
+                  "name": "Authentication credentials missing or invalid",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"contactlessEnabled\": \"<boolean>\",\n  \"onlineTransactionsEnabled\": \"<boolean>\",\n  \"dailySpendingLimit\": \"<number>\",\n  \"atmWithdrawalLimit\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/cards/:cardId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "cards",
+                        ":cardId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "cardId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-afcb5fcb-3b92-4755-8478-3066de49f51c"
+                },
+                {
+                  "id": "2893b6fe-b768-4b7e-8f59-fc62f8ea6210",
+                  "name": "Requested resource not found",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"contactlessEnabled\": \"<boolean>\",\n  \"onlineTransactionsEnabled\": \"<boolean>\",\n  \"dailySpendingLimit\": \"<number>\",\n  \"atmWithdrawalLimit\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/cards/:cardId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "cards",
+                        ":cardId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "cardId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-2893b6fe-b768-4b7e-8f59-fc62f8ea6210"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-367fb7ba-07c1-4f17-bcb3-aaafc74db6c9"
+            }
+          ],
+          "id": "b34c5632-bbd0-4782-a3dc-f94f20b0d4e7",
+          "createdAt": "2026-06-05T15:19:04.000Z",
+          "updatedAt": "2026-06-05T15:19:04.000Z",
+          "uid": "35240-b34c5632-bbd0-4782-a3dc-f94f20b0d4e7"
+        },
+        {
+          "name": "List Customer Cards",
+          "id": "b9c1a580-ab2c-48b8-aad3-cda8825bf436",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/cards?pageSize=25&pageStart=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cards"
+              ],
+              "query": [
+                {
+                  "description": "Number of records to return per page",
+                  "key": "pageSize",
+                  "value": "25"
+                },
+                {
+                  "description": "Pagination offset token or page number",
+                  "key": "pageStart",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve a list of debit and credit cards associated with the customer across all linked accounts."
+          },
+          "response": [
+            {
+              "id": "a87819cf-b37b-4240-8c97-c930678b311d",
+              "name": "Successfully retrieved card list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/cards?pageSize=25&pageStart=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "cards"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "pageSize",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Pagination offset token or page number",
+                      "key": "pageStart",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"cards\": [\n    {\n      \"cardId\": \"<string>\",\n      \"cardNumber\": \"<string>\",\n      \"cardType\": \"CREDIT\",\n      \"status\": \"BLOCKED\",\n      \"expiryDate\": \"<string>\",\n      \"accountId\": \"<string>\"\n    },\n    {\n      \"cardId\": \"<string>\",\n      \"cardNumber\": \"<string>\",\n      \"cardType\": \"PREPAID\",\n      \"status\": \"ACTIVE\",\n      \"expiryDate\": \"<string>\",\n      \"accountId\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-a87819cf-b37b-4240-8c97-c930678b311d"
+            },
+            {
+              "id": "bf9f1b03-9d6e-4dca-abe1-9c3edb52df4d",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/cards?pageSize=25&pageStart=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "cards"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "pageSize",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Pagination offset token or page number",
+                      "key": "pageStart",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-bf9f1b03-9d6e-4dca-abe1-9c3edb52df4d"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:04.000Z",
+          "updatedAt": "2026-06-05T15:19:04.000Z",
+          "uid": "35240-b9c1a580-ab2c-48b8-aad3-cda8825bf436"
+        }
+      ],
+      "id": "13a6a5bc-e6bb-4fcd-b61e-7138b0089949",
+      "createdAt": "2026-06-05T15:19:04.000Z",
+      "updatedAt": "2026-06-05T15:19:04.000Z",
+      "uid": "35240-13a6a5bc-e6bb-4fcd-b61e-7138b0089949"
+    },
+    {
+      "name": "notifications",
+      "item": [
+        {
+          "name": "preferences",
+          "item": [
+            {
+              "name": "Get Notification Preferences",
+              "id": "a211ded0-6f7a-433d-a970-c73cb0eba556",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/notifications/preferences",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "notifications",
+                    "preferences"
+                  ]
+                },
+                "description": "Retrieve the customer notification preferences including enabled channels, event subscriptions, and delivery settings."
+              },
+              "response": [
+                {
+                  "id": "3ffc54d3-b61d-4389-b1d9-26952753f73c",
+                  "name": "Successfully retrieved notification preferences",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/notifications/preferences",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notifications",
+                        "preferences"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"pushEnabled\": \"<boolean>\",\n  \"smsEnabled\": \"<boolean>\",\n  \"emailEnabled\": \"<boolean>\",\n  \"transactionAlerts\": \"<boolean>\",\n  \"balanceThresholdAlert\": \"<boolean>\",\n  \"balanceThreshold\": \"<number>\"\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-3ffc54d3-b61d-4389-b1d9-26952753f73c"
+                },
+                {
+                  "id": "e1301fab-174e-4306-b4f0-2f25c2b88d7a",
+                  "name": "Authentication credentials missing or invalid",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/notifications/preferences",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notifications",
+                        "preferences"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-e1301fab-174e-4306-b4f0-2f25c2b88d7a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-a211ded0-6f7a-433d-a970-c73cb0eba556"
+            },
+            {
+              "name": "Update Notification Preferences",
+              "id": "d1383bf4-3591-444d-af42-0663652d5d8a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pushEnabled\": \"<boolean>\",\n  \"smsEnabled\": \"<boolean>\",\n  \"emailEnabled\": \"<boolean>\",\n  \"transactionAlerts\": \"<boolean>\",\n  \"balanceThresholdAlert\": \"<boolean>\",\n  \"balanceThreshold\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/notifications/preferences",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "notifications",
+                    "preferences"
+                  ]
+                },
+                "description": "Update the customer notification preferences for banking events such as transactions, balance thresholds, and security alerts."
+              },
+              "response": [
+                {
+                  "id": "c165a5b4-2c22-4d3b-ba08-8ec2bae1611f",
+                  "name": "Successfully updated notification preferences",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"pushEnabled\": \"<boolean>\",\n  \"smsEnabled\": \"<boolean>\",\n  \"emailEnabled\": \"<boolean>\",\n  \"transactionAlerts\": \"<boolean>\",\n  \"balanceThresholdAlert\": \"<boolean>\",\n  \"balanceThreshold\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/notifications/preferences",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notifications",
+                        "preferences"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"pushEnabled\": \"<boolean>\",\n  \"smsEnabled\": \"<boolean>\",\n  \"emailEnabled\": \"<boolean>\",\n  \"transactionAlerts\": \"<boolean>\",\n  \"balanceThresholdAlert\": \"<boolean>\",\n  \"balanceThreshold\": \"<number>\"\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-c165a5b4-2c22-4d3b-ba08-8ec2bae1611f"
+                },
+                {
+                  "id": "2564c144-f7fb-40b7-82b1-8f8f00319fc0",
+                  "name": "Invalid request parameters or payload",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"pushEnabled\": \"<boolean>\",\n  \"smsEnabled\": \"<boolean>\",\n  \"emailEnabled\": \"<boolean>\",\n  \"transactionAlerts\": \"<boolean>\",\n  \"balanceThresholdAlert\": \"<boolean>\",\n  \"balanceThreshold\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/notifications/preferences",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notifications",
+                        "preferences"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-2564c144-f7fb-40b7-82b1-8f8f00319fc0"
+                },
+                {
+                  "id": "a6a18894-4aba-4f28-94b1-5379bb10ec12",
+                  "name": "Authentication credentials missing or invalid",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"pushEnabled\": \"<boolean>\",\n  \"smsEnabled\": \"<boolean>\",\n  \"emailEnabled\": \"<boolean>\",\n  \"transactionAlerts\": \"<boolean>\",\n  \"balanceThresholdAlert\": \"<boolean>\",\n  \"balanceThreshold\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/notifications/preferences",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notifications",
+                        "preferences"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-a6a18894-4aba-4f28-94b1-5379bb10ec12"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-d1383bf4-3591-444d-af42-0663652d5d8a"
+            }
+          ],
+          "id": "2a1c4210-ef23-4f26-9d1b-83b4251b812b",
+          "createdAt": "2026-06-05T15:19:04.000Z",
+          "updatedAt": "2026-06-05T15:19:04.000Z",
+          "uid": "35240-2a1c4210-ef23-4f26-9d1b-83b4251b812b"
+        }
+      ],
+      "id": "d79de42b-9aa9-4dd3-9324-3aaaca37f7a9",
+      "createdAt": "2026-06-05T15:19:04.000Z",
+      "updatedAt": "2026-06-05T15:19:04.000Z",
+      "uid": "35240-d79de42b-9aa9-4dd3-9324-3aaaca37f7a9"
+    },
+    {
+      "name": "consents",
+      "item": [
+        {
+          "name": "{consentId}",
+          "item": [
+            {
+              "name": "Get Consent Details",
+              "id": "bbf4570b-2ca8-45f6-a077-be8f4937dc01",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/consents/:consentId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "consents",
+                    ":consentId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "89777a2a-8067-4242-921c-3efbae27e24b",
+                      "key": "consentId",
+                      "value": "<string>",
+                      "description": "(Required) Unique consent identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve the details and current status of a consent record including authorized scopes, expiration, and third-party provider information."
+              },
+              "response": [
+                {
+                  "id": "c31b4540-293c-4fe3-ba61-9d1fb1b342b2",
+                  "name": "Successfully retrieved consent details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/consents/:consentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "consents",
+                        ":consentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "consentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"consentId\": \"<string>\",\n  \"status\": \"EXPIRED\",\n  \"tppId\": \"<string>\",\n  \"permissions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdDate\": \"<dateTime>\",\n  \"expirationDate\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-c31b4540-293c-4fe3-ba61-9d1fb1b342b2"
+                },
+                {
+                  "id": "31d476c5-bf16-4505-83c9-7c6b4a443cc1",
+                  "name": "Authentication credentials missing or invalid",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/consents/:consentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "consents",
+                        ":consentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "consentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-31d476c5-bf16-4505-83c9-7c6b4a443cc1"
+                },
+                {
+                  "id": "a5d2dcc7-6011-4a9f-8d94-242278303708",
+                  "name": "Requested resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/consents/:consentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "consents",
+                        ":consentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "consentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-a5d2dcc7-6011-4a9f-8d94-242278303708"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-bbf4570b-2ca8-45f6-a077-be8f4937dc01"
+            },
+            {
+              "name": "Revoke Consent",
+              "id": "d44c552a-96d6-47b1-932b-980fa8e1ddba",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/consents/:consentId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "consents",
+                    ":consentId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "91b72929-5803-4800-9f41-efe9a7917403",
+                      "key": "consentId",
+                      "value": "<string>",
+                      "description": "(Required) Unique consent identifier"
+                    }
+                  ]
+                },
+                "description": "Revoke an existing consent, immediately terminating the third-party provider access to the authorized account data or payment initiation capabilities."
+              },
+              "response": [
+                {
+                  "id": "2577a04e-8743-4ec1-a2d8-3c00a8649c71",
+                  "name": "Consent successfully revoked",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/consents/:consentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "consents",
+                        ":consentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "consentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-2577a04e-8743-4ec1-a2d8-3c00a8649c71"
+                },
+                {
+                  "id": "75de2ac5-cf48-4370-a886-caaddb97e273",
+                  "name": "Authentication credentials missing or invalid",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/consents/:consentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "consents",
+                        ":consentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "consentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-75de2ac5-cf48-4370-a886-caaddb97e273"
+                },
+                {
+                  "id": "44579457-416b-4334-91f6-ebc6f06014ca",
+                  "name": "Requested resource not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/consents/:consentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "consents",
+                        ":consentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "consentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:04.000Z",
+                  "updatedAt": "2026-06-05T15:19:04.000Z",
+                  "uid": "35240-44579457-416b-4334-91f6-ebc6f06014ca"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-d44c552a-96d6-47b1-932b-980fa8e1ddba"
+            }
+          ],
+          "id": "15b9c236-e314-42d1-96b0-444e74e09799",
+          "createdAt": "2026-06-05T15:19:04.000Z",
+          "updatedAt": "2026-06-05T15:19:04.000Z",
+          "uid": "35240-15b9c236-e314-42d1-96b0-444e74e09799"
+        },
+        {
+          "name": "Create Consent Record",
+          "id": "1ab9b410-5375-4af0-81c3-5e94618659d9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tppId\": \"<string>\",\n  \"permissions\": [\n    \"READ_BALANCES\",\n    \"READ_ACCOUNTS\"\n  ],\n  \"expirationDate\": \"<dateTime>\",\n  \"accountIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/consents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "consents"
+              ]
+            },
+            "description": "Create a new consent record for Open Banking data sharing, authorizing a third-party provider to access specified account information or initiate payments under PSD2 regulations."
+          },
+          "response": [
+            {
+              "id": "c51620ae-863d-4898-89cd-cb2fdc79f5c7",
+              "name": "Consent successfully created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tppId\": \"<string>\",\n  \"permissions\": [\n    \"READ_BALANCES\",\n    \"READ_ACCOUNTS\"\n  ],\n  \"expirationDate\": \"<dateTime>\",\n  \"accountIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/consents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "consents"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"consentId\": \"<string>\",\n  \"status\": \"EXPIRED\",\n  \"tppId\": \"<string>\",\n  \"permissions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdDate\": \"<dateTime>\",\n  \"expirationDate\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-c51620ae-863d-4898-89cd-cb2fdc79f5c7"
+            },
+            {
+              "id": "67750d92-f28d-4b9c-a809-9dcb1a14c116",
+              "name": "Invalid request parameters or payload",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tppId\": \"<string>\",\n  \"permissions\": [\n    \"READ_BALANCES\",\n    \"READ_ACCOUNTS\"\n  ],\n  \"expirationDate\": \"<dateTime>\",\n  \"accountIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/consents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "consents"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-67750d92-f28d-4b9c-a809-9dcb1a14c116"
+            },
+            {
+              "id": "09c73495-62ed-4a42-a91d-f73f75ec488c",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tppId\": \"<string>\",\n  \"permissions\": [\n    \"READ_BALANCES\",\n    \"READ_ACCOUNTS\"\n  ],\n  \"expirationDate\": \"<dateTime>\",\n  \"accountIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/consents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "consents"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:04.000Z",
+              "updatedAt": "2026-06-05T15:19:04.000Z",
+              "uid": "35240-09c73495-62ed-4a42-a91d-f73f75ec488c"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:04.000Z",
+          "updatedAt": "2026-06-05T15:19:04.000Z",
+          "uid": "35240-1ab9b410-5375-4af0-81c3-5e94618659d9"
+        }
+      ],
+      "id": "291e34f5-50eb-4f7e-bf2f-9239036e48f8",
+      "createdAt": "2026-06-05T15:19:04.000Z",
+      "updatedAt": "2026-06-05T15:19:04.000Z",
+      "uid": "35240-291e34f5-50eb-4f7e-bf2f-9239036e48f8"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.temenos.com/infinity/v1"
+    }
+  ]
+}

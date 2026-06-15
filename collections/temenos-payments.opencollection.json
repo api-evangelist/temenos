@@ -1,0 +1,469 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Payments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payment Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Payment Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/payments/v1/paymentOrders",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by originating account identifier"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by payment order status"
+              },
+              {
+                "name": "paymentType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by payment type"
+              },
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Filter payments from this date"
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query",
+                "description": "Filter payments up to this date"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of payment orders with optional filtering by status, date range, payment type, and originating account. Returns payment details including amounts, beneficiary information, and processing status."
+        },
+        {
+          "info": {
+            "name": "Create Payment Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/payments/v1/paymentOrders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a new payment order for fund transfer. Supports SEPA credit transfers, instant SEPA payments, SWIFT cross-border transfers, domestic payments, and internal account-to-account transfers. Validates payment details, beneficiary information, and available balance before processing."
+        },
+        {
+          "info": {
+            "name": "Get Payment Order Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/payments/v1/paymentOrders/:paymentOrderId",
+            "params": [
+              {
+                "name": "paymentOrderId",
+                "value": "",
+                "type": "path",
+                "description": "Unique payment order identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific payment order including processing status, clearing details, and beneficiary information."
+        },
+        {
+          "info": {
+            "name": "Get Payment Order Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/payments/v1/paymentOrders/:paymentOrderId/status",
+            "params": [
+              {
+                "name": "paymentOrderId",
+                "value": "",
+                "type": "path",
+                "description": "Unique payment order identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve the current processing status of a payment order including clearing status, booking confirmation, and any error details."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Bulk Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Bulk Payment Batches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/payments/v1/bulkPayments",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by batch processing status"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of bulk payment batches with their processing status and summary information including total amounts and payment counts."
+        },
+        {
+          "info": {
+            "name": "Create Bulk Payment Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/payments/v1/bulkPayments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a bulk payment batch by uploading payment instructions for batch processing. Supports file upload and manual entry with configurable approval workflows."
+        },
+        {
+          "info": {
+            "name": "Approve Bulk Payment Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/payments/v1/bulkPayments/:batchId/approve",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Unique bulk payment batch identifier"
+              }
+            ]
+          },
+          "docs": "Approve a bulk payment batch for processing after review. Applies the configured approval workflow rules."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Direct Debits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Direct Debit Mandates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/payments/v1/directDebits",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by debited account identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve direct debit instructions and mandate collections including SEPA direct debits with creditor details, amounts, and collection frequencies."
+        },
+        {
+          "info": {
+            "name": "Get Direct Debit Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/payments/v1/directDebits/:directDebitId",
+            "params": [
+              {
+                "name": "directDebitId",
+                "value": "",
+                "type": "path",
+                "description": "Unique direct debit mandate identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific direct debit mandate including collection history and next collection date."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Standing Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Standing Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/payments/v1/standingOrders",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by originating account identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve standing order instructions for recurring payments with their frequency, amounts, beneficiary details, and execution status."
+        },
+        {
+          "info": {
+            "name": "Create Standing Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/payments/v1/standingOrders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new standing order instruction for automated recurring payments with specified frequency, amount, and beneficiary."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payment Stops",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Payment Stop Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/payments/v1/paymentStops",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by account identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve active payment stop instructions including stops based on cheque details, transaction amounts, or payment references."
+        },
+        {
+          "info": {
+            "name": "Create Payment Stop Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/payments/v1/paymentStops",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a stop instruction for individual payments based on cheque number, transaction amount range, or payment reference to prevent processing."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Request to Pay",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Request-to-pay Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/payments/v1/requestToPay",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Filter by request direction"
+              }
+            ]
+          },
+          "docs": "Retrieve request-to-pay messages including incoming requests for payment and outgoing payment requests with their resolution status."
+        },
+        {
+          "info": {
+            "name": "Create Request-to-pay",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/payments/v1/requestToPay",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a new request-to-pay message to a payer through the RTP clearing system. Includes payee details, amount, and payment terms."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "PSD2 Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List PSD2 Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/payments/v1/psd2/accounts",
+            "headers": [
+              {
+                "name": "consentId",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieve account information for authorized third-party provider access under PSD2 Berlin Group standards. Requires valid consent from the account holder."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payment Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Payment Routing Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/payments/v1/configuration/paymentRoutes"
+          },
+          "docs": "Retrieve payment routing configurations including clearing channel assignments and payment type routing rules."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

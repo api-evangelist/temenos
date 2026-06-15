@@ -1,0 +1,1173 @@
+{
+  "info": {
+    "_postman_id": "c7a4bd18-df40-4ed7-854f-25656f1b25d9",
+    "name": "Temenos Buy Now Pay Later API",
+    "description": "APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:23.000Z",
+    "updatedAt": "2026-06-05T15:19:23.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c7a4bd18-df40-4ed7-854f-25656f1b25d9"
+  },
+  "item": [
+    {
+      "name": "offers",
+      "item": [
+        {
+          "name": "{offerId}",
+          "item": [
+            {
+              "name": "accept",
+              "item": [
+                {
+                  "name": "Accept Credit Offer",
+                  "id": "cd36235e-7aa8-4fc4-8f1a-0b63f1547fc0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/offers/:offerId/accept",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "offers",
+                        ":offerId",
+                        "accept"
+                      ],
+                      "variable": [
+                        {
+                          "id": "6f76489f-3415-468c-ac29-65650231701c",
+                          "key": "offerId",
+                          "value": "<string>",
+                          "description": "(Required) Offer identifier"
+                        }
+                      ]
+                    },
+                    "description": "Accept a BNPL credit offer to initiate loan creation and merchant settlement processing."
+                  },
+                  "response": [
+                    {
+                      "id": "99331cb2-0a6d-4991-b138-f850982a8257",
+                      "name": "Offer accepted and loan created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/offers/:offerId/accept",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "offers",
+                            ":offerId",
+                            "accept"
+                          ],
+                          "variable": [
+                            {
+                              "key": "offerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"loanId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"merchantId\": \"<string>\",\n  \"purchaseAmount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"outstandingBalance\": \"<double>\",\n  \"numberOfInstallments\": \"<integer>\",\n  \"installmentsPaid\": \"<integer>\",\n  \"nextPaymentDate\": \"<date>\",\n  \"nextPaymentAmount\": \"<double>\",\n  \"status\": \"ACTIVE\",\n  \"createdDate\": \"<date>\"\n}",
+                      "createdAt": "2026-06-05T15:19:23.000Z",
+                      "updatedAt": "2026-06-05T15:19:23.000Z",
+                      "uid": "35240-99331cb2-0a6d-4991-b138-f850982a8257"
+                    },
+                    {
+                      "id": "8464ef91-4d86-4c55-b351-219f459e7546",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/offers/:offerId/accept",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "offers",
+                            ":offerId",
+                            "accept"
+                          ],
+                          "variable": [
+                            {
+                              "key": "offerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:23.000Z",
+                      "updatedAt": "2026-06-05T15:19:23.000Z",
+                      "uid": "35240-8464ef91-4d86-4c55-b351-219f459e7546"
+                    },
+                    {
+                      "id": "8202960d-c206-4dc0-855b-a9b8e0933f3b",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/offers/:offerId/accept",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "offers",
+                            ":offerId",
+                            "accept"
+                          ],
+                          "variable": [
+                            {
+                              "key": "offerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:23.000Z",
+                      "updatedAt": "2026-06-05T15:19:23.000Z",
+                      "uid": "35240-8202960d-c206-4dc0-855b-a9b8e0933f3b"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:23.000Z",
+                  "updatedAt": "2026-06-05T15:19:23.000Z",
+                  "uid": "35240-cd36235e-7aa8-4fc4-8f1a-0b63f1547fc0"
+                }
+              ],
+              "id": "186588ff-2b6e-406e-9584-bf8665f98458",
+              "createdAt": "2026-06-05T15:19:23.000Z",
+              "updatedAt": "2026-06-05T15:19:23.000Z",
+              "uid": "35240-186588ff-2b6e-406e-9584-bf8665f98458"
+            },
+            {
+              "name": "Get Credit Offer Details",
+              "id": "11d9370c-2587-4718-998c-967d5c151af0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/offers/:offerId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "offers",
+                    ":offerId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "aa5ce6e8-ad02-49e6-97b3-fc83afdb3430",
+                      "key": "offerId",
+                      "value": "<string>",
+                      "description": "(Required) Offer identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve details of a generated credit offer including terms, repayment schedule, and AI decisioning explanation."
+              },
+              "response": [
+                {
+                  "id": "3d7ad028-9a2f-47a9-b650-bfa7cf48d684",
+                  "name": "Successful retrieval",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/offers/:offerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "offers",
+                        ":offerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "offerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"offerId\": \"<string>\",\n  \"offerType\": \"INTEREST_BEARING\",\n  \"purchaseAmount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"numberOfInstallments\": \"<integer>\",\n  \"installmentAmount\": \"<double>\",\n  \"interestRate\": \"<double>\",\n  \"totalRepayment\": \"<double>\",\n  \"expiresAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:19:23.000Z",
+                  "updatedAt": "2026-06-05T15:19:23.000Z",
+                  "uid": "35240-3d7ad028-9a2f-47a9-b650-bfa7cf48d684"
+                },
+                {
+                  "id": "1c62f628-2adf-464b-ac89-ac142b6d87b8",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/offers/:offerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "offers",
+                        ":offerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "offerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:23.000Z",
+                  "updatedAt": "2026-06-05T15:19:23.000Z",
+                  "uid": "35240-1c62f628-2adf-464b-ac89-ac142b6d87b8"
+                },
+                {
+                  "id": "cec84118-acd4-46c3-a97a-cc3774646770",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/offers/:offerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "offers",
+                        ":offerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "offerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:23.000Z",
+                  "updatedAt": "2026-06-05T15:19:23.000Z",
+                  "uid": "35240-cec84118-acd4-46c3-a97a-cc3774646770"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:23.000Z",
+              "updatedAt": "2026-06-05T15:19:23.000Z",
+              "uid": "35240-11d9370c-2587-4718-998c-967d5c151af0"
+            }
+          ],
+          "id": "354f2b14-4cfd-4c8d-86f4-44f243d01e09",
+          "createdAt": "2026-06-05T15:19:23.000Z",
+          "updatedAt": "2026-06-05T15:19:23.000Z",
+          "uid": "35240-354f2b14-4cfd-4c8d-86f4-44f243d01e09"
+        },
+        {
+          "name": "Create Credit Offer",
+          "id": "b8adee34-5a6e-4ead-b18c-b6adce981876",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"<string>\",\n  \"purchaseAmount\": \"<double>\",\n  \"currency\": \"UDR\",\n  \"merchantId\": \"<string>\",\n  \"purchaseDescription\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/offers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "offers"
+              ]
+            },
+            "description": "Generate a BNPL credit offer using Explainable AI decisioning based on customer data, purchase amount, and configured product rules. Returns eligible offer options with interest-free and interest-bearing terms."
+          },
+          "response": [
+            {
+              "id": "1e552f9d-a6a4-466d-bafb-c6f68308166c",
+              "name": "Credit offer generated",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"purchaseAmount\": \"<double>\",\n  \"currency\": \"UDR\",\n  \"merchantId\": \"<string>\",\n  \"purchaseDescription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/offers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "offers"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"offers\": [\n    {\n      \"offerId\": \"<string>\",\n      \"offerType\": \"INTEREST_BEARING\",\n      \"purchaseAmount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"numberOfInstallments\": \"<integer>\",\n      \"installmentAmount\": \"<double>\",\n      \"interestRate\": \"<double>\",\n      \"totalRepayment\": \"<double>\",\n      \"expiresAt\": \"<dateTime>\"\n    },\n    {\n      \"offerId\": \"<string>\",\n      \"offerType\": \"INTEREST_BEARING\",\n      \"purchaseAmount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"numberOfInstallments\": \"<integer>\",\n      \"installmentAmount\": \"<double>\",\n      \"interestRate\": \"<double>\",\n      \"totalRepayment\": \"<double>\",\n      \"expiresAt\": \"<dateTime>\"\n    }\n  ],\n  \"decisionExplanation\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:23.000Z",
+              "updatedAt": "2026-06-05T15:19:23.000Z",
+              "uid": "35240-1e552f9d-a6a4-466d-bafb-c6f68308166c"
+            },
+            {
+              "id": "369c369f-eb4f-4649-b664-5dc0748bcd3d",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"purchaseAmount\": \"<double>\",\n  \"currency\": \"UDR\",\n  \"merchantId\": \"<string>\",\n  \"purchaseDescription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/offers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "offers"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:23.000Z",
+              "updatedAt": "2026-06-05T15:19:23.000Z",
+              "uid": "35240-369c369f-eb4f-4649-b664-5dc0748bcd3d"
+            },
+            {
+              "id": "f9f279dd-8170-4678-9229-1aa42c791c60",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"purchaseAmount\": \"<double>\",\n  \"currency\": \"UDR\",\n  \"merchantId\": \"<string>\",\n  \"purchaseDescription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/offers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "offers"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:23.000Z",
+              "updatedAt": "2026-06-05T15:19:23.000Z",
+              "uid": "35240-f9f279dd-8170-4678-9229-1aa42c791c60"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:23.000Z",
+          "updatedAt": "2026-06-05T15:19:23.000Z",
+          "uid": "35240-b8adee34-5a6e-4ead-b18c-b6adce981876"
+        }
+      ],
+      "id": "dd992424-2214-4f77-bd3f-ad3e699ad8de",
+      "createdAt": "2026-06-05T15:19:23.000Z",
+      "updatedAt": "2026-06-05T15:19:23.000Z",
+      "uid": "35240-dd992424-2214-4f77-bd3f-ad3e699ad8de"
+    },
+    {
+      "name": "loans",
+      "item": [
+        {
+          "name": "{loanId}",
+          "item": [
+            {
+              "name": "Get BNPL Loan Details",
+              "id": "e2ab25c7-4281-408e-b012-5059884988a9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/loans/:loanId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "loans",
+                    ":loanId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "466b6ba3-aadd-47b7-b37e-392b1bf36786",
+                      "key": "loanId",
+                      "value": "<string>",
+                      "description": "(Required) Loan identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve detailed BNPL loan information including payment schedule, payment history, and outstanding balance."
+              },
+              "response": [
+                {
+                  "id": "f35443ec-bc83-45d9-a2ad-dac82e64d0ce",
+                  "name": "Successful retrieval",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/loans/:loanId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "loans",
+                        ":loanId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "loanId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"loanId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"merchantId\": \"<string>\",\n  \"purchaseAmount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"outstandingBalance\": \"<double>\",\n  \"numberOfInstallments\": \"<integer>\",\n  \"installmentsPaid\": \"<integer>\",\n  \"nextPaymentDate\": \"<date>\",\n  \"nextPaymentAmount\": \"<double>\",\n  \"status\": \"ACTIVE\",\n  \"createdDate\": \"<date>\"\n}",
+                  "createdAt": "2026-06-05T15:19:23.000Z",
+                  "updatedAt": "2026-06-05T15:19:23.000Z",
+                  "uid": "35240-f35443ec-bc83-45d9-a2ad-dac82e64d0ce"
+                },
+                {
+                  "id": "5564a016-7562-4d27-9bab-34ee02707a86",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/loans/:loanId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "loans",
+                        ":loanId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "loanId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:23.000Z",
+                  "updatedAt": "2026-06-05T15:19:23.000Z",
+                  "uid": "35240-5564a016-7562-4d27-9bab-34ee02707a86"
+                },
+                {
+                  "id": "014717a1-2e9c-4a90-9c00-07e1f5a693ac",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/loans/:loanId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "loans",
+                        ":loanId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "loanId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:23.000Z",
+                  "updatedAt": "2026-06-05T15:19:23.000Z",
+                  "uid": "35240-014717a1-2e9c-4a90-9c00-07e1f5a693ac"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:23.000Z",
+              "updatedAt": "2026-06-05T15:19:23.000Z",
+              "uid": "35240-e2ab25c7-4281-408e-b012-5059884988a9"
+            }
+          ],
+          "id": "04ffa63a-dfc0-497a-bf08-df3370dfda7a",
+          "createdAt": "2026-06-05T15:19:23.000Z",
+          "updatedAt": "2026-06-05T15:19:23.000Z",
+          "uid": "35240-04ffa63a-dfc0-497a-bf08-df3370dfda7a"
+        },
+        {
+          "name": "List BNPL Loans",
+          "id": "9d16573c-6675-4179-b38a-739fbe8fa622",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/loans?page_size=25&page_start=0&customerId=<string>&status=DEFAULTED",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "loans"
+              ],
+              "query": [
+                {
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "key": "page_start",
+                  "value": "0"
+                },
+                {
+                  "description": "Filter by customer",
+                  "key": "customerId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by loan status",
+                  "key": "status",
+                  "value": "DEFAULTED"
+                }
+              ]
+            },
+            "description": "Retrieve BNPL loans with their repayment status, payment schedules, and outstanding balances."
+          },
+          "response": [
+            {
+              "id": "5bc5db11-fb85-4b7a-9674-af439b9f505a",
+              "name": "Successful retrieval",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/loans?page_size=25&page_start=0&customerId=<string>&status=DEFAULTED",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "loans"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by customer",
+                      "key": "customerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by loan status",
+                      "key": "status",
+                      "value": "DEFAULTED"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"loanId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"merchantId\": \"<string>\",\n      \"purchaseAmount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"outstandingBalance\": \"<double>\",\n      \"numberOfInstallments\": \"<integer>\",\n      \"installmentsPaid\": \"<integer>\",\n      \"nextPaymentDate\": \"<date>\",\n      \"nextPaymentAmount\": \"<double>\",\n      \"status\": \"DEFAULTED\",\n      \"createdDate\": \"<date>\"\n    },\n    {\n      \"loanId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"merchantId\": \"<string>\",\n      \"purchaseAmount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"outstandingBalance\": \"<double>\",\n      \"numberOfInstallments\": \"<integer>\",\n      \"installmentsPaid\": \"<integer>\",\n      \"nextPaymentDate\": \"<date>\",\n      \"nextPaymentAmount\": \"<double>\",\n      \"status\": \"COMPLETED\",\n      \"createdDate\": \"<date>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:23.000Z",
+              "updatedAt": "2026-06-05T15:19:23.000Z",
+              "uid": "35240-5bc5db11-fb85-4b7a-9674-af439b9f505a"
+            },
+            {
+              "id": "116531d4-a27b-4cee-b2d2-d454fe2a5048",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/loans?page_size=25&page_start=0&customerId=<string>&status=DEFAULTED",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "loans"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by customer",
+                      "key": "customerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by loan status",
+                      "key": "status",
+                      "value": "DEFAULTED"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:23.000Z",
+              "updatedAt": "2026-06-05T15:19:23.000Z",
+              "uid": "35240-116531d4-a27b-4cee-b2d2-d454fe2a5048"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:23.000Z",
+          "updatedAt": "2026-06-05T15:19:23.000Z",
+          "uid": "35240-9d16573c-6675-4179-b38a-739fbe8fa622"
+        }
+      ],
+      "id": "06949255-1025-40a0-9515-77aecba2f459",
+      "createdAt": "2026-06-05T15:19:23.000Z",
+      "updatedAt": "2026-06-05T15:19:23.000Z",
+      "uid": "35240-06949255-1025-40a0-9515-77aecba2f459"
+    },
+    {
+      "name": "merchants",
+      "item": [
+        {
+          "name": "List Merchants",
+          "id": "a4b07ce4-5d14-44c4-a519-fd7e33a47ceb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/merchants?page_size=25&page_start=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "merchants"
+              ],
+              "query": [
+                {
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "key": "page_start",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "Retrieve registered merchants with their BNPL integration configurations and settlement details."
+          },
+          "response": [
+            {
+              "id": "230c5cd9-2bd0-4306-8276-077c4f1b49d0",
+              "name": "Successful retrieval",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/merchants?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "merchants"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"merchantId\": \"<string>\",\n      \"merchantName\": \"<string>\",\n      \"category\": \"<string>\",\n      \"settlementAccountId\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"merchantId\": \"<string>\",\n      \"merchantName\": \"<string>\",\n      \"category\": \"<string>\",\n      \"settlementAccountId\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:23.000Z",
+              "updatedAt": "2026-06-05T15:19:23.000Z",
+              "uid": "35240-230c5cd9-2bd0-4306-8276-077c4f1b49d0"
+            },
+            {
+              "id": "d35f1b3e-e5b7-4df2-9f8c-62c8c0dafcd2",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/merchants?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "merchants"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:23.000Z",
+              "updatedAt": "2026-06-05T15:19:23.000Z",
+              "uid": "35240-d35f1b3e-e5b7-4df2-9f8c-62c8c0dafcd2"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:23.000Z",
+          "updatedAt": "2026-06-05T15:19:23.000Z",
+          "uid": "35240-a4b07ce4-5d14-44c4-a519-fd7e33a47ceb"
+        }
+      ],
+      "id": "3c1e13be-88b4-4713-8917-2febc1d8e197",
+      "createdAt": "2026-06-05T15:19:23.000Z",
+      "updatedAt": "2026-06-05T15:19:23.000Z",
+      "uid": "35240-3c1e13be-88b4-4713-8917-2febc1d8e197"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.temenos.com/bnpl/v1"
+    }
+  ]
+}

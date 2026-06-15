@@ -1,0 +1,422 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Fund Administration API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Party",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Investors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/funds/v1/party/investors",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of investors with their master data including personal details, investment accounts, tax residence information, and KYC status."
+        },
+        {
+          "info": {
+            "name": "Create Investor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/funds/v1/party/investors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new investor master record with personal details, address information, bank account details, and tax residence documentation."
+        },
+        {
+          "info": {
+            "name": "List Distributors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/funds/v1/party/distributors",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of fund distributors with their details including distribution agreements, commission structures, and cutoff configurations."
+        },
+        {
+          "info": {
+            "name": "List AML Screenings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/funds/v1/party/aml/screenings",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve anti-money laundering screening results including blocking codes, monitoring information, and compliance documentation for investors and distributors."
+        },
+        {
+          "info": {
+            "name": "List FATCA/CRS Records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/funds/v1/party/fatca",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve FATCA and CRS tax compliance documentation and status information for investors across jurisdictions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Holdings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Fund Positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/funds/v1/holdings/positions",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "fundId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by fund identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve investment positions across funds including equities, bonds, derivatives, and other securities with current valuations and accounting data."
+        },
+        {
+          "info": {
+            "name": "List Holdings Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/funds/v1/holdings/transactions",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "fundId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by fund identifier"
+              },
+              {
+                "name": "transactionType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by transaction type"
+              }
+            ]
+          },
+          "docs": "Retrieve securities transactions including equity trades, bond transactions, FX spot and forward deals, futures, options, and swap bookings across fund portfolios."
+        },
+        {
+          "info": {
+            "name": "Book Dividend Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/funds/v1/holdings/dividends",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Book a dividend or coupon distribution transaction for a fund including income distributions and reinvestment processing."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Order Instructions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/funds/v1/order/instructions",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "fundId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by fund identifier"
+              },
+              {
+                "name": "instructionType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by instruction type"
+              }
+            ]
+          },
+          "docs": "Retrieve order instructions for subscription, redemption, switch, and transfer operations across fund share classes."
+        },
+        {
+          "info": {
+            "name": "Create Order Instruction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/funds/v1/order/instructions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new order instruction for subscription, redemption, switch, or transfer operations with share class and quantity details."
+        },
+        {
+          "info": {
+            "name": "Set Share Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/funds/v1/order/sharePrices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the net asset value (NAV) based share price for a fund share class for a specific valuation date."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Product",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Funds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/funds/v1/product/funds",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve the list of funds with their master data including fund type, domicile, base currency, manager information, and promoter details."
+        },
+        {
+          "info": {
+            "name": "Create Fund",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/funds/v1/product/funds",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new fund master record with fund type, domicile, base currency, manager assignment, and regulatory configuration."
+        },
+        {
+          "info": {
+            "name": "List Share Classes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/funds/v1/product/shareClasses",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "fundId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by fund identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve share class configurations for funds including pricing details, fee structures, distribution policies, and investor eligibility criteria."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Inject Exchange Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/funds/v1/reference/exchangeRates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Load daily foreign exchange rates for fund valuation and multi-currency position calculations."
+        },
+        {
+          "info": {
+            "name": "Inject Security Prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/funds/v1/reference/securityPrices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Import market security prices for portfolio valuation including equity prices, bond prices, and derivative valuations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2823 @@
+{
+  "info": {
+    "_postman_id": "4a97eb82-5841-4474-a592-10bb7434588a",
+    "name": "Temenos Enterprise Product and Pricing API",
+    "description": "APIs for product pricing, quotation simulation, package arrangements, pricing adjustments, transparency details, and promotions management for banking products and services. Enables simulation of account creation and transaction events to determine applicable pricing details including interest rates, fees, and cashback. Supports pricing negotiation through quotation references and manual adjustment workflows.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:16.000Z",
+    "updatedAt": "2026-06-05T15:19:16.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4a97eb82-5841-4474-a592-10bb7434588a"
+  },
+  "item": [
+    {
+      "name": "quotations",
+      "item": [
+        {
+          "name": "simulate",
+          "item": [
+            {
+              "name": "Simulate Account Creation Pricing",
+              "id": "04045154-9ebc-4827-b3f4-6727ce8216e2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productId\": \"<string>\",\n  \"currency\": \"OPR\",\n  \"customerId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"term\": \"<integer>\",\n  \"quotationReference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/quotations/simulate",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "quotations",
+                    "simulate"
+                  ]
+                },
+                "description": "Simulate the creation of an arrangement or account to determine applicable pricing details including interest rates, fees, and cashback. Returns a quotation reference that can be used for negotiating or adjusting pricing details or for creating a new account."
+              },
+              "response": [
+                {
+                  "id": "73e5adda-7d68-41ab-8492-6145c069a371",
+                  "name": "Quotation simulation completed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"productId\": \"<string>\",\n  \"currency\": \"OPR\",\n  \"customerId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"term\": \"<integer>\",\n  \"quotationReference\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/simulate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        "simulate"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"quotationReference\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"interestRates\": [\n    {\n      \"rateType\": \"PROMOTIONAL\",\n      \"baseRate\": \"<double>\",\n      \"benefit\": \"<double>\",\n      \"netRate\": \"<double>\",\n      \"effectiveDate\": \"<date>\"\n    },\n    {\n      \"rateType\": \"FIXED\",\n      \"baseRate\": \"<double>\",\n      \"benefit\": \"<double>\",\n      \"netRate\": \"<double>\",\n      \"effectiveDate\": \"<date>\"\n    }\n  ],\n  \"fees\": [\n    {\n      \"feeType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\"\n    }\n  ],\n  \"cashback\": [\n    {\n      \"type\": \"<string>\",\n      \"amount\": \"<double>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"amount\": \"<double>\"\n    }\n  ],\n  \"negotiated\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-73e5adda-7d68-41ab-8492-6145c069a371"
+                },
+                {
+                  "id": "aca27767-bf59-4ba3-8116-ef83f374ca7b",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"productId\": \"<string>\",\n  \"currency\": \"OPR\",\n  \"customerId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"term\": \"<integer>\",\n  \"quotationReference\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/simulate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        "simulate"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-aca27767-bf59-4ba3-8116-ef83f374ca7b"
+                },
+                {
+                  "id": "19c7c640-afb9-4780-896f-973ad7fd7e41",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"productId\": \"<string>\",\n  \"currency\": \"OPR\",\n  \"customerId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"term\": \"<integer>\",\n  \"quotationReference\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/simulate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        "simulate"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-19c7c640-afb9-4780-896f-973ad7fd7e41"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-04045154-9ebc-4827-b3f4-6727ce8216e2"
+            }
+          ],
+          "id": "c8f4b582-6568-4abf-99c1-7d491b8f7501",
+          "createdAt": "2026-06-05T15:19:16.000Z",
+          "updatedAt": "2026-06-05T15:19:16.000Z",
+          "uid": "35240-c8f4b582-6568-4abf-99c1-7d491b8f7501"
+        },
+        {
+          "name": "simulateEvent",
+          "item": [
+            {
+              "name": "Simulate Event Pricing",
+              "id": "b3bb3760-ba40-4d4c-b8d3-58e046d7f63b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"arrangementId\": \"<string>\",\n  \"eventType\": \"PARTIAL_REDEMPTION\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/quotations/simulateEvent",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "quotations",
+                    "simulateEvent"
+                  ]
+                },
+                "description": "Simulate an activity or transaction event such as an ATM withdrawal, partial redemption, or funds transfer to determine applicable pricing details and returns a quotation reference."
+              },
+              "response": [
+                {
+                  "id": "a0713cf6-333d-4b4a-8a18-a192237d8a85",
+                  "name": "Event simulation completed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"arrangementId\": \"<string>\",\n  \"eventType\": \"PARTIAL_REDEMPTION\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/simulateEvent",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        "simulateEvent"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"quotationReference\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"interestRates\": [\n    {\n      \"rateType\": \"PROMOTIONAL\",\n      \"baseRate\": \"<double>\",\n      \"benefit\": \"<double>\",\n      \"netRate\": \"<double>\",\n      \"effectiveDate\": \"<date>\"\n    },\n    {\n      \"rateType\": \"FIXED\",\n      \"baseRate\": \"<double>\",\n      \"benefit\": \"<double>\",\n      \"netRate\": \"<double>\",\n      \"effectiveDate\": \"<date>\"\n    }\n  ],\n  \"fees\": [\n    {\n      \"feeType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\"\n    }\n  ],\n  \"cashback\": [\n    {\n      \"type\": \"<string>\",\n      \"amount\": \"<double>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"amount\": \"<double>\"\n    }\n  ],\n  \"negotiated\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-a0713cf6-333d-4b4a-8a18-a192237d8a85"
+                },
+                {
+                  "id": "2188aed5-286c-44f9-adf4-a8a7fe600d59",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"arrangementId\": \"<string>\",\n  \"eventType\": \"PARTIAL_REDEMPTION\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/simulateEvent",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        "simulateEvent"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-2188aed5-286c-44f9-adf4-a8a7fe600d59"
+                },
+                {
+                  "id": "b4ffc5c6-0666-4f5c-b072-cfcf460c6e3b",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"arrangementId\": \"<string>\",\n  \"eventType\": \"PARTIAL_REDEMPTION\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/simulateEvent",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        "simulateEvent"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-b4ffc5c6-0666-4f5c-b072-cfcf460c6e3b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-b3bb3760-ba40-4d4c-b8d3-58e046d7f63b"
+            }
+          ],
+          "id": "21a9158e-d44b-4554-a329-dffa5f3eed43",
+          "createdAt": "2026-06-05T15:19:16.000Z",
+          "updatedAt": "2026-06-05T15:19:16.000Z",
+          "uid": "35240-21a9158e-d44b-4554-a329-dffa5f3eed43"
+        },
+        {
+          "name": "{quotationReference}",
+          "item": [
+            {
+              "name": "Get Quotation Details",
+              "id": "9ce1ab9e-4f45-4d25-ac1f-b21adfc6e8f3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/quotations/:quotationReference",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "quotations",
+                    ":quotationReference"
+                  ],
+                  "variable": [
+                    {
+                      "id": "78296868-3888-4e91-a916-aa08405a1519",
+                      "key": "quotationReference",
+                      "value": "<string>",
+                      "description": "(Required) Quotation reference identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve pricing details of a simulated quotation. If the quotation has been negotiated, returns final pricing details including any adjustments applied."
+              },
+              "response": [
+                {
+                  "id": "2584a4c4-a6f5-443b-8dbd-e93877345980",
+                  "name": "Successful retrieval of quotation details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/:quotationReference",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        ":quotationReference"
+                      ],
+                      "variable": [
+                        {
+                          "key": "quotationReference"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"quotationReference\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"interestRates\": [\n    {\n      \"rateType\": \"PROMOTIONAL\",\n      \"baseRate\": \"<double>\",\n      \"benefit\": \"<double>\",\n      \"netRate\": \"<double>\",\n      \"effectiveDate\": \"<date>\"\n    },\n    {\n      \"rateType\": \"FIXED\",\n      \"baseRate\": \"<double>\",\n      \"benefit\": \"<double>\",\n      \"netRate\": \"<double>\",\n      \"effectiveDate\": \"<date>\"\n    }\n  ],\n  \"fees\": [\n    {\n      \"feeType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\"\n    }\n  ],\n  \"cashback\": [\n    {\n      \"type\": \"<string>\",\n      \"amount\": \"<double>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"amount\": \"<double>\"\n    }\n  ],\n  \"negotiated\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-2584a4c4-a6f5-443b-8dbd-e93877345980"
+                },
+                {
+                  "id": "31bf4c5a-45d9-48e3-bdf8-1f78a9cfb419",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/:quotationReference",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        ":quotationReference"
+                      ],
+                      "variable": [
+                        {
+                          "key": "quotationReference"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-31bf4c5a-45d9-48e3-bdf8-1f78a9cfb419"
+                },
+                {
+                  "id": "ae3336b9-490f-431d-a278-338d17d6e1fc",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/:quotationReference",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        ":quotationReference"
+                      ],
+                      "variable": [
+                        {
+                          "key": "quotationReference"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-ae3336b9-490f-431d-a278-338d17d6e1fc"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-9ce1ab9e-4f45-4d25-ac1f-b21adfc6e8f3"
+            },
+            {
+              "name": "Amend Quotation Pricing",
+              "id": "4df9692f-5bf0-40db-b46b-a44e43519d03",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"interestRateAdjustment\": \"<double>\",\n  \"feeWaivers\": [\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    }\n  ],\n  \"expiryDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/quotations/:quotationReference",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "quotations",
+                    ":quotationReference"
+                  ],
+                  "variable": [
+                    {
+                      "id": "774066e0-d03c-4d33-a8ad-4158912b78a4",
+                      "key": "quotationReference",
+                      "value": "<string>",
+                      "description": "(Required) Quotation reference identifier"
+                    }
+                  ]
+                },
+                "description": "Amend pricing details such as interest rates or fees for an existing simulated quotation reference as part of pricing negotiation."
+              },
+              "response": [
+                {
+                  "id": "149f05a9-ff6a-4fa8-b46f-6e19a348a7b3",
+                  "name": "Quotation pricing amended",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"interestRateAdjustment\": \"<double>\",\n  \"feeWaivers\": [\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    }\n  ],\n  \"expiryDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/:quotationReference",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        ":quotationReference"
+                      ],
+                      "variable": [
+                        {
+                          "key": "quotationReference"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"quotationReference\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"interestRates\": [\n    {\n      \"rateType\": \"PROMOTIONAL\",\n      \"baseRate\": \"<double>\",\n      \"benefit\": \"<double>\",\n      \"netRate\": \"<double>\",\n      \"effectiveDate\": \"<date>\"\n    },\n    {\n      \"rateType\": \"FIXED\",\n      \"baseRate\": \"<double>\",\n      \"benefit\": \"<double>\",\n      \"netRate\": \"<double>\",\n      \"effectiveDate\": \"<date>\"\n    }\n  ],\n  \"fees\": [\n    {\n      \"feeType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\"\n    }\n  ],\n  \"cashback\": [\n    {\n      \"type\": \"<string>\",\n      \"amount\": \"<double>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"amount\": \"<double>\"\n    }\n  ],\n  \"negotiated\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-149f05a9-ff6a-4fa8-b46f-6e19a348a7b3"
+                },
+                {
+                  "id": "6e9a6aaf-2174-4e81-88c7-80b1e7af5283",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"interestRateAdjustment\": \"<double>\",\n  \"feeWaivers\": [\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    }\n  ],\n  \"expiryDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/:quotationReference",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        ":quotationReference"
+                      ],
+                      "variable": [
+                        {
+                          "key": "quotationReference"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-6e9a6aaf-2174-4e81-88c7-80b1e7af5283"
+                },
+                {
+                  "id": "365ca800-652c-4b4b-a946-dcf3aad9e920",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"interestRateAdjustment\": \"<double>\",\n  \"feeWaivers\": [\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    }\n  ],\n  \"expiryDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/:quotationReference",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        ":quotationReference"
+                      ],
+                      "variable": [
+                        {
+                          "key": "quotationReference"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-365ca800-652c-4b4b-a946-dcf3aad9e920"
+                },
+                {
+                  "id": "0a85904e-6501-4640-b209-cc1fa8f09be3",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"interestRateAdjustment\": \"<double>\",\n  \"feeWaivers\": [\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    }\n  ],\n  \"expiryDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/quotations/:quotationReference",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotations",
+                        ":quotationReference"
+                      ],
+                      "variable": [
+                        {
+                          "key": "quotationReference"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-0a85904e-6501-4640-b209-cc1fa8f09be3"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-4df9692f-5bf0-40db-b46b-a44e43519d03"
+            }
+          ],
+          "id": "3c50833e-e8de-43bc-b629-711fe848b469",
+          "createdAt": "2026-06-05T15:19:16.000Z",
+          "updatedAt": "2026-06-05T15:19:16.000Z",
+          "uid": "35240-3c50833e-e8de-43bc-b629-711fe848b469"
+        }
+      ],
+      "id": "40c7df96-0033-4f60-9b08-d87586dddc48",
+      "createdAt": "2026-06-05T15:19:16.000Z",
+      "updatedAt": "2026-06-05T15:19:16.000Z",
+      "uid": "35240-40c7df96-0033-4f60-9b08-d87586dddc48"
+    },
+    {
+      "name": "packages",
+      "item": [
+        {
+          "name": "{packageId}",
+          "item": [
+            {
+              "name": "pricing",
+              "item": [
+                {
+                  "name": "Get Package Pricing Details",
+                  "id": "a46d1dec-8fc9-4ee3-88f3-9ed8034cf656",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/packages/:packageId/pricing",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "packages",
+                        ":packageId",
+                        "pricing"
+                      ],
+                      "variable": [
+                        {
+                          "id": "c79095b3-6b63-438d-a1c9-87dc6ded07ce",
+                          "key": "packageId",
+                          "value": "<string>",
+                          "description": "(Required) Package arrangement identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve periodic pricing events and benefit details within specific periods for a package arrangement."
+                  },
+                  "response": [
+                    {
+                      "id": "9d009247-f03c-4aa1-b7c1-23c0c7988366",
+                      "name": "Successful retrieval of package pricing",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/packages/:packageId/pricing",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "packages",
+                            ":packageId",
+                            "pricing"
+                          ],
+                          "variable": [
+                            {
+                              "key": "packageId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"packageId\": \"<string>\",\n  \"periodicPricing\": [\n    {\n      \"effectiveDate\": \"<date>\",\n      \"interestRates\": [\n        {\n          \"rateType\": \"PROMOTIONAL\",\n          \"baseRate\": \"<double>\",\n          \"benefit\": \"<double>\",\n          \"netRate\": \"<double>\",\n          \"effectiveDate\": \"<date>\"\n        },\n        {\n          \"rateType\": \"PROMOTIONAL\",\n          \"baseRate\": \"<double>\",\n          \"benefit\": \"<double>\",\n          \"netRate\": \"<double>\",\n          \"effectiveDate\": \"<date>\"\n        }\n      ],\n      \"fees\": [\n        {\n          \"feeType\": \"<string>\",\n          \"description\": \"<string>\",\n          \"amount\": \"<double>\",\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\"\n        },\n        {\n          \"feeType\": \"<string>\",\n          \"description\": \"<string>\",\n          \"amount\": \"<double>\",\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"effectiveDate\": \"<date>\",\n      \"interestRates\": [\n        {\n          \"rateType\": \"FIXED\",\n          \"baseRate\": \"<double>\",\n          \"benefit\": \"<double>\",\n          \"netRate\": \"<double>\",\n          \"effectiveDate\": \"<date>\"\n        },\n        {\n          \"rateType\": \"VARIABLE\",\n          \"baseRate\": \"<double>\",\n          \"benefit\": \"<double>\",\n          \"netRate\": \"<double>\",\n          \"effectiveDate\": \"<date>\"\n        }\n      ],\n      \"fees\": [\n        {\n          \"feeType\": \"<string>\",\n          \"description\": \"<string>\",\n          \"amount\": \"<double>\",\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\"\n        },\n        {\n          \"feeType\": \"<string>\",\n          \"description\": \"<string>\",\n          \"amount\": \"<double>\",\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"benefits\": [\n    {\n      \"benefitType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"benefitType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"value\": \"<double>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-9d009247-f03c-4aa1-b7c1-23c0c7988366"
+                    },
+                    {
+                      "id": "e44e8e75-c3e1-4b4b-9db5-39e5103b9485",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/packages/:packageId/pricing",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "packages",
+                            ":packageId",
+                            "pricing"
+                          ],
+                          "variable": [
+                            {
+                              "key": "packageId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-e44e8e75-c3e1-4b4b-9db5-39e5103b9485"
+                    },
+                    {
+                      "id": "2d1c3569-aa3e-417a-a3ce-46e848a49dd8",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/packages/:packageId/pricing",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "packages",
+                            ":packageId",
+                            "pricing"
+                          ],
+                          "variable": [
+                            {
+                              "key": "packageId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-2d1c3569-aa3e-417a-a3ce-46e848a49dd8"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-a46d1dec-8fc9-4ee3-88f3-9ed8034cf656"
+                }
+              ],
+              "id": "0fcb19b5-b245-4f79-8da1-94016686f4b6",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-0fcb19b5-b245-4f79-8da1-94016686f4b6"
+            }
+          ],
+          "id": "bfedc34b-f02c-4699-824c-5bee1d6787c2",
+          "createdAt": "2026-06-05T15:19:16.000Z",
+          "updatedAt": "2026-06-05T15:19:16.000Z",
+          "uid": "35240-bfedc34b-f02c-4699-824c-5bee1d6787c2"
+        },
+        {
+          "name": "List Package Arrangements",
+          "id": "6d008bda-6448-4e64-987d-d6058fc21277",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/packages?page_size=25&page_start=0&customerId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "packages"
+              ],
+              "query": [
+                {
+                  "description": "Records per page",
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "description": "Starting record",
+                  "key": "page_start",
+                  "value": "0"
+                },
+                {
+                  "description": "Filter by customer",
+                  "key": "customerId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve package arrangements that bundle customer accounts for combined pricing benefits with primary and linked account information."
+          },
+          "response": [
+            {
+              "id": "e5ecadaf-3dca-4b1e-afaf-c156d23bf57d",
+              "name": "Successful retrieval of packages",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/packages?page_size=25&page_start=0&customerId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "packages"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by customer",
+                      "key": "customerId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"packageId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"packageName\": \"<string>\",\n      \"primaryAccountId\": \"<string>\",\n      \"linkedAccounts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"status\": \"<string>\"\n    },\n    {\n      \"packageId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"packageName\": \"<string>\",\n      \"primaryAccountId\": \"<string>\",\n      \"linkedAccounts\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-e5ecadaf-3dca-4b1e-afaf-c156d23bf57d"
+            },
+            {
+              "id": "f60d2e41-33ef-43ff-9d96-c3950fa79720",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/packages?page_size=25&page_start=0&customerId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "packages"
+                  ],
+                  "query": [
+                    {
+                      "description": "Records per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by customer",
+                      "key": "customerId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-f60d2e41-33ef-43ff-9d96-c3950fa79720"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:16.000Z",
+          "updatedAt": "2026-06-05T15:19:16.000Z",
+          "uid": "35240-6d008bda-6448-4e64-987d-d6058fc21277"
+        },
+        {
+          "name": "Create Package Arrangement",
+          "id": "6d3980f5-1b40-4f42-a8af-15fa85b18514",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"packageName\": \"<string>\",\n  \"linkedAccounts\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/packages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "packages"
+              ]
+            },
+            "description": "Create a new package arrangement to bundle customer accounts for combined pricing benefits and promotions."
+          },
+          "response": [
+            {
+              "id": "061687b3-fe84-4e21-bc4e-af4e470a9cf0",
+              "name": "Package created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"packageName\": \"<string>\",\n  \"linkedAccounts\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/packages",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "packages"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"packageId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"packageName\": \"<string>\",\n  \"primaryAccountId\": \"<string>\",\n  \"linkedAccounts\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-061687b3-fe84-4e21-bc4e-af4e470a9cf0"
+            },
+            {
+              "id": "c95e005b-4cdd-40d1-8561-4d8b82036ed6",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"packageName\": \"<string>\",\n  \"linkedAccounts\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/packages",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "packages"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-c95e005b-4cdd-40d1-8561-4d8b82036ed6"
+            },
+            {
+              "id": "093ef995-83a5-4f36-8d35-7a148e93a61b",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"packageName\": \"<string>\",\n  \"linkedAccounts\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/packages",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "packages"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-093ef995-83a5-4f36-8d35-7a148e93a61b"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:16.000Z",
+          "updatedAt": "2026-06-05T15:19:16.000Z",
+          "uid": "35240-6d3980f5-1b40-4f42-a8af-15fa85b18514"
+        }
+      ],
+      "id": "b9ecf764-1f01-4cb2-a42f-73e3be7f4e9e",
+      "createdAt": "2026-06-05T15:19:16.000Z",
+      "updatedAt": "2026-06-05T15:19:16.000Z",
+      "uid": "35240-b9ecf764-1f01-4cb2-a42f-73e3be7f4e9e"
+    },
+    {
+      "name": "party",
+      "item": [
+        {
+          "name": "{customerId}",
+          "item": [
+            {
+              "name": "contracts",
+              "item": [
+                {
+                  "name": "Get Customer Contracts And Accounts",
+                  "id": "54c91034-ae3b-41fc-9175-db37f34a3470",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/party/:customerId/contracts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        ":customerId",
+                        "contracts"
+                      ],
+                      "variable": [
+                        {
+                          "id": "968414fd-3691-46c1-837b-34e52631980f",
+                          "key": "customerId",
+                          "value": "<string>",
+                          "description": "(Required) Customer identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve all holdings, contracts, and accounts for a party within the pricing system."
+                  },
+                  "response": [
+                    {
+                      "id": "a739041a-ec51-4895-9ccf-cdfe76678ef2",
+                      "name": "Successful retrieval of contracts",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/party/:customerId/contracts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "party",
+                            ":customerId",
+                            "contracts"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"body\": [\n    {\n      \"contractId\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"productName\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"contractId\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"productName\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-a739041a-ec51-4895-9ccf-cdfe76678ef2"
+                    },
+                    {
+                      "id": "e795bdd5-be30-497c-8b8c-291587a5139c",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/party/:customerId/contracts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "party",
+                            ":customerId",
+                            "contracts"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-e795bdd5-be30-497c-8b8c-291587a5139c"
+                    },
+                    {
+                      "id": "499b0ce5-bebf-4cc4-b895-158d8912b300",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/party/:customerId/contracts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "party",
+                            ":customerId",
+                            "contracts"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-499b0ce5-bebf-4cc4-b895-158d8912b300"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-54c91034-ae3b-41fc-9175-db37f34a3470"
+                }
+              ],
+              "id": "e1a7e336-6cf3-4b0d-9ce3-f88388419d44",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-e1a7e336-6cf3-4b0d-9ce3-f88388419d44"
+            },
+            {
+              "name": "pricing",
+              "item": [
+                {
+                  "name": "Get Customer Pricing",
+                  "id": "86935e71-2d95-4011-bb19-0cdbee01e4e0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/party/:customerId/pricing",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "party",
+                        ":customerId",
+                        "pricing"
+                      ],
+                      "variable": [
+                        {
+                          "id": "0fca5c8a-ce6f-4cfb-9b0f-0b0d2e6dac80",
+                          "key": "customerId",
+                          "value": "<string>",
+                          "description": "(Required) Customer identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve all pricing information for a customer including pricing identifiers and applied benefit adjustments."
+                  },
+                  "response": [
+                    {
+                      "id": "3307bb3c-5f66-4e1b-990f-843ead51ad0c",
+                      "name": "Successful retrieval of pricing",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/party/:customerId/pricing",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "party",
+                            ":customerId",
+                            "pricing"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"body\": [\n    {\n      \"arrangementId\": \"<string>\",\n      \"pricingId\": \"<string>\",\n      \"interestRate\": \"<double>\",\n      \"adjustments\": [\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ]\n    },\n    {\n      \"arrangementId\": \"<string>\",\n      \"pricingId\": \"<string>\",\n      \"interestRate\": \"<double>\",\n      \"adjustments\": [\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-3307bb3c-5f66-4e1b-990f-843ead51ad0c"
+                    },
+                    {
+                      "id": "019d137b-4232-4894-aa46-597d69742d81",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/party/:customerId/pricing",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "party",
+                            ":customerId",
+                            "pricing"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-019d137b-4232-4894-aa46-597d69742d81"
+                    },
+                    {
+                      "id": "d1ff4b4f-c99b-4dd0-b3aa-fce3cbeb85d6",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/party/:customerId/pricing",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "party",
+                            ":customerId",
+                            "pricing"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-d1ff4b4f-c99b-4dd0-b3aa-fce3cbeb85d6"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-86935e71-2d95-4011-bb19-0cdbee01e4e0"
+                }
+              ],
+              "id": "540e3e47-6acf-45a3-8872-9abd6da5101b",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-540e3e47-6acf-45a3-8872-9abd6da5101b"
+            }
+          ],
+          "id": "460c7fe6-707d-41c4-a041-16d3f0f0b738",
+          "createdAt": "2026-06-05T15:19:16.000Z",
+          "updatedAt": "2026-06-05T15:19:16.000Z",
+          "uid": "35240-460c7fe6-707d-41c4-a041-16d3f0f0b738"
+        }
+      ],
+      "id": "ac46d6c9-2eca-478b-b91d-c6e91e5bfe3a",
+      "createdAt": "2026-06-05T15:19:16.000Z",
+      "updatedAt": "2026-06-05T15:19:16.000Z",
+      "uid": "35240-ac46d6c9-2eca-478b-b91d-c6e91e5bfe3a"
+    },
+    {
+      "name": "arrangements",
+      "item": [
+        {
+          "name": "{arrangementId}",
+          "item": [
+            {
+              "name": "payoff",
+              "item": [
+                {
+                  "name": "Calculate Payoff Amount",
+                  "id": "83e13b7e-cc56-4d06-b730-fe234d2e988f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/arrangements/:arrangementId/payoff",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "arrangements",
+                        ":arrangementId",
+                        "payoff"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ac69f986-257b-4f2b-b728-84e0fdb665b8",
+                          "key": "arrangementId",
+                          "value": "<string>",
+                          "description": "(Required) Arrangement identifier"
+                        }
+                      ]
+                    },
+                    "description": "Compute the closure costs for an arrangement including outstanding interest, charges, and early termination penalties."
+                  },
+                  "response": [
+                    {
+                      "id": "f11d2254-7ca3-48c8-9909-4a37bdc39a24",
+                      "name": "Payoff calculation completed",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/arrangements/:arrangementId/payoff",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "arrangements",
+                            ":arrangementId",
+                            "payoff"
+                          ],
+                          "variable": [
+                            {
+                              "key": "arrangementId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"arrangementId\": \"<string>\",\n  \"outstandingPrincipal\": \"<double>\",\n  \"accruedInterest\": \"<double>\",\n  \"earlyTerminationFee\": \"<double>\",\n  \"outstandingCharges\": \"<double>\",\n  \"totalPayoff\": \"<double>\",\n  \"currency\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-f11d2254-7ca3-48c8-9909-4a37bdc39a24"
+                    },
+                    {
+                      "id": "ce5fe83f-37c6-4e35-8f2a-5da633b029cb",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/arrangements/:arrangementId/payoff",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "arrangements",
+                            ":arrangementId",
+                            "payoff"
+                          ],
+                          "variable": [
+                            {
+                              "key": "arrangementId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-ce5fe83f-37c6-4e35-8f2a-5da633b029cb"
+                    },
+                    {
+                      "id": "551c774b-cbe2-4e97-b04f-18d220e96a89",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/arrangements/:arrangementId/payoff",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "arrangements",
+                            ":arrangementId",
+                            "payoff"
+                          ],
+                          "variable": [
+                            {
+                              "key": "arrangementId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-551c774b-cbe2-4e97-b04f-18d220e96a89"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-83e13b7e-cc56-4d06-b730-fe234d2e988f"
+                }
+              ],
+              "id": "bb26c5ba-9c53-425d-9ef1-979e011a0227",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-bb26c5ba-9c53-425d-9ef1-979e011a0227"
+            },
+            {
+              "name": "interestRates",
+              "item": [
+                {
+                  "name": "Get Arrangement Interest Rates",
+                  "id": "962ac701-4388-498e-a2c1-d3b8f963c88d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/arrangements/:arrangementId/interestRates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "arrangements",
+                        ":arrangementId",
+                        "interestRates"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e8f72054-f3e7-4e27-be4a-244ded75811e",
+                          "key": "arrangementId",
+                          "value": "<string>",
+                          "description": "(Required) Arrangement identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve interest rate details for an arrangement including base rates, applied benefits, and effective net rates."
+                  },
+                  "response": [
+                    {
+                      "id": "c00efd92-690f-43ea-93b5-5e42bfdd1fb5",
+                      "name": "Successful retrieval of interest rates",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/arrangements/:arrangementId/interestRates",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "arrangements",
+                            ":arrangementId",
+                            "interestRates"
+                          ],
+                          "variable": [
+                            {
+                              "key": "arrangementId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"arrangementId\": \"<string>\",\n  \"rates\": [\n    {\n      \"rateType\": \"FIXED\",\n      \"baseRate\": \"<double>\",\n      \"benefit\": \"<double>\",\n      \"netRate\": \"<double>\",\n      \"effectiveDate\": \"<date>\"\n    },\n    {\n      \"rateType\": \"PROMOTIONAL\",\n      \"baseRate\": \"<double>\",\n      \"benefit\": \"<double>\",\n      \"netRate\": \"<double>\",\n      \"effectiveDate\": \"<date>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-c00efd92-690f-43ea-93b5-5e42bfdd1fb5"
+                    },
+                    {
+                      "id": "eeeac787-9292-4b1b-a562-467698e5d191",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/arrangements/:arrangementId/interestRates",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "arrangements",
+                            ":arrangementId",
+                            "interestRates"
+                          ],
+                          "variable": [
+                            {
+                              "key": "arrangementId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-eeeac787-9292-4b1b-a562-467698e5d191"
+                    },
+                    {
+                      "id": "8c0f4b59-a3ba-4996-b349-7af653a13324",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/arrangements/:arrangementId/interestRates",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "arrangements",
+                            ":arrangementId",
+                            "interestRates"
+                          ],
+                          "variable": [
+                            {
+                              "key": "arrangementId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-8c0f4b59-a3ba-4996-b349-7af653a13324"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-962ac701-4388-498e-a2c1-d3b8f963c88d"
+                }
+              ],
+              "id": "9cc743b4-00d5-444a-b5f5-d4145ecf35d0",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-9cc743b4-00d5-444a-b5f5-d4145ecf35d0"
+            },
+            {
+              "name": "charges",
+              "item": [
+                {
+                  "name": "Get Arrangement Charges",
+                  "id": "45d2c88c-98ff-42c1-bb6f-0f541ed487a5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/arrangements/:arrangementId/charges",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "arrangements",
+                        ":arrangementId",
+                        "charges"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a913f82a-9efc-45c5-9974-fc243a289c3b",
+                          "key": "arrangementId",
+                          "value": "<string>",
+                          "description": "(Required) Arrangement identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve activity charge fees and periodic charge fees for an arrangement including account opening, closure, and recurring maintenance charges."
+                  },
+                  "response": [
+                    {
+                      "id": "db8e0a56-ef49-47b1-b566-a2f7c75a84ff",
+                      "name": "Successful retrieval of charges",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/arrangements/:arrangementId/charges",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "arrangements",
+                            ":arrangementId",
+                            "charges"
+                          ],
+                          "variable": [
+                            {
+                              "key": "arrangementId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"body\": [\n    {\n      \"chargeType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\"\n    },\n    {\n      \"chargeType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-db8e0a56-ef49-47b1-b566-a2f7c75a84ff"
+                    },
+                    {
+                      "id": "63f8ee77-5392-465c-a453-b08f3c618225",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/arrangements/:arrangementId/charges",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "arrangements",
+                            ":arrangementId",
+                            "charges"
+                          ],
+                          "variable": [
+                            {
+                              "key": "arrangementId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-63f8ee77-5392-465c-a453-b08f3c618225"
+                    },
+                    {
+                      "id": "edb785c4-430b-4255-a8d2-2089ad295ecf",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/arrangements/:arrangementId/charges",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "arrangements",
+                            ":arrangementId",
+                            "charges"
+                          ],
+                          "variable": [
+                            {
+                              "key": "arrangementId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:16.000Z",
+                      "updatedAt": "2026-06-05T15:19:16.000Z",
+                      "uid": "35240-edb785c4-430b-4255-a8d2-2089ad295ecf"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:16.000Z",
+                  "updatedAt": "2026-06-05T15:19:16.000Z",
+                  "uid": "35240-45d2c88c-98ff-42c1-bb6f-0f541ed487a5"
+                }
+              ],
+              "id": "53f2b02a-68f2-4c2b-9f6c-8ca0ce1688e0",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-53f2b02a-68f2-4c2b-9f6c-8ca0ce1688e0"
+            }
+          ],
+          "id": "909b061d-09e4-47d6-af74-796b3be163ae",
+          "createdAt": "2026-06-05T15:19:16.000Z",
+          "updatedAt": "2026-06-05T15:19:16.000Z",
+          "uid": "35240-909b061d-09e4-47d6-af74-796b3be163ae"
+        }
+      ],
+      "id": "8be76329-d9a8-4d3d-afdd-72fc5c114a65",
+      "createdAt": "2026-06-05T15:19:16.000Z",
+      "updatedAt": "2026-06-05T15:19:16.000Z",
+      "uid": "35240-8be76329-d9a8-4d3d-afdd-72fc5c114a65"
+    },
+    {
+      "name": "promotions",
+      "item": [
+        {
+          "name": "Create Promotion Arrangement",
+          "id": "fef438a2-eeef-4c54-b78f-a40cba6e36d4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"<string>\",\n  \"promotionCode\": \"<string>\",\n  \"arrangementId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promotions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "promotions"
+              ]
+            },
+            "description": "Establish a promotional arrangement for a party with promotional codes enabling special pricing benefits."
+          },
+          "response": [
+            {
+              "id": "28224c71-22d1-4e98-ab79-23630a28548c",
+              "name": "Promotion created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"promotionCode\": \"<string>\",\n  \"arrangementId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/promotions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "promotions"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"promotionId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"promotionCode\": \"<string>\",\n  \"benefits\": [\n    {\n      \"type\": \"<string>\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-28224c71-22d1-4e98-ab79-23630a28548c"
+            },
+            {
+              "id": "997b6779-a797-4206-ac4b-26f913eae0b2",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"promotionCode\": \"<string>\",\n  \"arrangementId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/promotions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "promotions"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-997b6779-a797-4206-ac4b-26f913eae0b2"
+            },
+            {
+              "id": "c10c1139-17e9-428f-a8ed-3fb5d3366008",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"promotionCode\": \"<string>\",\n  \"arrangementId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/promotions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "promotions"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:16.000Z",
+              "updatedAt": "2026-06-05T15:19:16.000Z",
+              "uid": "35240-c10c1139-17e9-428f-a8ed-3fb5d3366008"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:16.000Z",
+          "updatedAt": "2026-06-05T15:19:16.000Z",
+          "uid": "35240-fef438a2-eeef-4c54-b78f-a40cba6e36d4"
+        }
+      ],
+      "id": "9557d5d3-8e1f-43a9-ac22-412b1956ef3e",
+      "createdAt": "2026-06-05T15:19:16.000Z",
+      "updatedAt": "2026-06-05T15:19:16.000Z",
+      "uid": "35240-9557d5d3-8e1f-43a9-ac22-412b1956ef3e"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.temenos.com/enterprise-pricing/v1"
+    }
+  ]
+}

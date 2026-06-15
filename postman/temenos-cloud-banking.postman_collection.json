@@ -1,0 +1,1524 @@
+{
+  "info": {
+    "_postman_id": "8410328c-2b87-4a8e-a566-810cfa710bb7",
+    "name": "Temenos Cloud Banking (CMB) API",
+    "description": "Country-specific commercial and cloud banking APIs delivering front-to-back services for accounts, deposits, lending, trade finance, and payments with pre-wired APIs and regional regulatory compliance for markets including Australia, Canada, Mexico, UK, US, and more. Provides pre-configured banking products and workflows adapted for local regulations.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:17.000Z",
+    "updatedAt": "2026-06-05T15:19:17.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8410328c-2b87-4a8e-a566-810cfa710bb7"
+  },
+  "item": [
+    {
+      "name": "accounts",
+      "item": [
+        {
+          "name": "List Commercial Banking Accounts",
+          "id": "832abcf4-a913-4ed1-9dfb-c91fbb088b94",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/accounts?page_size=25&page_start=0&customerId=<string>&region=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "accounts"
+              ],
+              "query": [
+                {
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "key": "page_start",
+                  "value": "0"
+                },
+                {
+                  "description": "Filter by customer",
+                  "key": "customerId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by regional market",
+                  "key": "region",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve commercial banking accounts with country-specific product details and regulatory compliance status."
+          },
+          "response": [
+            {
+              "id": "e2773539-e786-42f0-9a93-5f7a47b91f80",
+              "name": "Successful retrieval",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts?page_size=25&page_start=0&customerId=<string>&region=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by customer",
+                      "key": "customerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by regional market",
+                      "key": "region",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"accountId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"balance\": \"<double>\",\n      \"region\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"accountId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"balance\": \"<double>\",\n      \"region\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-e2773539-e786-42f0-9a93-5f7a47b91f80"
+            },
+            {
+              "id": "71791195-a3c2-4e67-a6a0-c969d6937a8a",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts?page_size=25&page_start=0&customerId=<string>&region=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by customer",
+                      "key": "customerId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by regional market",
+                      "key": "region",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-71791195-a3c2-4e67-a6a0-c969d6937a8a"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:17.000Z",
+          "updatedAt": "2026-06-05T15:19:17.000Z",
+          "uid": "35240-832abcf4-a913-4ed1-9dfb-c91fbb088b94"
+        },
+        {
+          "name": "Create Commercial Banking Account",
+          "id": "fd3da8f2-4275-4560-b2ba-b105b7d1edf1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"currency\": \"XKJ\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/accounts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            },
+            "description": "Create a new commercial banking account using pre-configured regional product templates with local regulatory compliance."
+          },
+          "response": [
+            {
+              "id": "7063133f-575a-4cba-b58f-98362d664b00",
+              "name": "Account created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"currency\": \"XKJ\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/accounts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"accountId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"balance\": \"<double>\",\n  \"region\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-7063133f-575a-4cba-b58f-98362d664b00"
+            },
+            {
+              "id": "73378d53-bf7f-4343-abb8-57aa2c5f1484",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"currency\": \"XKJ\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/accounts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-73378d53-bf7f-4343-abb8-57aa2c5f1484"
+            },
+            {
+              "id": "121919d3-a108-455a-bd59-0a490aabc78a",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"currency\": \"XKJ\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/accounts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-121919d3-a108-455a-bd59-0a490aabc78a"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:17.000Z",
+          "updatedAt": "2026-06-05T15:19:17.000Z",
+          "uid": "35240-fd3da8f2-4275-4560-b2ba-b105b7d1edf1"
+        }
+      ],
+      "id": "25149259-9673-4b03-9167-d21bb66c22ab",
+      "createdAt": "2026-06-05T15:19:17.000Z",
+      "updatedAt": "2026-06-05T15:19:17.000Z",
+      "uid": "35240-25149259-9673-4b03-9167-d21bb66c22ab"
+    },
+    {
+      "name": "deposits",
+      "item": [
+        {
+          "name": "List Deposits",
+          "id": "1edadd56-abb5-4e98-ab86-845d4a645dca",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/deposits?page_size=25&page_start=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "deposits"
+              ],
+              "query": [
+                {
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "key": "page_start",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "Retrieve deposit products with country-specific terms, rates, and regulatory classification."
+          },
+          "response": [
+            {
+              "id": "6bb43d1e-7321-442b-bf71-6be3ca16a619",
+              "name": "Successful retrieval",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/deposits?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "deposits"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"depositId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"interestRate\": \"<double>\",\n      \"maturityDate\": \"<date>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"depositId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"interestRate\": \"<double>\",\n      \"maturityDate\": \"<date>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-6bb43d1e-7321-442b-bf71-6be3ca16a619"
+            },
+            {
+              "id": "b9d198fd-2184-440a-9aeb-015e31a58168",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/deposits?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "deposits"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-b9d198fd-2184-440a-9aeb-015e31a58168"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:17.000Z",
+          "updatedAt": "2026-06-05T15:19:17.000Z",
+          "uid": "35240-1edadd56-abb5-4e98-ab86-845d4a645dca"
+        }
+      ],
+      "id": "1b62b2bc-d986-4129-8df8-43b9cbd66697",
+      "createdAt": "2026-06-05T15:19:17.000Z",
+      "updatedAt": "2026-06-05T15:19:17.000Z",
+      "uid": "35240-1b62b2bc-d986-4129-8df8-43b9cbd66697"
+    },
+    {
+      "name": "lending",
+      "item": [
+        {
+          "name": "facilities",
+          "item": [
+            {
+              "name": "List Lending Facilities",
+              "id": "19f02013-65be-4647-9fec-d240c74af6b4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/lending/facilities?page_size=25&page_start=0&customerId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "lending",
+                    "facilities"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by customer",
+                      "key": "customerId",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieve commercial lending facilities including credit lines, term loans, and revolving facilities with utilization details."
+              },
+              "response": [
+                {
+                  "id": "44ede1cf-e45b-418b-9a8c-303c6870441b",
+                  "name": "Successful retrieval",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/lending/facilities?page_size=25&page_start=0&customerId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "lending",
+                        "facilities"
+                      ],
+                      "query": [
+                        {
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by customer",
+                          "key": "customerId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"facilityId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"facilityType\": \"TERM_LOAN\",\n      \"currency\": \"<string>\",\n      \"approvedAmount\": \"<double>\",\n      \"utilizedAmount\": \"<double>\",\n      \"interestRate\": \"<double>\",\n      \"maturityDate\": \"<date>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"facilityId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"facilityType\": \"TRADE_FINANCE\",\n      \"currency\": \"<string>\",\n      \"approvedAmount\": \"<double>\",\n      \"utilizedAmount\": \"<double>\",\n      \"interestRate\": \"<double>\",\n      \"maturityDate\": \"<date>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:17.000Z",
+                  "updatedAt": "2026-06-05T15:19:17.000Z",
+                  "uid": "35240-44ede1cf-e45b-418b-9a8c-303c6870441b"
+                },
+                {
+                  "id": "5611d7c9-b92a-427d-87c2-269dcd54970b",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/lending/facilities?page_size=25&page_start=0&customerId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "lending",
+                        "facilities"
+                      ],
+                      "query": [
+                        {
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by customer",
+                          "key": "customerId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:17.000Z",
+                  "updatedAt": "2026-06-05T15:19:17.000Z",
+                  "uid": "35240-5611d7c9-b92a-427d-87c2-269dcd54970b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-19f02013-65be-4647-9fec-d240c74af6b4"
+            },
+            {
+              "name": "Create Lending Facility",
+              "id": "0fe69c6d-a240-469d-a439-7e5a5820649f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"facilityType\": \"OVERDRAFT\",\n  \"currency\": \"RUH\",\n  \"amount\": \"<double>\",\n  \"term\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/lending/facilities",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "lending",
+                    "facilities"
+                  ]
+                },
+                "description": "Originate a new lending facility with specified terms, collateral, and repayment conditions."
+              },
+              "response": [
+                {
+                  "id": "22bdba5f-8a31-4028-b48d-1b2265b86cf0",
+                  "name": "Facility created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"customerId\": \"<string>\",\n  \"facilityType\": \"OVERDRAFT\",\n  \"currency\": \"RUH\",\n  \"amount\": \"<double>\",\n  \"term\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/lending/facilities",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "lending",
+                        "facilities"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"facilityId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"facilityType\": \"TRADE_FINANCE\",\n  \"currency\": \"<string>\",\n  \"approvedAmount\": \"<double>\",\n  \"utilizedAmount\": \"<double>\",\n  \"interestRate\": \"<double>\",\n  \"maturityDate\": \"<date>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:17.000Z",
+                  "updatedAt": "2026-06-05T15:19:17.000Z",
+                  "uid": "35240-22bdba5f-8a31-4028-b48d-1b2265b86cf0"
+                },
+                {
+                  "id": "1be1ca98-88d4-43ee-8925-f330a3ecd74c",
+                  "name": "Invalid request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"customerId\": \"<string>\",\n  \"facilityType\": \"OVERDRAFT\",\n  \"currency\": \"RUH\",\n  \"amount\": \"<double>\",\n  \"term\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/lending/facilities",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "lending",
+                        "facilities"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:17.000Z",
+                  "updatedAt": "2026-06-05T15:19:17.000Z",
+                  "uid": "35240-1be1ca98-88d4-43ee-8925-f330a3ecd74c"
+                },
+                {
+                  "id": "0c4818c1-2aa2-4f74-8024-55260c8f300b",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"customerId\": \"<string>\",\n  \"facilityType\": \"OVERDRAFT\",\n  \"currency\": \"RUH\",\n  \"amount\": \"<double>\",\n  \"term\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/lending/facilities",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "lending",
+                        "facilities"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:17.000Z",
+                  "updatedAt": "2026-06-05T15:19:17.000Z",
+                  "uid": "35240-0c4818c1-2aa2-4f74-8024-55260c8f300b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-0fe69c6d-a240-469d-a439-7e5a5820649f"
+            }
+          ],
+          "id": "2ddafac9-2819-4744-93fb-467a1abd75e9",
+          "createdAt": "2026-06-05T15:19:17.000Z",
+          "updatedAt": "2026-06-05T15:19:17.000Z",
+          "uid": "35240-2ddafac9-2819-4744-93fb-467a1abd75e9"
+        }
+      ],
+      "id": "81453754-7de0-4b90-9871-1eb79b53a8a4",
+      "createdAt": "2026-06-05T15:19:17.000Z",
+      "updatedAt": "2026-06-05T15:19:17.000Z",
+      "uid": "35240-81453754-7de0-4b90-9871-1eb79b53a8a4"
+    },
+    {
+      "name": "tradeFinance",
+      "item": [
+        {
+          "name": "lettersOfCredit",
+          "item": [
+            {
+              "name": "List Letters Of Credit",
+              "id": "70818421-c913-4f84-ba56-15cfd8cdf714",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tradeFinance/lettersOfCredit?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tradeFinance",
+                    "lettersOfCredit"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieve letters of credit including import and export LCs with their document status and amendment history."
+              },
+              "response": [
+                {
+                  "id": "69eda58c-3fb4-4691-835b-4d3749679d78",
+                  "name": "Successful retrieval",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tradeFinance/lettersOfCredit?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tradeFinance",
+                        "lettersOfCredit"
+                      ],
+                      "query": [
+                        {
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"lcId\": \"<string>\",\n      \"lcType\": \"EXPORT\",\n      \"applicant\": \"<string>\",\n      \"beneficiary\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"expiryDate\": \"<date>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"lcId\": \"<string>\",\n      \"lcType\": \"IMPORT\",\n      \"applicant\": \"<string>\",\n      \"beneficiary\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"expiryDate\": \"<date>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:17.000Z",
+                  "updatedAt": "2026-06-05T15:19:17.000Z",
+                  "uid": "35240-69eda58c-3fb4-4691-835b-4d3749679d78"
+                },
+                {
+                  "id": "f4839417-9c7b-4d92-868c-aad9951613f8",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tradeFinance/lettersOfCredit?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tradeFinance",
+                        "lettersOfCredit"
+                      ],
+                      "query": [
+                        {
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:17.000Z",
+                  "updatedAt": "2026-06-05T15:19:17.000Z",
+                  "uid": "35240-f4839417-9c7b-4d92-868c-aad9951613f8"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-70818421-c913-4f84-ba56-15cfd8cdf714"
+            }
+          ],
+          "id": "651fc282-3689-4079-a7f1-b23d74e4c421",
+          "createdAt": "2026-06-05T15:19:17.000Z",
+          "updatedAt": "2026-06-05T15:19:17.000Z",
+          "uid": "35240-651fc282-3689-4079-a7f1-b23d74e4c421"
+        },
+        {
+          "name": "guarantees",
+          "item": [
+            {
+              "name": "List Guarantees",
+              "id": "9d136c40-c82e-4e6b-8f3a-eaae2252bf5c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tradeFinance/guarantees?page_size=25&page_start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tradeFinance",
+                    "guarantees"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieve bank guarantees and standby letters of credit with their terms, beneficiaries, and expiry dates."
+              },
+              "response": [
+                {
+                  "id": "1f37d4cd-3ba8-4259-b89b-a2f393170667",
+                  "name": "Successful retrieval",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tradeFinance/guarantees?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tradeFinance",
+                        "guarantees"
+                      ],
+                      "query": [
+                        {
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"guaranteeId\": \"<string>\",\n      \"guaranteeType\": \"<string>\",\n      \"applicant\": \"<string>\",\n      \"beneficiary\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"expiryDate\": \"<date>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"guaranteeId\": \"<string>\",\n      \"guaranteeType\": \"<string>\",\n      \"applicant\": \"<string>\",\n      \"beneficiary\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"expiryDate\": \"<date>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:17.000Z",
+                  "updatedAt": "2026-06-05T15:19:17.000Z",
+                  "uid": "35240-1f37d4cd-3ba8-4259-b89b-a2f393170667"
+                },
+                {
+                  "id": "3d4471d8-6089-4c74-8a22-db49affcc72c",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tradeFinance/guarantees?page_size=25&page_start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tradeFinance",
+                        "guarantees"
+                      ],
+                      "query": [
+                        {
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "key": "page_start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:17.000Z",
+                  "updatedAt": "2026-06-05T15:19:17.000Z",
+                  "uid": "35240-3d4471d8-6089-4c74-8a22-db49affcc72c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-9d136c40-c82e-4e6b-8f3a-eaae2252bf5c"
+            }
+          ],
+          "id": "19001270-6c33-44fe-9e29-dbaf277bf0a4",
+          "createdAt": "2026-06-05T15:19:17.000Z",
+          "updatedAt": "2026-06-05T15:19:17.000Z",
+          "uid": "35240-19001270-6c33-44fe-9e29-dbaf277bf0a4"
+        }
+      ],
+      "id": "bffe4ad9-3932-4186-9830-b05fdc5e3fe3",
+      "createdAt": "2026-06-05T15:19:17.000Z",
+      "updatedAt": "2026-06-05T15:19:17.000Z",
+      "uid": "35240-bffe4ad9-3932-4186-9830-b05fdc5e3fe3"
+    },
+    {
+      "name": "payments",
+      "item": [
+        {
+          "name": "Create Payment",
+          "id": "a4b42218-8ece-45b1-8b7b-f9c6fc6d7405",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"FEY\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryAccountId\": \"<string>\",\n  \"reference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments"
+              ]
+            },
+            "description": "Initiate a payment through country-specific clearing channels with local regulatory validation and compliance checks."
+          },
+          "response": [
+            {
+              "id": "bb654142-bd1b-488d-8594-0b5171b1c8f2",
+              "name": "Payment initiated",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"FEY\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryAccountId\": \"<string>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"paymentId\": \"<string>\",\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-bb654142-bd1b-488d-8594-0b5171b1c8f2"
+            },
+            {
+              "id": "e6ff8a27-2249-421a-8765-54e33732a465",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"FEY\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryAccountId\": \"<string>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-e6ff8a27-2249-421a-8765-54e33732a465"
+            },
+            {
+              "id": "5e31b270-7693-45cf-8102-b38eecefe3d6",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"FEY\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryAccountId\": \"<string>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:17.000Z",
+              "updatedAt": "2026-06-05T15:19:17.000Z",
+              "uid": "35240-5e31b270-7693-45cf-8102-b38eecefe3d6"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:17.000Z",
+          "updatedAt": "2026-06-05T15:19:17.000Z",
+          "uid": "35240-a4b42218-8ece-45b1-8b7b-f9c6fc6d7405"
+        }
+      ],
+      "id": "1ba955e0-1e8e-4a77-a350-c4b8175cab88",
+      "createdAt": "2026-06-05T15:19:17.000Z",
+      "updatedAt": "2026-06-05T15:19:17.000Z",
+      "uid": "35240-1ba955e0-1e8e-4a77-a350-c4b8175cab88"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.temenos.com/cmb/v1"
+    }
+  ]
+}

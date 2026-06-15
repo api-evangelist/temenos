@@ -1,0 +1,2275 @@
+{
+  "info": {
+    "_postman_id": "813995e8-076c-468c-a1c1-6e05b0fb270f",
+    "name": "Temenos Financial Crime Mitigation API",
+    "description": "API for anti-money laundering, fraud detection, and compliance including KYC risk scoring, sanctions screening, PEP matching, transaction monitoring, and alert management. Used by over 300 banks globally for comprehensive financial crime prevention covering watchlist screening, customer risk assessment, and regulatory compliance reporting.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:12.000Z",
+    "updatedAt": "2026-06-05T15:19:12.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-813995e8-076c-468c-a1c1-6e05b0fb270f"
+  },
+  "item": [
+    {
+      "name": "kyc",
+      "item": [
+        {
+          "name": "customers",
+          "item": [
+            {
+              "name": "{customerId}",
+              "item": [
+                {
+                  "name": "riskScore",
+                  "item": [
+                    {
+                      "name": "compute",
+                      "item": [
+                        {
+                          "name": "Compute Customer Risk Score",
+                          "id": "cc81cff3-a14a-465e-b45f-099827d8bf1e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/kyc/customers/:customerId/riskScore/compute",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "kyc",
+                                "customers",
+                                ":customerId",
+                                "riskScore",
+                                "compute"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "3a41868b-0fd1-4012-a024-5e546c57509b",
+                                  "key": "customerId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique customer identifier"
+                                }
+                              ]
+                            },
+                            "description": "Trigger risk score computation for a customer based on their current KYC data, transaction patterns, and configured risk scoring models. Updates the stored risk score."
+                          },
+                          "response": [
+                            {
+                              "id": "dd656554-11a4-413b-931f-c972a19836d1",
+                              "name": "Risk score computed successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/kyc/customers/:customerId/riskScore/compute",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "kyc",
+                                    "customers",
+                                    ":customerId",
+                                    "riskScore",
+                                    "compute"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "customerId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"customerId\": \"<string>\",\n  \"overallRiskRating\": \"HIGH\",\n  \"riskScore\": \"<double>\",\n  \"riskFactors\": [\n    {\n      \"factor\": \"<string>\",\n      \"contribution\": \"<double>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"factor\": \"<string>\",\n      \"contribution\": \"<double>\",\n      \"details\": \"<string>\"\n    }\n  ],\n  \"assessmentDate\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:19:13.000Z",
+                              "updatedAt": "2026-06-05T15:19:13.000Z",
+                              "uid": "35240-dd656554-11a4-413b-931f-c972a19836d1"
+                            },
+                            {
+                              "id": "d785605c-82ac-4ea3-ad19-1695c0870003",
+                              "name": "Authentication required",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/kyc/customers/:customerId/riskScore/compute",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "kyc",
+                                    "customers",
+                                    ":customerId",
+                                    "riskScore",
+                                    "compute"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "customerId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:19:13.000Z",
+                              "updatedAt": "2026-06-05T15:19:13.000Z",
+                              "uid": "35240-d785605c-82ac-4ea3-ad19-1695c0870003"
+                            },
+                            {
+                              "id": "e8817a8f-d6ca-4018-abe4-a7c60adec086",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/kyc/customers/:customerId/riskScore/compute",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "kyc",
+                                    "customers",
+                                    ":customerId",
+                                    "riskScore",
+                                    "compute"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "customerId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:19:13.000Z",
+                              "updatedAt": "2026-06-05T15:19:13.000Z",
+                              "uid": "35240-e8817a8f-d6ca-4018-abe4-a7c60adec086"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:19:13.000Z",
+                          "updatedAt": "2026-06-05T15:19:13.000Z",
+                          "uid": "35240-cc81cff3-a14a-465e-b45f-099827d8bf1e"
+                        }
+                      ],
+                      "id": "9f054ae8-641b-4032-bda7-f181d501e839",
+                      "createdAt": "2026-06-05T15:19:13.000Z",
+                      "updatedAt": "2026-06-05T15:19:13.000Z",
+                      "uid": "35240-9f054ae8-641b-4032-bda7-f181d501e839"
+                    },
+                    {
+                      "name": "Get Customer Risk Score",
+                      "id": "f7500ae3-1d6c-433b-af3e-9402d7245d74",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/kyc/customers/:customerId/riskScore",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "kyc",
+                            "customers",
+                            ":customerId",
+                            "riskScore"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4daa4fa4-7f25-442c-a992-a2568176c685",
+                              "key": "customerId",
+                              "value": "<string>",
+                              "description": "(Required) Unique customer identifier"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve the computed risk score for a given customer based on KYC attributes, transaction history, and risk factor analysis. Returns the overall risk rating and contributing risk factors."
+                      },
+                      "response": [
+                        {
+                          "id": "bafcdba7-1582-453a-af7e-3a062bb9e778",
+                          "name": "Successful retrieval of risk score",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/kyc/customers/:customerId/riskScore",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "kyc",
+                                "customers",
+                                ":customerId",
+                                "riskScore"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"customerId\": \"<string>\",\n  \"overallRiskRating\": \"HIGH\",\n  \"riskScore\": \"<double>\",\n  \"riskFactors\": [\n    {\n      \"factor\": \"<string>\",\n      \"contribution\": \"<double>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"factor\": \"<string>\",\n      \"contribution\": \"<double>\",\n      \"details\": \"<string>\"\n    }\n  ],\n  \"assessmentDate\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:19:13.000Z",
+                          "updatedAt": "2026-06-05T15:19:13.000Z",
+                          "uid": "35240-bafcdba7-1582-453a-af7e-3a062bb9e778"
+                        },
+                        {
+                          "id": "61ab3024-f7a2-46ac-a287-78f994a12726",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/kyc/customers/:customerId/riskScore",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "kyc",
+                                "customers",
+                                ":customerId",
+                                "riskScore"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:13.000Z",
+                          "updatedAt": "2026-06-05T15:19:13.000Z",
+                          "uid": "35240-61ab3024-f7a2-46ac-a287-78f994a12726"
+                        },
+                        {
+                          "id": "2464ba74-b1ac-44a0-a573-b71e65ec4427",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/kyc/customers/:customerId/riskScore",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "kyc",
+                                "customers",
+                                ":customerId",
+                                "riskScore"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:13.000Z",
+                          "updatedAt": "2026-06-05T15:19:13.000Z",
+                          "uid": "35240-2464ba74-b1ac-44a0-a573-b71e65ec4427"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:19:13.000Z",
+                      "updatedAt": "2026-06-05T15:19:13.000Z",
+                      "uid": "35240-f7500ae3-1d6c-433b-af3e-9402d7245d74"
+                    }
+                  ],
+                  "id": "b108d27f-2660-492b-9958-c30865c1d9ac",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-b108d27f-2660-492b-9958-c30865c1d9ac"
+                }
+              ],
+              "id": "7cb926d0-f7dd-4cc1-a925-990b3aaeef48",
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-7cb926d0-f7dd-4cc1-a925-990b3aaeef48"
+            },
+            {
+              "name": "formSubmission",
+              "item": [
+                {
+                  "name": "Submit Customer KYC Form",
+                  "id": "b477097d-d299-466b-a774-0b23078e2fe1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"customerId\": \"<string>\",\n  \"customerType\": \"INDIVIDUAL\",\n  \"countryOfResidence\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"occupation\": \"<string>\",\n  \"sourceOfFunds\": \"<string>\",\n  \"expectedTransactionVolume\": \"<string>\",\n  \"pepStatus\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/kyc/customers/formSubmission",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "kyc",
+                        "customers",
+                        "formSubmission"
+                      ]
+                    },
+                    "description": "Submit customer KYC form data for risk scoring evaluation. The submitted data is processed against configured risk models to generate or update the customer risk assessment."
+                  },
+                  "response": [
+                    {
+                      "id": "9c059fdc-7bd4-4ba5-957d-1bc24bbd195b",
+                      "name": "Form submitted and processed successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"customerId\": \"<string>\",\n  \"customerType\": \"INDIVIDUAL\",\n  \"countryOfResidence\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"occupation\": \"<string>\",\n  \"sourceOfFunds\": \"<string>\",\n  \"expectedTransactionVolume\": \"<string>\",\n  \"pepStatus\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/kyc/customers/formSubmission",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "kyc",
+                            "customers",
+                            "formSubmission"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"customerId\": \"<string>\",\n  \"overallRiskRating\": \"HIGH\",\n  \"riskScore\": \"<double>\",\n  \"riskFactors\": [\n    {\n      \"factor\": \"<string>\",\n      \"contribution\": \"<double>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"factor\": \"<string>\",\n      \"contribution\": \"<double>\",\n      \"details\": \"<string>\"\n    }\n  ],\n  \"assessmentDate\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:19:13.000Z",
+                      "updatedAt": "2026-06-05T15:19:13.000Z",
+                      "uid": "35240-9c059fdc-7bd4-4ba5-957d-1bc24bbd195b"
+                    },
+                    {
+                      "id": "f84e7fba-df4e-4a0a-942f-ab6a86ee8e71",
+                      "name": "Invalid request parameters",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"customerId\": \"<string>\",\n  \"customerType\": \"INDIVIDUAL\",\n  \"countryOfResidence\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"occupation\": \"<string>\",\n  \"sourceOfFunds\": \"<string>\",\n  \"expectedTransactionVolume\": \"<string>\",\n  \"pepStatus\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/kyc/customers/formSubmission",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "kyc",
+                            "customers",
+                            "formSubmission"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:13.000Z",
+                      "updatedAt": "2026-06-05T15:19:13.000Z",
+                      "uid": "35240-f84e7fba-df4e-4a0a-942f-ab6a86ee8e71"
+                    },
+                    {
+                      "id": "ca008d3c-d62f-408a-a2ba-72099bf452a0",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"customerId\": \"<string>\",\n  \"customerType\": \"INDIVIDUAL\",\n  \"countryOfResidence\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"occupation\": \"<string>\",\n  \"sourceOfFunds\": \"<string>\",\n  \"expectedTransactionVolume\": \"<string>\",\n  \"pepStatus\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/kyc/customers/formSubmission",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "kyc",
+                            "customers",
+                            "formSubmission"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:13.000Z",
+                      "updatedAt": "2026-06-05T15:19:13.000Z",
+                      "uid": "35240-ca008d3c-d62f-408a-a2ba-72099bf452a0"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-b477097d-d299-466b-a774-0b23078e2fe1"
+                }
+              ],
+              "id": "46a63e64-1baf-4e12-a88d-e336330e54bf",
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-46a63e64-1baf-4e12-a88d-e336330e54bf"
+            }
+          ],
+          "id": "126fa65a-4c8b-4021-9d47-115669bfdf9f",
+          "createdAt": "2026-06-05T15:19:13.000Z",
+          "updatedAt": "2026-06-05T15:19:13.000Z",
+          "uid": "35240-126fa65a-4c8b-4021-9d47-115669bfdf9f"
+        }
+      ],
+      "id": "d5355911-6ed7-4367-8818-6ceeaaadb326",
+      "createdAt": "2026-06-05T15:19:13.000Z",
+      "updatedAt": "2026-06-05T15:19:13.000Z",
+      "uid": "35240-d5355911-6ed7-4367-8818-6ceeaaadb326"
+    },
+    {
+      "name": "screening",
+      "item": [
+        {
+          "name": "customers",
+          "item": [
+            {
+              "name": "{customerId}",
+              "item": [
+                {
+                  "name": "alerts",
+                  "item": [
+                    {
+                      "name": "Get Customer Sanction Alerts",
+                      "id": "087bb95e-53d8-4772-b153-c797f0596739",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/screening/customers/:customerId/alerts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "screening",
+                            "customers",
+                            ":customerId",
+                            "alerts"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4245466e-67b8-4890-906e-3b3a2102c621",
+                              "key": "customerId",
+                              "value": "<string>",
+                              "description": "(Required) Unique customer identifier"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve all sanctions screening alerts for a specific customer including matches against sanctions lists, PEP databases, and adverse media sources."
+                      },
+                      "response": [
+                        {
+                          "id": "d060b292-e4ad-4309-b7c8-eda04419854c",
+                          "name": "Successful retrieval of customer alerts",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/screening/customers/:customerId/alerts",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "screening",
+                                "customers",
+                                ":customerId",
+                                "alerts"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"body\": [\n    {\n      \"alertId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"matchType\": \"ADVERSE_MEDIA\",\n      \"matchScore\": \"<double>\",\n      \"matchedEntity\": \"<string>\",\n      \"listSource\": \"<string>\",\n      \"severity\": \"MEDIUM\",\n      \"status\": \"CLOSED_FALSE_POSITIVE\",\n      \"createdDate\": \"<dateTime>\"\n    },\n    {\n      \"alertId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"matchType\": \"WATCHLIST\",\n      \"matchScore\": \"<double>\",\n      \"matchedEntity\": \"<string>\",\n      \"listSource\": \"<string>\",\n      \"severity\": \"LOW\",\n      \"status\": \"UNDER_REVIEW\",\n      \"createdDate\": \"<dateTime>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:19:13.000Z",
+                          "updatedAt": "2026-06-05T15:19:13.000Z",
+                          "uid": "35240-d060b292-e4ad-4309-b7c8-eda04419854c"
+                        },
+                        {
+                          "id": "df3c7875-ff49-4300-aa05-91f3e36e9f22",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/screening/customers/:customerId/alerts",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "screening",
+                                "customers",
+                                ":customerId",
+                                "alerts"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:13.000Z",
+                          "updatedAt": "2026-06-05T15:19:13.000Z",
+                          "uid": "35240-df3c7875-ff49-4300-aa05-91f3e36e9f22"
+                        },
+                        {
+                          "id": "7c13228a-4c06-4359-a517-d763032a3deb",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/screening/customers/:customerId/alerts",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "screening",
+                                "customers",
+                                ":customerId",
+                                "alerts"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:13.000Z",
+                          "updatedAt": "2026-06-05T15:19:13.000Z",
+                          "uid": "35240-7c13228a-4c06-4359-a517-d763032a3deb"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:19:13.000Z",
+                      "updatedAt": "2026-06-05T15:19:13.000Z",
+                      "uid": "35240-087bb95e-53d8-4772-b153-c797f0596739"
+                    }
+                  ],
+                  "id": "03834b74-b0da-4fe6-bdb7-91969bd52826",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-03834b74-b0da-4fe6-bdb7-91969bd52826"
+                }
+              ],
+              "id": "d1c365d2-9f74-4569-bf26-465cc9c2bb44",
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-d1c365d2-9f74-4569-bf26-465cc9c2bb44"
+            },
+            {
+              "name": "alerts",
+              "item": [
+                {
+                  "name": "List All Customer Sanction Alerts",
+                  "id": "46d41e04-1c3f-45b3-bbfa-7e29397114be",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/screening/customers/alerts?page_size=25&page_start=0&status=ESCALATED&severity=LOW",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "screening",
+                        "customers",
+                        "alerts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by alert status",
+                          "key": "status",
+                          "value": "ESCALATED"
+                        },
+                        {
+                          "description": "Filter by alert severity",
+                          "key": "severity",
+                          "value": "LOW"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve the list of outstanding sanctions screening alerts across all customers, indexed by customer identifier. Supports filtering by alert status and severity."
+                  },
+                  "response": [
+                    {
+                      "id": "93135c9a-23ce-4a42-91fa-8768013d5b67",
+                      "name": "Successful retrieval of alerts",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/screening/customers/alerts?page_size=25&page_start=0&status=ESCALATED&severity=LOW",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "screening",
+                            "customers",
+                            "alerts"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of records to return per page",
+                              "key": "page_size",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Starting record number",
+                              "key": "page_start",
+                              "value": "0"
+                            },
+                            {
+                              "description": "Filter by alert status",
+                              "key": "status",
+                              "value": "ESCALATED"
+                            },
+                            {
+                              "description": "Filter by alert severity",
+                              "key": "severity",
+                              "value": "LOW"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"alertId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"matchType\": \"PEP\",\n      \"matchScore\": \"<double>\",\n      \"matchedEntity\": \"<string>\",\n      \"listSource\": \"<string>\",\n      \"severity\": \"HIGH\",\n      \"status\": \"OPEN\",\n      \"createdDate\": \"<dateTime>\"\n    },\n    {\n      \"alertId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"matchType\": \"SANCTIONS\",\n      \"matchScore\": \"<double>\",\n      \"matchedEntity\": \"<string>\",\n      \"listSource\": \"<string>\",\n      \"severity\": \"LOW\",\n      \"status\": \"ESCALATED\",\n      \"createdDate\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:13.000Z",
+                      "updatedAt": "2026-06-05T15:19:13.000Z",
+                      "uid": "35240-93135c9a-23ce-4a42-91fa-8768013d5b67"
+                    },
+                    {
+                      "id": "08e344b2-4eed-427c-a842-7f258384df8c",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/screening/customers/alerts?page_size=25&page_start=0&status=ESCALATED&severity=LOW",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "screening",
+                            "customers",
+                            "alerts"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of records to return per page",
+                              "key": "page_size",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Starting record number",
+                              "key": "page_start",
+                              "value": "0"
+                            },
+                            {
+                              "description": "Filter by alert status",
+                              "key": "status",
+                              "value": "ESCALATED"
+                            },
+                            {
+                              "description": "Filter by alert severity",
+                              "key": "severity",
+                              "value": "LOW"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:13.000Z",
+                      "updatedAt": "2026-06-05T15:19:13.000Z",
+                      "uid": "35240-08e344b2-4eed-427c-a842-7f258384df8c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-46d41e04-1c3f-45b3-bbfa-7e29397114be"
+                }
+              ],
+              "id": "65182399-91a2-4d8d-b91f-25f89ab22c8e",
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-65182399-91a2-4d8d-b91f-25f89ab22c8e"
+            }
+          ],
+          "id": "4aed72c6-4e96-46c8-bcfe-c0c4e4a33dd2",
+          "createdAt": "2026-06-05T15:19:13.000Z",
+          "updatedAt": "2026-06-05T15:19:13.000Z",
+          "uid": "35240-4aed72c6-4e96-46c8-bcfe-c0c4e4a33dd2"
+        },
+        {
+          "name": "onboarding",
+          "item": [
+            {
+              "name": "Screen Onboarding Customer",
+              "id": "6899b734-8816-491d-a622-6a762844ffac",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationality\": \"<string>\",\n  \"address\": \"<string>\",\n  \"idDocument\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/screening/onboarding",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "screening",
+                    "onboarding"
+                  ]
+                },
+                "description": "Screen a new customer during onboarding against sanctions lists, PEP databases, and adverse media to verify they are not sanctioned individuals, entities, or politically exposed persons."
+              },
+              "response": [
+                {
+                  "id": "cce9a3a3-e8d3-4070-9be4-b60f37c86a15",
+                  "name": "Screening completed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationality\": \"<string>\",\n  \"address\": \"<string>\",\n  \"idDocument\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/screening/onboarding",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "screening",
+                        "onboarding"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"screeningId\": \"<string>\",\n  \"status\": \"MATCH_FOUND\",\n  \"matches\": [\n    {\n      \"alertId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"matchType\": \"WATCHLIST\",\n      \"matchScore\": \"<double>\",\n      \"matchedEntity\": \"<string>\",\n      \"listSource\": \"<string>\",\n      \"severity\": \"LOW\",\n      \"status\": \"CLOSED_FALSE_POSITIVE\",\n      \"createdDate\": \"<dateTime>\"\n    },\n    {\n      \"alertId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"matchType\": \"PEP\",\n      \"matchScore\": \"<double>\",\n      \"matchedEntity\": \"<string>\",\n      \"listSource\": \"<string>\",\n      \"severity\": \"HIGH\",\n      \"status\": \"CLOSED_TRUE_MATCH\",\n      \"createdDate\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-cce9a3a3-e8d3-4070-9be4-b60f37c86a15"
+                },
+                {
+                  "id": "50fb5214-a917-4799-9397-86b7fb6f49ac",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationality\": \"<string>\",\n  \"address\": \"<string>\",\n  \"idDocument\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/screening/onboarding",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "screening",
+                        "onboarding"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-50fb5214-a917-4799-9397-86b7fb6f49ac"
+                },
+                {
+                  "id": "e493e89e-a98b-43ee-9818-329b819b503b",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationality\": \"<string>\",\n  \"address\": \"<string>\",\n  \"idDocument\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/screening/onboarding",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "screening",
+                        "onboarding"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-e493e89e-a98b-43ee-9818-329b819b503b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-6899b734-8816-491d-a622-6a762844ffac"
+            }
+          ],
+          "id": "e62e3f74-4783-487a-b9e8-21ff2bfcd8c1",
+          "createdAt": "2026-06-05T15:19:13.000Z",
+          "updatedAt": "2026-06-05T15:19:13.000Z",
+          "uid": "35240-e62e3f74-4783-487a-b9e8-21ff2bfcd8c1"
+        },
+        {
+          "name": "transactions",
+          "item": [
+            {
+              "name": "Scan Payment Message",
+              "id": "aa0c93e3-0cac-4ff6-b5d0-cc1c11eb1119",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transactionId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"originatorName\": \"<string>\",\n  \"beneficiaryAddress\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"messageType\": \"MT202\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/screening/transactions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "screening",
+                    "transactions"
+                  ]
+                },
+                "description": "Scan a payment message against sanctions lists and screening rules to identify potential matches in beneficiary names, addresses, and other payment details."
+              },
+              "response": [
+                {
+                  "id": "dafcc6ea-77a0-40b0-a21d-21087d53e985",
+                  "name": "Transaction scan completed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"transactionId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"originatorName\": \"<string>\",\n  \"beneficiaryAddress\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"messageType\": \"MT202\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/screening/transactions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "screening",
+                        "transactions"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"screeningId\": \"<string>\",\n  \"status\": \"MATCH_FOUND\",\n  \"matches\": [\n    {\n      \"alertId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"matchType\": \"WATCHLIST\",\n      \"matchScore\": \"<double>\",\n      \"matchedEntity\": \"<string>\",\n      \"listSource\": \"<string>\",\n      \"severity\": \"LOW\",\n      \"status\": \"CLOSED_FALSE_POSITIVE\",\n      \"createdDate\": \"<dateTime>\"\n    },\n    {\n      \"alertId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"matchType\": \"PEP\",\n      \"matchScore\": \"<double>\",\n      \"matchedEntity\": \"<string>\",\n      \"listSource\": \"<string>\",\n      \"severity\": \"HIGH\",\n      \"status\": \"CLOSED_TRUE_MATCH\",\n      \"createdDate\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-dafcc6ea-77a0-40b0-a21d-21087d53e985"
+                },
+                {
+                  "id": "0b681669-7aa7-4ddd-bcbc-6d343aa161a0",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"transactionId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"originatorName\": \"<string>\",\n  \"beneficiaryAddress\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"messageType\": \"MT202\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/screening/transactions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "screening",
+                        "transactions"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-0b681669-7aa7-4ddd-bcbc-6d343aa161a0"
+                },
+                {
+                  "id": "4f1a039d-ac69-45e5-a894-877cd179425b",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"transactionId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"originatorName\": \"<string>\",\n  \"beneficiaryAddress\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"messageType\": \"MT202\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/screening/transactions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "screening",
+                        "transactions"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-4f1a039d-ac69-45e5-a894-877cd179425b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-aa0c93e3-0cac-4ff6-b5d0-cc1c11eb1119"
+            }
+          ],
+          "id": "1175dba5-73f9-43ed-ba1b-56395dfd4def",
+          "createdAt": "2026-06-05T15:19:13.000Z",
+          "updatedAt": "2026-06-05T15:19:13.000Z",
+          "uid": "35240-1175dba5-73f9-43ed-ba1b-56395dfd4def"
+        }
+      ],
+      "id": "e3ca2c15-6e77-4c6c-a616-d08af5486f6f",
+      "createdAt": "2026-06-05T15:19:13.000Z",
+      "updatedAt": "2026-06-05T15:19:13.000Z",
+      "uid": "35240-e3ca2c15-6e77-4c6c-a616-d08af5486f6f"
+    },
+    {
+      "name": "monitoring",
+      "item": [
+        {
+          "name": "alerts",
+          "item": [
+            {
+              "name": "List Transaction Monitoring Alerts",
+              "id": "f1bf82f5-8bc3-43c3-b7dc-33cd3521ea2f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/monitoring/alerts?page_size=25&page_start=0&status=OPEN&ruleId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "monitoring",
+                    "alerts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of records to return per page",
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Starting record number",
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Filter by alert status",
+                      "key": "status",
+                      "value": "OPEN"
+                    },
+                    {
+                      "description": "Filter by monitoring rule identifier",
+                      "key": "ruleId",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieve alerts generated by AML transaction monitoring rules including suspicious activity patterns and threshold breaches."
+              },
+              "response": [
+                {
+                  "id": "c258d7f5-e23a-4e10-98fd-9162a4a412d8",
+                  "name": "Successful retrieval of monitoring alerts",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/monitoring/alerts?page_size=25&page_start=0&status=OPEN&ruleId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "monitoring",
+                        "alerts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by alert status",
+                          "key": "status",
+                          "value": "OPEN"
+                        },
+                        {
+                          "description": "Filter by monitoring rule identifier",
+                          "key": "ruleId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"header\": {\n    \"page_size\": \"<integer>\",\n    \"page_start\": \"<integer>\",\n    \"total_size\": \"<integer>\"\n  },\n  \"body\": [\n    {\n      \"alertId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"ruleId\": \"<string>\",\n      \"ruleName\": \"<string>\",\n      \"severity\": \"MEDIUM\",\n      \"status\": \"<string>\",\n      \"transactionIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"totalAmount\": \"<double>\",\n      \"createdDate\": \"<dateTime>\"\n    },\n    {\n      \"alertId\": \"<string>\",\n      \"customerId\": \"<string>\",\n      \"ruleId\": \"<string>\",\n      \"ruleName\": \"<string>\",\n      \"severity\": \"MEDIUM\",\n      \"status\": \"<string>\",\n      \"transactionIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"totalAmount\": \"<double>\",\n      \"createdDate\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-c258d7f5-e23a-4e10-98fd-9162a4a412d8"
+                },
+                {
+                  "id": "ff8b3c21-a047-4812-b1cd-8dff4ae6de5d",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/monitoring/alerts?page_size=25&page_start=0&status=OPEN&ruleId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "monitoring",
+                        "alerts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of records to return per page",
+                          "key": "page_size",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Starting record number",
+                          "key": "page_start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Filter by alert status",
+                          "key": "status",
+                          "value": "OPEN"
+                        },
+                        {
+                          "description": "Filter by monitoring rule identifier",
+                          "key": "ruleId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-ff8b3c21-a047-4812-b1cd-8dff4ae6de5d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-f1bf82f5-8bc3-43c3-b7dc-33cd3521ea2f"
+            }
+          ],
+          "id": "570ffded-3aac-4e58-9326-0f37d0f173ca",
+          "createdAt": "2026-06-05T15:19:13.000Z",
+          "updatedAt": "2026-06-05T15:19:13.000Z",
+          "uid": "35240-570ffded-3aac-4e58-9326-0f37d0f173ca"
+        }
+      ],
+      "id": "2166a1e7-36c4-4b1a-85ba-586be23fd074",
+      "createdAt": "2026-06-05T15:19:13.000Z",
+      "updatedAt": "2026-06-05T15:19:13.000Z",
+      "uid": "35240-2166a1e7-36c4-4b1a-85ba-586be23fd074"
+    },
+    {
+      "name": "alerts",
+      "item": [
+        {
+          "name": "{alertId}",
+          "item": [
+            {
+              "name": "Get Alert Details",
+              "id": "30be8bdf-f5ad-4a36-a7a7-5800a4aa20df",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/alerts/:alertId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    ":alertId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "b61aa535-dfa6-4bda-8702-6ec33cb1af57",
+                      "key": "alertId",
+                      "value": "<string>",
+                      "description": "(Required) Unique alert identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve detailed information for a specific alert including match details, investigation notes, and disposition history."
+              },
+              "response": [
+                {
+                  "id": "7c094507-82ba-4ba1-a312-626f7cad59a5",
+                  "name": "Successful retrieval of alert details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"alertId\": \"<string>\",\n  \"alertType\": \"SANCTIONS\",\n  \"customerId\": \"<string>\",\n  \"severity\": \"<string>\",\n  \"status\": \"<string>\",\n  \"assignedTo\": \"<string>\",\n  \"investigationNotes\": [\n    {\n      \"noteDate\": \"<dateTime>\",\n      \"author\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"noteDate\": \"<dateTime>\",\n      \"author\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"createdDate\": \"<dateTime>\",\n  \"lastUpdated\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-7c094507-82ba-4ba1-a312-626f7cad59a5"
+                },
+                {
+                  "id": "f5cda14d-71cd-4a47-abfc-789733f025ee",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-f5cda14d-71cd-4a47-abfc-789733f025ee"
+                },
+                {
+                  "id": "456081c9-625a-4493-a01e-9a3c29605ce0",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-456081c9-625a-4493-a01e-9a3c29605ce0"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-30be8bdf-f5ad-4a36-a7a7-5800a4aa20df"
+            },
+            {
+              "name": "Update Alert Disposition",
+              "id": "05fbbe00-7ab9-4ae0-9c48-7e178a902c6b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"CLOSED_FALSE_POSITIVE\",\n  \"assignedTo\": \"<string>\",\n  \"note\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/alerts/:alertId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    ":alertId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "7cebc77a-1a90-4395-bb41-70a924ac68e8",
+                      "key": "alertId",
+                      "value": "<string>",
+                      "description": "(Required) Unique alert identifier"
+                    }
+                  ]
+                },
+                "description": "Update the disposition of an alert including status changes, investigation notes, and closure decisions."
+              },
+              "response": [
+                {
+                  "id": "2c3bc68e-ac26-458d-aaad-d587e02b0575",
+                  "name": "Alert updated successfully",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"CLOSED_FALSE_POSITIVE\",\n  \"assignedTo\": \"<string>\",\n  \"note\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"alertId\": \"<string>\",\n  \"alertType\": \"SANCTIONS\",\n  \"customerId\": \"<string>\",\n  \"severity\": \"<string>\",\n  \"status\": \"<string>\",\n  \"assignedTo\": \"<string>\",\n  \"investigationNotes\": [\n    {\n      \"noteDate\": \"<dateTime>\",\n      \"author\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"noteDate\": \"<dateTime>\",\n      \"author\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"createdDate\": \"<dateTime>\",\n  \"lastUpdated\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-2c3bc68e-ac26-458d-aaad-d587e02b0575"
+                },
+                {
+                  "id": "791dbf93-87b7-4f72-9a27-42034254eae2",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"CLOSED_FALSE_POSITIVE\",\n  \"assignedTo\": \"<string>\",\n  \"note\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-791dbf93-87b7-4f72-9a27-42034254eae2"
+                },
+                {
+                  "id": "4ba2d3ad-dc35-41bf-9722-c994781e9e06",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"CLOSED_FALSE_POSITIVE\",\n  \"assignedTo\": \"<string>\",\n  \"note\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-4ba2d3ad-dc35-41bf-9722-c994781e9e06"
+                },
+                {
+                  "id": "d46506ad-754f-4bac-ab31-81fd3bb0525f",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"CLOSED_FALSE_POSITIVE\",\n  \"assignedTo\": \"<string>\",\n  \"note\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:13.000Z",
+                  "updatedAt": "2026-06-05T15:19:13.000Z",
+                  "uid": "35240-d46506ad-754f-4bac-ab31-81fd3bb0525f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-05fbbe00-7ab9-4ae0-9c48-7e178a902c6b"
+            }
+          ],
+          "id": "349b0be1-f9f6-4940-be5c-4e914606bcce",
+          "createdAt": "2026-06-05T15:19:13.000Z",
+          "updatedAt": "2026-06-05T15:19:13.000Z",
+          "uid": "35240-349b0be1-f9f6-4940-be5c-4e914606bcce"
+        }
+      ],
+      "id": "dae140ae-adf4-4226-abf4-39d4b2a0beee",
+      "createdAt": "2026-06-05T15:19:13.000Z",
+      "updatedAt": "2026-06-05T15:19:13.000Z",
+      "uid": "35240-dae140ae-adf4-4226-abf4-39d4b2a0beee"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.temenos.com/fcm/v1"
+    }
+  ]
+}
