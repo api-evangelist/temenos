@@ -1,0 +1,41 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/temenos-bnpl-openapi.yml, openapi/temenos-cloud-banking-openapi.yml, openapi/temenos-data-hub-openapi.yml,
+  openapi/temenos-enterprise-product-pricing-openapi.yml, openapi/temenos-financial-crime-mitigation-openapi.yml,
+  openapi/temenos-fund-administration-openapi.yml, openapi/temenos-infinity-openapi.yml, openapi/temenos-journey-manager-openapi.yml,
+  openapi/temenos-microservices-openapi.yml, openapi/temenos-payments-openapi.yml, openapi/temenos-transact-openapi.yml,
+  openapi/temenos-wealth-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/temenos-bnpl-openapi.yml
+  - openapi/temenos-cloud-banking-openapi.yml
+  - openapi/temenos-data-hub-openapi.yml
+  - openapi/temenos-enterprise-product-pricing-openapi.yml
+  - openapi/temenos-financial-crime-mitigation-openapi.yml
+  - openapi/temenos-fund-administration-openapi.yml
+  - openapi/temenos-infinity-openapi.yml
+  - openapi/temenos-journey-manager-openapi.yml
+  - openapi/temenos-microservices-openapi.yml
+  - openapi/temenos-payments-openapi.yml
+  - openapi/temenos-transact-openapi.yml
+  - openapi/temenos-wealth-openapi.yml
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://journey.temenos.com/oauth2/authorize
+    tokenUrl: https://journey.temenos.com/oauth2/token
+    scopes: 2
+  sources:
+  - openapi/temenos-journey-manager-openapi.yml
+  - openapi/temenos-transact-openapi.yml
