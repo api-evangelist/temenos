@@ -1,0 +1,38 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/temenos-journey-manager-openapi.yml, openapi/temenos-transact-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/temenos-journey-manager-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://journey.temenos.com/oauth2/authorize
+    tokenUrl: https://journey.temenos.com/oauth2/token
+- name: oauth2
+  source: openapi/temenos-transact-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.temenos.com/oauth2/authorize
+    tokenUrl: https://auth.temenos.com/oauth2/token
+  description: OAuth 2.0 authentication for API access
+scopes:
+- scope: admin
+  description: Administrative access
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/temenos-transact-openapi.yml
+- scope: read
+  description: Read access
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/temenos-journey-manager-openapi.yml
+  - openapi/temenos-transact-openapi.yml
+- scope: write
+  description: Write access
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/temenos-journey-manager-openapi.yml
+  - openapi/temenos-transact-openapi.yml
