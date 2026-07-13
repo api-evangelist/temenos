@@ -1,0 +1,75 @@
+# temenos — AsyncAPI Spectral ruleset (strengthened)
+# Plain Spectral. Rules measured from this provider's own AsyncAPI event
+# conventions by strengthen_asyncapi.py, then self-validated against the spec.
+#
+# Provenance:
+#   - server-security-defined: 2/2 servers
+#   - security-schemes: ['sasl', 'userPassword']
+#   - message-name-casing: pascal @ 100% (n=14)
+#   - payload-property-casing: camel @ 67% (n=183)
+#   - operation-id-casing: camel @ 100% (n=7, v2)
+#   - message-contenttype-defined: 100% adherence
+#   - message-payload-defined: 100% adherence
+extends:
+  - spectral:asyncapi
+rules:
+  server-security-defined:
+    description: Servers should declare their security requirements.
+    severity: warn
+    given: $.servers[*]
+    then:
+      field: security
+      function: truthy
+  security-schemes-defined:
+    description: Security schemes should be defined in components.
+    severity: warn
+    given: $.components
+    then:
+      field: securitySchemes
+      function: truthy
+  message-name-casing:
+    description: Message names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.messages
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: pascal
+  payload-property-casing:
+    description: Message payload properties should be camelCase (the dominant convention in this API).
+    severity: info
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: camel
+  operation-id-casing:
+    description: Operation IDs should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.channels[*][publish,subscribe].operationId
+    then:
+      function: casing
+      functionOptions:
+        type: camel
+  message-contenttype-defined:
+    description: Messages should declare a contentType (set on 100% of this API's messages).
+    severity: warn
+    given: $.components.messages[*]
+    then:
+      field: contentType
+      function: truthy
+  message-payload-defined:
+    description: Messages should define a payload schema (set on 100% of this API's messages).
+    severity: warn
+    given: $.components.messages[*]
+    then:
+      field: payload
+      function: truthy
+  no-empty-descriptions:
+    description: Descriptions must not be empty strings.
+    severity: warn
+    given: $..description
+    then:
+      function: truthy
