@@ -322,6 +322,8 @@ apis:
       - type: Reference
         url: https://developer.temenos.com/temenos-explorer/docs/developer/plugin-csa/api-methods/
 common:
+  - type: AgenticAccess
+    url: agentic-access/temenos-agentic-access.yml
   - type: DomainSecurity
     url: security/temenos-domain-security.yml
   - type: Authentication
