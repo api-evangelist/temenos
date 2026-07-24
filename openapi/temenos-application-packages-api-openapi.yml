@@ -1,0 +1,178 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Application Packages API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Application Packages
+  description: Manage application packages including uploading, retrieving, and deleting application package archives.
+paths:
+  /packages:
+    get:
+      operationId: listApplicationPackages
+      summary: List Application Packages
+      description: Retrieve the list of available application packages with their metadata and version information.
+      tags:
+      - Application Packages
+      responses:
+        '200':
+          description: Successful retrieval of packages
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApplicationPackage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: uploadApplicationPackage
+      summary: Upload Application Package
+      description: Upload a new application package archive for deployment in the Journey Manager platform.
+      tags:
+      - Application Packages
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                archive:
+                  type: string
+                  format: binary
+                  description: Application package archive file
+      responses:
+        '201':
+          description: Package uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationPackage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /packages/{packageId}:
+    get:
+      operationId: getApplicationPackage
+      summary: Get Application Package
+      description: Retrieve a specific application package with its metadata and configuration details.
+      tags:
+      - Application Packages
+      parameters:
+      - name: packageId
+        in: path
+        required: true
+        description: Package identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationPackage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteApplicationPackage
+      summary: Delete Application Package
+      description: Remove an application package from the Journey Manager platform.
+      tags:
+      - Application Packages
+      parameters:
+      - name: packageId
+        in: path
+        required: true
+        description: Package identifier
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Package deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ApplicationPackage:
+      type: object
+      description: Application package
+      properties:
+        packageId:
+          type: string
+          description: Package identifier
+        name:
+          type: string
+          description: Package name
+        version:
+          type: string
+          description: Package version
+        description:
+          type: string
+          description: Package description
+        status:
+          type: string
+          description: Package status
+        createdDate:
+          type: string
+          format: date-time
+          description: Creation timestamp
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

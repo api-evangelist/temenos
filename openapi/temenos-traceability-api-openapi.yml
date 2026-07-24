@@ -1,0 +1,112 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Traceability API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Traceability
+  description: Non-repudiation capabilities providing detailed request and response message information for executed API services.
+paths:
+  /traceability/{serviceId}:
+    get:
+      operationId: getTraceabilityRecord
+      summary: Get Traceability Record
+      description: Retrieve detailed request and response message information for an executed API service providing non-repudiation evidence.
+      tags:
+      - Traceability
+      parameters:
+      - name: serviceId
+        in: path
+        required: true
+        description: Service execution identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of traceability record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceabilityRecord'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    TraceabilityRecord:
+      type: object
+      description: Service traceability record
+      properties:
+        serviceId:
+          type: string
+          description: Service execution identifier
+        serviceName:
+          type: string
+          description: Service name
+        requestTimestamp:
+          type: string
+          format: date-time
+          description: Request timestamp
+        responseTimestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+        requestPayload:
+          type: object
+          description: Request message payload
+          additionalProperties: true
+        responsePayload:
+          type: object
+          description: Response message payload
+          additionalProperties: true
+        statusCode:
+          type: integer
+          description: Response status code
+        userId:
+          type: string
+          description: Executing user
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

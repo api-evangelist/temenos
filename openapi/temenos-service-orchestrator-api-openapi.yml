@@ -1,0 +1,217 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Service Orchestrator API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Service Orchestrator
+  description: Create and manage service orchestration sequences for executing business operations spanning different applications.
+paths:
+  /orchestrations:
+    get:
+      operationId: listOrchestrations
+      summary: List Orchestration Sequences
+      description: Retrieve service orchestration sequence definitions for executing multi-step business operations.
+      tags:
+      - Service Orchestrator
+      responses:
+        '200':
+          description: Successful retrieval of orchestrations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Orchestration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createOrchestration
+      summary: Create Orchestration Sequence
+      description: Create a new service orchestration sequence defining the order of business operations across different applications.
+      tags:
+      - Service Orchestrator
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrchestrationCreate'
+      responses:
+        '201':
+          description: Orchestration created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Orchestration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /orchestrations/{orchestrationId}/execute:
+    post:
+      operationId: executeOrchestration
+      summary: Execute Orchestration Sequence
+      description: Trigger execution of a defined service orchestration sequence with provided input parameters.
+      tags:
+      - Service Orchestrator
+      parameters:
+      - name: orchestrationId
+        in: path
+        required: true
+        description: Orchestration sequence identifier
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inputParameters:
+                  type: object
+                  description: Input parameters for the orchestration
+                  additionalProperties: true
+      responses:
+        '202':
+          description: Orchestration execution started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrchestrationExecution'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    OrchestrationCreate:
+      type: object
+      description: Orchestration creation request
+      required:
+      - name
+      - steps
+      properties:
+        name:
+          type: string
+          description: Orchestration name
+        description:
+          type: string
+          description: Orchestration description
+        steps:
+          type: array
+          description: Orchestration steps
+          items:
+            type: object
+            required:
+            - stepOrder
+            - serviceName
+            - operationId
+            properties:
+              stepOrder:
+                type: integer
+              serviceName:
+                type: string
+              operationId:
+                type: string
+    Orchestration:
+      type: object
+      description: Service orchestration sequence
+      properties:
+        orchestrationId:
+          type: string
+          description: Orchestration identifier
+        name:
+          type: string
+          description: Orchestration name
+        description:
+          type: string
+          description: Orchestration description
+        steps:
+          type: array
+          description: Orchestration steps
+          items:
+            type: object
+            properties:
+              stepOrder:
+                type: integer
+                description: Step order
+              serviceName:
+                type: string
+                description: Service to invoke
+              operationId:
+                type: string
+                description: Operation to execute
+        status:
+          type: string
+          description: Orchestration status
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    OrchestrationExecution:
+      type: object
+      description: Orchestration execution status
+      properties:
+        executionId:
+          type: string
+          description: Execution identifier
+        orchestrationId:
+          type: string
+          description: Orchestration identifier
+        status:
+          type: string
+          description: Execution status
+          enum:
+          - STARTED
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
+        startTime:
+          type: string
+          format: date-time
+          description: Start timestamp
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

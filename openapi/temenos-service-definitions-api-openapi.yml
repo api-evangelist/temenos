@@ -1,0 +1,139 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Service Definitions API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Service Definitions
+  description: Manage service definitions and parameters for journey integration services.
+paths:
+  /services:
+    get:
+      operationId: listServiceDefinitions
+      summary: List Service Definitions
+      description: Retrieve service definitions for journey integration services with their parameters and configurations.
+      tags:
+      - Service Definitions
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceDefinition'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createServiceDefinition
+      summary: Create Service Definition
+      description: Create a new service definition for integration within customer journey workflows.
+      tags:
+      - Service Definitions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceDefinitionCreate'
+      responses:
+        '201':
+          description: Service definition created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceDefinition'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ServiceDefinition:
+      type: object
+      description: Integration service definition
+      properties:
+        serviceId:
+          type: string
+          description: Service identifier
+        name:
+          type: string
+          description: Service name
+        description:
+          type: string
+          description: Service description
+        parameters:
+          type: array
+          description: Service parameters
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Parameter name
+              type:
+                type: string
+                description: Parameter type
+              required:
+                type: boolean
+                description: Whether required
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    ServiceDefinitionCreate:
+      type: object
+      description: Service definition creation request
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Service name
+        description:
+          type: string
+          description: Service description
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

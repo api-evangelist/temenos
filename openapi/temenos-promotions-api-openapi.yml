@@ -1,0 +1,132 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Promotions API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Promotions
+  description: Create and manage promotional arrangements for parties with promotional codes and benefit tracking.
+paths:
+  /promotions:
+    post:
+      operationId: createPromotion
+      summary: Create Promotion Arrangement
+      description: Establish a promotional arrangement for a party with promotional codes enabling special pricing benefits.
+      tags:
+      - Promotions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromotionCreate'
+      responses:
+        '201':
+          description: Promotion created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promotion'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Promotion:
+      type: object
+      description: Promotional arrangement
+      properties:
+        promotionId:
+          type: string
+          description: Promotion identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        promotionCode:
+          type: string
+          description: Promotional code
+        benefits:
+          type: array
+          description: Applied benefits
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Benefit type
+              value:
+                type: number
+                format: double
+                description: Benefit value
+        status:
+          type: string
+          description: Promotion status
+        startDate:
+          type: string
+          format: date
+          description: Promotion start date
+        endDate:
+          type: string
+          format: date
+          description: Promotion end date
+    PromotionCreate:
+      type: object
+      description: Promotion creation request
+      required:
+      - customerId
+      - promotionCode
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        promotionCode:
+          type: string
+          description: Promotional code
+        arrangementId:
+          type: string
+          description: Target arrangement
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

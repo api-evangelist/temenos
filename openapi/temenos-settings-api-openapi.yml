@@ -1,0 +1,98 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Settings API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Settings
+  description: Configuration management for system-wide and user-specific settings with 6 endpoints.
+paths:
+  /settings/configurations:
+    get:
+      operationId: listConfigurations
+      summary: List System Configurations
+      description: Retrieve system-wide and user-specific configuration settings for the Temenos Transact platform.
+      tags:
+      - Settings
+      responses:
+        '200':
+          description: Successful retrieval of configurations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Configuration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Configuration:
+      type: object
+      description: System configuration setting
+      properties:
+        configurationId:
+          type: string
+          description: Configuration identifier
+        configurationGroup:
+          type: string
+          description: Configuration category group
+        key:
+          type: string
+          description: Configuration key
+        value:
+          type: string
+          description: Configuration value
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

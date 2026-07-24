@@ -1,0 +1,151 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Entitlements API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Entitlements
+  description: Manage user entitlements and role assignments for specific products based on entitlement policies.
+paths:
+  /entitlements:
+    get:
+      operationId: listEntitlements
+      summary: List User Entitlements
+      description: Retrieve user entitlements and role assignments across products based on configured entitlement policies.
+      tags:
+      - Entitlements
+      parameters:
+      - name: userId
+        in: query
+        description: Filter by user identifier
+        schema:
+          type: string
+      - name: productId
+        in: query
+        description: Filter by product identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of entitlements
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Entitlement'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createEntitlement
+      summary: Assign Entitlement
+      description: Assign entitlements and roles to a user for specific products based on entitlement policies.
+      tags:
+      - Entitlements
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntitlementCreate'
+      responses:
+        '201':
+          description: Entitlement assigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entitlement'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Entitlement:
+      type: object
+      description: User entitlement
+      properties:
+        entitlementId:
+          type: string
+          description: Entitlement identifier
+        userId:
+          type: string
+          description: User identifier
+        productId:
+          type: string
+          description: Product identifier
+        role:
+          type: string
+          description: Assigned role
+        permissions:
+          type: array
+          description: Granted permissions
+          items:
+            type: string
+        status:
+          type: string
+          description: Entitlement status
+    EntitlementCreate:
+      type: object
+      description: Entitlement assignment request
+      required:
+      - userId
+      - productId
+      - role
+      properties:
+        userId:
+          type: string
+          description: User identifier
+        productId:
+          type: string
+          description: Product identifier
+        role:
+          type: string
+          description: Role to assign
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

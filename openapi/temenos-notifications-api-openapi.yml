@@ -1,0 +1,128 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Notifications API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Notifications
+  description: Configure and manage customer notification preferences and delivery across push notifications, SMS, and email channels.
+paths:
+  /notifications/preferences:
+    get:
+      operationId: getNotificationPreferences
+      summary: Get Notification Preferences
+      description: Retrieve the customer notification preferences including enabled channels, event subscriptions, and delivery settings.
+      tags:
+      - Notifications
+      responses:
+        '200':
+          description: Successfully retrieved notification preferences
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationPreferences'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updateNotificationPreferences
+      summary: Update Notification Preferences
+      description: Update the customer notification preferences for banking events such as transactions, balance thresholds, and security alerts.
+      tags:
+      - Notifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationPreferences'
+      responses:
+        '200':
+          description: Successfully updated notification preferences
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationPreferences'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters or payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    NotificationPreferences:
+      type: object
+      description: Customer notification preferences
+      properties:
+        pushEnabled:
+          type: boolean
+          description: Whether push notifications are enabled
+        smsEnabled:
+          type: boolean
+          description: Whether SMS notifications are enabled
+        emailEnabled:
+          type: boolean
+          description: Whether email notifications are enabled
+        transactionAlerts:
+          type: boolean
+          description: Receive alerts for each transaction
+        balanceThresholdAlert:
+          type: boolean
+          description: Receive alerts when balance drops below threshold
+        balanceThreshold:
+          type: number
+          description: Balance threshold amount for alerts
+    Error:
+      type: object
+      description: Error response
+      properties:
+        code:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Detail of the error
+          description: Additional error details
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

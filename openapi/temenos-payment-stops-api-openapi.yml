@@ -1,0 +1,212 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Payment Stops API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Payment Stops
+  description: Create and manage stop instructions for individual payments based on cheque details, transaction amounts, or payment references.
+paths:
+  /paymentStops:
+    get:
+      operationId: listPaymentStops
+      summary: List Payment Stop Requests
+      description: Retrieve active payment stop instructions including stops based on cheque details, transaction amounts, or payment references.
+      tags:
+      - Payment Stops
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: accountId
+        in: query
+        description: Filter by account identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of payment stops
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaymentStop'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPaymentStop
+      summary: Create Payment Stop Request
+      description: Create a stop instruction for individual payments based on cheque number, transaction amount range, or payment reference to prevent processing.
+      tags:
+      - Payment Stops
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentStopCreate'
+      responses:
+        '201':
+          description: Payment stop created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentStop'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    PaymentStop:
+      type: object
+      description: Payment stop instruction
+      properties:
+        paymentStopId:
+          type: string
+          description: Unique payment stop identifier
+        accountId:
+          type: string
+          description: Account for the stop instruction
+        stopType:
+          type: string
+          description: Type of payment stop
+          enum:
+          - CHEQUE
+          - AMOUNT_RANGE
+          - REFERENCE
+        chequeNumber:
+          type: string
+          description: Cheque number for cheque-based stops
+        amountFrom:
+          type: number
+          format: double
+          description: Minimum amount for range-based stops
+        amountTo:
+          type: number
+          format: double
+          description: Maximum amount for range-based stops
+        reference:
+          type: string
+          description: Payment reference for reference-based stops
+        status:
+          type: string
+          description: Stop instruction status
+          enum:
+          - ACTIVE
+          - EXPIRED
+          - CANCELLED
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    PaymentStopCreate:
+      type: object
+      description: Request body for creating a payment stop
+      required:
+      - accountId
+      - stopType
+      properties:
+        accountId:
+          type: string
+          description: Account identifier
+        stopType:
+          type: string
+          description: Type of payment stop
+          enum:
+          - CHEQUE
+          - AMOUNT_RANGE
+          - REFERENCE
+        chequeNumber:
+          type: string
+          description: Cheque number to stop
+        chequeNumberTo:
+          type: string
+          description: End of cheque number range
+        amountFrom:
+          type: number
+          format: double
+          description: Minimum amount threshold
+        amountTo:
+          type: number
+          format: double
+          description: Maximum amount threshold
+        reference:
+          type: string
+          description: Payment reference to stop
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

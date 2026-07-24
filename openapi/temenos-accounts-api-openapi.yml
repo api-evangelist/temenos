@@ -1,0 +1,283 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Accounts
+  description: Manage commercial banking accounts including current accounts, savings accounts, and operational accounts with regional compliance.
+paths:
+  /accounts:
+    get:
+      operationId: listCmbAccounts
+      summary: List Commercial Banking Accounts
+      description: Retrieve commercial banking accounts with country-specific product details and regulatory compliance status.
+      tags:
+      - Accounts
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: customerId
+        in: query
+        description: Filter by customer
+        schema:
+          type: string
+      - name: region
+        in: query
+        description: Filter by regional market
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CmbAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCmbAccount
+      summary: Create Commercial Banking Account
+      description: Create a new commercial banking account using pre-configured regional product templates with local regulatory compliance.
+      tags:
+      - Accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CmbAccountCreate'
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CmbAccount'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}:
+    get:
+      operationId: getAccount
+      summary: Get Account Details
+      description: Retrieve detailed information for a specific customer account including balances, product details, interest rates, and associated services.
+      tags:
+      - Accounts
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Successfully retrieved account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized_2:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+  schemas:
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        code:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Detail of the error
+          description: Additional error details
+    PaginationHeader:
+      type: object
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
+    CmbAccount:
+      type: object
+      description: Commercial banking account
+      properties:
+        accountId:
+          type: string
+          description: Account identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        productId:
+          type: string
+          description: Product identifier
+        accountType:
+          type: string
+          description: Account type
+        currency:
+          type: string
+          description: Account currency
+        balance:
+          type: number
+          format: double
+          description: Current balance
+        region:
+          type: string
+          description: Regional market
+        status:
+          type: string
+          description: Account status
+    CmbAccountCreate:
+      type: object
+      required:
+      - customerId
+      - productId
+      - currency
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        productId:
+          type: string
+          description: Regional product template
+        currency:
+          type: string
+          description: Account currency
+          pattern: ^[A-Z]{3}$
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
+    Account:
+      type: object
+      description: Customer bank account visible through the digital channel
+      properties:
+        accountId:
+          type: string
+          description: Unique account identifier
+        accountName:
+          type: string
+          description: Customer-defined name for the account
+        accountType:
+          type: string
+          description: Type of account
+          enum:
+          - CURRENT
+          - SAVINGS
+          - DEPOSIT
+          - LOAN
+          - CREDIT_CARD
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          pattern: ^[A-Z]{3}$
+        availableBalance:
+          type: number
+          description: Available balance for transactions
+        currentBalance:
+          type: number
+          description: Current ledger balance
+        status:
+          type: string
+          description: Account status
+          enum:
+          - ACTIVE
+          - DORMANT
+          - CLOSED
+          - BLOCKED
+        productName:
+          type: string
+          description: Name of the banking product
+  parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+    pageStart:
+      name: page_start
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

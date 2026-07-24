@@ -1,0 +1,326 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Product API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Product
+  description: Configure fund and share class settings including anti-dilution levies, commission groups, fund manager data, share class information, calendars, and performance fee structures with 38 endpoints.
+paths:
+  /product/funds:
+    get:
+      operationId: listFunds
+      summary: List Funds
+      description: Retrieve the list of funds with their master data including fund type, domicile, base currency, manager information, and promoter details.
+      tags:
+      - Product
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of funds
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Fund'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createFund
+      summary: Create Fund
+      description: Create a new fund master record with fund type, domicile, base currency, manager assignment, and regulatory configuration.
+      tags:
+      - Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FundCreate'
+      responses:
+        '201':
+          description: Fund created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fund'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /product/shareClasses:
+    get:
+      operationId: listShareClasses
+      summary: List Share Classes
+      description: Retrieve share class configurations for funds including pricing details, fee structures, distribution policies, and investor eligibility criteria.
+      tags:
+      - Product
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: fundId
+        in: query
+        description: Filter by fund identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of share classes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ShareClass'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /product/products:
+    get:
+      operationId: listProducts
+      summary: List Banking Products
+      description: Retrieve the product catalogue including current account products, savings products, deposit products, loan products, and Islamic finance products with their terms and conditions.
+      tags:
+      - Product
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: productGroup
+        in: query
+        description: Filter by product group
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader_2'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    FundCreate:
+      type: object
+      description: Request body for creating a fund
+      required:
+      - fundName
+      - fundType
+      - domicile
+      - baseCurrency
+      properties:
+        fundName:
+          type: string
+          description: Fund name
+        fundType:
+          type: string
+          description: Fund type
+        domicile:
+          type: string
+          description: Domicile country code
+        baseCurrency:
+          type: string
+          description: Base currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        managerId:
+          type: string
+          description: Fund manager identifier
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total records available
+    PaginationHeader_2:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    Fund:
+      type: object
+      description: Fund master record
+      properties:
+        fundId:
+          type: string
+          description: Unique fund identifier
+        fundName:
+          type: string
+          description: Fund name
+        fundType:
+          type: string
+          description: Fund classification type
+        domicile:
+          type: string
+          description: Fund domicile country
+        baseCurrency:
+          type: string
+          description: Fund base currency
+        managerId:
+          type: string
+          description: Fund manager identifier
+        promoterId:
+          type: string
+          description: Fund promoter identifier
+        inceptionDate:
+          type: string
+          format: date
+          description: Fund inception date
+        status:
+          type: string
+          description: Fund status
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    ShareClass:
+      type: object
+      description: Fund share class configuration
+      properties:
+        shareClassId:
+          type: string
+          description: Share class identifier
+        fundId:
+          type: string
+          description: Parent fund identifier
+        shareClassName:
+          type: string
+          description: Share class name
+        currency:
+          type: string
+          description: Share class currency
+        distributionPolicy:
+          type: string
+          description: Distribution policy
+          enum:
+          - ACCUMULATION
+          - DISTRIBUTION
+        managementFee:
+          type: number
+          format: double
+          description: Annual management fee percentage
+        performanceFee:
+          type: number
+          format: double
+          description: Performance fee percentage
+        minimumInvestment:
+          type: number
+          format: double
+          description: Minimum initial investment amount
+        status:
+          type: string
+          description: Share class status
+    Product:
+      type: object
+      description: Banking product definition
+      properties:
+        productId:
+          type: string
+          description: Unique product identifier
+        productName:
+          type: string
+          description: Product display name
+        productGroup:
+          type: string
+          description: Product category group
+        currency:
+          type: string
+          description: Default product currency
+        description:
+          type: string
+          description: Product description
+        status:
+          type: string
+          description: Product availability status
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

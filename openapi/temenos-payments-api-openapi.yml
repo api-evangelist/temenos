@@ -1,0 +1,214 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Payments API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Payments
+  description: Country-specific payment processing including domestic and international transfers with local clearing integration.
+paths:
+  /payments:
+    post:
+      operationId: createCmbPayment
+      summary: Create Payment
+      description: Initiate a payment through country-specific clearing channels with local regulatory validation and compliance checks.
+      tags:
+      - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CmbPaymentCreate'
+      responses:
+        '201':
+          description: Payment initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CmbPayment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /payments/{paymentId}:
+    get:
+      operationId: getPayment
+      summary: Get Payment Status
+      description: Retrieve the current status and details of a previously initiated payment including processing status, timestamps, and confirmation details.
+      tags:
+      - Payments
+      parameters:
+      - name: paymentId
+        in: path
+        required: true
+        description: Unique payment identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved payment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized_2:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+  schemas:
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        code:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Detail of the error
+          description: Additional error details
+    CmbPaymentCreate:
+      type: object
+      required:
+      - debitAccountId
+      - amount
+      - currency
+      properties:
+        debitAccountId:
+          type: string
+          description: Debit account
+        beneficiaryName:
+          type: string
+          description: Beneficiary name
+        beneficiaryAccountId:
+          type: string
+          description: Beneficiary account
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+        currency:
+          type: string
+          description: Currency
+          pattern: ^[A-Z]{3}$
+        reference:
+          type: string
+          description: Payment reference
+    CmbPayment:
+      type: object
+      description: Payment record
+      properties:
+        paymentId:
+          type: string
+          description: Payment identifier
+        debitAccountId:
+          type: string
+          description: Debit account
+        amount:
+          type: number
+          format: double
+          description: Amount
+        currency:
+          type: string
+          description: Currency
+        status:
+          type: string
+          description: Payment status
+    PaymentResponse:
+      type: object
+      description: Payment status and details
+      properties:
+        paymentId:
+          type: string
+          description: Unique payment identifier
+        status:
+          type: string
+          description: Current payment status
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+          - CANCELLED
+        debitAccountId:
+          type: string
+          description: Source account identifier
+        creditAccountId:
+          type: string
+          description: Destination account identifier
+        amount:
+          type: number
+          description: Payment amount
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        createdDate:
+          type: string
+          format: date-time
+          description: Timestamp when the payment was created
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

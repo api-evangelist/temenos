@@ -1,0 +1,879 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Order API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Order
+  description: Handle instruction processing and payment management including cash receipts, dividend payments, order creation and cancellation, payment amendments, and stock exchange transactions with 17 endpoints.
+paths:
+  /order/instructions:
+    get:
+      operationId: listInstructions
+      summary: List Order Instructions
+      description: Retrieve order instructions for subscription, redemption, switch, and transfer operations across fund share classes.
+      tags:
+      - Order
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: fundId
+        in: query
+        description: Filter by fund identifier
+        schema:
+          type: string
+      - name: instructionType
+        in: query
+        description: Filter by instruction type
+        schema:
+          type: string
+          enum:
+          - SUBSCRIPTION
+          - REDEMPTION
+          - SWITCH
+          - TRANSFER
+      responses:
+        '200':
+          description: Successful retrieval of instructions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OrderInstruction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createInstruction
+      summary: Create Order Instruction
+      description: Create a new order instruction for subscription, redemption, switch, or transfer operations with share class and quantity details.
+      tags:
+      - Order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInstructionCreate'
+      responses:
+        '201':
+          description: Instruction created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderInstruction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /order/sharePrices:
+    post:
+      operationId: createSharePrice
+      summary: Set Share Price
+      description: Set the net asset value (NAV) based share price for a fund share class for a specific valuation date.
+      tags:
+      - Order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SharePriceCreate'
+      responses:
+        '201':
+          description: Share price set successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SharePrice'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /order/paymentOrders:
+    get:
+      operationId: listPaymentOrders
+      summary: List Payment Orders
+      description: Retrieve a list of payment orders including domestic transfers, international transfers, SEPA payments, and standing orders.
+      tags:
+      - Order
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: accountId
+        in: query
+        description: Filter payment orders by originating account
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Filter by payment order status
+        schema:
+          type: string
+          enum:
+          - pending
+          - processing
+          - completed
+          - failed
+          - cancelled
+      responses:
+        '200':
+          description: Successful retrieval of payment orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader_2'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaymentOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPaymentOrder
+      summary: Create Payment Order
+      description: Initiate a new payment order for domestic or international fund transfers. Supports SEPA credit transfers, SWIFT payments, ACH transfers, and internal account transfers.
+      tags:
+      - Order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentOrderCreate'
+      responses:
+        '201':
+          description: Payment order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /order/standingOrders:
+    get:
+      operationId: listStandingOrders
+      summary: List Standing Orders
+      description: Retrieve a list of standing order instructions for recurring payment processing including frequency, amount, and beneficiary details.
+      tags:
+      - Order
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: accountId
+        in: query
+        description: Filter standing orders by account
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of standing orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader_2'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StandingOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /order/directDebits:
+    get:
+      operationId: listDirectDebits
+      summary: List Direct Debit Mandates
+      description: Retrieve direct debit instructions and mandate collections for recurring payment scenarios including SEPA direct debits.
+      tags:
+      - Order
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: accountId
+        in: query
+        description: Filter direct debits by account
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of direct debits
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader_2'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DirectDebit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /order/securities:
+    get:
+      operationId: listSecurityOrders
+      summary: List Security Orders
+      description: Retrieve securities trading orders across all portfolios with filtering by status, instrument type, and date range.
+      tags:
+      - Order
+      parameters:
+      - $ref: '#/components/parameters/pageSize_2'
+      - $ref: '#/components/parameters/pageStart_2'
+      - name: portfolioId
+        in: query
+        description: Filter by portfolio
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Filter by order status
+        schema:
+          type: string
+          enum:
+          - PENDING
+          - SUBMITTED
+          - PARTIALLY_FILLED
+          - FILLED
+          - CANCELLED
+          - REJECTED
+      responses:
+        '200':
+          description: Successful retrieval of orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader_3'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SecurityOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+    post:
+      operationId: createSecurityOrder
+      summary: Create Security Order
+      description: Place a new securities trading order for buying or selling instruments including equities, bonds, derivatives, and funds with specified order type and validity.
+      tags:
+      - Order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecurityOrderCreate'
+      responses:
+        '201':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecurityOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+  /order/securities/{orderId}:
+    get:
+      operationId: getSecurityOrder
+      summary: Get Security Order Details
+      description: Retrieve detailed information for a security order including execution details, fill history, and settlement status.
+      tags:
+      - Order
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        description: Unique order identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecurityOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: cancelSecurityOrder
+      summary: Cancel Security Order
+      description: Cancel a pending or partially filled security order before full execution.
+      tags:
+      - Order
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        description: Order identifier to cancel
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Order cancelled successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaymentOrder:
+      type: object
+      description: Payment order for fund transfer
+      properties:
+        paymentOrderId:
+          type: string
+          description: Unique payment order identifier
+        debitAccountId:
+          type: string
+          description: Originating account identifier
+        creditAccountId:
+          type: string
+          description: Destination account identifier
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+        paymentType:
+          type: string
+          description: Type of payment
+          enum:
+          - INTERNAL
+          - DOMESTIC
+          - INTERNATIONAL
+          - SEPA
+          - SWIFT
+        status:
+          type: string
+          description: Current payment order status
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+          - CANCELLED
+        valueDate:
+          type: string
+          format: date
+          description: Value date for the payment
+        reference:
+          type: string
+          description: Payment reference
+        beneficiaryName:
+          type: string
+          description: Name of the payment beneficiary
+    PaginationHeader_2:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total records available
+    OrderInstruction:
+      type: object
+      description: Fund order instruction
+      properties:
+        instructionId:
+          type: string
+          description: Instruction identifier
+        investorId:
+          type: string
+          description: Investor identifier
+        fundId:
+          type: string
+          description: Fund identifier
+        shareClassId:
+          type: string
+          description: Share class identifier
+        instructionType:
+          type: string
+          description: Type of instruction
+          enum:
+          - SUBSCRIPTION
+          - REDEMPTION
+          - SWITCH
+          - TRANSFER
+        quantity:
+          type: number
+          format: double
+          description: Number of units
+        amount:
+          type: number
+          format: double
+          description: Monetary amount
+        currency:
+          type: string
+          description: Currency code
+        status:
+          type: string
+          description: Instruction processing status
+          enum:
+          - PENDING
+          - VALIDATED
+          - EXECUTED
+          - SETTLED
+          - CANCELLED
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    SecurityOrder:
+      type: object
+      description: Securities trading order
+      properties:
+        orderId:
+          type: string
+          description: Unique order identifier
+        portfolioId:
+          type: string
+          description: Portfolio identifier
+        securityId:
+          type: string
+          description: Security identifier
+        side:
+          type: string
+          description: Order side
+          enum:
+          - BUY
+          - SELL
+        orderType:
+          type: string
+          description: Order type
+          enum:
+          - MARKET
+          - LIMIT
+          - STOP
+          - STOP_LIMIT
+        quantity:
+          type: number
+          format: double
+          description: Order quantity
+        limitPrice:
+          type: number
+          format: double
+          description: Limit price for limit orders
+        filledQuantity:
+          type: number
+          format: double
+          description: Executed quantity
+        averagePrice:
+          type: number
+          format: double
+          description: Average execution price
+        status:
+          type: string
+          description: Order status
+          enum:
+          - PENDING
+          - SUBMITTED
+          - PARTIALLY_FILLED
+          - FILLED
+          - CANCELLED
+          - REJECTED
+        validity:
+          type: string
+          description: Order validity
+          enum:
+          - DAY
+          - GTC
+          - GTD
+        createdDate:
+          type: string
+          format: date-time
+          description: Order creation timestamp
+    SecurityOrderCreate:
+      type: object
+      description: Security order creation request
+      required:
+      - portfolioId
+      - securityId
+      - side
+      - orderType
+      - quantity
+      properties:
+        portfolioId:
+          type: string
+          description: Portfolio identifier
+        securityId:
+          type: string
+          description: Security identifier
+        side:
+          type: string
+          description: Order side
+          enum:
+          - BUY
+          - SELL
+        orderType:
+          type: string
+          description: Order type
+          enum:
+          - MARKET
+          - LIMIT
+          - STOP
+          - STOP_LIMIT
+        quantity:
+          type: number
+          format: double
+          description: Order quantity
+          minimum: 0
+        limitPrice:
+          type: number
+          format: double
+          description: Limit price for limit/stop-limit orders
+        stopPrice:
+          type: number
+          format: double
+          description: Stop price for stop/stop-limit orders
+        validity:
+          type: string
+          description: Order validity
+          enum:
+          - DAY
+          - GTC
+          - GTD
+          default: DAY
+        expiryDate:
+          type: string
+          format: date
+          description: Expiry date for GTD orders
+    PaymentOrderCreate:
+      type: object
+      description: Request body for creating a payment order
+      required:
+      - debitAccountId
+      - amount
+      - currency
+      - paymentType
+      properties:
+        debitAccountId:
+          type: string
+          description: Originating account identifier
+        creditAccountId:
+          type: string
+          description: Destination account identifier
+        beneficiaryId:
+          type: string
+          description: Registered beneficiary identifier
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+          minimum: 0
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        paymentType:
+          type: string
+          description: Type of payment
+          enum:
+          - INTERNAL
+          - DOMESTIC
+          - INTERNATIONAL
+          - SEPA
+          - SWIFT
+        valueDate:
+          type: string
+          format: date
+          description: Requested value date
+        reference:
+          type: string
+          description: Payment reference
+          maxLength: 140
+    SharePriceCreate:
+      type: object
+      description: Request body for setting share price
+      required:
+      - shareClassId
+      - price
+      - currency
+      - valuationDate
+      properties:
+        shareClassId:
+          type: string
+          description: Share class identifier
+        price:
+          type: number
+          format: double
+          description: NAV-based share price
+        currency:
+          type: string
+          description: Price currency
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date
+    Error_3:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    PaginationHeader_3:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
+    SharePrice:
+      type: object
+      description: Fund share price record
+      properties:
+        shareClassId:
+          type: string
+          description: Share class identifier
+        price:
+          type: number
+          format: double
+          description: NAV-based share price
+        currency:
+          type: string
+          description: Price currency
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date
+    StandingOrder:
+      type: object
+      description: Standing order instruction for recurring payments
+      properties:
+        standingOrderId:
+          type: string
+          description: Unique standing order identifier
+        accountId:
+          type: string
+          description: Source account identifier
+        beneficiaryId:
+          type: string
+          description: Beneficiary identifier
+        amount:
+          type: number
+          format: double
+          description: Payment amount per execution
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+        frequency:
+          type: string
+          description: Execution frequency
+          enum:
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+          - QUARTERLY
+          - ANNUAL
+        startDate:
+          type: string
+          format: date
+          description: First execution date
+        endDate:
+          type: string
+          format: date
+          description: Last execution date
+        status:
+          type: string
+          description: Standing order status
+    OrderInstructionCreate:
+      type: object
+      description: Request body for creating an instruction
+      required:
+      - investorId
+      - fundId
+      - shareClassId
+      - instructionType
+      properties:
+        investorId:
+          type: string
+          description: Investor identifier
+        fundId:
+          type: string
+          description: Fund identifier
+        shareClassId:
+          type: string
+          description: Share class identifier
+        instructionType:
+          type: string
+          description: Type of instruction
+          enum:
+          - SUBSCRIPTION
+          - REDEMPTION
+          - SWITCH
+          - TRANSFER
+        quantity:
+          type: number
+          format: double
+          description: Number of units
+        amount:
+          type: number
+          format: double
+          description: Monetary amount
+        currency:
+          type: string
+          description: Currency code
+    DirectDebit:
+      type: object
+      description: Direct debit mandate and instruction
+      properties:
+        directDebitId:
+          type: string
+          description: Unique direct debit identifier
+        accountId:
+          type: string
+          description: Account to be debited
+        mandateReference:
+          type: string
+          description: Direct debit mandate reference
+        creditorName:
+          type: string
+          description: Name of the creditor
+        amount:
+          type: number
+          format: double
+          description: Direct debit amount
+        currency:
+          type: string
+          description: Currency in ISO 4217 format
+        frequency:
+          type: string
+          description: Collection frequency
+        status:
+          type: string
+          description: Mandate status
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize_2:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart_2:
+      name: page_start
+      in: query
+      description: Starting record number
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

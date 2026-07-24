@@ -1,0 +1,89 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Payment Configuration API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Payment Configuration
+  description: Configuration APIs for payment order application setup, clearing channels, and payment routing management.
+paths:
+  /configuration/paymentRoutes:
+    get:
+      operationId: listPaymentRoutes
+      summary: List Payment Routing Configurations
+      description: Retrieve payment routing configurations including clearing channel assignments and payment type routing rules.
+      tags:
+      - Payment Configuration
+      responses:
+        '200':
+          description: Successful retrieval of payment routes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaymentRoute'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    PaymentRoute:
+      type: object
+      description: Payment routing configuration
+      properties:
+        routeId:
+          type: string
+          description: Unique route identifier
+        paymentType:
+          type: string
+          description: Payment type for routing
+        clearingChannel:
+          type: string
+          description: Assigned clearing channel
+        priority:
+          type: integer
+          description: Routing priority
+        status:
+          type: string
+          description: Route configuration status
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

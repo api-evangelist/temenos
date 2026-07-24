@@ -1,0 +1,299 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Transactions API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Transactions
+  description: Access transaction history and details for customer accounts with support for filtering, pagination, and multi-channel views.
+paths:
+  /accounts/{accountId}/transactions:
+    get:
+      operationId: listAccountTransactions
+      summary: List Account Transactions
+      description: Retrieve transaction history for a specific account. Supports filtering by date range, amount, transaction type, and text search across narratives.
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: fromDate
+        in: query
+        description: Start date for transaction history (ISO 8601 format)
+        schema:
+          type: string
+          format: date
+      - name: toDate
+        in: query
+        description: End date for transaction history (ISO 8601 format)
+        schema:
+          type: string
+          format: date
+      - name: transactionType
+        in: query
+        description: Filter by transaction type
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved transaction list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Transaction'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /transactions:
+    get:
+      operationId: listTransactions
+      summary: List Transactions
+      description: Retrieve customer journey transactions including their current status, form data, and workflow position.
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/pageSize_2'
+      - $ref: '#/components/parameters/pageStart_2'
+      - name: status
+        in: query
+        description: Filter by transaction status
+        schema:
+          type: string
+          enum:
+          - IN_PROGRESS
+          - COMPLETED
+          - ABANDONED
+          - EXPIRED
+      responses:
+        '200':
+          description: Successful retrieval of transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JourneyTransaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+components:
+  responses:
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    Transaction:
+      type: object
+      description: Account transaction record
+      properties:
+        transactionId:
+          type: string
+          description: Unique transaction identifier
+        accountId:
+          type: string
+          description: Account identifier
+        amount:
+          type: number
+          description: Transaction amount
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        debitOrCredit:
+          type: string
+          enum:
+          - DEBIT
+          - CREDIT
+          description: Direction of the transaction
+        bookingDate:
+          type: string
+          format: date
+          description: Date the transaction was booked
+        valueDate:
+          type: string
+          format: date
+          description: Value date of the transaction
+        narrative:
+          type: string
+          description: Transaction description or narrative
+        transactionType:
+          type: string
+          description: Type of transaction
+    JourneyTransaction:
+      type: object
+      description: Customer journey transaction
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        journeyName:
+          type: string
+          description: Journey name
+        status:
+          type: string
+          description: Transaction status
+          enum:
+          - IN_PROGRESS
+          - COMPLETED
+          - ABANDONED
+          - EXPIRED
+        currentStep:
+          type: string
+          description: Current journey step
+        customerId:
+          type: string
+          description: Customer identifier
+        startDate:
+          type: string
+          format: date-time
+          description: Journey start timestamp
+        lastActivity:
+          type: string
+          format: date-time
+          description: Last activity timestamp
+    Pagination:
+      type: object
+      description: Pagination metadata
+      properties:
+        pageSize:
+          type: integer
+          description: Number of records per page
+        pageStart:
+          type: string
+          description: Current page token
+        totalRecords:
+          type: integer
+          description: Total number of records
+        hasMore:
+          type: boolean
+          description: Whether more pages are available
+    Error:
+      type: object
+      description: Error response
+      properties:
+        code:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Detail of the error
+          description: Additional error details
+  parameters:
+    pageStart_2:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageStart:
+      name: pageStart
+      in: query
+      description: Pagination offset token or page number
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+    pageSize_2:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageSize:
+      name: pageSize
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        default: 25
+        minimum: 1
+        maximum: 100
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

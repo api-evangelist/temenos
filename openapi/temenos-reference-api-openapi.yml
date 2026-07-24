@@ -1,0 +1,368 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Reference API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Reference
+  description: Manage reference data including exchange rates, interest rates, security prices, swap rates, holiday calendars, and location definitions with 11 endpoints.
+paths:
+  /reference/exchangeRates:
+    post:
+      operationId: injectExchangeRates
+      summary: Inject Exchange Rates
+      description: Load daily foreign exchange rates for fund valuation and multi-currency position calculations.
+      tags:
+      - Reference
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExchangeRateInjection'
+      responses:
+        '201':
+          description: Exchange rates injected successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reference/securityPrices:
+    post:
+      operationId: injectSecurityPrices
+      summary: Inject Security Prices
+      description: Import market security prices for portfolio valuation including equity prices, bond prices, and derivative valuations.
+      tags:
+      - Reference
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecurityPriceInjection'
+      responses:
+        '201':
+          description: Security prices injected successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reference/currencies:
+    get:
+      operationId: listCurrencies
+      summary: List Currencies
+      description: Retrieve the list of supported currencies with their ISO codes, names, decimal places, and exchange rate information.
+      tags:
+      - Reference
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of currencies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Currency'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reference/countries:
+    get:
+      operationId: listCountries
+      summary: List Countries
+      description: Retrieve the list of supported countries with their ISO codes, names, and associated regulatory information.
+      tags:
+      - Reference
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of countries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Country'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reference/ibanStructures:
+    get:
+      operationId: listIbanStructures
+      summary: List IBAN Structures
+      description: Retrieve IBAN validation structures by country including the expected format, length, and check digit calculation rules.
+      tags:
+      - Reference
+      parameters:
+      - name: countryCode
+        in: query
+        description: Filter by ISO 3166-1 alpha-2 country code
+        schema:
+          type: string
+          pattern: ^[A-Z]{2}$
+      responses:
+        '200':
+          description: Successful retrieval of IBAN structures
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IbanStructure'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reference/markets:
+    get:
+      operationId: listMarkets
+      summary: List Markets
+      description: Retrieve reference data for supported markets and exchanges including trading hours, settlement cycles, and market status.
+      tags:
+      - Reference
+      responses:
+        '200':
+          description: Successful retrieval of markets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Market'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+components:
+  responses:
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    IbanStructure:
+      type: object
+      description: IBAN validation structure
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        ibanLength:
+          type: integer
+          description: Expected IBAN length for the country
+        format:
+          type: string
+          description: IBAN format pattern
+    Country:
+      type: object
+      description: Country reference data
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          pattern: ^[A-Z]{2}$
+        countryName:
+          type: string
+          description: Country display name
+    ExchangeRateInjection:
+      type: object
+      description: Exchange rate injection request
+      required:
+      - rates
+      - effectiveDate
+      properties:
+        effectiveDate:
+          type: string
+          format: date
+          description: Effective date for rates
+        rates:
+          type: array
+          description: Exchange rates to inject
+          items:
+            type: object
+            required:
+            - baseCurrency
+            - quoteCurrency
+            - rate
+            properties:
+              baseCurrency:
+                type: string
+                description: Base currency code
+              quoteCurrency:
+                type: string
+                description: Quote currency code
+              rate:
+                type: number
+                format: double
+                description: Exchange rate value
+    Market:
+      type: object
+      description: Market reference data
+      properties:
+        marketId:
+          type: string
+          description: Market identifier
+        marketName:
+          type: string
+          description: Market name
+        country:
+          type: string
+          description: Market country
+        currency:
+          type: string
+          description: Default trading currency
+        settlementCycle:
+          type: string
+          description: Standard settlement cycle
+        status:
+          type: string
+          description: Market operating status
+    SecurityPriceInjection:
+      type: object
+      description: Security price injection request
+      required:
+      - prices
+      - valuationDate
+      properties:
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date for prices
+        prices:
+          type: array
+          description: Security prices to inject
+          items:
+            type: object
+            required:
+            - securityId
+            - price
+            - currency
+            properties:
+              securityId:
+                type: string
+                description: Security identifier
+              price:
+                type: number
+                format: double
+                description: Market price
+              currency:
+                type: string
+                description: Price currency
+    Currency:
+      type: object
+      description: Currency reference data
+      properties:
+        currencyCode:
+          type: string
+          description: ISO 4217 currency code
+          pattern: ^[A-Z]{3}$
+        currencyName:
+          type: string
+          description: Currency display name
+        decimalPlaces:
+          type: integer
+          description: Number of decimal places
+        status:
+          type: string
+          description: Currency status
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    Error_3:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

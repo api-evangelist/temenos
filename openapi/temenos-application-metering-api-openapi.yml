@@ -1,0 +1,135 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Application Metering API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Application Metering
+  description: Store and retrieve consumed business values and API usage metrics across Transact and Infinity systems.
+paths:
+  /metering/records:
+    get:
+      operationId: listMeteringRecords
+      summary: List Metering Records
+      description: Retrieve API usage metrics and consumed business values from Transact and Infinity systems.
+      tags:
+      - Application Metering
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: dateFrom
+        in: query
+        description: Start date
+        schema:
+          type: string
+          format: date
+      - name: dateTo
+        in: query
+        description: End date
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Successful retrieval of metering records
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MeteringRecord'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
+    MeteringRecord:
+      type: object
+      description: API usage metering record
+      properties:
+        recordId:
+          type: string
+          description: Record identifier
+        serviceName:
+          type: string
+          description: Service name
+        operationId:
+          type: string
+          description: Operation identifier
+        callCount:
+          type: integer
+          description: Number of API calls
+        date:
+          type: string
+          format: date
+          description: Metering date
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Operational Data Store API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Operational Data Store
+  description: Access near real-time operational data from the Operational Data Store for operational reporting and API-driven integration use cases.
+paths:
+  /operational/accounts:
+    get:
+      operationId: listOperationalAccounts
+      summary: List Operational Account Data
+      description: Retrieve near real-time operational account data from the ODS for integration use cases with current balances and status.
+      tags:
+      - Operational Data Store
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of operational data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OperationalAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operational/transactions:
+    get:
+      operationId: listOperationalTransactions
+      summary: List Operational Transaction Data
+      description: Retrieve near real-time transaction data from the ODS for operational reporting and real-time integration.
+      tags:
+      - Operational Data Store
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: accountId
+        in: query
+        description: Filter by account
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of operational transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OperationalTransaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    OperationalTransaction:
+      type: object
+      description: Operational transaction data
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        accountId:
+          type: string
+          description: Account identifier
+        amount:
+          type: number
+          format: double
+          description: Amount
+        currency:
+          type: string
+          description: Currency
+        bookingDate:
+          type: string
+          format: date
+          description: Booking date
+        description:
+          type: string
+          description: Transaction description
+        status:
+          type: string
+          description: Processing status
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
+    OperationalAccount:
+      type: object
+      description: Operational account data
+      properties:
+        accountId:
+          type: string
+          description: Account identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        accountType:
+          type: string
+          description: Account type
+        currency:
+          type: string
+          description: Currency
+        currentBalance:
+          type: number
+          format: double
+          description: Current balance
+        availableBalance:
+          type: number
+          format: double
+          description: Available balance
+        status:
+          type: string
+          description: Status
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

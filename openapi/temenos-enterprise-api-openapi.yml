@@ -1,0 +1,204 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Enterprise API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Enterprise
+  description: Enterprise-level APIs for bundle arrangements, enterprise product and pricing services, identity comparison, payoff calculations, and promotion arrangements.
+paths:
+  /enterprise/bundleArrangements:
+    get:
+      operationId: listBundleArrangements
+      summary: List Bundle Arrangements
+      description: Retrieve bundle arrangements that group multiple customer accounts and products together for combined pricing benefits and package management.
+      tags:
+      - Enterprise
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: customerId
+        in: query
+        description: Filter by customer identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of bundle arrangements
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BundleArrangement'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createBundleArrangement
+      summary: Create Bundle Arrangement
+      description: Create a new bundle arrangement to group customer accounts and products for combined benefits and package pricing.
+      tags:
+      - Enterprise
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BundleArrangementCreate'
+      responses:
+        '201':
+          description: Bundle arrangement created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BundleArrangement'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    BundleArrangement:
+      type: object
+      description: Bundle arrangement grouping multiple accounts
+      properties:
+        bundleId:
+          type: string
+          description: Unique bundle identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        bundleName:
+          type: string
+          description: Bundle display name
+        productId:
+          type: string
+          description: Bundle product identifier
+        arrangements:
+          type: array
+          description: List of arrangements in the bundle
+          items:
+            type: object
+            properties:
+              arrangementId:
+                type: string
+                description: Arrangement identifier
+              productId:
+                type: string
+                description: Product identifier
+        status:
+          type: string
+          description: Bundle status
+    BundleArrangementCreate:
+      type: object
+      description: Request body for creating a bundle arrangement
+      required:
+      - customerId
+      - productId
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        productId:
+          type: string
+          description: Bundle product identifier
+        bundleName:
+          type: string
+          description: Optional bundle name
+        arrangements:
+          type: array
+          description: Arrangement identifiers to include
+          items:
+            type: string
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

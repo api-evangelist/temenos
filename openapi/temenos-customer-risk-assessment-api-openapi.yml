@@ -1,0 +1,207 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Customer Risk Assessment API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Customer Risk Assessment
+  description: APIs for KYC risk scoring and customer form submission to facilitate risk computation based on customer attributes and behavior patterns.
+paths:
+  /kyc/customers/{customerId}/riskScore:
+    get:
+      operationId: getCustomerRiskScore
+      summary: Get Customer Risk Score
+      description: Retrieve the computed risk score for a given customer based on KYC attributes, transaction history, and risk factor analysis. Returns the overall risk rating and contributing risk factors.
+      tags:
+      - Customer Risk Assessment
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      responses:
+        '200':
+          description: Successful retrieval of risk score
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiskScore'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /kyc/customers/{customerId}/riskScore/compute:
+    post:
+      operationId: computeCustomerRiskScore
+      summary: Compute Customer Risk Score
+      description: Trigger risk score computation for a customer based on their current KYC data, transaction patterns, and configured risk scoring models. Updates the stored risk score.
+      tags:
+      - Customer Risk Assessment
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      responses:
+        '200':
+          description: Risk score computed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiskScore'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /kyc/customers/formSubmission:
+    post:
+      operationId: submitCustomerForm
+      summary: Submit Customer KYC Form
+      description: Submit customer KYC form data for risk scoring evaluation. The submitted data is processed against configured risk models to generate or update the customer risk assessment.
+      tags:
+      - Customer Risk Assessment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KycFormSubmission'
+      responses:
+        '201':
+          description: Form submitted and processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiskScore'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    KycFormSubmission:
+      type: object
+      description: KYC form submission for risk scoring
+      required:
+      - customerId
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        customerType:
+          type: string
+          description: Customer type
+          enum:
+          - INDIVIDUAL
+          - CORPORATE
+        countryOfResidence:
+          type: string
+          description: Country of residence code
+        nationality:
+          type: string
+          description: Nationality code
+        occupation:
+          type: string
+          description: Occupation or business type
+        sourceOfFunds:
+          type: string
+          description: Declared source of funds
+        expectedTransactionVolume:
+          type: string
+          description: Expected monthly transaction volume range
+        pepStatus:
+          type: boolean
+          description: Whether customer is a politically exposed person
+    RiskScore:
+      type: object
+      description: Customer risk score assessment
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        overallRiskRating:
+          type: string
+          description: Overall risk classification
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          - VERY_HIGH
+        riskScore:
+          type: number
+          format: double
+          description: Numeric risk score
+          minimum: 0
+          maximum: 100
+        riskFactors:
+          type: array
+          description: Contributing risk factors
+          items:
+            type: object
+            properties:
+              factor:
+                type: string
+                description: Risk factor name
+              contribution:
+                type: number
+                format: double
+                description: Factor contribution to overall score
+              details:
+                type: string
+                description: Factor details
+        assessmentDate:
+          type: string
+          format: date-time
+          description: Date of risk assessment
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

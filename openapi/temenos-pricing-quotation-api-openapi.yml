@@ -1,0 +1,270 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Pricing Quotation API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Pricing Quotation
+  description: Simulate account or arrangement creation and transaction events to determine applicable pricing details including interest rates, fees, and cashback with negotiation support.
+paths:
+  /quotations/simulate:
+    post:
+      operationId: simulateArrangementCreation
+      summary: Simulate Account Creation Pricing
+      description: Simulate the creation of an arrangement or account to determine applicable pricing details including interest rates, fees, and cashback. Returns a quotation reference that can be used for negotiating or adjusting pricing details or for creating a new account.
+      tags:
+      - Pricing Quotation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuotationSimulateRequest'
+      responses:
+        '200':
+          description: Quotation simulation completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /quotations/simulateEvent:
+    post:
+      operationId: simulateEventPricing
+      summary: Simulate Event Pricing
+      description: Simulate an activity or transaction event such as an ATM withdrawal, partial redemption, or funds transfer to determine applicable pricing details and returns a quotation reference.
+      tags:
+      - Pricing Quotation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSimulateRequest'
+      responses:
+        '200':
+          description: Event simulation completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /quotations/{quotationReference}:
+    get:
+      operationId: getQuotationDetails
+      summary: Get Quotation Details
+      description: Retrieve pricing details of a simulated quotation. If the quotation has been negotiated, returns final pricing details including any adjustments applied.
+      tags:
+      - Pricing Quotation
+      parameters:
+      - name: quotationReference
+        in: path
+        required: true
+        description: Quotation reference identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of quotation details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    FeeDetail:
+      type: object
+      description: Fee detail
+      properties:
+        feeType:
+          type: string
+          description: Fee type
+        description:
+          type: string
+          description: Fee description
+        amount:
+          type: number
+          format: double
+          description: Fee amount
+        currency:
+          type: string
+          description: Fee currency
+        frequency:
+          type: string
+          description: Fee frequency
+    EventSimulateRequest:
+      type: object
+      description: Event simulation request
+      required:
+      - arrangementId
+      - eventType
+      properties:
+        arrangementId:
+          type: string
+          description: Existing arrangement identifier
+        eventType:
+          type: string
+          description: Type of event to simulate
+          enum:
+          - ATM_WITHDRAWAL
+          - FUNDS_TRANSFER
+          - PARTIAL_REDEMPTION
+          - FULL_REDEMPTION
+          - PAYMENT
+        amount:
+          type: number
+          format: double
+          description: Event amount
+        currency:
+          type: string
+          description: Event currency
+    QuotationResult:
+      type: object
+      description: Quotation pricing result
+      properties:
+        quotationReference:
+          type: string
+          description: Quotation reference identifier
+        productId:
+          type: string
+          description: Product identifier
+        interestRates:
+          type: array
+          description: Applicable interest rates
+          items:
+            $ref: '#/components/schemas/InterestRateDetail'
+        fees:
+          type: array
+          description: Applicable fees
+          items:
+            $ref: '#/components/schemas/FeeDetail'
+        cashback:
+          type: array
+          description: Applicable cashback offers
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Cashback type
+              amount:
+                type: number
+                format: double
+                description: Cashback amount
+        negotiated:
+          type: boolean
+          description: Whether pricing has been negotiated
+    QuotationSimulateRequest:
+      type: object
+      description: Arrangement creation simulation request
+      required:
+      - productId
+      - currency
+      properties:
+        productId:
+          type: string
+          description: Product identifier to simulate
+        customerId:
+          type: string
+          description: Customer identifier for personalized pricing
+        currency:
+          type: string
+          description: Arrangement currency
+          pattern: ^[A-Z]{3}$
+        amount:
+          type: number
+          format: double
+          description: Initial amount
+        term:
+          type: integer
+          description: Arrangement term in months
+        quotationReference:
+          type: string
+          description: User-defined quotation reference
+    InterestRateDetail:
+      type: object
+      description: Individual interest rate detail
+      properties:
+        rateType:
+          type: string
+          description: Rate type
+          enum:
+          - FIXED
+          - VARIABLE
+          - PROMOTIONAL
+        baseRate:
+          type: number
+          format: double
+          description: Base rate percentage
+        benefit:
+          type: number
+          format: double
+          description: Benefit adjustment
+        netRate:
+          type: number
+          format: double
+          description: Effective net rate
+        effectiveDate:
+          type: string
+          format: date
+          description: Rate effective date
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

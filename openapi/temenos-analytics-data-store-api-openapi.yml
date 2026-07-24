@@ -1,0 +1,272 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Analytics Data Store API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Analytics Data Store
+  description: Access banking-specific analytical data from the Analytics Data Store for reporting, dashboards, and business intelligence use cases.
+paths:
+  /analytics/accounts:
+    get:
+      operationId: listAnalyticsAccounts
+      summary: List Analytics Account Data
+      description: Retrieve analytical account data from the ADS including balance histories, transaction volumes, and account metrics for reporting and business intelligence.
+      tags:
+      - Analytics Data Store
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: dateFrom
+        in: query
+        description: Start date for analytics period
+        schema:
+          type: string
+          format: date
+      - name: dateTo
+        in: query
+        description: End date for analytics period
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Successful retrieval of analytics data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AnalyticsAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /analytics/transactions:
+    get:
+      operationId: listAnalyticsTransactions
+      summary: List Analytics Transaction Data
+      description: Retrieve analytical transaction data from the ADS for intra-day and historical transaction analysis with aggregation support.
+      tags:
+      - Analytics Data Store
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: dateFrom
+        in: query
+        description: Start date
+        schema:
+          type: string
+          format: date
+      - name: dateTo
+        in: query
+        description: End date
+        schema:
+          type: string
+          format: date
+      - name: accountId
+        in: query
+        description: Filter by account
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of transaction analytics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AnalyticsTransaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /analytics/customers:
+    get:
+      operationId: listAnalyticsCustomers
+      summary: List Analytics Customer Data
+      description: Retrieve analytical customer data including customer segmentation metrics, product holdings summaries, and relationship indicators.
+      tags:
+      - Analytics Data Store
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successful retrieval of customer analytics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AnalyticsCustomer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    AnalyticsTransaction:
+      type: object
+      description: Analytical transaction data
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        accountId:
+          type: string
+          description: Account identifier
+        transactionType:
+          type: string
+          description: Transaction type
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        currency:
+          type: string
+          description: Currency
+        bookingDate:
+          type: string
+          format: date
+          description: Booking date
+        valueDate:
+          type: string
+          format: date
+          description: Value date
+        channel:
+          type: string
+          description: Originating channel
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
+    AnalyticsCustomer:
+      type: object
+      description: Analytical customer data
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        segment:
+          type: string
+          description: Customer segment
+        totalProducts:
+          type: integer
+          description: Number of products held
+        totalRelationshipValue:
+          type: number
+          format: double
+          description: Total relationship value
+        currency:
+          type: string
+          description: Reporting currency
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    AnalyticsAccount:
+      type: object
+      description: Analytical account data
+      properties:
+        accountId:
+          type: string
+          description: Account identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        productId:
+          type: string
+          description: Product identifier
+        currency:
+          type: string
+          description: Account currency
+        averageBalance:
+          type: number
+          format: double
+          description: Average balance for period
+        transactionCount:
+          type: integer
+          description: Transaction count for period
+        totalDebits:
+          type: number
+          format: double
+          description: Total debits for period
+        totalCredits:
+          type: number
+          format: double
+          description: Total credits for period
+        status:
+          type: string
+          description: Account status
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

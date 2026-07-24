@@ -1,0 +1,346 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Sanction Screening API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Sanction Screening
+  description: Screen customers and transactions against sanctions lists, PEP databases, and watchlists with alert generation and management.
+paths:
+  /screening/customers/{customerId}/alerts:
+    get:
+      operationId: getCustomerSanctionAlerts
+      summary: Get Customer Sanction Alerts
+      description: Retrieve all sanctions screening alerts for a specific customer including matches against sanctions lists, PEP databases, and adverse media sources.
+      tags:
+      - Sanction Screening
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      responses:
+        '200':
+          description: Successful retrieval of customer alerts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SanctionAlert'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /screening/customers/alerts:
+    get:
+      operationId: getAllCustomersSanctionAlerts
+      summary: List All Customer Sanction Alerts
+      description: Retrieve the list of outstanding sanctions screening alerts across all customers, indexed by customer identifier. Supports filtering by alert status and severity.
+      tags:
+      - Sanction Screening
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: status
+        in: query
+        description: Filter by alert status
+        schema:
+          type: string
+          enum:
+          - OPEN
+          - UNDER_REVIEW
+          - ESCALATED
+          - CLOSED_TRUE_MATCH
+          - CLOSED_FALSE_POSITIVE
+      - name: severity
+        in: query
+        description: Filter by alert severity
+        schema:
+          type: string
+          enum:
+          - HIGH
+          - MEDIUM
+          - LOW
+      responses:
+        '200':
+          description: Successful retrieval of alerts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SanctionAlert'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /screening/onboarding:
+    post:
+      operationId: screenOnboardingCustomer
+      summary: Screen Onboarding Customer
+      description: Screen a new customer during onboarding against sanctions lists, PEP databases, and adverse media to verify they are not sanctioned individuals, entities, or politically exposed persons.
+      tags:
+      - Sanction Screening
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OnboardingScreenRequest'
+      responses:
+        '200':
+          description: Screening completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScreeningResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /screening/transactions:
+    post:
+      operationId: scanTransactionMessage
+      summary: Scan Payment Message
+      description: Scan a payment message against sanctions lists and screening rules to identify potential matches in beneficiary names, addresses, and other payment details.
+      tags:
+      - Sanction Screening
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionScanRequest'
+      responses:
+        '200':
+          description: Transaction scan completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScreeningResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    OnboardingScreenRequest:
+      type: object
+      description: Onboarding screening request
+      required:
+      - name
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier if available
+        name:
+          type: string
+          description: Full name to screen
+        dateOfBirth:
+          type: string
+          format: date
+          description: Date of birth
+        nationality:
+          type: string
+          description: Nationality code
+        address:
+          type: string
+          description: Address information
+        idDocument:
+          type: string
+          description: Identity document number
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
+    ScreeningResult:
+      type: object
+      description: Screening result
+      properties:
+        screeningId:
+          type: string
+          description: Screening identifier
+        status:
+          type: string
+          description: Screening outcome
+          enum:
+          - CLEAR
+          - MATCH_FOUND
+          - POTENTIAL_MATCH
+        matches:
+          type: array
+          description: Found matches
+          items:
+            $ref: '#/components/schemas/SanctionAlert'
+    TransactionScanRequest:
+      type: object
+      description: Transaction message scan request
+      required:
+      - transactionId
+      - beneficiaryName
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        originatorName:
+          type: string
+          description: Originator name
+        beneficiaryName:
+          type: string
+          description: Beneficiary name
+        beneficiaryAddress:
+          type: string
+          description: Beneficiary address
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        currency:
+          type: string
+          description: Transaction currency
+        messageType:
+          type: string
+          description: Message format type
+          enum:
+          - MT103
+          - MT202
+          - PACS008
+          - PACS009
+    SanctionAlert:
+      type: object
+      description: Sanctions screening alert
+      properties:
+        alertId:
+          type: string
+          description: Unique alert identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        matchType:
+          type: string
+          description: Type of screening match
+          enum:
+          - SANCTIONS
+          - PEP
+          - ADVERSE_MEDIA
+          - WATCHLIST
+        matchScore:
+          type: number
+          format: double
+          description: Match confidence score
+          minimum: 0
+          maximum: 100
+        matchedEntity:
+          type: string
+          description: Name of matched entity on list
+        listSource:
+          type: string
+          description: Source list for the match
+        severity:
+          type: string
+          description: Alert severity
+          enum:
+          - HIGH
+          - MEDIUM
+          - LOW
+        status:
+          type: string
+          description: Alert status
+          enum:
+          - OPEN
+          - UNDER_REVIEW
+          - ESCALATED
+          - CLOSED_TRUE_MATCH
+          - CLOSED_FALSE_POSITIVE
+        createdDate:
+          type: string
+          format: date-time
+          description: Alert creation timestamp
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

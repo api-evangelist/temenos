@@ -1,0 +1,137 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Data Streaming API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Data Streaming
+  description: Manage event streaming configurations for capturing data replication events from committed transactions in real time.
+paths:
+  /streaming/configurations:
+    get:
+      operationId: listStreamingConfigurations
+      summary: List Streaming Configurations
+      description: Retrieve event streaming configurations for data replication and real-time event capture from committed transactions.
+      tags:
+      - Data Streaming
+      responses:
+        '200':
+          description: Successful retrieval of configurations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StreamingConfiguration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createStreamingConfiguration
+      summary: Create Streaming Configuration
+      description: Create a new event streaming configuration to capture data replication events when transactions are committed to the system.
+      tags:
+      - Data Streaming
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamingConfigurationCreate'
+      responses:
+        '201':
+          description: Configuration created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamingConfiguration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    StreamingConfigurationCreate:
+      type: object
+      description: Streaming configuration creation request
+      required:
+      - entityType
+      - targetTopic
+      properties:
+        entityType:
+          type: string
+          description: Entity type to stream
+        targetTopic:
+          type: string
+          description: Target Kafka topic
+        filterCriteria:
+          type: string
+          description: Optional filter criteria
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    StreamingConfiguration:
+      type: object
+      description: Event streaming configuration
+      properties:
+        configurationId:
+          type: string
+          description: Configuration identifier
+        entityType:
+          type: string
+          description: Entity type to stream
+        targetTopic:
+          type: string
+          description: Target Kafka topic
+        filterCriteria:
+          type: string
+          description: Filter criteria for events
+        status:
+          type: string
+          description: Configuration status
+          enum:
+          - ACTIVE
+          - INACTIVE
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

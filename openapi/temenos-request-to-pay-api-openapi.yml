@@ -1,0 +1,211 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Request to Pay API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Request to Pay
+  description: Enable request-to-pay functionality and information exchange between payers, payees, and RTP clearing systems.
+paths:
+  /requestToPay:
+    get:
+      operationId: listRequestToPay
+      summary: List Request-to-pay Messages
+      description: Retrieve request-to-pay messages including incoming requests for payment and outgoing payment requests with their resolution status.
+      tags:
+      - Request to Pay
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: direction
+        in: query
+        description: Filter by request direction
+        schema:
+          type: string
+          enum:
+          - INCOMING
+          - OUTGOING
+      responses:
+        '200':
+          description: Successful retrieval of request-to-pay messages
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RequestToPay'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createRequestToPay
+      summary: Create Request-to-pay
+      description: Initiate a new request-to-pay message to a payer through the RTP clearing system. Includes payee details, amount, and payment terms.
+      tags:
+      - Request to Pay
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestToPayCreate'
+      responses:
+        '201':
+          description: Request-to-pay created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestToPay'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    RequestToPayCreate:
+      type: object
+      description: Request body for creating an RTP
+      required:
+      - payerAccountId
+      - amount
+      - currency
+      properties:
+        payerAccountId:
+          type: string
+          description: Payer account identifier or proxy
+        amount:
+          type: number
+          format: double
+          description: Requested amount
+          minimum: 0.01
+        currency:
+          type: string
+          description: Currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        dueDate:
+          type: string
+          format: date
+          description: Payment due date
+        description:
+          type: string
+          description: Description of the payment request
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    RequestToPay:
+      type: object
+      description: Request-to-pay message
+      properties:
+        rtpId:
+          type: string
+          description: Unique RTP identifier
+        direction:
+          type: string
+          description: Request direction
+          enum:
+          - INCOMING
+          - OUTGOING
+        payeeName:
+          type: string
+          description: Payee name
+        payerName:
+          type: string
+          description: Payer name
+        amount:
+          type: number
+          format: double
+          description: Requested amount
+        currency:
+          type: string
+          description: Currency in ISO 4217 format
+        dueDate:
+          type: string
+          format: date
+          description: Payment due date
+        description:
+          type: string
+          description: RTP description
+        status:
+          type: string
+          description: RTP status
+          enum:
+          - PENDING
+          - ACCEPTED
+          - REJECTED
+          - EXPIRED
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

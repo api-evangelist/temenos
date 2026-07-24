@@ -1,0 +1,169 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Pricing Arrangement Details API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Pricing Arrangement Details
+  description: Retrieve interest rate details, activity charges, transaction pricing, periodic fees, and account event history within the pricing system.
+paths:
+  /arrangements/{arrangementId}/interestRates:
+    get:
+      operationId: getArrangementInterestRates
+      summary: Get Arrangement Interest Rates
+      description: Retrieve interest rate details for an arrangement including base rates, applied benefits, and effective net rates.
+      tags:
+      - Pricing Arrangement Details
+      parameters:
+      - name: arrangementId
+        in: path
+        required: true
+        description: Arrangement identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of interest rates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InterestRateDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /arrangements/{arrangementId}/charges:
+    get:
+      operationId: getArrangementCharges
+      summary: Get Arrangement Charges
+      description: Retrieve activity charge fees and periodic charge fees for an arrangement including account opening, closure, and recurring maintenance charges.
+      tags:
+      - Pricing Arrangement Details
+      parameters:
+      - name: arrangementId
+        in: path
+        required: true
+        description: Arrangement identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of charges
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ChargeDetail'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    InterestRateDetails:
+      type: object
+      description: Arrangement interest rate details
+      properties:
+        arrangementId:
+          type: string
+          description: Arrangement identifier
+        rates:
+          type: array
+          description: Interest rate details
+          items:
+            $ref: '#/components/schemas/InterestRateDetail'
+    InterestRateDetail:
+      type: object
+      description: Individual interest rate detail
+      properties:
+        rateType:
+          type: string
+          description: Rate type
+          enum:
+          - FIXED
+          - VARIABLE
+          - PROMOTIONAL
+        baseRate:
+          type: number
+          format: double
+          description: Base rate percentage
+        benefit:
+          type: number
+          format: double
+          description: Benefit adjustment
+        netRate:
+          type: number
+          format: double
+          description: Effective net rate
+        effectiveDate:
+          type: string
+          format: date
+          description: Rate effective date
+    ChargeDetail:
+      type: object
+      description: Charge detail
+      properties:
+        chargeType:
+          type: string
+          description: Charge type
+        description:
+          type: string
+          description: Charge description
+        amount:
+          type: number
+          format: double
+          description: Charge amount
+        currency:
+          type: string
+          description: Currency
+        frequency:
+          type: string
+          description: Charge frequency
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

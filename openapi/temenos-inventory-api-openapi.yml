@@ -1,0 +1,149 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Inventory API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Inventory
+  description: Inventory operations for securities and instrument data management providing master data for the wealth management platform.
+paths:
+  /inventory/securities:
+    get:
+      operationId: listSecurities
+      summary: List Securities
+      description: Retrieve the securities master data inventory including equities, bonds, derivatives, and funds with their classification details and market identifiers.
+      tags:
+      - Inventory
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      - name: assetClass
+        in: query
+        description: Filter by asset class
+        schema:
+          type: string
+      - name: exchange
+        in: query
+        description: Filter by exchange
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of securities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    $ref: '#/components/schemas/PaginationHeader'
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Security'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
+    Security:
+      type: object
+      description: Security master data
+      properties:
+        securityId:
+          type: string
+          description: Internal security identifier
+        isin:
+          type: string
+          description: ISIN code
+          pattern: ^[A-Z]{2}[A-Z0-9]{9}[0-9]$
+        ticker:
+          type: string
+          description: Ticker symbol
+        securityName:
+          type: string
+          description: Security name
+        assetClass:
+          type: string
+          description: Asset class classification
+        exchange:
+          type: string
+          description: Primary listing exchange
+        currency:
+          type: string
+          description: Trading currency
+        country:
+          type: string
+          description: Country of issue
+        lastPrice:
+          type: number
+          format: double
+          description: Last traded price
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

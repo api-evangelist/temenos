@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Cards API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Cards
+  description: Manage debit and credit cards including card controls, spending limits, activation, blocking, and PIN management through digital channels.
+paths:
+  /cards:
+    get:
+      operationId: listCards
+      summary: List Customer Cards
+      description: Retrieve a list of debit and credit cards associated with the customer across all linked accounts.
+      tags:
+      - Cards
+      parameters:
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/pageStart'
+      responses:
+        '200':
+          description: Successfully retrieved card list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cards:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /cards/{cardId}:
+    put:
+      operationId: updateCardControls
+      summary: Update Card Controls
+      description: Update card settings including spending limits, transaction type controls, geographic restrictions, and contactless payment settings.
+      tags:
+      - Cards
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        description: Unique card identifier
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardControls'
+      responses:
+        '200':
+          description: Successfully updated card controls
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    pageStart:
+      name: pageStart
+      in: query
+      description: Pagination offset token or page number
+      schema:
+        type: string
+    pageSize:
+      name: pageSize
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        default: 25
+        minimum: 1
+        maximum: 100
+  schemas:
+    CardControls:
+      type: object
+      description: Card control settings
+      properties:
+        contactlessEnabled:
+          type: boolean
+          description: Whether contactless payments are enabled
+        onlineTransactionsEnabled:
+          type: boolean
+          description: Whether online transactions are enabled
+        dailySpendingLimit:
+          type: number
+          description: Maximum daily spending limit
+          minimum: 0
+        atmWithdrawalLimit:
+          type: number
+          description: Maximum daily ATM withdrawal limit
+          minimum: 0
+    Card:
+      type: object
+      description: Customer debit or credit card
+      properties:
+        cardId:
+          type: string
+          description: Unique card identifier
+        cardNumber:
+          type: string
+          description: Masked card number
+        cardType:
+          type: string
+          description: Type of card
+          enum:
+          - DEBIT
+          - CREDIT
+          - PREPAID
+        status:
+          type: string
+          description: Current card status
+          enum:
+          - ACTIVE
+          - BLOCKED
+          - EXPIRED
+          - PENDING_ACTIVATION
+        expiryDate:
+          type: string
+          description: Card expiry date in MM/YY format
+        accountId:
+          type: string
+          description: Linked account identifier
+    Error:
+      type: object
+      description: Error response
+      properties:
+        code:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Detail of the error
+          description: Additional error details
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later

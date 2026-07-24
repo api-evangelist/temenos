@@ -1,0 +1,138 @@
+openapi: 3.1.0
+info:
+  title: Temenos Buy Now Pay Later Accounts Configuration Management API
+  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  version: 1.0.0
+  contact:
+    name: Temenos Developer Support
+    url: https://developer.temenos.com/
+    email: api.support@temenos.com
+  license:
+    name: Temenos Terms of Service
+    url: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+servers:
+- url: https://api.temenos.com/bnpl/v1
+  description: Temenos BNPL API - Production
+security:
+- bearerAuth: []
+tags:
+- name: Configuration Management
+  description: Centralized configuration services for managing application configurations under specific configuration groups.
+paths:
+  /configurations:
+    get:
+      operationId: listConfigurations
+      summary: List Configurations
+      description: Retrieve application configurations organized by configuration groups for centralized configuration management.
+      tags:
+      - Configuration Management
+      parameters:
+      - name: configGroup
+        in: query
+        description: Filter by configuration group
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of configurations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Configuration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createConfiguration
+      summary: Create Configuration
+      description: Create a new configuration entry within a specific configuration group for application settings management.
+      tags:
+      - Configuration Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationCreate'
+      responses:
+        '201':
+          description: Configuration created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Configuration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ConfigurationCreate:
+      type: object
+      description: Configuration creation request
+      required:
+      - configGroup
+      - key
+      - value
+      properties:
+        configGroup:
+          type: string
+          description: Configuration group
+        key:
+          type: string
+          description: Configuration key
+        value:
+          type: string
+          description: Configuration value
+    Configuration:
+      type: object
+      description: Application configuration
+      properties:
+        configurationId:
+          type: string
+          description: Configuration identifier
+        configGroup:
+          type: string
+          description: Configuration group
+        key:
+          type: string
+          description: Configuration key
+        value:
+          type: string
+          description: Configuration value
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Temenos BNPL API Documentation
+  url: https://developer.temenos.com/service/buy-now-pay-later
