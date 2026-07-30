@@ -2,325 +2,3361 @@ name: Temenos
 description: >-
   APIs for Temenos banking and financial services platform, providing cloud-native, cloud-agnostic, API-first banking
   solutions including core banking, digital banking, payments, wealth management, financial crime mitigation, and more.
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
 url: https://www.temenos.com
 created: '2024'
 modified: '2026-05-19'
 specificationVersion: '0.18'
 apis:
-  - name: Temenos Transact API
-    description: >-
-      Core banking system API for managing accounts, transactions, and customer data. Covers enterprise, holdings, meta,
-      order, party, product, reference, settings, and system API categories with over 290 endpoints spanning retail,
-      corporate, wealth, treasury, and Islamic banking.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://www.temenos.com/products/core-banking/
-    baseURL: https://api.temenos.com/transact
-    tags:
-      - Accounts
-      - Banking
-      - Core Banking
-      - Deposits
-      - Loans
-      - Transactions
-      - Treasury
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/transact-apis
-      - type: OpenAPI
-        url: https://developer.temenos.com/transact/openapi.json
-      - type: Authentication
-        url: https://developer.temenos.com/transact/authentication
-      - type: SDKs
-        url: https://developer.temenos.com/transact/sdks
-      - type: GettingStarted
-        url: https://developer.temenos.com/article/sandbox-quick-guide
-      - type: PostmanCollection
-        url: https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
-      - type: OpenAPI
-        url: openapi/temenos-transact-openapi.yml
-  - name: Temenos Infinity API
-    description: >-
-      Digital banking platform API for omnichannel customer experiences across retail and business banking channels,
-      including integration with Temenos Fabric and Temenos Visualizer.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://www.temenos.com/products/digital-banking/
-    baseURL: https://api.temenos.com/infinity
-    tags:
-      - Business Banking
-      - Customer Experience
-      - Digital Banking
-      - Mobile Banking
-      - Omnichannel
-      - Retail Banking
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/infinity/apis
-      - type: OpenAPI
-        url: https://developer.temenos.com/infinity/openapi.json
-      - type: Portal
-        url: https://developer.temenos.com/infinity
-      - type: OpenAPI
-        url: openapi/temenos-infinity-openapi.yml
-  - name: Temenos Payments API
-    description: >-
-      Payment processing and management API supporting multiple payment types including SEPA, SWIFT, PSD2,
-      request-to-pay, bulk payment initiation, direct debit management, and payment stop requests.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://www.temenos.com/products/payments/
-    baseURL: https://api.temenos.com/payments
-    tags:
-      - Bulk Payments
-      - Direct Debit
-      - Open Banking
-      - Payment Processing
-      - Payments
-      - PSD2
-      - Real-Time Payments
-      - SEPA
-      - SWIFT
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/open-banking&payments
-      - type: OpenAPI
-        url: https://developer.temenos.com/payments/openapi.json
-      - type: Sandbox
-        url: https://sandbox.temenos.com/payments
-      - type: OpenAPI
-        url: openapi/temenos-payments-openapi.yml
-  - name: Temenos Fund Administration API
-    description: >-
-      Investment fund management and administration API powered by Temenos Multifonds for fund accounting, transfer
-      agency, and investor servicing.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://www.temenos.com/products/multifonds/
-    baseURL: https://api.temenos.com/funds
-    tags:
-      - Asset Management
-      - Fund Accounting
-      - Fund Management
-      - Investment
-      - Wealth Management
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/funds/apis
-      - type: OpenAPI
-        url: https://developer.temenos.com/funds/openapi.json
-      - type: OpenAPI
-        url: openapi/temenos-fund-administration-openapi.yml
-  - name: Temenos Financial Crime Mitigation API
-    description: >-
-      API for anti-money laundering, fraud detection, and compliance including KYC, sanctions screening, and transaction
-      monitoring.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://www.temenos.com/products/core-banking/regulatory-compliance/financial-crime-mitigation/
-    baseURL: https://api.temenos.com/fcm
-    tags:
-      - AML
-      - Compliance
-      - Fraud Detection
-      - KYC
-      - Risk Management
-      - Sanctions Screening
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/fcm/apis
-      - type: OpenAPI
-        url: https://developer.temenos.com/fcm/openapi.json
-      - type: OpenAPI
-        url: openapi/temenos-financial-crime-mitigation-openapi.yml
-  - name: Temenos Transact Data Hub API
-    description: >-
-      High-performance APIs built on the near real-time Analytics Data Store (ADS) and Operational Data Store (ODS),
-      providing banking-specific analytical data for comprehensive intra-day and historical analysis.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://www.temenos.com/products/core-banking/analytics/
-    baseURL: https://api.temenos.com/transact-data-hub
-    tags:
-      - Analytics
-      - Business Intelligence
-      - Data Hub
-      - Operational Data
-      - Reporting
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/transact-data-hub
-      - type: OpenAPI
-        url: openapi/temenos-data-hub-openapi.yml
-  - name: Temenos Wealth API
-    description: >-
-      Integrated portfolio management and securities trading platform APIs for wealth managers and private bankers,
-      including holdings, inventory, order, party, reference, meta, and system enterprise APIs.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://www.temenos.com/products/wealth-management/
-    baseURL: https://api.temenos.com/wealth
-    tags:
-      - Investment Management
-      - Portfolio Management
-      - Private Banking
-      - Securities Trading
-      - Wealth Management
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/wealth-api
-      - type: OpenAPI
-        url: openapi/temenos-wealth-openapi.yml
-  - name: Temenos Enterprise Product and Pricing API
-    description: >-
-      APIs for product pricing, quotation simulation, package arrangements, pricing adjustments, transparency details,
-      and promotions management for banking products and services.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://www.temenos.com/products/core-banking/
-    baseURL: https://api.temenos.com/enterprise-pricing
-    tags:
-      - Banking Products
-      - Package Management
-      - Product Pricing
-      - Promotions
-      - Quotation
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
-      - type: OpenAPI
-        url: openapi/temenos-enterprise-product-pricing-openapi.yml
-  - name: Temenos Cloud Banking (CMB) API
-    description: >-
-      Country-specific commercial and cloud banking APIs delivering front-to-back services for accounts, deposits,
-      lending, trade finance, and payments with pre-wired APIs and regional regulatory compliance for markets including
-      Australia, Canada, Mexico, UK, US, and more.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://www.temenos.com/products/core-banking/
-    baseURL: https://api.temenos.com/cmb
-    tags:
-      - Cloud Banking
-      - Commercial Banking
-      - Deposits
-      - Lending
-      - Regional Banking
-      - Regulatory Compliance
-      - Trade Finance
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/cmb
-      - type: OpenAPI
-        url: openapi/temenos-cloud-banking-openapi.yml
-  - name: Temenos Lifecycle Management Suite API
-    description: >-
-      APIs for rapid omnichannel product origination including instant decisioning, covering origination, collections,
-      and middleware integration modules.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://www.temenos.com/products/lifecycle-management-suite/
-    baseURL: https://api.temenos.com/lms
-    tags:
-      - Account Origination
-      - Collections
-      - Decisioning
-      - Lifecycle Management
-      - Loan Origination
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/lifecycle-management-suite
-  - name: Temenos Journey Manager API
-    description: >-
-      REST APIs for customer journey orchestration, allowing external systems to integrate with Journey Manager for
-      digital onboarding, form processing, and workflow management. Includes Workspaces API, Transact Fluent API, and
-      Maestro API.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://www.temenos.com/products/journey-manager/
-    baseURL: https://journey.temenos.com/api
-    tags:
-      - Customer Journeys
-      - Digital Forms
-      - Onboarding
-      - Orchestration
-      - Workflow
-    properties:
-      - type: Documentation
-        url: https://journey.temenos.com/api/
-      - type: GettingStarted
-        url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
-      - type: SDKs
-        url: https://journey.temenos.com/api/sdk/introduction/
-      - type: ChangeLog
-        url: https://journey.temenos.com/index.php/resources/release-notes
-      - type: OpenAPI
-        url: openapi/temenos-journey-manager-openapi.yml
-  - name: Temenos Transact Microservices API
-    description: >-
-      Cloud-native microservices APIs for Temenos Transact, providing callback registry for long-running transactions,
-      event store for business and system events, configuration management, user entitlements, service orchestration,
-      application metering, and traceability for non-repudiation across all API services.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://developer.temenos.com/transact-microservice-apis
-    baseURL: https://api.temenos.com/transact/microservices
-    tags:
-      - Configuration
-      - Entitlements
-      - Event Store
-      - Microservices
-      - Service Orchestration
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/transact-microservice-apis
-      - type: OpenAPI
-        url: openapi/temenos-microservices-openapi.yml
-      - type: AsyncAPI
-        url: asyncapi/temenos-events-asyncapi.yml
-  - name: Temenos Ecosystem API
-    description: >-
-      Composable ecosystem APIs enabling deployment of additional banking solutions from third-party and Exchange
-      providers. Includes adapter and provider contracts for cards fulfillment, digital asset custody, document
-      management, and international payments integrations.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://developer.temenos.com/ecosystem-apis
-    baseURL: https://api.temenos.com/ecosystem
-    tags:
-      - Cards
-      - Digital Assets
-      - Document Management
-      - Ecosystem
-      - Integrations
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/ecosystem-apis
-  - name: Temenos Buy Now Pay Later API
-    description: >-
-      APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer
-      matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan
-      lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://developer.temenos.com/service/buy-now-pay-later
-    baseURL: https://api.temenos.com/bnpl
-    tags:
-      - Buy Now Pay Later
-      - Consumer Lending
-      - Decisioning
-      - Point of Sale
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/service/buy-now-pay-later
-      - type: OpenAPI
-        url: openapi/temenos-bnpl-openapi.yml
-  - name: Temenos Explorer API
-    description: >-
-      APIs for the Temenos Explorer framework, providing an API gateway for server-to-server API calls with
-      Keycloak-based authentication, plugin development methods, and customizable banking solution exploration
-      interfaces. Handles authentication, roles, permissions, and CORS management for banking application integration.
-    image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
-    humanURL: https://developer.temenos.com/temenos-explorer/docs/guides/overview/
-    baseURL: https://api.temenos.com/explorer
-    tags:
-      - API Gateway
-      - Developer Tools
-      - Explorer
-      - Plugins
-    properties:
-      - type: Documentation
-        url: https://developer.temenos.com/temenos-explorer/docs/guides/developer-guide/
-      - type: GettingStarted
-        url: https://developer.temenos.com/temenos-explorer/docs/guides/getting-started
-      - type: Reference
-        url: https://developer.temenos.com/temenos-explorer/docs/developer/plugin-csa/api-methods/
+- name: Temenos Lifecycle Management Suite API
+  description: >-
+    APIs for rapid omnichannel product origination including instant decisioning, covering origination,
+    collections, and middleware integration modules.
+  image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
+  humanURL: https://www.temenos.com/products/lifecycle-management-suite/
+  baseURL: https://api.temenos.com/lms
+  tags:
+  - Account Origination
+  - Collections
+  - Decisioning
+  - Lifecycle Management
+  - Loan Origination
+  properties:
+  - type: Documentation
+    url: https://developer.temenos.com/lifecycle-management-suite
+- name: Temenos Ecosystem API
+  description: >-
+    Composable ecosystem APIs enabling deployment of additional banking solutions from third-party and
+    Exchange providers. Includes adapter and provider contracts for cards fulfillment, digital asset custody,
+    document management, and international payments integrations.
+  image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
+  humanURL: https://developer.temenos.com/ecosystem-apis
+  baseURL: https://api.temenos.com/ecosystem
+  tags:
+  - Cards
+  - Digital Assets
+  - Document Management
+  - Ecosystem
+  - Integrations
+  properties:
+  - type: Documentation
+    url: https://developer.temenos.com/ecosystem-apis
+- name: Temenos Explorer API
+  description: >-
+    APIs for the Temenos Explorer framework, providing an API gateway for server-to-server API calls with
+    Keycloak-based authentication, plugin development methods, and customizable banking solution exploration
+    interfaces. Handles authentication, roles, permissions, and CORS management for banking application
+    integration.
+  image: https://www.temenos.com/wp-content/uploads/2025/04/Temenos_Logo.png
+  humanURL: https://developer.temenos.com/temenos-explorer/docs/guides/overview/
+  baseURL: https://api.temenos.com/explorer
+  tags:
+  - API Gateway
+  - Developer Tools
+  - Explorer
+  - Plugins
+  properties:
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-explorer/docs/guides/developer-guide/
+  - type: GettingStarted
+    url: https://developer.temenos.com/temenos-explorer/docs/guides/getting-started
+  - type: Reference
+    url: https://developer.temenos.com/temenos-explorer/docs/developer/plugin-csa/api-methods/
+- aid: temenos:temenos-accounts-api
+  name: Temenos Accounts API
+  description: >-
+    Manage commercial banking accounts including current accounts, savings accounts, and operational accounts
+    with regional compliance.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-accounts-arrangement-details-api
+  name: Temenos Accounts Arrangement Details API
+  description: >-
+    Calculate payoff amounts, adjust closure charges, process early deposit redemptions, and handle external
+    arrangement balances.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Accounts Arrangement Details
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-accounts-arrangement-details-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-alert-management-api
+  name: Temenos Alert Management API
+  description: >-
+    Manage and investigate alerts generated by screening and monitoring processes including case management
+    and disposition workflows.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Alert Management
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-alert-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-analytics-data-store-api
+  name: Temenos Analytics Data Store API
+  description: >-
+    Access banking-specific analytical data from the Analytics Data Store for reporting, dashboards, and
+    business intelligence use cases.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Analytics Data Store
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-analytics-data-store-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-application-metering-api
+  name: Temenos Application Metering API
+  description: >-
+    Store and retrieve consumed business values and API usage metrics across Transact and Infinity systems.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Application Metering
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-application-metering-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-application-packages-api
+  name: Temenos Application Packages API
+  description: >-
+    Manage application packages including uploading, retrieving, and deleting application package archives.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Application Packages
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-application-packages-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-bulk-payments-api
+  name: Temenos Bulk Payments API
+  description: >-
+    Handle bulk payment file uploads and manual entry for batch payment processing with approval workflows
+    and status tracking.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Bulk Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-bulk-payments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-callback-registry-api
+  name: Temenos Callback Registry API
+  description: >-
+    Register callback URLs to receive notifications when long-running transaction processing completes.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Callback Registry
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-callback-registry-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-cards-api
+  name: Temenos Cards API
+  description: >-
+    Manage debit and credit cards including card controls, spending limits, activation, blocking, and
+    PIN management through digital channels.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Cards
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-cards-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-configuration-management-api
+  name: Temenos Configuration Management API
+  description: >-
+    Centralized configuration services for managing application configurations under specific configuration
+    groups.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Configuration Management
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-configuration-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-consent-api
+  name: Temenos Consent API
+  description: >-
+    Manage customer consent for Open Banking data sharing and third-party provider access under PSD2 regulations.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Consent
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-consent-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-credit-offers-api
+  name: Temenos Credit Offers API
+  description: >-
+    Generate and manage BNPL credit offers using Explainable AI decisioning for instant approval and offer
+    matching.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Credit Offers
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-credit-offers-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-customer-risk-assessment-api
+  name: Temenos Customer Risk Assessment API
+  description: >-
+    APIs for KYC risk scoring and customer form submission to facilitate risk computation based on customer
+    attributes and behavior patterns.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Customer Risk Assessment
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-customer-risk-assessment-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-customers-api
+  name: Temenos Customers API
+  description: >-
+    Create and manage customer profiles, preferences, and digital identities across omnichannel touchpoints.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-customers-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-data-streaming-api
+  name: Temenos Data Streaming API
+  description: >-
+    Manage event streaming configurations for capturing data replication events from committed transactions
+    in real time.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Data Streaming
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-data-streaming-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-delivery-api
+  name: Temenos Delivery API
+  description: >-
+    Manage delivery channels, retrieve submissions, and process delivery completions and errors.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Delivery
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-delivery-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-deposits-api
+  name: Temenos Deposits API
+  description: >-
+    Manage deposit products including term deposits, demand deposits, and certificates of deposit with
+    country-specific terms.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Deposits
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-deposits-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-direct-debits-api
+  name: Temenos Direct Debits API
+  description: >-
+    Manage direct debit instructions and mandate collections for recurring payment scenarios including
+    SEPA direct debits.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Direct Debits
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-direct-debits-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-enterprise-api
+  name: Temenos Enterprise API
+  description: >-
+    Enterprise-level APIs for bundle arrangements, enterprise product and pricing services, identity comparison,
+    payoff calculations, and promotion arrangements.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Enterprise
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-enterprise-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-entitlements-api
+  name: Temenos Entitlements API
+  description: >-
+    Manage user entitlements and role assignments for specific products based on entitlement policies.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Entitlements
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-entitlements-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-event-store-api
+  name: Temenos Event Store API
+  description: Retrieve business and system events raised from Temenos Transact and Infinity products.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Event Store
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-event-store-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-form-groups-api
+  name: Temenos Form Groups API
+  description: Create and manage form group configurations for organizing customer journey forms.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Form Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-form-groups-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-holdings-api
+  name: Temenos Holdings API
+  description: >-
+    Manage fund investment positions including deposits, capital transactions, dividends, equities, bonds,
+    foreign exchange, futures, options, swaps, and other securities with 47 endpoints.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Holdings
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-holdings-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-inventory-api
+  name: Temenos Inventory API
+  description: >-
+    Inventory operations for securities and instrument data management providing master data for the wealth
+    management platform.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Inventory
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-inventory-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-lending-api
+  name: Temenos Lending API
+  description: >-
+    Commercial lending operations including loan origination, facility management, and repayment processing.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Lending
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-lending-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-loans-api
+  name: Temenos Loans API
+  description: >-
+    Manage BNPL loan lifecycle from origination through repayment including payment schedules and status
+    tracking.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Loans
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-loans-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-merchants-api
+  name: Temenos Merchants API
+  description: >-
+    Manage merchant integrations for point-of-sale BNPL activation and settlement processing.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Merchants
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-merchants-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-meta-api
+  name: Temenos Meta API
+  description: >-
+    API ecosystem management and metadata retrieval for discovering available API resources and capabilities
+    with 6 endpoints.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Meta
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-meta-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-notifications-api
+  name: Temenos Notifications API
+  description: >-
+    Configure and manage customer notification preferences and delivery across push notifications, SMS,
+    and email channels.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-operational-data-store-api
+  name: Temenos Operational Data Store API
+  description: >-
+    Access near real-time operational data from the Operational Data Store for operational reporting and
+    API-driven integration use cases.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Operational Data Store
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-operational-data-store-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-order-api
+  name: Temenos Order API
+  description: >-
+    Handle instruction processing and payment management including cash receipts, dividend payments, order
+    creation and cancellation, payment amendments, and stock exchange transactions with 17 endpoints.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Order
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-order-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-package-details-api
+  name: Temenos Package Details API
+  description: >-
+    Create, amend, and manage package arrangements that bundle customer accounts for combined pricing
+    benefits.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Package Details
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-package-details-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-party-api
+  name: Temenos Party API
+  description: >-
+    Manage distributor, investor, and financial institution data including addresses, AML compliance,
+    bank accounts, FATCA/CRS, KYC details, and distribution agreements with 38 endpoints.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Party
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-party-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-party-details-api
+  name: Temenos Party Details API
+  description: >-
+    Retrieve customer contracts, pricing information, related parties, and eligibility status within the
+    pricing system.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Party Details
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-party-details-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-payment-configuration-api
+  name: Temenos Payment Configuration API
+  description: >-
+    Configuration APIs for payment order application setup, clearing channels, and payment routing management.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Payment Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-payment-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-payment-orders-api
+  name: Temenos Payment Orders API
+  description: >-
+    Initiate, view, and manage payment orders for domestic and international fund transfers with support
+    for SEPA, SWIFT, and internal transfers.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Payment Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-payment-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-payment-stops-api
+  name: Temenos Payment Stops API
+  description: >-
+    Create and manage stop instructions for individual payments based on cheque details, transaction amounts,
+    or payment references.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Payment Stops
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-payment-stops-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-payments-api
+  name: Temenos Payments API
+  description: >-
+    Country-specific payment processing including domestic and international transfers with local clearing
+    integration.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-payments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-pricing-adjustment-api
+  name: Temenos Pricing Adjustment API
+  description: >-
+    Apply manual pricing adjustments including fee and interest rate modifications with expiry settings
+    and negotiation workflows.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Pricing Adjustment
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-pricing-adjustment-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-pricing-arrangement-details-api
+  name: Temenos Pricing Arrangement Details API
+  description: >-
+    Retrieve interest rate details, activity charges, transaction pricing, periodic fees, and account
+    event history within the pricing system.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Pricing Arrangement Details
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-pricing-arrangement-details-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-pricing-quotation-api
+  name: Temenos Pricing Quotation API
+  description: >-
+    Simulate account or arrangement creation and transaction events to determine applicable pricing details
+    including interest rates, fees, and cashback with negotiation support.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Pricing Quotation
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-pricing-quotation-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-product-api
+  name: Temenos Product API
+  description: >-
+    Configure fund and share class settings including anti-dilution levies, commission groups, fund manager
+    data, share class information, calendars, and performance fee structures with 38 endpoints.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Product
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-product-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-promotions-api
+  name: Temenos Promotions API
+  description: >-
+    Create and manage promotional arrangements for parties with promotional codes and benefit tracking.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Promotions
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-promotions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-psd2-accounts-api
+  name: Temenos PSD2 Accounts API
+  description: >-
+    PSD2 compliant account information access for authorized third-party providers under Berlin Group
+    standards.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - PSD2 Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-psd2-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-reference-api
+  name: Temenos Reference API
+  description: >-
+    Manage reference data including exchange rates, interest rates, security prices, swap rates, holiday
+    calendars, and location definitions with 11 endpoints.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Reference
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-reference-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-request-to-pay-api
+  name: Temenos Request to Pay API
+  description: >-
+    Enable request-to-pay functionality and information exchange between payers, payees, and RTP clearing
+    systems.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Request to Pay
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-request-to-pay-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-sanction-screening-api
+  name: Temenos Sanction Screening API
+  description: >-
+    Screen customers and transactions against sanctions lists, PEP databases, and watchlists with alert
+    generation and management.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Sanction Screening
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-sanction-screening-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-service-definitions-api
+  name: Temenos Service Definitions API
+  description: Manage service definitions and parameters for journey integration services.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Service Definitions
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-service-definitions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-service-orchestrator-api
+  name: Temenos Service Orchestrator API
+  description: >-
+    Create and manage service orchestration sequences for executing business operations spanning different
+    applications.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Service Orchestrator
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-service-orchestrator-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-settings-api
+  name: Temenos Settings API
+  description: Configuration management for system-wide and user-specific settings with 6 endpoints.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-settings-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-standing-orders-api
+  name: Temenos Standing Orders API
+  description: Create and manage standing order instructions for automated recurring payment execution.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Standing Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-standing-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-system-api
+  name: Temenos System API
+  description: >-
+    Core system functionality and administration including system configuration, audit, and operational
+    management with 25 endpoints.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - System
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-system-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-tasks-api
+  name: Temenos Tasks API
+  description: >-
+    Manage tasks within customer journey workflows including assignment, completion, and status tracking.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-traceability-api
+  name: Temenos Traceability API
+  description: >-
+    Non-repudiation capabilities providing detailed request and response message information for executed
+    API services.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Traceability
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-traceability-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-trade-finance-api
+  name: Temenos Trade Finance API
+  description: >-
+    Trade finance operations including letters of credit, guarantees, documentary collections, and trade
+    document management.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Trade Finance
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-trade-finance-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-transaction-monitoring-api
+  name: Temenos Transaction Monitoring API
+  description: >-
+    Monitor transactions for suspicious activity patterns including AML detection rules and fraud indicators.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Transaction Monitoring
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-transaction-monitoring-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-transactions-api
+  name: Temenos Transactions API
+  description: >-
+    Access transaction history and details for customer accounts with support for filtering, pagination,
+    and multi-channel views.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
+- aid: temenos:temenos-workspaces-api
+  name: Temenos Workspaces API
+  description: >-
+    Workspaces portal APIs for external system integration with the Journey Manager workspace environment.
+  humanURL: https://www.temenos.com/products/core-banking/
+  baseURL: https://api.temenos.com/transact
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/temenos-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/transact-apis
+  - type: Authentication
+    url: https://developer.temenos.com/transact/authentication
+  - type: SDKs
+    url: https://developer.temenos.com/transact/sdks
+  - type: GettingStarted
+    url: https://developer.temenos.com/article/sandbox-quick-guide
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/temenos-devex/temenos-essential-apis/collection/sd6uv6m/temenos-essential-apis
+  - type: Documentation
+    url: https://developer.temenos.com/infinity/apis
+  - type: Portal
+    url: https://developer.temenos.com/infinity
+  - type: Documentation
+    url: https://developer.temenos.com/open-banking&payments
+  - type: Sandbox
+    url: https://sandbox.temenos.com/payments
+  - type: Documentation
+    url: https://developer.temenos.com/funds/apis
+  - type: Documentation
+    url: https://developer.temenos.com/fcm/apis
+  - type: Documentation
+    url: https://developer.temenos.com/transact-data-hub
+  - type: Documentation
+    url: https://developer.temenos.com/wealth-api
+  - type: Documentation
+    url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis
+  - type: Documentation
+    url: https://developer.temenos.com/cmb
+  - type: Documentation
+    url: https://journey.temenos.com/api/
+  - type: GettingStarted
+    url: https://journey.temenos.com/docs/LandingPages/GettingStartedLanding.htm
+  - type: SDKs
+    url: https://journey.temenos.com/api/sdk/introduction/
+  - type: ChangeLog
+    url: https://journey.temenos.com/index.php/resources/release-notes
+  - type: Documentation
+    url: https://developer.temenos.com/transact-microservice-apis
+  - type: AsyncAPI
+    url: asyncapi/temenos-events-asyncapi.yml
+  - type: Documentation
+    url: https://developer.temenos.com/service/buy-now-pay-later
 common:
   - type: AgenticAccess
     url: agentic-access/temenos-agentic-access.yml
