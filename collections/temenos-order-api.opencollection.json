@@ -1,0 +1,295 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Order API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Order Instructions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/order/instructions",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "fundId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by fund identifier"
+              },
+              {
+                "name": "instructionType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by instruction type"
+              }
+            ]
+          },
+          "docs": "Retrieve order instructions for subscription, redemption, switch, and transfer operations across fund share classes."
+        },
+        {
+          "info": {
+            "name": "Create Order Instruction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/order/instructions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new order instruction for subscription, redemption, switch, or transfer operations with share class and quantity details."
+        },
+        {
+          "info": {
+            "name": "Set Share Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/order/sharePrices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the net asset value (NAV) based share price for a fund share class for a specific valuation date."
+        },
+        {
+          "info": {
+            "name": "List Payment Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/order/paymentOrders",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter payment orders by originating account"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by payment order status"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of payment orders including domestic transfers, international transfers, SEPA payments, and standing orders."
+        },
+        {
+          "info": {
+            "name": "Create Payment Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/order/paymentOrders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a new payment order for domestic or international fund transfers. Supports SEPA credit transfers, SWIFT payments, ACH transfers, and internal account transfers."
+        },
+        {
+          "info": {
+            "name": "List Standing Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/order/standingOrders",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter standing orders by account"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of standing order instructions for recurring payment processing including frequency, amount, and beneficiary details."
+        },
+        {
+          "info": {
+            "name": "List Direct Debit Mandates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/order/directDebits",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter direct debits by account"
+              }
+            ]
+          },
+          "docs": "Retrieve direct debit instructions and mandate collections for recurring payment scenarios including SEPA direct debits."
+        },
+        {
+          "info": {
+            "name": "List Security Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/order/securities",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number"
+              },
+              {
+                "name": "portfolioId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by portfolio"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by order status"
+              }
+            ]
+          },
+          "docs": "Retrieve securities trading orders across all portfolios with filtering by status, instrument type, and date range."
+        },
+        {
+          "info": {
+            "name": "Create Security Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/order/securities",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Place a new securities trading order for buying or selling instruments including equities, bonds, derivatives, and funds with specified order type and validity."
+        },
+        {
+          "info": {
+            "name": "Get Security Order Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/order/securities/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Unique order identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a security order including execution details, fill history, and settlement status."
+        },
+        {
+          "info": {
+            "name": "Cancel Security Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.temenos.com/bnpl/v1/order/securities/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Order identifier to cancel"
+              }
+            ]
+          },
+          "docs": "Cancel a pending or partially filled security order before full execution."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

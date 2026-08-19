@@ -1,0 +1,165 @@
+{
+  "item": [
+    {
+      "id": "fdc64f7c-748f-430e-9622-50adbda4f55d",
+      "name": "Payment Configuration",
+      "description": {
+        "content": "Configuration APIs for payment order application setup, clearing channels, and payment routing management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9229c346-0fdd-4298-a739-b196f77641da",
+          "name": "List Payment Routing Configurations",
+          "request": {
+            "name": "List Payment Routing Configurations",
+            "description": {
+              "content": "Retrieve payment routing configurations including clearing channel assignments and payment type routing rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "configuration",
+                "paymentRoutes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1a062e36-044a-4d19-ba7a-8a3a77d5931f",
+              "name": "Successful retrieval of payment routes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "configuration",
+                    "paymentRoutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"body\": [\n    {\n      \"routeId\": \"string\",\n      \"paymentType\": \"string\",\n      \"clearingChannel\": \"string\",\n      \"priority\": 299,\n      \"status\": \"string\"\n    },\n    {\n      \"routeId\": \"string\",\n      \"paymentType\": \"string\",\n      \"clearingChannel\": \"string\",\n      \"priority\": 7451,\n      \"status\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39f33b35-3a96-485b-b8d8-7f49be6e5380",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "configuration",
+                    "paymentRoutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.temenos.com/bnpl/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1ab07bb7-beb5-45e5-9fb3-5a6ee35b4195",
+    "name": "Temenos Buy Now Pay Later Accounts Payment Configuration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Pricing Quotation API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pricing Quotation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Simulate Account Creation Pricing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/quotations/simulate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulate the creation of an arrangement or account to determine applicable pricing details including interest rates, fees, and cashback. Returns a quotation reference that can be used for negotiating or adjusting pricing details or for creating a new account."
+        },
+        {
+          "info": {
+            "name": "Simulate Event Pricing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/quotations/simulateEvent",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulate an activity or transaction event such as an ATM withdrawal, partial redemption, or funds transfer to determine applicable pricing details and returns a quotation reference."
+        },
+        {
+          "info": {
+            "name": "Get Quotation Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/quotations/:quotationReference",
+            "params": [
+              {
+                "name": "quotationReference",
+                "value": "",
+                "type": "path",
+                "description": "Quotation reference identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve pricing details of a simulated quotation. If the quotation has been negotiated, returns final pricing details including any adjustments applied."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

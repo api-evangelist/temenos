@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Entitlements API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entitlements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List User Entitlements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/entitlements",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user identifier"
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by product identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve user entitlements and role assignments across products based on configured entitlement policies."
+        },
+        {
+          "info": {
+            "name": "Assign Entitlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/entitlements",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign entitlements and roles to a user for specific products based on entitlement policies."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

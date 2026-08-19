@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Trade Finance API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trade Finance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Letters Of Credit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/tradeFinance/lettersOfCredit",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve letters of credit including import and export LCs with their document status and amendment history."
+        },
+        {
+          "info": {
+            "name": "List Guarantees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/tradeFinance/guarantees",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve bank guarantees and standby letters of credit with their terms, beneficiaries, and expiry dates."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

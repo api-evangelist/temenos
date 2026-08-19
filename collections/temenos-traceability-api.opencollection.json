@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Traceability API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Traceability",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Traceability Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/traceability/:serviceId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "Service execution identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed request and response message information for an executed API service providing non-repudiation evidence."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

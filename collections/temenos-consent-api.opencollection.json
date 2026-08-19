@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Consent API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Consent",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Consent Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/consents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new consent record for Open Banking data sharing, authorizing a third-party provider to access specified account information or initiate payments under PSD2 regulations."
+        },
+        {
+          "info": {
+            "name": "Get Consent Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/consents/:consentId",
+            "params": [
+              {
+                "name": "consentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique consent identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve the details and current status of a consent record including authorized scopes, expiration, and third-party provider information."
+        },
+        {
+          "info": {
+            "name": "Revoke Consent",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.temenos.com/bnpl/v1/consents/:consentId",
+            "params": [
+              {
+                "name": "consentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique consent identifier"
+              }
+            ]
+          },
+          "docs": "Revoke an existing consent, immediately terminating the third-party provider access to the authorized account data or payment initiation capabilities."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Pricing Arrangement Details API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pricing Arrangement Details",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Arrangement Interest Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/arrangements/:arrangementId/interestRates",
+            "params": [
+              {
+                "name": "arrangementId",
+                "value": "",
+                "type": "path",
+                "description": "Arrangement identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve interest rate details for an arrangement including base rates, applied benefits, and effective net rates."
+        },
+        {
+          "info": {
+            "name": "Get Arrangement Charges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/arrangements/:arrangementId/charges",
+            "params": [
+              {
+                "name": "arrangementId",
+                "value": "",
+                "type": "path",
+                "description": "Arrangement identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve activity charge fees and periodic charge fees for an arrangement including account opening, closure, and recurring maintenance charges."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

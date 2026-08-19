@@ -1,0 +1,868 @@
+{
+  "item": [
+    {
+      "id": "292492f2-7623-4670-81f3-242cfe4f7c72",
+      "name": "Payment Orders",
+      "description": {
+        "content": "Initiate, view, and manage payment orders for domestic and international fund transfers with support for SEPA, SWIFT, and internal transfers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "52d4df80-0f53-443a-926e-4e32b3188dca",
+          "name": "List Payment Orders",
+          "request": {
+            "name": "List Payment Orders",
+            "description": {
+              "content": "Retrieve a list of payment orders with optional filtering by status, date range, payment type, and originating account. Returns payment details including amounts, beneficiary information, and processing status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "paymentOrders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Number of records to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_start",
+                  "value": "0",
+                  "description": "Starting record number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "accountId",
+                  "value": "<string>",
+                  "description": "Filter by originating account identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by payment order status"
+                },
+                {
+                  "disabled": false,
+                  "key": "paymentType",
+                  "value": "<string>",
+                  "description": "Filter by payment type"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateFrom",
+                  "value": "<date>",
+                  "description": "Filter payments from this date"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateTo",
+                  "value": "<date>",
+                  "description": "Filter payments up to this date"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e65858e2-da86-4b4e-9c9e-fb2187d5451b",
+              "name": "Successful retrieval of payment orders",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paymentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"header\": {\n    \"page_size\": 4854,\n    \"page_start\": 7087,\n    \"total_size\": 1712\n  },\n  \"body\": [\n    {\n      \"paymentOrderId\": \"string\",\n      \"debitAccountId\": \"string\",\n      \"creditAccountId\": \"string\",\n      \"amount\": 6617.956031430425,\n      \"currency\": \"ZXU\",\n      \"paymentType\": \"TARGET2\",\n      \"status\": \"FAILED\",\n      \"valueDate\": \"2019-03-26\",\n      \"executionDate\": \"1956-09-01\",\n      \"reference\": \"string\",\n      \"endToEndId\": \"string\",\n      \"beneficiaryName\": \"string\",\n      \"beneficiaryIban\": \"string\",\n      \"beneficiaryBic\": \"string\",\n      \"remittanceInformation\": \"string\"\n    },\n    {\n      \"paymentOrderId\": \"string\",\n      \"debitAccountId\": \"string\",\n      \"creditAccountId\": \"string\",\n      \"amount\": 934.3796911145186,\n      \"currency\": \"QXM\",\n      \"paymentType\": \"TARGET2\",\n      \"status\": \"PROCESSING\",\n      \"valueDate\": \"1978-02-08\",\n      \"executionDate\": \"2016-09-19\",\n      \"reference\": \"string\",\n      \"endToEndId\": \"string\",\n      \"beneficiaryName\": \"string\",\n      \"beneficiaryIban\": \"string\",\n      \"beneficiaryBic\": \"string\",\n      \"remittanceInformation\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d67d5ab-6ddf-4328-a9d3-ba41609105e0",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paymentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75475996-1c28-4404-973e-84b644a297a1",
+          "name": "Create Payment Order",
+          "request": {
+            "name": "Create Payment Order",
+            "description": {
+              "content": "Initiate a new payment order for fund transfer. Supports SEPA credit transfers, instant SEPA payments, SWIFT cross-border transfers, domestic payments, and internal account-to-account transfers. Validates payment details, beneficiary information, and available balance before processing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "paymentOrders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"paymentType\": \"<string>\",\n  \"creditAccountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"endToEndId\": \"<string>\",\n  \"remittanceInformation\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41091891-f226-4e70-910e-548e3ebc5a60",
+              "name": "Payment order created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"paymentType\": \"<string>\",\n  \"creditAccountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"endToEndId\": \"<string>\",\n  \"remittanceInformation\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentOrderId\": \"string\",\n  \"debitAccountId\": \"string\",\n  \"creditAccountId\": \"string\",\n  \"amount\": 9942.598251862595,\n  \"currency\": \"AQF\",\n  \"paymentType\": \"CROSS_BORDER\",\n  \"status\": \"COMPLETED\",\n  \"valueDate\": \"2015-05-29\",\n  \"executionDate\": \"1956-06-16\",\n  \"reference\": \"string\",\n  \"endToEndId\": \"string\",\n  \"beneficiaryName\": \"string\",\n  \"beneficiaryIban\": \"string\",\n  \"beneficiaryBic\": \"string\",\n  \"remittanceInformation\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "641121ce-202b-4377-a5c2-f496e9ede963",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"paymentType\": \"<string>\",\n  \"creditAccountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"endToEndId\": \"<string>\",\n  \"remittanceInformation\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59e42625-2791-4400-8d0a-20e13c9415dc",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"paymentType\": \"<string>\",\n  \"creditAccountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"endToEndId\": \"<string>\",\n  \"remittanceInformation\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e23295ba-b750-4ba9-b35e-0323e168eab8",
+          "name": "Get Payment Order Details",
+          "request": {
+            "name": "Get Payment Order Details",
+            "description": {
+              "content": "Retrieve detailed information for a specific payment order including processing status, clearing details, and beneficiary information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "paymentOrders",
+                ":paymentOrderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentOrderId",
+                  "description": "(Required) Unique payment order identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88cde7a4-652e-4b96-ad7b-e762dadefe4b",
+              "name": "Successful retrieval of payment order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentOrders",
+                    ":paymentOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentOrderId",
+                      "description": "(Required) Unique payment order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentOrderId\": \"string\",\n  \"debitAccountId\": \"string\",\n  \"creditAccountId\": \"string\",\n  \"amount\": 9942.598251862595,\n  \"currency\": \"AQF\",\n  \"paymentType\": \"CROSS_BORDER\",\n  \"status\": \"COMPLETED\",\n  \"valueDate\": \"2015-05-29\",\n  \"executionDate\": \"1956-06-16\",\n  \"reference\": \"string\",\n  \"endToEndId\": \"string\",\n  \"beneficiaryName\": \"string\",\n  \"beneficiaryIban\": \"string\",\n  \"beneficiaryBic\": \"string\",\n  \"remittanceInformation\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e7bd3cb-a887-4da6-97d9-89ad25784526",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentOrders",
+                    ":paymentOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentOrderId",
+                      "description": "(Required) Unique payment order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb25fc74-32dc-429b-ad44-5e40a75225bf",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentOrders",
+                    ":paymentOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentOrderId",
+                      "description": "(Required) Unique payment order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc19e798-65ce-4c59-bd01-a7e8fe5a2045",
+          "name": "Get Payment Order Status",
+          "request": {
+            "name": "Get Payment Order Status",
+            "description": {
+              "content": "Retrieve the current processing status of a payment order including clearing status, booking confirmation, and any error details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "paymentOrders",
+                ":paymentOrderId",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentOrderId",
+                  "description": "(Required) Unique payment order identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "61d65a55-5f6d-4d6a-9775-d7edd078733b",
+              "name": "Successful retrieval of payment status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentOrders",
+                    ":paymentOrderId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentOrderId",
+                      "description": "(Required) Unique payment order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentOrderId\": \"string\",\n  \"status\": \"COMPLETED\",\n  \"clearingStatus\": \"string\",\n  \"bookingStatus\": \"PENDING\",\n  \"statusReason\": \"string\",\n  \"lastUpdated\": \"1951-11-03T08:16:30.362Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc876279-8573-4754-836c-8c2ea9b80acc",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentOrders",
+                    ":paymentOrderId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentOrderId",
+                      "description": "(Required) Unique payment order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "313c8929-9e64-4563-9c62-7771eb3eb35f",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentOrders",
+                    ":paymentOrderId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentOrderId",
+                      "description": "(Required) Unique payment order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.temenos.com/bnpl/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5034b3db-4168-4ff2-8574-cf654d2ef82f",
+    "name": "Temenos Buy Now Pay Later Accounts Payment Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Direct Debits API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Direct Debits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Direct Debit Mandates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/directDebits",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by debited account identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve direct debit instructions and mandate collections including SEPA direct debits with creditor details, amounts, and collection frequencies."
+        },
+        {
+          "info": {
+            "name": "Get Direct Debit Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/directDebits/:directDebitId",
+            "params": [
+              {
+                "name": "directDebitId",
+                "value": "",
+                "type": "path",
+                "description": "Unique direct debit mandate identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific direct debit mandate including collection history and next collection date."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

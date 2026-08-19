@@ -1,0 +1,408 @@
+{
+  "item": [
+    {
+      "id": "e95b1608-7cfb-4002-8827-758978dcf2c3",
+      "name": "Standing Orders",
+      "description": {
+        "content": "Create and manage standing order instructions for automated recurring payment execution.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "38f5adc2-3935-495e-abf1-5456ec980c1b",
+          "name": "List Standing Orders",
+          "request": {
+            "name": "List Standing Orders",
+            "description": {
+              "content": "Retrieve standing order instructions for recurring payments with their frequency, amounts, beneficiary details, and execution status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "standingOrders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Number of records to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_start",
+                  "value": "0",
+                  "description": "Starting record number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "accountId",
+                  "value": "<string>",
+                  "description": "Filter by originating account identifier"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d18a58f-a9f6-46c8-99aa-3419f06855bf",
+              "name": "Successful retrieval of standing orders",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standingOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"header\": {\n    \"page_size\": 7127,\n    \"page_start\": 4077,\n    \"total_size\": 3322\n  },\n  \"body\": [\n    {\n      \"standingOrderId\": \"string\",\n      \"accountId\": \"string\",\n      \"beneficiaryName\": \"string\",\n      \"beneficiaryIban\": \"string\",\n      \"amount\": 812.5793816315307,\n      \"currency\": \"string\",\n      \"frequency\": \"MONTHLY\",\n      \"startDate\": \"2018-05-05\",\n      \"endDate\": \"2004-12-13\",\n      \"nextExecutionDate\": \"1985-10-23\",\n      \"status\": \"CANCELLED\"\n    },\n    {\n      \"standingOrderId\": \"string\",\n      \"accountId\": \"string\",\n      \"beneficiaryName\": \"string\",\n      \"beneficiaryIban\": \"string\",\n      \"amount\": 1613.963941967147,\n      \"currency\": \"string\",\n      \"frequency\": \"QUARTERLY\",\n      \"startDate\": \"1996-05-19\",\n      \"endDate\": \"2006-11-17\",\n      \"nextExecutionDate\": \"2022-11-04\",\n      \"status\": \"CANCELLED\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8341674a-c8db-4cfb-a7b2-0c48c92d6853",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standingOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0be3827-0e4b-4986-bd18-0f32377d4b40",
+          "name": "Create Standing Order",
+          "request": {
+            "name": "Create Standing Order",
+            "description": {
+              "content": "Create a new standing order instruction for automated recurring payments with specified frequency, amount, and beneficiary.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "standingOrders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"endDate\": \"<date>\",\n  \"reference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5e09191c-b025-4ffe-b877-f42fc6411230",
+              "name": "Standing order created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standingOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"endDate\": \"<date>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"standingOrderId\": \"string\",\n  \"accountId\": \"string\",\n  \"beneficiaryName\": \"string\",\n  \"beneficiaryIban\": \"string\",\n  \"amount\": 5544.834933845467,\n  \"currency\": \"string\",\n  \"frequency\": \"QUARTERLY\",\n  \"startDate\": \"2019-09-18\",\n  \"endDate\": \"1994-01-21\",\n  \"nextExecutionDate\": \"1984-01-10\",\n  \"status\": \"SUSPENDED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "835eac2f-ac3d-4603-a685-28e257ff573d",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standingOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"endDate\": \"<date>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7557ad9f-5ff9-4b9d-a97e-2a1ca6782f2c",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standingOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"beneficiaryIban\": \"<string>\",\n  \"beneficiaryBic\": \"<string>\",\n  \"endDate\": \"<date>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.temenos.com/bnpl/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a0b78a1e-ed42-491c-88eb-3906f0e366ae",
+    "name": "Temenos Buy Now Pay Later Accounts Standing Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+      "type": "text/plain"
+    }
+  }
+}

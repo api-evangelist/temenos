@@ -1,0 +1,407 @@
+{
+  "item": [
+    {
+      "id": "8ffc08fa-ea64-4500-82ac-a30e050effdc",
+      "name": "Direct Debits",
+      "description": {
+        "content": "Manage direct debit instructions and mandate collections for recurring payment scenarios including SEPA direct debits.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f0c4c385-8b4e-4c09-a3bb-75f713ced5e2",
+          "name": "List Direct Debit Mandates",
+          "request": {
+            "name": "List Direct Debit Mandates",
+            "description": {
+              "content": "Retrieve direct debit instructions and mandate collections including SEPA direct debits with creditor details, amounts, and collection frequencies.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "directDebits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Number of records to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_start",
+                  "value": "0",
+                  "description": "Starting record number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "accountId",
+                  "value": "<string>",
+                  "description": "Filter by debited account identifier"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "edcd6c22-deae-4391-aa6d-f36220d49b59",
+              "name": "Successful retrieval of direct debit mandates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "directDebits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"header\": {\n    \"page_size\": 1506,\n    \"page_start\": 7962,\n    \"total_size\": 5112\n  },\n  \"body\": [\n    {\n      \"directDebitId\": \"string\",\n      \"accountId\": \"string\",\n      \"mandateReference\": \"string\",\n      \"creditorName\": \"string\",\n      \"creditorId\": \"string\",\n      \"amount\": 6589.926081895948,\n      \"currency\": \"string\",\n      \"frequency\": \"QUARTERLY\",\n      \"nextCollectionDate\": \"2026-05-17\",\n      \"status\": \"SUSPENDED\"\n    },\n    {\n      \"directDebitId\": \"string\",\n      \"accountId\": \"string\",\n      \"mandateReference\": \"string\",\n      \"creditorName\": \"string\",\n      \"creditorId\": \"string\",\n      \"amount\": 232.39584786253542,\n      \"currency\": \"string\",\n      \"frequency\": \"QUARTERLY\",\n      \"nextCollectionDate\": \"2005-05-02\",\n      \"status\": \"ACTIVE\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c71fb90-f86e-46de-9b3f-838ed5767256",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "directDebits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f5f90cd-2512-468c-bc07-f1e0d694439b",
+          "name": "Get Direct Debit Details",
+          "request": {
+            "name": "Get Direct Debit Details",
+            "description": {
+              "content": "Retrieve detailed information for a specific direct debit mandate including collection history and next collection date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "directDebits",
+                ":directDebitId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "directDebitId",
+                  "description": "(Required) Unique direct debit mandate identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a44283d5-569b-49b3-adf7-21ec1de53129",
+              "name": "Successful retrieval of direct debit details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "directDebits",
+                    ":directDebitId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "directDebitId",
+                      "description": "(Required) Unique direct debit mandate identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"directDebitId\": \"string\",\n  \"accountId\": \"string\",\n  \"mandateReference\": \"string\",\n  \"creditorName\": \"string\",\n  \"creditorId\": \"string\",\n  \"amount\": 7578.522799222691,\n  \"currency\": \"string\",\n  \"frequency\": \"QUARTERLY\",\n  \"nextCollectionDate\": \"1974-01-19\",\n  \"status\": \"CANCELLED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cca4538-18af-4ad3-b621-7a57b2c65a3d",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "directDebits",
+                    ":directDebitId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "directDebitId",
+                      "description": "(Required) Unique direct debit mandate identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43c48a08-8e9d-4e7c-adea-f3065621c9d5",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "directDebits",
+                    ":directDebitId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "directDebitId",
+                      "description": "(Required) Unique direct debit mandate identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.temenos.com/bnpl/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9bb53878-0e13-4fab-9ef1-8c2d4b30dd7d",
+    "name": "Temenos Buy Now Pay Later Accounts Direct Debits API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+      "type": "text/plain"
+    }
+  }
+}

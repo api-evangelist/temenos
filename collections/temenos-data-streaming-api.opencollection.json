@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Data Streaming API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Streaming",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Streaming Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/streaming/configurations"
+          },
+          "docs": "Retrieve event streaming configurations for data replication and real-time event capture from committed transactions."
+        },
+        {
+          "info": {
+            "name": "Create Streaming Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/streaming/configurations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new event streaming configuration to capture data replication events when transactions are committed to the system."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

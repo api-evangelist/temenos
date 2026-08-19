@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Operational Data Store API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Operational Data Store",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Operational Account Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/operational/accounts",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              }
+            ]
+          },
+          "docs": "Retrieve near real-time operational account data from the ODS for integration use cases with current balances and status."
+        },
+        {
+          "info": {
+            "name": "List Operational Transaction Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/operational/transactions",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by account"
+              }
+            ]
+          },
+          "docs": "Retrieve near real-time transaction data from the ODS for operational reporting and real-time integration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

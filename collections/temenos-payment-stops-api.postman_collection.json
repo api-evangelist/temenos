@@ -1,0 +1,408 @@
+{
+  "item": [
+    {
+      "id": "5b380514-dec5-4fdc-bfe7-3695c0e16e7c",
+      "name": "Payment Stops",
+      "description": {
+        "content": "Create and manage stop instructions for individual payments based on cheque details, transaction amounts, or payment references.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5a21d75a-a431-4356-87c6-eb30e0cb652e",
+          "name": "List Payment Stop Requests",
+          "request": {
+            "name": "List Payment Stop Requests",
+            "description": {
+              "content": "Retrieve active payment stop instructions including stops based on cheque details, transaction amounts, or payment references.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "paymentStops"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Number of records to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_start",
+                  "value": "0",
+                  "description": "Starting record number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "accountId",
+                  "value": "<string>",
+                  "description": "Filter by account identifier"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b085a7b2-c126-4489-8cd4-7054fd7d288f",
+              "name": "Successful retrieval of payment stops",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentStops"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"header\": {\n    \"page_size\": 3613,\n    \"page_start\": 1728,\n    \"total_size\": 3716\n  },\n  \"body\": [\n    {\n      \"paymentStopId\": \"string\",\n      \"accountId\": \"string\",\n      \"stopType\": \"AMOUNT_RANGE\",\n      \"chequeNumber\": \"string\",\n      \"amountFrom\": 6251.613228793535,\n      \"amountTo\": 7298.101626808099,\n      \"reference\": \"string\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"paymentStopId\": \"string\",\n      \"accountId\": \"string\",\n      \"stopType\": \"REFERENCE\",\n      \"chequeNumber\": \"string\",\n      \"amountFrom\": 541.253870375198,\n      \"amountTo\": 1571.0872525168006,\n      \"reference\": \"string\",\n      \"status\": \"ACTIVE\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6355ea9-9e09-423b-bbee-1ea4dfdb51b4",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentStops"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e5bb1fa-b9a6-45a4-8ad5-bff68929f83b",
+          "name": "Create Payment Stop Request",
+          "request": {
+            "name": "Create Payment Stop Request",
+            "description": {
+              "content": "Create a stop instruction for individual payments based on cheque number, transaction amount range, or payment reference to prevent processing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "paymentStops"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": \"<string>\",\n  \"stopType\": \"<string>\",\n  \"chequeNumber\": \"<string>\",\n  \"chequeNumberTo\": \"<string>\",\n  \"amountFrom\": \"<double>\",\n  \"amountTo\": \"<double>\",\n  \"reference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56da44b0-3625-45e4-9987-fa7420724835",
+              "name": "Payment stop created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentStops"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"stopType\": \"<string>\",\n  \"chequeNumber\": \"<string>\",\n  \"chequeNumberTo\": \"<string>\",\n  \"amountFrom\": \"<double>\",\n  \"amountTo\": \"<double>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentStopId\": \"string\",\n  \"accountId\": \"string\",\n  \"stopType\": \"AMOUNT_RANGE\",\n  \"chequeNumber\": \"string\",\n  \"amountFrom\": 3174.521953397772,\n  \"amountTo\": 4328.908776858755,\n  \"reference\": \"string\",\n  \"status\": \"EXPIRED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "387cb8b2-39d7-46b1-afa7-bf192926df07",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentStops"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"stopType\": \"<string>\",\n  \"chequeNumber\": \"<string>\",\n  \"chequeNumberTo\": \"<string>\",\n  \"amountFrom\": \"<double>\",\n  \"amountTo\": \"<double>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d70d0ef7-44c2-4d67-a8f1-2bba116775f8",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "paymentStops"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"stopType\": \"<string>\",\n  \"chequeNumber\": \"<string>\",\n  \"chequeNumberTo\": \"<string>\",\n  \"amountFrom\": \"<double>\",\n  \"amountTo\": \"<double>\",\n  \"reference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.temenos.com/bnpl/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5b965036-e439-43fd-9fed-211bc56c2ac8",
+    "name": "Temenos Buy Now Pay Later Accounts Payment Stops API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+      "type": "text/plain"
+    }
+  }
+}

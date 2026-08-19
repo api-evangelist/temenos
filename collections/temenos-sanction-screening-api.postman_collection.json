@@ -1,0 +1,845 @@
+{
+  "item": [
+    {
+      "id": "33d724e0-8a82-45a8-aac7-9b01cec403ed",
+      "name": "Sanction Screening",
+      "description": {
+        "content": "Screen customers and transactions against sanctions lists, PEP databases, and watchlists with alert generation and management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "475bd83c-3060-4b82-8b28-135a160f1440",
+          "name": "Get Customer Sanction Alerts",
+          "request": {
+            "name": "Get Customer Sanction Alerts",
+            "description": {
+              "content": "Retrieve all sanctions screening alerts for a specific customer including matches against sanctions lists, PEP databases, and adverse media sources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "screening",
+                "customers",
+                ":customerId",
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Unique customer identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eed6d6d5-8d0a-4055-b14a-515e96ad0e85",
+              "name": "Successful retrieval of customer alerts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screening",
+                    "customers",
+                    ":customerId",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Unique customer identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"body\": [\n    {\n      \"alertId\": \"string\",\n      \"customerId\": \"string\",\n      \"matchType\": \"WATCHLIST\",\n      \"matchScore\": 93.20017223065322,\n      \"matchedEntity\": \"string\",\n      \"listSource\": \"string\",\n      \"severity\": \"MEDIUM\",\n      \"status\": \"CLOSED_TRUE_MATCH\",\n      \"createdDate\": \"1976-03-07T10:05:30.766Z\"\n    },\n    {\n      \"alertId\": \"string\",\n      \"customerId\": \"string\",\n      \"matchType\": \"WATCHLIST\",\n      \"matchScore\": 86.36743890427464,\n      \"matchedEntity\": \"string\",\n      \"listSource\": \"string\",\n      \"severity\": \"LOW\",\n      \"status\": \"ESCALATED\",\n      \"createdDate\": \"1998-05-09T00:58:28.407Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "427f7338-27e4-4137-b6f7-8190d8e0ad7e",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screening",
+                    "customers",
+                    ":customerId",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Unique customer identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b97bc21a-71a1-43bf-a710-3ef23af8c886",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screening",
+                    "customers",
+                    ":customerId",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Unique customer identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf5a6487-3547-4480-81cb-9649e9258232",
+          "name": "List All Customer Sanction Alerts",
+          "request": {
+            "name": "List All Customer Sanction Alerts",
+            "description": {
+              "content": "Retrieve the list of outstanding sanctions screening alerts across all customers, indexed by customer identifier. Supports filtering by alert status and severity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "screening",
+                "customers",
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Number of records to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_start",
+                  "value": "0",
+                  "description": "Starting record number"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by alert status"
+                },
+                {
+                  "disabled": false,
+                  "key": "severity",
+                  "value": "<string>",
+                  "description": "Filter by alert severity"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a649e481-cfb7-4527-8225-5a7bd1f258fd",
+              "name": "Successful retrieval of alerts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screening",
+                    "customers",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"header\": {\n    \"page_size\": 6668,\n    \"page_start\": 7039,\n    \"total_size\": 6789\n  },\n  \"body\": [\n    {\n      \"alertId\": \"string\",\n      \"customerId\": \"string\",\n      \"matchType\": \"WATCHLIST\",\n      \"matchScore\": 84.90271854043056,\n      \"matchedEntity\": \"string\",\n      \"listSource\": \"string\",\n      \"severity\": \"MEDIUM\",\n      \"status\": \"CLOSED_TRUE_MATCH\",\n      \"createdDate\": \"1964-01-20T16:13:36.347Z\"\n    },\n    {\n      \"alertId\": \"string\",\n      \"customerId\": \"string\",\n      \"matchType\": \"ADVERSE_MEDIA\",\n      \"matchScore\": 88.33184776455367,\n      \"matchedEntity\": \"string\",\n      \"listSource\": \"string\",\n      \"severity\": \"MEDIUM\",\n      \"status\": \"CLOSED_TRUE_MATCH\",\n      \"createdDate\": \"1948-12-26T16:48:58.446Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a68bb1b7-95b9-49b6-8f42-da92ff410bdc",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screening",
+                    "customers",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be15215f-72ec-4900-847a-2dcf8d2ee66f",
+          "name": "Screen Onboarding Customer",
+          "request": {
+            "name": "Screen Onboarding Customer",
+            "description": {
+              "content": "Screen a new customer during onboarding against sanctions lists, PEP databases, and adverse media to verify they are not sanctioned individuals, entities, or politically exposed persons.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "screening",
+                "onboarding"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationality\": \"<string>\",\n  \"address\": \"<string>\",\n  \"idDocument\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0a2cbf43-1d8c-4212-b9f6-3edc02d133d4",
+              "name": "Screening completed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screening",
+                    "onboarding"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationality\": \"<string>\",\n  \"address\": \"<string>\",\n  \"idDocument\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"screeningId\": \"string\",\n  \"status\": \"CLEAR\",\n  \"matches\": [\n    {\n      \"alertId\": \"string\",\n      \"customerId\": \"string\",\n      \"matchType\": \"PEP\",\n      \"matchScore\": 92.85493730769018,\n      \"matchedEntity\": \"string\",\n      \"listSource\": \"string\",\n      \"severity\": \"MEDIUM\",\n      \"status\": \"CLOSED_TRUE_MATCH\",\n      \"createdDate\": \"2025-08-19T08:23:20.324Z\"\n    },\n    {\n      \"alertId\": \"string\",\n      \"customerId\": \"string\",\n      \"matchType\": \"SANCTIONS\",\n      \"matchScore\": 85.22834686476163,\n      \"matchedEntity\": \"string\",\n      \"listSource\": \"string\",\n      \"severity\": \"LOW\",\n      \"status\": \"ESCALATED\",\n      \"createdDate\": \"2026-04-22T14:50:42.477Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67625b86-7b44-499d-a54b-89f71d110759",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screening",
+                    "onboarding"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationality\": \"<string>\",\n  \"address\": \"<string>\",\n  \"idDocument\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9cf4c0fb-afc0-45c5-adea-84f8fe0db063",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screening",
+                    "onboarding"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationality\": \"<string>\",\n  \"address\": \"<string>\",\n  \"idDocument\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2fec38ab-d803-4165-95e2-f7c0fa55b555",
+          "name": "Scan Payment Message",
+          "request": {
+            "name": "Scan Payment Message",
+            "description": {
+              "content": "Scan a payment message against sanctions lists and screening rules to identify potential matches in beneficiary names, addresses, and other payment details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "screening",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"originatorName\": \"<string>\",\n  \"beneficiaryAddress\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"messageType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41c2f52c-772f-4edf-aa46-99021e36d4d9",
+              "name": "Transaction scan completed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screening",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transactionId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"originatorName\": \"<string>\",\n  \"beneficiaryAddress\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"messageType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"screeningId\": \"string\",\n  \"status\": \"CLEAR\",\n  \"matches\": [\n    {\n      \"alertId\": \"string\",\n      \"customerId\": \"string\",\n      \"matchType\": \"PEP\",\n      \"matchScore\": 92.85493730769018,\n      \"matchedEntity\": \"string\",\n      \"listSource\": \"string\",\n      \"severity\": \"MEDIUM\",\n      \"status\": \"CLOSED_TRUE_MATCH\",\n      \"createdDate\": \"2025-08-19T08:23:20.324Z\"\n    },\n    {\n      \"alertId\": \"string\",\n      \"customerId\": \"string\",\n      \"matchType\": \"SANCTIONS\",\n      \"matchScore\": 85.22834686476163,\n      \"matchedEntity\": \"string\",\n      \"listSource\": \"string\",\n      \"severity\": \"LOW\",\n      \"status\": \"ESCALATED\",\n      \"createdDate\": \"2026-04-22T14:50:42.477Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9a9fc9c-252e-4b4e-8f67-0987b246cb43",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screening",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transactionId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"originatorName\": \"<string>\",\n  \"beneficiaryAddress\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"messageType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5fa3c52-4b6f-4a71-ad07-0abe9c355762",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screening",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transactionId\": \"<string>\",\n  \"beneficiaryName\": \"<string>\",\n  \"originatorName\": \"<string>\",\n  \"beneficiaryAddress\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"messageType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.temenos.com/bnpl/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2a5b3759-fd8a-4fda-854c-206e36cea5f8",
+    "name": "Temenos Buy Now Pay Later Accounts Sanction Screening API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+      "type": "text/plain"
+    }
+  }
+}

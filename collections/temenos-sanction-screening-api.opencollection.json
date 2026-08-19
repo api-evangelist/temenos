@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Sanction Screening API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sanction Screening",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Customer Sanction Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/screening/customers/:customerId/alerts",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Unique customer identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve all sanctions screening alerts for a specific customer including matches against sanctions lists, PEP databases, and adverse media sources."
+        },
+        {
+          "info": {
+            "name": "List All Customer Sanction Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/screening/customers/alerts",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert status"
+              },
+              {
+                "name": "severity",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert severity"
+              }
+            ]
+          },
+          "docs": "Retrieve the list of outstanding sanctions screening alerts across all customers, indexed by customer identifier. Supports filtering by alert status and severity."
+        },
+        {
+          "info": {
+            "name": "Screen Onboarding Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/screening/onboarding",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Screen a new customer during onboarding against sanctions lists, PEP databases, and adverse media to verify they are not sanctioned individuals, entities, or politically exposed persons."
+        },
+        {
+          "info": {
+            "name": "Scan Payment Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/screening/transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Scan a payment message against sanctions lists and screening rules to identify potential matches in beneficiary names, addresses, and other payment details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

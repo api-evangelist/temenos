@@ -1,0 +1,670 @@
+{
+  "item": [
+    {
+      "id": "ee930bc1-7e6c-4ab7-9aaa-52af2315b965",
+      "name": "Customer Risk Assessment",
+      "description": {
+        "content": "APIs for KYC risk scoring and customer form submission to facilitate risk computation based on customer attributes and behavior patterns.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5c913f0d-9964-4b6f-a3c7-9c09156b15ab",
+          "name": "Get Customer Risk Score",
+          "request": {
+            "name": "Get Customer Risk Score",
+            "description": {
+              "content": "Retrieve the computed risk score for a given customer based on KYC attributes, transaction history, and risk factor analysis. Returns the overall risk rating and contributing risk factors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kyc",
+                "customers",
+                ":customerId",
+                "riskScore"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Unique customer identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9fa3514c-8d07-4f6c-b98c-84e7c4ffcdd0",
+              "name": "Successful retrieval of risk score",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kyc",
+                    "customers",
+                    ":customerId",
+                    "riskScore"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Unique customer identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customerId\": \"string\",\n  \"overallRiskRating\": \"LOW\",\n  \"riskScore\": 58.38737087932482,\n  \"riskFactors\": [\n    {\n      \"factor\": \"string\",\n      \"contribution\": 4991.381644614908,\n      \"details\": \"string\"\n    },\n    {\n      \"factor\": \"string\",\n      \"contribution\": 5381.78096933608,\n      \"details\": \"string\"\n    }\n  ],\n  \"assessmentDate\": \"2018-09-08T17:55:32.714Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1775a358-7302-4a7d-bdd6-63e76056bb39",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kyc",
+                    "customers",
+                    ":customerId",
+                    "riskScore"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Unique customer identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3af641b3-835e-42f1-899e-dd45fd06a8d4",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kyc",
+                    "customers",
+                    ":customerId",
+                    "riskScore"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Unique customer identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d51b360-9c18-4243-8404-4c21e3be40e7",
+          "name": "Compute Customer Risk Score",
+          "request": {
+            "name": "Compute Customer Risk Score",
+            "description": {
+              "content": "Trigger risk score computation for a customer based on their current KYC data, transaction patterns, and configured risk scoring models. Updates the stored risk score.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kyc",
+                "customers",
+                ":customerId",
+                "riskScore",
+                "compute"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Unique customer identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab7eed72-1634-4eaf-ac1e-cbfd8029609d",
+              "name": "Risk score computed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kyc",
+                    "customers",
+                    ":customerId",
+                    "riskScore",
+                    "compute"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Unique customer identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customerId\": \"string\",\n  \"overallRiskRating\": \"LOW\",\n  \"riskScore\": 58.38737087932482,\n  \"riskFactors\": [\n    {\n      \"factor\": \"string\",\n      \"contribution\": 4991.381644614908,\n      \"details\": \"string\"\n    },\n    {\n      \"factor\": \"string\",\n      \"contribution\": 5381.78096933608,\n      \"details\": \"string\"\n    }\n  ],\n  \"assessmentDate\": \"2018-09-08T17:55:32.714Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cf20ef0-de00-43fc-89aa-73a536e89517",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kyc",
+                    "customers",
+                    ":customerId",
+                    "riskScore",
+                    "compute"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Unique customer identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d073c39c-8b8c-44c5-8234-7ac35bec49bd",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kyc",
+                    "customers",
+                    ":customerId",
+                    "riskScore",
+                    "compute"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Unique customer identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b301694-68fd-4539-beb6-7a28d9bcb296",
+          "name": "Submit Customer KYC Form",
+          "request": {
+            "name": "Submit Customer KYC Form",
+            "description": {
+              "content": "Submit customer KYC form data for risk scoring evaluation. The submitted data is processed against configured risk models to generate or update the customer risk assessment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kyc",
+                "customers",
+                "formSubmission"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"<string>\",\n  \"customerType\": \"<string>\",\n  \"countryOfResidence\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"occupation\": \"<string>\",\n  \"sourceOfFunds\": \"<string>\",\n  \"expectedTransactionVolume\": \"<string>\",\n  \"pepStatus\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b7e847fa-611f-4b39-a7b9-e8f07d24e699",
+              "name": "Form submitted and processed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kyc",
+                    "customers",
+                    "formSubmission"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"customerType\": \"<string>\",\n  \"countryOfResidence\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"occupation\": \"<string>\",\n  \"sourceOfFunds\": \"<string>\",\n  \"expectedTransactionVolume\": \"<string>\",\n  \"pepStatus\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customerId\": \"string\",\n  \"overallRiskRating\": \"LOW\",\n  \"riskScore\": 58.38737087932482,\n  \"riskFactors\": [\n    {\n      \"factor\": \"string\",\n      \"contribution\": 4991.381644614908,\n      \"details\": \"string\"\n    },\n    {\n      \"factor\": \"string\",\n      \"contribution\": 5381.78096933608,\n      \"details\": \"string\"\n    }\n  ],\n  \"assessmentDate\": \"2018-09-08T17:55:32.714Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80e578da-c04e-4952-8b46-93e4b9e1b1df",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kyc",
+                    "customers",
+                    "formSubmission"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"customerType\": \"<string>\",\n  \"countryOfResidence\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"occupation\": \"<string>\",\n  \"sourceOfFunds\": \"<string>\",\n  \"expectedTransactionVolume\": \"<string>\",\n  \"pepStatus\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e582e95-94e7-4771-8298-64999c965f2f",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kyc",
+                    "customers",
+                    "formSubmission"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<string>\",\n  \"customerType\": \"<string>\",\n  \"countryOfResidence\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"occupation\": \"<string>\",\n  \"sourceOfFunds\": \"<string>\",\n  \"expectedTransactionVolume\": \"<string>\",\n  \"pepStatus\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.temenos.com/bnpl/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "85bfc1bf-6cbb-469e-b15b-d9bd394805dd",
+    "name": "Temenos Buy Now Pay Later Accounts Customer Risk Assessment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+      "type": "text/plain"
+    }
+  }
+}

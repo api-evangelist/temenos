@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Customer Risk Assessment API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customer Risk Assessment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Customer Risk Score",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/kyc/customers/:customerId/riskScore",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Unique customer identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve the computed risk score for a given customer based on KYC attributes, transaction history, and risk factor analysis. Returns the overall risk rating and contributing risk factors."
+        },
+        {
+          "info": {
+            "name": "Compute Customer Risk Score",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/kyc/customers/:customerId/riskScore/compute",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Unique customer identifier"
+              }
+            ]
+          },
+          "docs": "Trigger risk score computation for a customer based on their current KYC data, transaction patterns, and configured risk scoring models. Updates the stored risk score."
+        },
+        {
+          "info": {
+            "name": "Submit Customer KYC Form",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/kyc/customers/formSubmission",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit customer KYC form data for risk scoring evaluation. The submitted data is processed against configured risk models to generate or update the customer risk assessment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Payment Orders API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payment Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Payment Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/paymentOrders",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by originating account identifier"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by payment order status"
+              },
+              {
+                "name": "paymentType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by payment type"
+              },
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Filter payments from this date"
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query",
+                "description": "Filter payments up to this date"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of payment orders with optional filtering by status, date range, payment type, and originating account. Returns payment details including amounts, beneficiary information, and processing status."
+        },
+        {
+          "info": {
+            "name": "Create Payment Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/paymentOrders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a new payment order for fund transfer. Supports SEPA credit transfers, instant SEPA payments, SWIFT cross-border transfers, domestic payments, and internal account-to-account transfers. Validates payment details, beneficiary information, and available balance before processing."
+        },
+        {
+          "info": {
+            "name": "Get Payment Order Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/paymentOrders/:paymentOrderId",
+            "params": [
+              {
+                "name": "paymentOrderId",
+                "value": "",
+                "type": "path",
+                "description": "Unique payment order identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific payment order including processing status, clearing details, and beneficiary information."
+        },
+        {
+          "info": {
+            "name": "Get Payment Order Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/paymentOrders/:paymentOrderId/status",
+            "params": [
+              {
+                "name": "paymentOrderId",
+                "value": "",
+                "type": "path",
+                "description": "Unique payment order identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve the current processing status of a payment order including clearing status, booking confirmation, and any error details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

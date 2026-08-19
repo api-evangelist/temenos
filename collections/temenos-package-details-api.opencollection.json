@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Package Details API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Package Details",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Package Arrangements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/packages",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              },
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by customer"
+              }
+            ]
+          },
+          "docs": "Retrieve package arrangements that bundle customer accounts for combined pricing benefits with primary and linked account information."
+        },
+        {
+          "info": {
+            "name": "Create Package Arrangement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/packages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new package arrangement to bundle customer accounts for combined pricing benefits and promotions."
+        },
+        {
+          "info": {
+            "name": "Get Package Pricing Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/packages/:packageId/pricing",
+            "params": [
+              {
+                "name": "packageId",
+                "value": "",
+                "type": "path",
+                "description": "Package arrangement identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve periodic pricing events and benefit details within specific periods for a package arrangement."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts PSD2 Accounts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PSD2 Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List PSD2 Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/psd2/accounts",
+            "headers": [
+              {
+                "name": "consentId",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieve account information for authorized third-party provider access under PSD2 Berlin Group standards. Requires valid consent from the account holder."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Product API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Funds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/product/funds",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve the list of funds with their master data including fund type, domicile, base currency, manager information, and promoter details."
+        },
+        {
+          "info": {
+            "name": "Create Fund",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/product/funds",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new fund master record with fund type, domicile, base currency, manager assignment, and regulatory configuration."
+        },
+        {
+          "info": {
+            "name": "List Share Classes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/product/shareClasses",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "fundId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by fund identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve share class configurations for funds including pricing details, fee structures, distribution policies, and investor eligibility criteria."
+        },
+        {
+          "info": {
+            "name": "List Banking Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/product/products",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "productGroup",
+                "value": "",
+                "type": "query",
+                "description": "Filter by product group"
+              }
+            ]
+          },
+          "docs": "Retrieve the product catalogue including current account products, savings products, deposit products, loan products, and Islamic finance products with their terms and conditions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

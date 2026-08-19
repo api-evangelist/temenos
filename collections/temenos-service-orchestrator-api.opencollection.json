@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Service Orchestrator API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Service Orchestrator",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Orchestration Sequences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/orchestrations"
+          },
+          "docs": "Retrieve service orchestration sequence definitions for executing multi-step business operations."
+        },
+        {
+          "info": {
+            "name": "Create Orchestration Sequence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/orchestrations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new service orchestration sequence defining the order of business operations across different applications."
+        },
+        {
+          "info": {
+            "name": "Execute Orchestration Sequence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/orchestrations/:orchestrationId/execute",
+            "params": [
+              {
+                "name": "orchestrationId",
+                "value": "",
+                "type": "path",
+                "description": "Orchestration sequence identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger execution of a defined service orchestration sequence with provided input parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

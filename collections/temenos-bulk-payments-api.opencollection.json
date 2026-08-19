@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Bulk Payments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bulk Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Bulk Payment Batches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/bulkPayments",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by batch processing status"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of bulk payment batches with their processing status and summary information including total amounts and payment counts."
+        },
+        {
+          "info": {
+            "name": "Create Bulk Payment Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/bulkPayments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a bulk payment batch by uploading payment instructions for batch processing. Supports file upload and manual entry with configurable approval workflows."
+        },
+        {
+          "info": {
+            "name": "Approve Bulk Payment Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/bulkPayments/:batchId/approve",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Unique bulk payment batch identifier"
+              }
+            ]
+          },
+          "docs": "Approve a bulk payment batch for processing after review. Applies the configured approval workflow rules."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

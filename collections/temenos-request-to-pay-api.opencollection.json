@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Request to Pay API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Request to Pay",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Request-to-pay Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/requestToPay",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record number for pagination"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Filter by request direction"
+              }
+            ]
+          },
+          "docs": "Retrieve request-to-pay messages including incoming requests for payment and outgoing payment requests with their resolution status."
+        },
+        {
+          "info": {
+            "name": "Create Request-to-pay",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/requestToPay",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a new request-to-pay message to a payer through the RTP clearing system. Includes payee details, amount, and payment terms."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

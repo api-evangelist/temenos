@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Configuration Management API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/configurations",
+            "params": [
+              {
+                "name": "configGroup",
+                "value": "",
+                "type": "query",
+                "description": "Filter by configuration group"
+              }
+            ]
+          },
+          "docs": "Retrieve application configurations organized by configuration groups for centralized configuration management."
+        },
+        {
+          "info": {
+            "name": "Create Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/configurations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new configuration entry within a specific configuration group for application settings management."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

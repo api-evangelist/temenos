@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Party Details API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Party Details",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Customer Contracts And Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/party/:customerId/contracts",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Customer identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve all holdings, contracts, and accounts for a party within the pricing system."
+        },
+        {
+          "info": {
+            "name": "Get Customer Pricing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/party/:customerId/pricing",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Customer identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve all pricing information for a customer including pricing identifiers and applied benefit adjustments."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,347 @@
+{
+  "item": [
+    {
+      "id": "2b1e3b24-c731-431b-ad07-8fa83271face",
+      "name": "Trade Finance",
+      "description": {
+        "content": "Trade finance operations including letters of credit, guarantees, documentary collections, and trade document management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "41e07f9b-6a66-41e4-991a-6fbfbb326856",
+          "name": "List Letters Of Credit",
+          "request": {
+            "name": "List Letters Of Credit",
+            "description": {
+              "content": "Retrieve letters of credit including import and export LCs with their document status and amendment history.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tradeFinance",
+                "lettersOfCredit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_start",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8ac7514b-1443-4396-bb04-3534547c5f7a",
+              "name": "Successful retrieval",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tradeFinance",
+                    "lettersOfCredit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"header\": {\n    \"page_size\": 993,\n    \"page_start\": 6324,\n    \"total_size\": 1596\n  },\n  \"body\": [\n    {\n      \"lcId\": \"string\",\n      \"lcType\": \"EXPORT\",\n      \"applicant\": \"string\",\n      \"beneficiary\": \"string\",\n      \"amount\": 2743.1790416795952,\n      \"currency\": \"string\",\n      \"expiryDate\": \"2010-12-01\",\n      \"status\": \"string\"\n    },\n    {\n      \"lcId\": \"string\",\n      \"lcType\": \"EXPORT\",\n      \"applicant\": \"string\",\n      \"beneficiary\": \"string\",\n      \"amount\": 1187.5406710280567,\n      \"currency\": \"string\",\n      \"expiryDate\": \"1951-03-25\",\n      \"status\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa8b1418-1f8f-482c-a37c-9b04b94d2172",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tradeFinance",
+                    "lettersOfCredit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eea65ceb-ee19-4aa5-aa6b-19a262dce394",
+          "name": "List Guarantees",
+          "request": {
+            "name": "List Guarantees",
+            "description": {
+              "content": "Retrieve bank guarantees and standby letters of credit with their terms, beneficiaries, and expiry dates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tradeFinance",
+                "guarantees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_start",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b82f792d-2a78-4fcf-abf2-c8d65e18f71d",
+              "name": "Successful retrieval",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tradeFinance",
+                    "guarantees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"header\": {\n    \"page_size\": 6340,\n    \"page_start\": 4823,\n    \"total_size\": 7154\n  },\n  \"body\": [\n    {\n      \"guaranteeId\": \"string\",\n      \"guaranteeType\": \"string\",\n      \"applicant\": \"string\",\n      \"beneficiary\": \"string\",\n      \"amount\": 4450.084788886242,\n      \"currency\": \"string\",\n      \"expiryDate\": \"1974-03-10\",\n      \"status\": \"string\"\n    },\n    {\n      \"guaranteeId\": \"string\",\n      \"guaranteeType\": \"string\",\n      \"applicant\": \"string\",\n      \"beneficiary\": \"string\",\n      \"amount\": 1924.0678705437265,\n      \"currency\": \"string\",\n      \"expiryDate\": \"1986-03-22\",\n      \"status\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70e12c9d-2e74-49d7-a672-fa0c0c225449",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tradeFinance",
+                    "guarantees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page_start",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.temenos.com/bnpl/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8a5adfec-862e-4094-a1b8-dfd5d02518ef",
+    "name": "Temenos Buy Now Pay Later Accounts Trade Finance API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+      "type": "text/plain"
+    }
+  }
+}

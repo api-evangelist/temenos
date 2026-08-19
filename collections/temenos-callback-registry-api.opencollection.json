@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Callback Registry API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Callback Registry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Registered Callbacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/callbacks",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Records per page"
+              },
+              {
+                "name": "page_start",
+                "value": "",
+                "type": "query",
+                "description": "Starting record"
+              }
+            ]
+          },
+          "docs": "Retrieve the list of registered callback URLs for receiving notifications about long-running transaction results."
+        },
+        {
+          "info": {
+            "name": "Register Callback URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/callbacks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a callback URL for receiving notifications when long-running transaction processing completes."
+        },
+        {
+          "info": {
+            "name": "Remove Callback Registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.temenos.com/bnpl/v1/callbacks/:callbackId",
+            "params": [
+              {
+                "name": "callbackId",
+                "value": "",
+                "type": "path",
+                "description": "Callback registration identifier"
+              }
+            ]
+          },
+          "docs": "Remove a previously registered callback URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

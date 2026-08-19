@@ -1,0 +1,183 @@
+{
+  "item": [
+    {
+      "id": "50edd87c-2ff6-4fff-8c2b-34d6ecffabf0",
+      "name": "PSD2 Accounts",
+      "description": {
+        "content": "PSD2 compliant account information access for authorized third-party providers under Berlin Group standards.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "307ce87f-e734-4466-9fd9-75d69cbd6284",
+          "name": "List PSD2 Accounts",
+          "request": {
+            "name": "List PSD2 Accounts",
+            "description": {
+              "content": "Retrieve account information for authorized third-party provider access under PSD2 Berlin Group standards. Requires valid consent from the account holder.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "psd2",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) PSD2 consent identifier",
+                "key": "consentId",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3663ef3e-c890-4687-a337-e42d221129ee",
+              "name": "Successful retrieval of account information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "psd2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) PSD2 consent identifier",
+                    "key": "consentId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"resourceId\": \"string\",\n      \"iban\": \"string\",\n      \"currency\": \"string\",\n      \"name\": \"string\",\n      \"product\": \"string\",\n      \"cashAccountType\": \"string\",\n      \"status\": \"string\"\n    },\n    {\n      \"resourceId\": \"string\",\n      \"iban\": \"string\",\n      \"currency\": \"string\",\n      \"name\": \"string\",\n      \"product\": \"string\",\n      \"cashAccountType\": \"string\",\n      \"status\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60f7a913-5520-49b2-8b56-6538af5c1af1",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "psd2",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) PSD2 consent identifier",
+                    "key": "consentId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.temenos.com/bnpl/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "890e5a06-9037-4f03-ba7f-190acef44cea",
+    "name": "Temenos Buy Now Pay Later Accounts PSD2 Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,338 @@
+{
+  "item": [
+    {
+      "id": "a3e58110-aa18-4cff-aab4-23d5ee0e5bfb",
+      "name": "Pricing Adjustment",
+      "description": {
+        "content": "Apply manual pricing adjustments including fee and interest rate modifications with expiry settings and negotiation workflows.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "176dade4-88a8-41b6-b8b1-2bc0979f410b",
+          "name": "Amend Quotation Pricing",
+          "request": {
+            "name": "Amend Quotation Pricing",
+            "description": {
+              "content": "Amend pricing details such as interest rates or fees for an existing simulated quotation reference as part of pricing negotiation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quotations",
+                ":quotationReference"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "quotationReference",
+                  "description": "(Required) Quotation reference identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"interestRateAdjustment\": \"<double>\",\n  \"feeWaivers\": [\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    }\n  ],\n  \"expiryDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3b1e2c25-532a-4bd5-a10f-f296fbb433a8",
+              "name": "Quotation pricing amended",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotations",
+                    ":quotationReference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quotationReference",
+                      "description": "(Required) Quotation reference identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"interestRateAdjustment\": \"<double>\",\n  \"feeWaivers\": [\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    }\n  ],\n  \"expiryDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"quotationReference\": \"string\",\n  \"productId\": \"string\",\n  \"interestRates\": [\n    {\n      \"rateType\": \"VARIABLE\",\n      \"baseRate\": 7712.6802559409725,\n      \"benefit\": 1670.586915584774,\n      \"netRate\": 4074.407264078107,\n      \"effectiveDate\": \"2007-10-03\"\n    },\n    {\n      \"rateType\": \"PROMOTIONAL\",\n      \"baseRate\": 9229.411550469844,\n      \"benefit\": 186.51584799662447,\n      \"netRate\": 5069.244557626856,\n      \"effectiveDate\": \"1960-07-23\"\n    }\n  ],\n  \"fees\": [\n    {\n      \"feeType\": \"string\",\n      \"description\": \"string\",\n      \"amount\": 7091.598458052656,\n      \"currency\": \"string\",\n      \"frequency\": \"string\"\n    },\n    {\n      \"feeType\": \"string\",\n      \"description\": \"string\",\n      \"amount\": 8282.724911717141,\n      \"currency\": \"string\",\n      \"frequency\": \"string\"\n    }\n  ],\n  \"cashback\": [\n    {\n      \"type\": \"string\",\n      \"amount\": 1219.316551814451\n    },\n    {\n      \"type\": \"string\",\n      \"amount\": 5689.8490073643925\n    }\n  ],\n  \"negotiated\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b5e476c-c240-4c3c-8dd0-b9f1d51dfe80",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotations",
+                    ":quotationReference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quotationReference",
+                      "description": "(Required) Quotation reference identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"interestRateAdjustment\": \"<double>\",\n  \"feeWaivers\": [\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    }\n  ],\n  \"expiryDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "448b37a1-8ab2-4dfd-9b40-283389307499",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotations",
+                    ":quotationReference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quotationReference",
+                      "description": "(Required) Quotation reference identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"interestRateAdjustment\": \"<double>\",\n  \"feeWaivers\": [\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    }\n  ],\n  \"expiryDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea3e34ac-c528-49b8-a48b-cdd542689bb3",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotations",
+                    ":quotationReference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quotationReference",
+                      "description": "(Required) Quotation reference identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"interestRateAdjustment\": \"<double>\",\n  \"feeWaivers\": [\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    },\n    {\n      \"feeType\": \"<string>\",\n      \"waivePercentage\": \"<double>\"\n    }\n  ],\n  \"expiryDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.temenos.com/bnpl/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "38460a8b-de12-4bc2-874b-2e2b3ac699d1",
+    "name": "Temenos Buy Now Pay Later Accounts Pricing Adjustment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.\n\nContact Support:\n Name: Temenos Developer Support\n Email: api.support@temenos.com",
+      "type": "text/plain"
+    }
+  }
+}

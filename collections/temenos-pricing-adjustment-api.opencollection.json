@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Pricing Adjustment API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pricing Adjustment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amend Quotation Pricing",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.temenos.com/bnpl/v1/quotations/:quotationReference",
+            "params": [
+              {
+                "name": "quotationReference",
+                "value": "",
+                "type": "path",
+                "description": "Quotation reference identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Amend pricing details such as interest rates or fees for an existing simulated quotation reference as part of pricing negotiation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

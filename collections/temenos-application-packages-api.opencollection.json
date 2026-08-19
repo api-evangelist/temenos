@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Temenos Buy Now Pay Later Accounts Application Packages API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Application Packages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Application Packages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/packages"
+          },
+          "docs": "Retrieve the list of available application packages with their metadata and version information."
+        },
+        {
+          "info": {
+            "name": "Upload Application Package",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.temenos.com/bnpl/v1/packages",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "archive",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload a new application package archive for deployment in the Journey Manager platform."
+        },
+        {
+          "info": {
+            "name": "Get Application Package",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.temenos.com/bnpl/v1/packages/:packageId",
+            "params": [
+              {
+                "name": "packageId",
+                "value": "",
+                "type": "path",
+                "description": "Package identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific application package with its metadata and configuration details."
+        },
+        {
+          "info": {
+            "name": "Delete Application Package",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.temenos.com/bnpl/v1/packages/:packageId",
+            "params": [
+              {
+                "name": "packageId",
+                "value": "",
+                "type": "path",
+                "description": "Package identifier"
+              }
+            ]
+          },
+          "docs": "Remove an application package from the Journey Manager platform."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
