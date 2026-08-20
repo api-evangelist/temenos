@@ -30,6 +30,12 @@ apis:
   baseURL: https://api.temenos.com/lms
   tags:
   - Account Origination
+  - Collection
+  - Decisioning
+  - Lifecycle Management
+  - Loan Origination
+  tags_raw:
+  - Account Origination
   - Collections
   - Decisioning
   - Lifecycle Management
@@ -46,6 +52,12 @@ apis:
   humanURL: https://developer.temenos.com/ecosystem-apis
   baseURL: https://api.temenos.com/ecosystem
   tags:
+  - Cards
+  - Digital Assets
+  - Document-Management
+  - Ecosystem
+  - Integration
+  tags_raw:
   - Cards
   - Digital Assets
   - Document Management
@@ -83,6 +95,8 @@ apis:
   humanURL: https://www.temenos.com/products/core-banking/
   baseURL: https://api.temenos.com/transact
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -1666,6 +1680,8 @@ apis:
   humanURL: https://www.temenos.com/products/core-banking/
   baseURL: https://api.temenos.com/transact
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
@@ -3025,6 +3041,8 @@ apis:
   humanURL: https://www.temenos.com/products/core-banking/
   baseURL: https://api.temenos.com/transact
   tags:
+  - Task
+  tags_raw:
   - Tasks
   properties:
   - type: OpenAPI
@@ -3252,6 +3270,8 @@ apis:
   humanURL: https://www.temenos.com/products/core-banking/
   baseURL: https://api.temenos.com/transact
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
@@ -3497,6 +3517,16 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com
 tags:
+  - Banking
+  - Cloud Banking
+  - Core Banking
+  - Digital Banking
+  - Financial-Services
+  - Fintech
+  - Open Banking
+  - Payments
+  - Wealth Management
+tags_raw:
   - Banking
   - Cloud Banking
   - Core Banking
