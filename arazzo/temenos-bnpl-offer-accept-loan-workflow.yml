@@ -11,8 +11,11 @@ info:
     chain is self-describing.
   version: 1.0.0
 sourceDescriptions:
-- name: bnplApi
-  url: ../openapi/temenos-bnpl-openapi.yml
+- name: creditOffersApi
+  url: ../openapi/temenos-credit-offers-api-openapi.yml
+  type: openapi
+- name: loansApi
+  url: ../openapi/temenos-loans-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: bnpl-offer-accept-loan

@@ -12,8 +12,11 @@ info:
     self-describing.
   version: 1.0.0
 sourceDescriptions:
-- name: financialCrimeApi
-  url: ../openapi/temenos-financial-crime-mitigation-openapi.yml
+- name: customerRiskAssessmentApi
+  url: ../openapi/temenos-customer-risk-assessment-api-openapi.yml
+  type: openapi
+- name: sanctionScreeningApi
+  url: ../openapi/temenos-sanction-screening-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: screen-and-risk-score-customer

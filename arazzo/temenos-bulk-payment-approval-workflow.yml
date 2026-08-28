@@ -10,8 +10,8 @@ info:
     Every step inlines its request so the chain is self-describing.
   version: 1.0.0
 sourceDescriptions:
-- name: paymentsApi
-  url: ../openapi/temenos-payments-openapi.yml
+- name: bulkPaymentsApi
+  url: ../openapi/temenos-bulk-payments-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: bulk-payment-approval

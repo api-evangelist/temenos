@@ -11,8 +11,11 @@ info:
     its request so the chain is self-describing.
   version: 1.0.0
 sourceDescriptions:
-- name: wealthApi
-  url: ../openapi/temenos-wealth-openapi.yml
+- name: holdingsApi
+  url: ../openapi/temenos-holdings-api-openapi.yml
+  type: openapi
+- name: orderApi
+  url: ../openapi/temenos-order-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: open-portfolio-place-order

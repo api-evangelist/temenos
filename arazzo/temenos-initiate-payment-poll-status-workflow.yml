@@ -11,8 +11,8 @@ info:
     the chain can be executed without opening the OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: paymentsApi
-  url: ../openapi/temenos-payments-openapi.yml
+- name: paymentOrdersApi
+  url: ../openapi/temenos-payment-orders-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: initiate-payment-poll-status

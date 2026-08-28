@@ -10,8 +10,8 @@ info:
     chain is self-describing.
   version: 1.0.0
 sourceDescriptions:
-- name: journeyManagerApi
-  url: ../openapi/temenos-journey-manager-openapi.yml
+- name: deliveryApi
+  url: ../openapi/temenos-delivery-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: complete-submission-delivery

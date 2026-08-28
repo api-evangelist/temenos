@@ -12,8 +12,14 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: transactApi
-  url: ../openapi/temenos-transact-openapi.yml
+- name: accountsApi
+  url: ../openapi/temenos-accounts-api-openapi.yml
+  type: openapi
+- name: holdingsApi
+  url: ../openapi/temenos-holdings-api-openapi.yml
+  type: openapi
+- name: partyApi
+  url: ../openapi/temenos-party-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: onboard-customer-open-account

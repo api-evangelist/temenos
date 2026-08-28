@@ -11,8 +11,8 @@ info:
     its request so the chain is self-describing.
   version: 1.0.0
 sourceDescriptions:
-- name: microservicesApi
-  url: ../openapi/temenos-microservices-openapi.yml
+- name: serviceOrchestratorApi
+  url: ../openapi/temenos-service-orchestrator-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: define-execute-orchestration

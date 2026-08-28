@@ -11,8 +11,11 @@ info:
     self-describing.
   version: 1.0.0
 sourceDescriptions:
-- name: fundAdministrationApi
-  url: ../openapi/temenos-fund-administration-openapi.yml
+- name: orderApi
+  url: ../openapi/temenos-order-api-openapi.yml
+  type: openapi
+- name: partyApi
+  url: ../openapi/temenos-party-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: onboard-investor-place-instruction

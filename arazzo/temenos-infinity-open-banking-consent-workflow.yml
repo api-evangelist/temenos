@@ -11,8 +11,8 @@ info:
     self-describing.
   version: 1.0.0
 sourceDescriptions:
-- name: infinityApi
-  url: ../openapi/temenos-infinity-openapi.yml
+- name: consentApi
+  url: ../openapi/temenos-consent-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: open-banking-consent
