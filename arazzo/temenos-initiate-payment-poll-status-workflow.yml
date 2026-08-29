@@ -55,7 +55,7 @@ workflows:
   steps:
   - stepId: createPaymentOrder
     description: Create a payment order for the requested transfer.
-    operationPath: '{$sourceDescriptions.paymentsApi.url}#/paths/~1paymentOrders/post'
+    operationPath: '{$sourceDescriptions.paymentOrdersApi.url}#/paths/~1paymentOrders/post'
     requestBody:
       contentType: application/json
       payload:
@@ -74,7 +74,7 @@ workflows:
       status: $response.body#/status
   - stepId: getPaymentOrder
     description: Read the created payment order back to confirm it was persisted.
-    operationPath: '{$sourceDescriptions.paymentsApi.url}#/paths/~1paymentOrders~1{paymentOrderId}/get'
+    operationPath: '{$sourceDescriptions.paymentOrdersApi.url}#/paths/~1paymentOrders~1{paymentOrderId}/get'
     parameters:
     - name: paymentOrderId
       in: path
