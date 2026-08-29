@@ -9,6 +9,22 @@ info:
     initiated payment's identifier and status. Every step inlines its request so
     the chain is self-describing.
   version: 1.0.0
+  x-realizes-capability-ids:
+  - BC-1330
+  - BC-1340.10
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-1330
+      capability_name: Deposits & Savings Management
+      spec: temenos-accounts-api-openapi.yml
+      confidence: 0.72
+    - capability_id: BC-1340.10
+      capability_name: Payment Initiation Management
+      spec: temenos-payments-api-openapi.yml
+      confidence: 0.78
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 sourceDescriptions:
 - name: accountsApi
   url: ../openapi/temenos-accounts-api-openapi.yml
