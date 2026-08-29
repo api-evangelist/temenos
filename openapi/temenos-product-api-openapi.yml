@@ -1,7 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Product API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Product API
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -11,9 +10,14 @@ info:
     name: Temenos Terms of Service
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  description: 'Operations tagged Product across 2 of this provider''s published API definitions: temenos-fund-administration-openapi.yml, temenos-transact-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/funds/v1
+  description: Temenos Fund Administration API - Production
+- url: https://api.temenos.com/transact/v1
+  description: Temenos Transact API - Production
+- url: https://sandbox.temenos.com/transact/v1
+  description: Temenos Transact API - Sandbox
 security:
 - bearerAuth: []
 tags:
@@ -69,6 +73,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /product/shareClasses:
     get:
       operationId: listShareClasses
@@ -100,6 +107,9 @@ paths:
                       $ref: '#/components/schemas/ShareClass'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /product/products:
     get:
       operationId: listProducts
@@ -131,91 +141,26 @@ paths:
                       $ref: '#/components/schemas/Product'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    FundCreate:
-      type: object
-      description: Request body for creating a fund
-      required:
-      - fundName
-      - fundType
-      - domicile
-      - baseCurrency
-      properties:
-        fundName:
-          type: string
-          description: Fund name
-        fundType:
-          type: string
-          description: Fund type
-        domicile:
-          type: string
-          description: Domicile country code
-        baseCurrency:
-          type: string
-          description: Base currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        managerId:
-          type: string
-          description: Fund manager identifier
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total records available
-    PaginationHeader_2:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-    Fund:
-      type: object
-      description: Fund master record
-      properties:
-        fundId:
-          type: string
-          description: Unique fund identifier
-        fundName:
-          type: string
-          description: Fund name
-        fundType:
-          type: string
-          description: Fund classification type
-        domicile:
-          type: string
-          description: Fund domicile country
-        baseCurrency:
-          type: string
-          description: Fund base currency
-        managerId:
-          type: string
-          description: Fund manager identifier
-        promoterId:
-          type: string
-          description: Fund promoter identifier
-        inceptionDate:
-          type: string
-          format: date
-          description: Fund inception date
-        status:
-          type: string
-          description: Fund status
     Error:
       type: object
       description: Error response
@@ -263,6 +208,111 @@ components:
         status:
           type: string
           description: Share class status
+    Fund:
+      type: object
+      description: Fund master record
+      properties:
+        fundId:
+          type: string
+          description: Unique fund identifier
+        fundName:
+          type: string
+          description: Fund name
+        fundType:
+          type: string
+          description: Fund classification type
+        domicile:
+          type: string
+          description: Fund domicile country
+        baseCurrency:
+          type: string
+          description: Fund base currency
+        managerId:
+          type: string
+          description: Fund manager identifier
+        promoterId:
+          type: string
+          description: Fund promoter identifier
+        inceptionDate:
+          type: string
+          format: date
+          description: Fund inception date
+        status:
+          type: string
+          description: Fund status
+    FundCreate:
+      type: object
+      description: Request body for creating a fund
+      required:
+      - fundName
+      - fundType
+      - domicile
+      - baseCurrency
+      properties:
+        fundName:
+          type: string
+          description: Fund name
+        fundType:
+          type: string
+          description: Fund type
+        domicile:
+          type: string
+          description: Domicile country code
+        baseCurrency:
+          type: string
+          description: Base currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        managerId:
+          type: string
+          description: Fund manager identifier
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total records available
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
+    PaginationHeader_2:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
     Product:
       type: object
       description: Banking product definition
@@ -285,19 +335,6 @@ components:
         status:
           type: string
           description: Product availability status
-  responses:
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     pageStart:
       name: page_start
@@ -321,6 +358,18 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+      description: JWT-based authentication token for Temenos Fund Administration API.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for API access
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.temenos.com/oauth2/authorize
+          tokenUrl: https://auth.temenos.com/oauth2/token
+          scopes:
+            read: Read access to banking data
+            write: Write access to banking data
+            admin: Administrative access
+x-refined-from:
+- temenos-fund-administration-openapi.yml
+- temenos-transact-openapi.yml

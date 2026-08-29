@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Accounts Arrangement Details API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Enterprise Product and Pricing Accounts Arrangement Details API
+  description: APIs for product pricing, quotation simulation, package arrangements, pricing adjustments, transparency details, and promotions management for banking products and services. Enables simulation of account creation and transaction events to determine applicable pricing details including interest rates, fees, and cashback. Supports pricing negotiation through quotation references and manual adjustment workflows.
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -12,8 +12,8 @@ info:
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/enterprise-pricing/v1
+  description: Temenos Enterprise Pricing API - Production
 security:
 - bearerAuth: []
 tags:
@@ -47,19 +47,29 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
     PayoffCalculation:
       type: object
       description: Payoff calculation result
@@ -90,21 +100,11 @@ components:
         currency:
           type: string
           description: Currency
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
 externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+  description: Temenos Enterprise Product Pricing API Documentation
+  url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis

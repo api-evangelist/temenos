@@ -1,7 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Accounts API
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -11,9 +10,14 @@ info:
     name: Temenos Terms of Service
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  description: 'Operations tagged Accounts across 2 of this provider''s published API definitions: temenos-cloud-banking-openapi.yml, temenos-infinity-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/cmb/v1
+  description: Temenos Cloud Banking API - Production
+- url: https://api.temenos.com/infinity/v1
+  description: Temenos Infinity API - Production
+- url: https://sandbox.temenos.com/infinity/v1
+  description: Temenos Infinity API - Sandbox
 security:
 - bearerAuth: []
 tags:
@@ -79,6 +83,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/cmb/v1
+      description: Temenos Cloud Banking API - Production
   /accounts/{accountId}:
     get:
       operationId: getAccount
@@ -99,22 +106,21 @@ paths:
           $ref: '#/components/responses/Unauthorized_2'
         '404':
           $ref: '#/components/responses/NotFound'
+    servers:
+    - url: https://api.temenos.com/infinity/v1
+      description: Temenos Infinity API - Production
+    - url: https://sandbox.temenos.com/infinity/v1
+      description: Temenos Infinity API - Sandbox
 components:
   responses:
-    Unauthorized_2:
-      description: Authentication credentials missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    Unauthorized:
-      description: Authentication required
+    BadRequest:
+      description: Invalid request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
@@ -125,38 +131,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error_2'
+    Unauthorized_2:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   schemas:
-    Error_2:
-      type: object
-      description: Error response
-      properties:
-        code:
-          type: string
-          description: Error code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-              message:
-                type: string
-                description: Detail of the error
-          description: Additional error details
-    PaginationHeader:
+    Error:
       type: object
       properties:
-        page_size:
-          type: integer
-        page_start:
-          type: integer
-        total_size:
-          type: integer
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
     CmbAccount:
       type: object
       description: Commercial banking account
@@ -203,13 +191,37 @@ components:
           type: string
           description: Account currency
           pattern: ^[A-Z]{3}$
-    Error:
+    PaginationHeader:
       type: object
       properties:
-        errorCode:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        code:
           type: string
-        errorMessage:
+          description: Error code
+        message:
           type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Detail of the error
+          description: Additional error details
     Account:
       type: object
       description: Customer bank account visible through the digital channel
@@ -250,14 +262,23 @@ components:
         productName:
           type: string
           description: Name of the banking product
+    Pagination:
+      type: object
+      description: Pagination metadata
+      properties:
+        pageSize:
+          type: integer
+          description: Number of records per page
+        pageStart:
+          type: string
+          description: Current page token
+        totalRecords:
+          type: integer
+          description: Total number of records
+        hasMore:
+          type: boolean
+          description: Whether more pages are available
   parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      description: Unique account identifier
-      schema:
-        type: string
     pageStart:
       name: page_start
       in: query
@@ -273,11 +294,33 @@ components:
         minimum: 1
         maximum: 100
         default: 25
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+    pageStart_2:
+      name: pageStart
+      in: query
+      description: Pagination offset token or page number
+      schema:
+        type: string
+    pageSize_2:
+      name: pageSize
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        default: 25
+        minimum: 1
+        maximum: 100
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+x-refined-from:
+- temenos-cloud-banking-openapi.yml
+- temenos-infinity-openapi.yml

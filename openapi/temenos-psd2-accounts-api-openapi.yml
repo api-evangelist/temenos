@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts PSD2 Accounts API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Payments PSD2 Accounts API
+  description: Payment processing and management API supporting multiple payment types including SEPA credit transfers, instant SEPA payments, SWIFT cross-border payments, PSD2 compliant open banking payments, request-to-pay, bulk payment initiation, direct debit management, and payment stop requests. Built on Berlin Group PSD2 API standards with full ISO 20022 messaging support and integrated clearing through the Temenos Payments Hub.
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -12,8 +12,10 @@ info:
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/payments/v1
+  description: Temenos Payments API - Production
+- url: https://sandbox.temenos.com/payments/v1
+  description: Temenos Payments API - Sandbox
 security:
 - bearerAuth: []
 tags:
@@ -49,13 +51,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -92,11 +87,19 @@ components:
         status:
           type: string
           description: Account status
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+      description: JWT-based authentication token obtained through the Temenos authentication endpoint.
 externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+  description: Temenos Open Banking and Payments Documentation
+  url: https://developer.temenos.com/open-banking&payments

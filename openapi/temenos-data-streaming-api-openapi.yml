@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Data Streaming API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Transact Data Hub Data Streaming API
+  description: High-performance APIs built on the near real-time Analytics Data Store (ADS) and Operational Data Store (ODS) from Temenos Transact Data Hub. Provides banking-specific analytical and operational data for comprehensive intra-day and historical analysis, reporting, and integration use cases utilizing real-time data streams and ETL transformations.
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -12,8 +12,8 @@ info:
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/transact-data-hub/v1
+  description: Temenos Transact Data Hub API - Production
 security:
 - bearerAuth: []
 tags:
@@ -66,19 +66,29 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
     StreamingConfigurationCreate:
       type: object
       description: Streaming configuration creation request
@@ -95,16 +105,6 @@ components:
         filterCriteria:
           type: string
           description: Optional filter criteria
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
     StreamingConfiguration:
       type: object
       description: Event streaming configuration
@@ -133,5 +133,5 @@ components:
       scheme: bearer
       bearerFormat: JWT
 externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+  description: Temenos Transact Data Hub Documentation
+  url: https://developer.temenos.com/transact-data-hub

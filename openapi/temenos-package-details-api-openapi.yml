@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Package Details API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Enterprise Product and Pricing Package Details API
+  description: APIs for product pricing, quotation simulation, package arrangements, pricing adjustments, transparency details, and promotions management for banking products and services. Enables simulation of account creation and transaction events to determine applicable pricing details including interest rates, fees, and cashback. Supports pricing negotiation through quotation references and manual adjustment workflows.
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -12,8 +12,8 @@ info:
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/enterprise-pricing/v1
+  description: Temenos Enterprise Pricing API - Production
 security:
 - bearerAuth: []
 tags:
@@ -100,7 +100,107 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    InterestRateDetail:
+      type: object
+      description: Individual interest rate detail
+      properties:
+        rateType:
+          type: string
+          description: Rate type
+          enum:
+          - FIXED
+          - VARIABLE
+          - PROMOTIONAL
+        baseRate:
+          type: number
+          format: double
+          description: Base rate percentage
+        benefit:
+          type: number
+          format: double
+          description: Benefit adjustment
+        netRate:
+          type: number
+          format: double
+          description: Effective net rate
+        effectiveDate:
+          type: string
+          format: date
+          description: Rate effective date
+    Package:
+      type: object
+      description: Package arrangement
+      properties:
+        packageId:
+          type: string
+          description: Package identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        packageName:
+          type: string
+          description: Package name
+        primaryAccountId:
+          type: string
+          description: Primary account
+        linkedAccounts:
+          type: array
+          description: Linked account identifiers
+          items:
+            type: string
+        status:
+          type: string
+          description: Package status
+    FeeDetail:
+      type: object
+      description: Fee detail
+      properties:
+        feeType:
+          type: string
+          description: Fee type
+        description:
+          type: string
+          description: Fee description
+        amount:
+          type: number
+          format: double
+          description: Fee amount
+        currency:
+          type: string
+          description: Fee currency
+        frequency:
+          type: string
+          description: Fee frequency
     PackageCreate:
       type: object
       description: Package creation request
@@ -122,26 +222,6 @@ components:
           description: Accounts to link
           items:
             type: string
-    FeeDetail:
-      type: object
-      description: Fee detail
-      properties:
-        feeType:
-          type: string
-          description: Fee type
-        description:
-          type: string
-          description: Fee description
-        amount:
-          type: number
-          format: double
-          description: Fee amount
-        currency:
-          type: string
-          description: Fee currency
-        frequency:
-          type: string
-          description: Fee frequency
     PaginationHeader:
       type: object
       description: Pagination metadata
@@ -196,86 +276,6 @@ components:
                 type: number
                 format: double
                 description: Benefit value
-    Package:
-      type: object
-      description: Package arrangement
-      properties:
-        packageId:
-          type: string
-          description: Package identifier
-        customerId:
-          type: string
-          description: Customer identifier
-        packageName:
-          type: string
-          description: Package name
-        primaryAccountId:
-          type: string
-          description: Primary account
-        linkedAccounts:
-          type: array
-          description: Linked account identifiers
-          items:
-            type: string
-        status:
-          type: string
-          description: Package status
-    InterestRateDetail:
-      type: object
-      description: Individual interest rate detail
-      properties:
-        rateType:
-          type: string
-          description: Rate type
-          enum:
-          - FIXED
-          - VARIABLE
-          - PROMOTIONAL
-        baseRate:
-          type: number
-          format: double
-          description: Base rate percentage
-        benefit:
-          type: number
-          format: double
-          description: Benefit adjustment
-        netRate:
-          type: number
-          format: double
-          description: Effective net rate
-        effectiveDate:
-          type: string
-          format: date
-          description: Rate effective date
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     pageStart:
       name: page_start
@@ -300,5 +300,5 @@ components:
       scheme: bearer
       bearerFormat: JWT
 externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+  description: Temenos Enterprise Product Pricing API Documentation
+  url: https://developer.temenos.com/temenos-enterprise-product-pricing-apis

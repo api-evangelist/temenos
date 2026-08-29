@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Sanction Screening API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Financial Crime Mitigation Sanction Screening API
+  description: API for anti-money laundering, fraud detection, and compliance including KYC risk scoring, sanctions screening, PEP matching, transaction monitoring, and alert management. Used by over 300 banks globally for comprehensive financial crime prevention covering watchlist screening, customer risk assessment, and regulatory compliance reporting.
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -12,8 +12,8 @@ info:
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/fcm/v1
+  description: Temenos FCM API - Production
 security:
 - bearerAuth: []
 tags:
@@ -140,64 +140,36 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    OnboardingScreenRequest:
+    Error:
       type: object
-      description: Onboarding screening request
-      required:
-      - name
+      description: Error response
       properties:
-        customerId:
+        errorCode:
           type: string
-          description: Customer identifier if available
-        name:
+          description: Error code
+        errorMessage:
           type: string
-          description: Full name to screen
-        dateOfBirth:
-          type: string
-          format: date
-          description: Date of birth
-        nationality:
-          type: string
-          description: Nationality code
-        address:
-          type: string
-          description: Address information
-        idDocument:
-          type: string
-          description: Identity document number
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record
-        total_size:
-          type: integer
-          description: Total records
-    ScreeningResult:
-      type: object
-      description: Screening result
-      properties:
-        screeningId:
-          type: string
-          description: Screening identifier
-        status:
-          type: string
-          description: Screening outcome
-          enum:
-          - CLEAR
-          - MATCH_FOUND
-          - POTENTIAL_MATCH
-        matches:
-          type: array
-          description: Found matches
-          items:
-            $ref: '#/components/schemas/SanctionAlert'
+          description: Error description
     TransactionScanRequest:
       type: object
       description: Transaction message scan request
@@ -232,6 +204,50 @@ components:
           - MT202
           - PACS008
           - PACS009
+    ScreeningResult:
+      type: object
+      description: Screening result
+      properties:
+        screeningId:
+          type: string
+          description: Screening identifier
+        status:
+          type: string
+          description: Screening outcome
+          enum:
+          - CLEAR
+          - MATCH_FOUND
+          - POTENTIAL_MATCH
+        matches:
+          type: array
+          description: Found matches
+          items:
+            $ref: '#/components/schemas/SanctionAlert'
+    OnboardingScreenRequest:
+      type: object
+      description: Onboarding screening request
+      required:
+      - name
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier if available
+        name:
+          type: string
+          description: Full name to screen
+        dateOfBirth:
+          type: string
+          format: date
+          description: Date of birth
+        nationality:
+          type: string
+          description: Nationality code
+        address:
+          type: string
+          description: Address information
+        idDocument:
+          type: string
+          description: Identity document number
     SanctionAlert:
       type: object
       description: Sanctions screening alert
@@ -282,43 +298,20 @@ components:
           type: string
           format: date-time
           description: Alert creation timestamp
-    Error:
+    PaginationHeader:
       type: object
-      description: Error response
+      description: Pagination metadata
       properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
   parameters:
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Unique customer identifier
-      schema:
-        type: string
     pageStart:
       name: page_start
       in: query
@@ -336,11 +329,18 @@ components:
         minimum: 1
         maximum: 100
         default: 25
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
 externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+  description: Temenos Financial Crime Mitigation API Documentation
+  url: https://developer.temenos.com/fcm

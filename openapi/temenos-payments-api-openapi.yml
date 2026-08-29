@@ -1,7 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Payments API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Payments API
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -11,9 +10,14 @@ info:
     name: Temenos Terms of Service
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  description: 'Operations tagged Payments across 2 of this provider''s published API definitions: temenos-cloud-banking-openapi.yml, temenos-infinity-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/cmb/v1
+  description: Temenos Cloud Banking API - Production
+- url: https://api.temenos.com/infinity/v1
+  description: Temenos Infinity API - Production
+- url: https://sandbox.temenos.com/infinity/v1
+  description: Temenos Infinity API - Sandbox
 security:
 - bearerAuth: []
 tags:
@@ -44,6 +48,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/cmb/v1
+      description: Temenos Cloud Banking API - Production
   /payments/{paymentId}:
     get:
       operationId: getPayment
@@ -69,55 +76,71 @@ paths:
           $ref: '#/components/responses/Unauthorized_2'
         '404':
           $ref: '#/components/responses/NotFound'
+    servers:
+    - url: https://api.temenos.com/infinity/v1
+      description: Temenos Infinity API - Production
+    - url: https://sandbox.temenos.com/infinity/v1
+      description: Temenos Infinity API - Sandbox
 components:
   responses:
-    Unauthorized_2:
-      description: Authentication credentials missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest_2:
+      description: Invalid request parameters or payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
     NotFound:
       description: Requested resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error_2'
+    Unauthorized_2:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   schemas:
-    Error_2:
+    Error:
       type: object
-      description: Error response
       properties:
-        code:
+        errorCode:
           type: string
-          description: Error code
-        message:
+        errorMessage:
           type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-              message:
-                type: string
-                description: Detail of the error
-          description: Additional error details
+    CmbPayment:
+      type: object
+      description: Payment record
+      properties:
+        paymentId:
+          type: string
+          description: Payment identifier
+        debitAccountId:
+          type: string
+          description: Debit account
+        amount:
+          type: number
+          format: double
+          description: Amount
+        currency:
+          type: string
+          description: Currency
+        status:
+          type: string
+          description: Payment status
     CmbPaymentCreate:
       type: object
       required:
@@ -145,26 +168,63 @@ components:
         reference:
           type: string
           description: Payment reference
-    CmbPayment:
+    Error_2:
       type: object
-      description: Payment record
+      description: Error response
       properties:
-        paymentId:
+        code:
           type: string
-          description: Payment identifier
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Detail of the error
+          description: Additional error details
+    PaymentRequest:
+      type: object
+      description: Payment initiation request
+      required:
+      - debitAccountId
+      - creditAccountId
+      - amount
+      - currency
+      properties:
         debitAccountId:
           type: string
-          description: Debit account
+          description: Source account identifier
+        creditAccountId:
+          type: string
+          description: Destination account or beneficiary identifier
         amount:
           type: number
-          format: double
-          description: Amount
+          description: Payment amount
+          minimum: 0
+          exclusiveMinimum: true
         currency:
           type: string
-          description: Currency
-        status:
+          description: ISO 4217 currency code
+          pattern: ^[A-Z]{3}$
+        paymentType:
           type: string
-          description: Payment status
+          description: Type of payment
+          enum:
+          - DOMESTIC_TRANSFER
+          - INTERNATIONAL_TRANSFER
+          - BILL_PAYMENT
+        narrative:
+          type: string
+          description: Payment reference or description
+          maxLength: 140
     PaymentResponse:
       type: object
       description: Payment status and details
@@ -197,18 +257,11 @@ components:
           type: string
           format: date-time
           description: Timestamp when the payment was created
-    Error:
-      type: object
-      properties:
-        errorCode:
-          type: string
-        errorMessage:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+x-refined-from:
+- temenos-cloud-banking-openapi.yml
+- temenos-infinity-openapi.yml

@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Payment Stops API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Payments Payment Stops API
+  description: Payment processing and management API supporting multiple payment types including SEPA credit transfers, instant SEPA payments, SWIFT cross-border payments, PSD2 compliant open banking payments, request-to-pay, bulk payment initiation, direct debit management, and payment stop requests. Built on Berlin Group PSD2 API standards with full ISO 20022 messaging support and integrated clearing through the Temenos Payments Hub.
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -12,8 +12,10 @@ info:
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/payments/v1
+  description: Temenos Payments API - Production
+- url: https://sandbox.temenos.com/payments/v1
+  description: Temenos Payments API - Sandbox
 security:
 - bearerAuth: []
 tags:
@@ -76,70 +78,19 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    PaginationHeader:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-    PaymentStop:
-      type: object
-      description: Payment stop instruction
-      properties:
-        paymentStopId:
-          type: string
-          description: Unique payment stop identifier
-        accountId:
-          type: string
-          description: Account for the stop instruction
-        stopType:
-          type: string
-          description: Type of payment stop
-          enum:
-          - CHEQUE
-          - AMOUNT_RANGE
-          - REFERENCE
-        chequeNumber:
-          type: string
-          description: Cheque number for cheque-based stops
-        amountFrom:
-          type: number
-          format: double
-          description: Minimum amount for range-based stops
-        amountTo:
-          type: number
-          format: double
-          description: Maximum amount for range-based stops
-        reference:
-          type: string
-          description: Payment reference for reference-based stops
-        status:
-          type: string
-          description: Stop instruction status
-          enum:
-          - ACTIVE
-          - EXPIRED
-          - CANCELLED
     Error:
       type: object
       description: Error response
@@ -184,6 +135,57 @@ components:
         reference:
           type: string
           description: Payment reference to stop
+    PaymentStop:
+      type: object
+      description: Payment stop instruction
+      properties:
+        paymentStopId:
+          type: string
+          description: Unique payment stop identifier
+        accountId:
+          type: string
+          description: Account for the stop instruction
+        stopType:
+          type: string
+          description: Type of payment stop
+          enum:
+          - CHEQUE
+          - AMOUNT_RANGE
+          - REFERENCE
+        chequeNumber:
+          type: string
+          description: Cheque number for cheque-based stops
+        amountFrom:
+          type: number
+          format: double
+          description: Minimum amount for range-based stops
+        amountTo:
+          type: number
+          format: double
+          description: Maximum amount for range-based stops
+        reference:
+          type: string
+          description: Payment reference for reference-based stops
+        status:
+          type: string
+          description: Stop instruction status
+          enum:
+          - ACTIVE
+          - EXPIRED
+          - CANCELLED
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
   parameters:
     pageStart:
       name: page_start
@@ -207,6 +209,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+      description: JWT-based authentication token obtained through the Temenos authentication endpoint.
 externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+  description: Temenos Open Banking and Payments Documentation
+  url: https://developer.temenos.com/open-banking&payments

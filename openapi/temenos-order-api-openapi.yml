@@ -1,7 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Order API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Order API
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -11,9 +10,16 @@ info:
     name: Temenos Terms of Service
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  description: 'Operations tagged Order across 3 of this provider''s published API definitions: temenos-fund-administration-openapi.yml, temenos-transact-openapi.yml, temenos-wealth-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/funds/v1
+  description: Temenos Fund Administration API - Production
+- url: https://api.temenos.com/transact/v1
+  description: Temenos Transact API - Production
+- url: https://sandbox.temenos.com/transact/v1
+  description: Temenos Transact API - Sandbox
+- url: https://api.temenos.com/wealth/v1
+  description: Temenos Wealth API - Production
 security:
 - bearerAuth: []
 tags:
@@ -84,6 +90,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /order/sharePrices:
     post:
       operationId: createSharePrice
@@ -108,6 +117,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /order/paymentOrders:
     get:
       operationId: listPaymentOrders
@@ -173,6 +185,11 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /order/standingOrders:
     get:
       operationId: listStandingOrders
@@ -204,6 +221,11 @@ paths:
                       $ref: '#/components/schemas/StandingOrder'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /order/directDebits:
     get:
       operationId: listDirectDebits
@@ -235,6 +257,11 @@ paths:
                       $ref: '#/components/schemas/DirectDebit'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /order/securities:
     get:
       operationId: listSecurityOrders
@@ -301,6 +328,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized_2'
+    servers:
+    - url: https://api.temenos.com/wealth/v1
+      description: Temenos Wealth API - Production
   /order/securities/{orderId}:
     get:
       operationId: getSecurityOrder
@@ -346,33 +376,316 @@ paths:
           $ref: '#/components/responses/Unauthorized_2'
         '404':
           $ref: '#/components/responses/NotFound'
+    servers:
+    - url: https://api.temenos.com/wealth/v1
+      description: Temenos Wealth API - Production
 components:
   responses:
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    OrderInstructionCreate:
+      type: object
+      description: Request body for creating an instruction
+      required:
+      - investorId
+      - fundId
+      - shareClassId
+      - instructionType
+      properties:
+        investorId:
+          type: string
+          description: Investor identifier
+        fundId:
+          type: string
+          description: Fund identifier
+        shareClassId:
+          type: string
+          description: Share class identifier
+        instructionType:
+          type: string
+          description: Type of instruction
+          enum:
+          - SUBSCRIPTION
+          - REDEMPTION
+          - SWITCH
+          - TRANSFER
+        quantity:
+          type: number
+          format: double
+          description: Number of units
+        amount:
+          type: number
+          format: double
+          description: Monetary amount
+        currency:
+          type: string
+          description: Currency code
+    OrderInstruction:
+      type: object
+      description: Fund order instruction
+      properties:
+        instructionId:
+          type: string
+          description: Instruction identifier
+        investorId:
+          type: string
+          description: Investor identifier
+        fundId:
+          type: string
+          description: Fund identifier
+        shareClassId:
+          type: string
+          description: Share class identifier
+        instructionType:
+          type: string
+          description: Type of instruction
+          enum:
+          - SUBSCRIPTION
+          - REDEMPTION
+          - SWITCH
+          - TRANSFER
+        quantity:
+          type: number
+          format: double
+          description: Number of units
+        amount:
+          type: number
+          format: double
+          description: Monetary amount
+        currency:
+          type: string
+          description: Currency code
+        status:
+          type: string
+          description: Instruction processing status
+          enum:
+          - PENDING
+          - VALIDATED
+          - EXECUTED
+          - SETTLED
+          - CANCELLED
+    SharePrice:
+      type: object
+      description: Fund share price record
+      properties:
+        shareClassId:
+          type: string
+          description: Share class identifier
+        price:
+          type: number
+          format: double
+          description: NAV-based share price
+        currency:
+          type: string
+          description: Price currency
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date
+    SharePriceCreate:
+      type: object
+      description: Request body for setting share price
+      required:
+      - shareClassId
+      - price
+      - currency
+      - valuationDate
+      properties:
+        shareClassId:
+          type: string
+          description: Share class identifier
+        price:
+          type: number
+          format: double
+          description: NAV-based share price
+        currency:
+          type: string
+          description: Price currency
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total records available
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
+    PaymentOrderCreate:
+      type: object
+      description: Request body for creating a payment order
+      required:
+      - debitAccountId
+      - amount
+      - currency
+      - paymentType
+      properties:
+        debitAccountId:
+          type: string
+          description: Originating account identifier
+        creditAccountId:
+          type: string
+          description: Destination account identifier
+        beneficiaryId:
+          type: string
+          description: Registered beneficiary identifier
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+          minimum: 0
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        paymentType:
+          type: string
+          description: Type of payment
+          enum:
+          - INTERNAL
+          - DOMESTIC
+          - INTERNATIONAL
+          - SEPA
+          - SWIFT
+        valueDate:
+          type: string
+          format: date
+          description: Requested value date
+        reference:
+          type: string
+          description: Payment reference
+          maxLength: 140
+    StandingOrder:
+      type: object
+      description: Standing order instruction for recurring payments
+      properties:
+        standingOrderId:
+          type: string
+          description: Unique standing order identifier
+        accountId:
+          type: string
+          description: Source account identifier
+        beneficiaryId:
+          type: string
+          description: Beneficiary identifier
+        amount:
+          type: number
+          format: double
+          description: Payment amount per execution
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+        frequency:
+          type: string
+          description: Execution frequency
+          enum:
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+          - QUARTERLY
+          - ANNUAL
+        startDate:
+          type: string
+          format: date
+          description: First execution date
+        endDate:
+          type: string
+          format: date
+          description: Last execution date
+        status:
+          type: string
+          description: Standing order status
+    DirectDebit:
+      type: object
+      description: Direct debit mandate and instruction
+      properties:
+        directDebitId:
+          type: string
+          description: Unique direct debit identifier
+        accountId:
+          type: string
+          description: Account to be debited
+        mandateReference:
+          type: string
+          description: Direct debit mandate reference
+        creditorName:
+          type: string
+          description: Name of the creditor
+        amount:
+          type: number
+          format: double
+          description: Direct debit amount
+        currency:
+          type: string
+          description: Currency in ISO 4217 format
+        frequency:
+          type: string
+          description: Collection frequency
+        status:
+          type: string
+          description: Mandate status
     PaymentOrder:
       type: object
       description: Payment order for fund transfer
@@ -434,73 +747,16 @@ components:
         total_size:
           type: integer
           description: Total number of records available
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total records available
-    OrderInstruction:
-      type: object
-      description: Fund order instruction
-      properties:
-        instructionId:
-          type: string
-          description: Instruction identifier
-        investorId:
-          type: string
-          description: Investor identifier
-        fundId:
-          type: string
-          description: Fund identifier
-        shareClassId:
-          type: string
-          description: Share class identifier
-        instructionType:
-          type: string
-          description: Type of instruction
-          enum:
-          - SUBSCRIPTION
-          - REDEMPTION
-          - SWITCH
-          - TRANSFER
-        quantity:
-          type: number
-          format: double
-          description: Number of units
-        amount:
-          type: number
-          format: double
-          description: Monetary amount
-        currency:
-          type: string
-          description: Currency code
-        status:
-          type: string
-          description: Instruction processing status
-          enum:
-          - PENDING
-          - VALIDATED
-          - EXECUTED
-          - SETTLED
-          - CANCELLED
-    Error:
+    Error_3:
       type: object
       description: Error response
       properties:
         errorCode:
           type: string
-          description: Machine-readable error code
+          description: Error code
         errorMessage:
           type: string
-          description: Human-readable error description
+          description: Error description
     SecurityOrder:
       type: object
       description: Securities trading order
@@ -565,6 +821,19 @@ components:
           type: string
           format: date-time
           description: Order creation timestamp
+    PaginationHeader_3:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
     SecurityOrderCreate:
       type: object
       description: Security order creation request
@@ -620,230 +889,7 @@ components:
           type: string
           format: date
           description: Expiry date for GTD orders
-    PaymentOrderCreate:
-      type: object
-      description: Request body for creating a payment order
-      required:
-      - debitAccountId
-      - amount
-      - currency
-      - paymentType
-      properties:
-        debitAccountId:
-          type: string
-          description: Originating account identifier
-        creditAccountId:
-          type: string
-          description: Destination account identifier
-        beneficiaryId:
-          type: string
-          description: Registered beneficiary identifier
-        amount:
-          type: number
-          format: double
-          description: Payment amount
-          minimum: 0
-        currency:
-          type: string
-          description: Payment currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        paymentType:
-          type: string
-          description: Type of payment
-          enum:
-          - INTERNAL
-          - DOMESTIC
-          - INTERNATIONAL
-          - SEPA
-          - SWIFT
-        valueDate:
-          type: string
-          format: date
-          description: Requested value date
-        reference:
-          type: string
-          description: Payment reference
-          maxLength: 140
-    SharePriceCreate:
-      type: object
-      description: Request body for setting share price
-      required:
-      - shareClassId
-      - price
-      - currency
-      - valuationDate
-      properties:
-        shareClassId:
-          type: string
-          description: Share class identifier
-        price:
-          type: number
-          format: double
-          description: NAV-based share price
-        currency:
-          type: string
-          description: Price currency
-        valuationDate:
-          type: string
-          format: date
-          description: Valuation date
-    Error_3:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-    PaginationHeader_3:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record
-        total_size:
-          type: integer
-          description: Total records
-    SharePrice:
-      type: object
-      description: Fund share price record
-      properties:
-        shareClassId:
-          type: string
-          description: Share class identifier
-        price:
-          type: number
-          format: double
-          description: NAV-based share price
-        currency:
-          type: string
-          description: Price currency
-        valuationDate:
-          type: string
-          format: date
-          description: Valuation date
-    StandingOrder:
-      type: object
-      description: Standing order instruction for recurring payments
-      properties:
-        standingOrderId:
-          type: string
-          description: Unique standing order identifier
-        accountId:
-          type: string
-          description: Source account identifier
-        beneficiaryId:
-          type: string
-          description: Beneficiary identifier
-        amount:
-          type: number
-          format: double
-          description: Payment amount per execution
-        currency:
-          type: string
-          description: Payment currency in ISO 4217 format
-        frequency:
-          type: string
-          description: Execution frequency
-          enum:
-          - DAILY
-          - WEEKLY
-          - MONTHLY
-          - QUARTERLY
-          - ANNUAL
-        startDate:
-          type: string
-          format: date
-          description: First execution date
-        endDate:
-          type: string
-          format: date
-          description: Last execution date
-        status:
-          type: string
-          description: Standing order status
-    OrderInstructionCreate:
-      type: object
-      description: Request body for creating an instruction
-      required:
-      - investorId
-      - fundId
-      - shareClassId
-      - instructionType
-      properties:
-        investorId:
-          type: string
-          description: Investor identifier
-        fundId:
-          type: string
-          description: Fund identifier
-        shareClassId:
-          type: string
-          description: Share class identifier
-        instructionType:
-          type: string
-          description: Type of instruction
-          enum:
-          - SUBSCRIPTION
-          - REDEMPTION
-          - SWITCH
-          - TRANSFER
-        quantity:
-          type: number
-          format: double
-          description: Number of units
-        amount:
-          type: number
-          format: double
-          description: Monetary amount
-        currency:
-          type: string
-          description: Currency code
-    DirectDebit:
-      type: object
-      description: Direct debit mandate and instruction
-      properties:
-        directDebitId:
-          type: string
-          description: Unique direct debit identifier
-        accountId:
-          type: string
-          description: Account to be debited
-        mandateReference:
-          type: string
-          description: Direct debit mandate reference
-        creditorName:
-          type: string
-          description: Name of the creditor
-        amount:
-          type: number
-          format: double
-          description: Direct debit amount
-        currency:
-          type: string
-          description: Currency in ISO 4217 format
-        frequency:
-          type: string
-          description: Collection frequency
-        status:
-          type: string
-          description: Mandate status
   parameters:
-    pageSize:
-      name: page_size
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
     pageStart:
       name: page_start
       in: query
@@ -852,10 +898,10 @@ components:
         type: integer
         minimum: 0
         default: 0
-    pageSize_2:
+    pageSize:
       name: page_size
       in: query
-      description: Number of records per page
+      description: Number of records to return per page
       schema:
         type: integer
         minimum: 1
@@ -869,11 +915,33 @@ components:
         type: integer
         minimum: 0
         default: 0
+    pageSize_2:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+      description: JWT-based authentication token for Temenos Fund Administration API.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for API access
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.temenos.com/oauth2/authorize
+          tokenUrl: https://auth.temenos.com/oauth2/token
+          scopes:
+            read: Read access to banking data
+            write: Write access to banking data
+            admin: Administrative access
+x-refined-from:
+- temenos-fund-administration-openapi.yml
+- temenos-transact-openapi.yml
+- temenos-wealth-openapi.yml

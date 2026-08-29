@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Enterprise API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Transact Enterprise API
+  description: Core banking system API for Temenos Transact (formerly T24), providing comprehensive banking functionality across enterprise, holdings, order, party, product, reference, meta, settings, and system API categories. Covers over 290 endpoints spanning retail, corporate, wealth, treasury, and Islamic banking operations. All APIs follow REST architecture and represent data as resources in machine-readable JSON format.
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -12,8 +12,10 @@ info:
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/transact/v1
+  description: Temenos Transact API - Production
+- url: https://sandbox.temenos.com/transact/v1
+  description: Temenos Transact API - Sandbox
 security:
 - bearerAuth: []
 tags:
@@ -76,32 +78,62 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    PaginationHeader:
+    Error:
       type: object
-      description: Pagination metadata for list responses
+      description: Error response
       properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
+    BundleArrangementCreate:
+      type: object
+      description: Request body for creating a bundle arrangement
+      required:
+      - customerId
+      - productId
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        productId:
+          type: string
+          description: Bundle product identifier
+        bundleName:
+          type: string
+          description: Optional bundle name
+        arrangements:
+          type: array
+          description: Arrangement identifiers to include
+          items:
+            type: string
     BundleArrangement:
       type: object
       description: Bundle arrangement grouping multiple accounts
@@ -133,49 +165,19 @@ components:
         status:
           type: string
           description: Bundle status
-    BundleArrangementCreate:
+    PaginationHeader:
       type: object
-      description: Request body for creating a bundle arrangement
-      required:
-      - customerId
-      - productId
+      description: Pagination metadata for list responses
       properties:
-        customerId:
-          type: string
-          description: Customer identifier
-        productId:
-          type: string
-          description: Bundle product identifier
-        bundleName:
-          type: string
-          description: Optional bundle name
-        arrangements:
-          type: array
-          description: Arrangement identifiers to include
-          items:
-            type: string
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field related to the error
-              message:
-                type: string
-                description: Detail message
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
   parameters:
     pageStart:
       name: page_start
@@ -199,6 +201,18 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+      description: JWT-based authentication token obtained through the Temenos authentication endpoint.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for API access
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.temenos.com/oauth2/authorize
+          tokenUrl: https://auth.temenos.com/oauth2/token
+          scopes:
+            read: Read access to banking data
+            write: Write access to banking data
+            admin: Administrative access
 externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+  description: Temenos Transact API Documentation
+  url: https://developer.temenos.com/transact-apis

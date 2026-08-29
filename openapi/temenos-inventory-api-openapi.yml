@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Inventory API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Wealth Inventory API
+  description: Integrated portfolio management and securities trading platform APIs for wealth managers and private bankers. Provides enterprise APIs across holdings, inventory, order, party, reference, meta, and system categories for managing portfolios, executing trades across a wide range of instruments from fixed income and equities through ETD and OTC derivatives to structured products and fund types.
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -12,8 +12,8 @@ info:
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/wealth/v1
+  description: Temenos Wealth API - Production
 security:
 - bearerAuth: []
 tags:
@@ -57,27 +57,17 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    PaginationHeader:
+    Error:
       type: object
-      description: Pagination metadata
+      description: Error response
       properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record
-        total_size:
-          type: integer
-          description: Total records
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
     Security:
       type: object
       description: Security master data
@@ -111,16 +101,26 @@ components:
           type: number
           format: double
           description: Last traded price
-    Error:
+    PaginationHeader:
       type: object
-      description: Error response
+      description: Pagination metadata
       properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     pageStart:
       name: page_start
@@ -145,5 +145,5 @@ components:
       scheme: bearer
       bearerFormat: JWT
 externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+  description: Temenos Wealth API Documentation
+  url: https://developer.temenos.com/wealth-api

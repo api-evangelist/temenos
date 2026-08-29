@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Notifications API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Infinity Digital Banking Notifications API
+  description: Digital banking platform API for Temenos Infinity, providing omnichannel customer experiences across retail and business banking channels. Enables integration with Temenos Fabric and Temenos Visualizer for building responsive digital banking applications. Supports Open Banking via PSD2-compliant APIs and connects to over 100 FinTech services through the Temenos MarketPlace. Uses JavaScript frameworks such as React for front-end experience creation and provides REST APIs for accessing banking data as resources in machine-readable JSON format.
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -12,8 +12,10 @@ info:
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/infinity/v1
+  description: Temenos Infinity API - Production
+- url: https://sandbox.temenos.com/infinity/v1
+  description: Temenos Infinity API - Sandbox
 security:
 - bearerAuth: []
 tags:
@@ -74,28 +76,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    NotificationPreferences:
-      type: object
-      description: Customer notification preferences
-      properties:
-        pushEnabled:
-          type: boolean
-          description: Whether push notifications are enabled
-        smsEnabled:
-          type: boolean
-          description: Whether SMS notifications are enabled
-        emailEnabled:
-          type: boolean
-          description: Whether email notifications are enabled
-        transactionAlerts:
-          type: boolean
-          description: Receive alerts for each transaction
-        balanceThresholdAlert:
-          type: boolean
-          description: Receive alerts when balance drops below threshold
-        balanceThreshold:
-          type: number
-          description: Balance threshold amount for alerts
     Error:
       type: object
       description: Error response
@@ -118,11 +98,34 @@ components:
                 type: string
                 description: Detail of the error
           description: Additional error details
+    NotificationPreferences:
+      type: object
+      description: Customer notification preferences
+      properties:
+        pushEnabled:
+          type: boolean
+          description: Whether push notifications are enabled
+        smsEnabled:
+          type: boolean
+          description: Whether SMS notifications are enabled
+        emailEnabled:
+          type: boolean
+          description: Whether email notifications are enabled
+        transactionAlerts:
+          type: boolean
+          description: Receive alerts for each transaction
+        balanceThresholdAlert:
+          type: boolean
+          description: Receive alerts when balance drops below threshold
+        balanceThreshold:
+          type: number
+          description: Balance threshold amount for alerts
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+      description: JWT bearer token obtained through OAuth 2.0 authentication flow with the Temenos identity provider.
 externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+  description: Temenos Infinity API Documentation
+  url: https://developer.temenos.com/infinity/apis

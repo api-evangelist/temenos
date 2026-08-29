@@ -1,21 +1,19 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Transactions API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Transactions API
   version: 1.0.0
-  contact:
-    name: Temenos Developer Support
-    url: https://developer.temenos.com/
-    email: api.support@temenos.com
   license:
     name: Temenos Terms of Service
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  description: 'Operations tagged Transactions across 2 of this provider''s published API definitions: temenos-infinity-openapi.yml, temenos-journey-manager-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
-security:
-- bearerAuth: []
+- url: https://api.temenos.com/infinity/v1
+  description: Temenos Infinity API - Production
+- url: https://sandbox.temenos.com/infinity/v1
+  description: Temenos Infinity API - Sandbox
+- url: https://journey.temenos.com/api/v1
+  description: Temenos Journey Manager API - Production
 tags:
 - name: Transactions
   description: Access transaction history and details for customer accounts with support for filtering, pagination, and multi-channel views.
@@ -66,6 +64,13 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.temenos.com/infinity/v1
+      description: Temenos Infinity API - Production
+    - url: https://sandbox.temenos.com/infinity/v1
+      description: Temenos Infinity API - Sandbox
   /transactions:
     get:
       operationId: listTransactions
@@ -102,47 +107,36 @@ paths:
                       $ref: '#/components/schemas/JourneyTransaction'
         '401':
           $ref: '#/components/responses/Unauthorized_2'
+      security:
+      - bearerAuth: []
+      - oauth2: []
+    servers:
+    - url: https://journey.temenos.com/api/v1
+      description: Temenos Journey Manager API - Production
 components:
-  responses:
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    Unauthorized:
-      description: Authentication credentials missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-        page_start:
-          type: integer
-        total_size:
-          type: integer
-    Error_2:
+    Error:
       type: object
       description: Error response
       properties:
-        errorCode:
+        code:
           type: string
           description: Error code
-        errorMessage:
+        message:
           type: string
-          description: Error description
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Detail of the error
+          description: Additional error details
     Transaction:
       type: object
       description: Account transaction record
@@ -179,6 +173,32 @@ components:
         transactionType:
           type: string
           description: Type of transaction
+    Pagination:
+      type: object
+      description: Pagination metadata
+      properties:
+        pageSize:
+          type: integer
+          description: Number of records per page
+        pageStart:
+          type: string
+          description: Current page token
+        totalRecords:
+          type: integer
+          description: Total number of records
+        hasMore:
+          type: boolean
+          description: Whether more pages are available
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
     JourneyTransaction:
       type: object
       description: Customer journey transaction
@@ -211,59 +231,36 @@ components:
           type: string
           format: date-time
           description: Last activity timestamp
-    Pagination:
+    PaginationHeader:
       type: object
       description: Pagination metadata
       properties:
-        pageSize:
+        page_size:
           type: integer
-          description: Number of records per page
-        pageStart:
-          type: string
-          description: Current page token
-        totalRecords:
+        page_start:
           type: integer
-          description: Total number of records
-        hasMore:
-          type: boolean
-          description: Whether more pages are available
-    Error:
-      type: object
-      description: Error response
-      properties:
-        code:
-          type: string
-          description: Error code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-              message:
-                type: string
-                description: Detail of the error
-          description: Additional error details
+        total_size:
+          type: integer
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   parameters:
-    pageStart_2:
-      name: page_start
-      in: query
-      description: Starting record
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageStart:
-      name: pageStart
-      in: query
-      description: Pagination offset token or page number
-      schema:
-        type: string
     accountId:
       name: accountId
       in: path
@@ -271,15 +268,12 @@ components:
       description: Unique account identifier
       schema:
         type: string
-    pageSize_2:
-      name: page_size
+    pageStart:
+      name: pageStart
       in: query
-      description: Records per page
+      description: Pagination offset token or page number
       schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
+        type: string
     pageSize:
       name: pageSize
       in: query
@@ -289,11 +283,38 @@ components:
         default: 25
         minimum: 1
         maximum: 100
+    pageStart_2:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize_2:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+      description: JWT bearer token obtained through OAuth 2.0 authentication flow with the Temenos identity provider.
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://journey.temenos.com/oauth2/authorize
+          tokenUrl: https://journey.temenos.com/oauth2/token
+          scopes:
+            read: Read access
+            write: Write access
+x-refined-from:
+- temenos-infinity-openapi.yml
+- temenos-journey-manager-openapi.yml

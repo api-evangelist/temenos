@@ -1,7 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Reference API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Reference API
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -11,9 +10,16 @@ info:
     name: Temenos Terms of Service
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  description: 'Operations tagged Reference across 3 of this provider''s published API definitions: temenos-fund-administration-openapi.yml, temenos-transact-openapi.yml, temenos-wealth-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/funds/v1
+  description: Temenos Fund Administration API - Production
+- url: https://api.temenos.com/transact/v1
+  description: Temenos Transact API - Production
+- url: https://sandbox.temenos.com/transact/v1
+  description: Temenos Transact API - Sandbox
+- url: https://api.temenos.com/wealth/v1
+  description: Temenos Wealth API - Production
 security:
 - bearerAuth: []
 tags:
@@ -40,6 +46,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /reference/securityPrices:
     post:
       operationId: injectSecurityPrices
@@ -60,6 +69,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /reference/currencies:
     get:
       operationId: listCurrencies
@@ -86,6 +98,11 @@ paths:
                       $ref: '#/components/schemas/Currency'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /reference/countries:
     get:
       operationId: listCountries
@@ -112,6 +129,11 @@ paths:
                       $ref: '#/components/schemas/Country'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /reference/ibanStructures:
     get:
       operationId: listIbanStructures
@@ -140,6 +162,11 @@ paths:
                       $ref: '#/components/schemas/IbanStructure'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /reference/markets:
     get:
       operationId: listMarkets
@@ -161,117 +188,40 @@ paths:
                       $ref: '#/components/schemas/Market'
         '401':
           $ref: '#/components/responses/Unauthorized_2'
+    servers:
+    - url: https://api.temenos.com/wealth/v1
+      description: Temenos Wealth API - Production
 components:
   responses:
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
   schemas:
-    PaginationHeader:
+    Error:
       type: object
-      description: Pagination metadata for list responses
+      description: Error response
       properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-    IbanStructure:
-      type: object
-      description: IBAN validation structure
-      properties:
-        countryCode:
+        errorCode:
           type: string
-          description: ISO 3166-1 alpha-2 country code
-        ibanLength:
-          type: integer
-          description: Expected IBAN length for the country
-        format:
+          description: Machine-readable error code
+        errorMessage:
           type: string
-          description: IBAN format pattern
-    Country:
-      type: object
-      description: Country reference data
-      properties:
-        countryCode:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-          pattern: ^[A-Z]{2}$
-        countryName:
-          type: string
-          description: Country display name
-    ExchangeRateInjection:
-      type: object
-      description: Exchange rate injection request
-      required:
-      - rates
-      - effectiveDate
-      properties:
-        effectiveDate:
-          type: string
-          format: date
-          description: Effective date for rates
-        rates:
-          type: array
-          description: Exchange rates to inject
-          items:
-            type: object
-            required:
-            - baseCurrency
-            - quoteCurrency
-            - rate
-            properties:
-              baseCurrency:
-                type: string
-                description: Base currency code
-              quoteCurrency:
-                type: string
-                description: Quote currency code
-              rate:
-                type: number
-                format: double
-                description: Exchange rate value
-    Market:
-      type: object
-      description: Market reference data
-      properties:
-        marketId:
-          type: string
-          description: Market identifier
-        marketName:
-          type: string
-          description: Market name
-        country:
-          type: string
-          description: Market country
-        currency:
-          type: string
-          description: Default trading currency
-        settlementCycle:
-          type: string
-          description: Standard settlement cycle
-        status:
-          type: string
-          description: Market operating status
+          description: Human-readable error description
     SecurityPriceInjection:
       type: object
       description: Security price injection request
@@ -303,6 +253,70 @@ components:
               currency:
                 type: string
                 description: Price currency
+    ExchangeRateInjection:
+      type: object
+      description: Exchange rate injection request
+      required:
+      - rates
+      - effectiveDate
+      properties:
+        effectiveDate:
+          type: string
+          format: date
+          description: Effective date for rates
+        rates:
+          type: array
+          description: Exchange rates to inject
+          items:
+            type: object
+            required:
+            - baseCurrency
+            - quoteCurrency
+            - rate
+            properties:
+              baseCurrency:
+                type: string
+                description: Base currency code
+              quoteCurrency:
+                type: string
+                description: Quote currency code
+              rate:
+                type: number
+                format: double
+                description: Exchange rate value
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
+    Country:
+      type: object
+      description: Country reference data
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          pattern: ^[A-Z]{2}$
+        countryName:
+          type: string
+          description: Country display name
     Currency:
       type: object
       description: Currency reference data
@@ -320,16 +334,54 @@ components:
         status:
           type: string
           description: Currency status
-    Error:
+    IbanStructure:
       type: object
-      description: Error response
+      description: IBAN validation structure
       properties:
-        errorCode:
+        countryCode:
           type: string
-          description: Machine-readable error code
-        errorMessage:
+          description: ISO 3166-1 alpha-2 country code
+        ibanLength:
+          type: integer
+          description: Expected IBAN length for the country
+        format:
           type: string
-          description: Human-readable error description
+          description: IBAN format pattern
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    Market:
+      type: object
+      description: Market reference data
+      properties:
+        marketId:
+          type: string
+          description: Market identifier
+        marketName:
+          type: string
+          description: Market name
+        country:
+          type: string
+          description: Market country
+        currency:
+          type: string
+          description: Default trading currency
+        settlementCycle:
+          type: string
+          description: Standard settlement cycle
+        status:
+          type: string
+          description: Market operating status
     Error_3:
       type: object
       description: Error response
@@ -363,6 +415,19 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+      description: JWT-based authentication token for Temenos Fund Administration API.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for API access
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.temenos.com/oauth2/authorize
+          tokenUrl: https://auth.temenos.com/oauth2/token
+          scopes:
+            read: Read access to banking data
+            write: Write access to banking data
+            admin: Administrative access
+x-refined-from:
+- temenos-fund-administration-openapi.yml
+- temenos-transact-openapi.yml
+- temenos-wealth-openapi.yml

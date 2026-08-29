@@ -1,7 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Party API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Party API
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -11,9 +10,16 @@ info:
     name: Temenos Terms of Service
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  description: 'Operations tagged Party across 3 of this provider''s published API definitions: temenos-fund-administration-openapi.yml, temenos-transact-openapi.yml, temenos-wealth-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/funds/v1
+  description: Temenos Fund Administration API - Production
+- url: https://api.temenos.com/transact/v1
+  description: Temenos Transact API - Production
+- url: https://sandbox.temenos.com/transact/v1
+  description: Temenos Transact API - Sandbox
+- url: https://api.temenos.com/wealth/v1
+  description: Temenos Wealth API - Production
 security:
 - bearerAuth: []
 tags:
@@ -69,6 +75,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /party/distributors:
     get:
       operationId: listDistributors
@@ -95,6 +104,9 @@ paths:
                       $ref: '#/components/schemas/Distributor'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /party/aml/screenings:
     get:
       operationId: listAmlScreenings
@@ -119,6 +131,9 @@ paths:
                       $ref: '#/components/schemas/AmlScreening'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /party/fatca:
     get:
       operationId: listFatcaRecords
@@ -143,6 +158,9 @@ paths:
                       $ref: '#/components/schemas/FatcaRecord'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /party/customers:
     get:
       operationId: listCustomers
@@ -200,6 +218,11 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /party/customers/{customerId}:
     get:
       operationId: getCustomer
@@ -247,6 +270,11 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /party/beneficiaries:
     get:
       operationId: listBeneficiaries
@@ -278,6 +306,11 @@ paths:
                       $ref: '#/components/schemas/Beneficiary'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /party/clients:
     get:
       operationId: listWealthClients
@@ -304,8 +337,178 @@ paths:
                       $ref: '#/components/schemas/WealthClient'
         '401':
           $ref: '#/components/responses/Unauthorized_2'
+    servers:
+    - url: https://api.temenos.com/wealth/v1
+      description: Temenos Wealth API - Production
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    Distributor:
+      type: object
+      description: Fund distributor record
+      properties:
+        distributorId:
+          type: string
+          description: Unique distributor identifier
+        name:
+          type: string
+          description: Distributor name
+        distributionAgreements:
+          type: array
+          description: Active distribution agreements
+          items:
+            type: string
+        commissionGroup:
+          type: string
+          description: Commission group assignment
+        status:
+          type: string
+          description: Distributor status
+    FatcaRecord:
+      type: object
+      description: FATCA/CRS compliance record
+      properties:
+        recordId:
+          type: string
+          description: FATCA record identifier
+        investorId:
+          type: string
+          description: Associated investor
+        classification:
+          type: string
+          description: FATCA classification
+        reportingJurisdiction:
+          type: string
+          description: Reporting jurisdiction
+        status:
+          type: string
+          description: Compliance status
+    AmlScreening:
+      type: object
+      description: AML screening result
+      properties:
+        screeningId:
+          type: string
+          description: Screening record identifier
+        entityId:
+          type: string
+          description: Screened entity identifier
+        screeningDate:
+          type: string
+          format: date
+          description: Date of screening
+        result:
+          type: string
+          description: Screening outcome
+          enum:
+          - CLEAR
+          - MATCH
+          - POTENTIAL_MATCH
+        blockingCode:
+          type: string
+          description: Applied blocking code if any
+    InvestorCreate:
+      type: object
+      description: Request body for creating an investor
+      required:
+      - name
+      - investorType
+      properties:
+        name:
+          type: string
+          description: Investor name
+        investorType:
+          type: string
+          description: Investor classification
+          enum:
+          - INDIVIDUAL
+          - INSTITUTIONAL
+          - CORPORATE
+        nationality:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        taxResidence:
+          type: string
+          description: Tax residence country code
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total records available
+    Investor:
+      type: object
+      description: Fund investor record
+      properties:
+        investorId:
+          type: string
+          description: Unique investor identifier
+        investorType:
+          type: string
+          description: Investor classification
+          enum:
+          - INDIVIDUAL
+          - INSTITUTIONAL
+          - CORPORATE
+        name:
+          type: string
+          description: Investor name
+        nationality:
+          type: string
+          description: Investor nationality code
+        taxResidence:
+          type: string
+          description: Tax residence country code
+        kycStatus:
+          type: string
+          description: KYC verification status
+        fatcaStatus:
+          type: string
+          description: FATCA classification status
+        status:
+          type: string
+          description: Investor record status
     Address:
       type: object
       description: Physical address
@@ -335,30 +538,85 @@ components:
         country:
           type: string
           description: ISO 3166-1 alpha-2 country code
-    AmlScreening:
+    Error_2:
       type: object
-      description: AML screening result
+      description: Error response
       properties:
-        screeningId:
+        errorCode:
           type: string
-          description: Screening record identifier
-        entityId:
+          description: Machine-readable error code
+        errorMessage:
           type: string
-          description: Screened entity identifier
-        screeningDate:
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
+    CustomerCreate:
+      type: object
+      description: Request body for creating a customer
+      required:
+      - customerType
+      - lastName
+      properties:
+        customerType:
+          type: string
+          description: Customer classification
+          enum:
+          - INDIVIDUAL
+          - CORPORATE
+        title:
+          type: string
+          description: Customer title
+        firstName:
+          type: string
+          description: First name
+        lastName:
+          type: string
+          description: Last name or company name
+        dateOfBirth:
           type: string
           format: date
-          description: Date of screening
-        result:
+          description: Date of birth
+        nationality:
           type: string
-          description: Screening outcome
-          enum:
-          - CLEAR
-          - MATCH
-          - POTENTIAL_MATCH
-        blockingCode:
+          description: ISO 3166-1 alpha-2 nationality code
+    Beneficiary:
+      type: object
+      description: Payment beneficiary
+      properties:
+        beneficiaryId:
           type: string
-          description: Applied blocking code if any
+          description: Unique beneficiary identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        beneficiaryName:
+          type: string
+          description: Beneficiary display name
+        accountNumber:
+          type: string
+          description: Beneficiary account number
+        iban:
+          type: string
+          description: Beneficiary IBAN
+        bic:
+          type: string
+          description: Beneficiary bank BIC/SWIFT code
+        bankName:
+          type: string
+          description: Beneficiary bank name
+        country:
+          type: string
+          description: Beneficiary country code
     Customer:
       type: object
       description: Customer record
@@ -410,19 +668,6 @@ components:
           description: Customer addresses
           items:
             $ref: '#/components/schemas/Address'
-    PaginationHeader_2:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
     CustomerUpdate:
       type: object
       description: Request body for updating customer details
@@ -441,74 +686,29 @@ components:
           description: Updated addresses
           items:
             $ref: '#/components/schemas/Address'
-    PaginationHeader:
+    PaginationHeader_2:
       type: object
-      description: Pagination metadata
+      description: Pagination metadata for list responses
       properties:
         page_size:
           type: integer
-          description: Records per page
+          description: Number of records per page
         page_start:
           type: integer
           description: Starting record number
         total_size:
           type: integer
-          description: Total records available
-    InvestorCreate:
+          description: Total number of records available
+    Error_3:
       type: object
-      description: Request body for creating an investor
-      required:
-      - name
-      - investorType
+      description: Error response
       properties:
-        name:
+        errorCode:
           type: string
-          description: Investor name
-        investorType:
+          description: Error code
+        errorMessage:
           type: string
-          description: Investor classification
-          enum:
-          - INDIVIDUAL
-          - INSTITUTIONAL
-          - CORPORATE
-        nationality:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        taxResidence:
-          type: string
-          description: Tax residence country code
-    Investor:
-      type: object
-      description: Fund investor record
-      properties:
-        investorId:
-          type: string
-          description: Unique investor identifier
-        investorType:
-          type: string
-          description: Investor classification
-          enum:
-          - INDIVIDUAL
-          - INSTITUTIONAL
-          - CORPORATE
-        name:
-          type: string
-          description: Investor name
-        nationality:
-          type: string
-          description: Investor nationality code
-        taxResidence:
-          type: string
-          description: Tax residence country code
-        kycStatus:
-          type: string
-          description: KYC verification status
-        fatcaStatus:
-          type: string
-          description: FATCA classification status
-        status:
-          type: string
-          description: Investor record status
+          description: Error description
     WealthClient:
       type: object
       description: Wealth management client
@@ -542,145 +742,6 @@ components:
         status:
           type: string
           description: Client status
-    CustomerCreate:
-      type: object
-      description: Request body for creating a customer
-      required:
-      - customerType
-      - lastName
-      properties:
-        customerType:
-          type: string
-          description: Customer classification
-          enum:
-          - INDIVIDUAL
-          - CORPORATE
-        title:
-          type: string
-          description: Customer title
-        firstName:
-          type: string
-          description: First name
-        lastName:
-          type: string
-          description: Last name or company name
-        dateOfBirth:
-          type: string
-          format: date
-          description: Date of birth
-        nationality:
-          type: string
-          description: ISO 3166-1 alpha-2 nationality code
-    FatcaRecord:
-      type: object
-      description: FATCA/CRS compliance record
-      properties:
-        recordId:
-          type: string
-          description: FATCA record identifier
-        investorId:
-          type: string
-          description: Associated investor
-        classification:
-          type: string
-          description: FATCA classification
-        reportingJurisdiction:
-          type: string
-          description: Reporting jurisdiction
-        status:
-          type: string
-          description: Compliance status
-    Beneficiary:
-      type: object
-      description: Payment beneficiary
-      properties:
-        beneficiaryId:
-          type: string
-          description: Unique beneficiary identifier
-        customerId:
-          type: string
-          description: Associated customer identifier
-        beneficiaryName:
-          type: string
-          description: Beneficiary display name
-        accountNumber:
-          type: string
-          description: Beneficiary account number
-        iban:
-          type: string
-          description: Beneficiary IBAN
-        bic:
-          type: string
-          description: Beneficiary bank BIC/SWIFT code
-        bankName:
-          type: string
-          description: Beneficiary bank name
-        country:
-          type: string
-          description: Beneficiary country code
-    Distributor:
-      type: object
-      description: Fund distributor record
-      properties:
-        distributorId:
-          type: string
-          description: Unique distributor identifier
-        name:
-          type: string
-          description: Distributor name
-        distributionAgreements:
-          type: array
-          description: Active distribution agreements
-          items:
-            type: string
-        commissionGroup:
-          type: string
-          description: Commission group assignment
-        status:
-          type: string
-          description: Distributor status
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-    Error_3:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-    Error_2:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field related to the error
-              message:
-                type: string
-                description: Detail message
     PaginationHeader_3:
       type: object
       description: Pagination metadata
@@ -694,32 +755,15 @@ components:
         total_size:
           type: integer
           description: Total records
-  responses:
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     pageSize:
       name: page_size
       in: query
@@ -729,6 +773,21 @@ components:
         minimum: 1
         maximum: 100
         default: 25
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
+    pageStart_2:
+      name: page_start
+      in: query
+      description: Starting record number
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     pageSize_2:
       name: page_size
       in: query
@@ -738,34 +797,24 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageStart_2:
-      name: page_start
-      in: query
-      description: Starting record number
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Unique customer identifier
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+      description: JWT-based authentication token for Temenos Fund Administration API.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for API access
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.temenos.com/oauth2/authorize
+          tokenUrl: https://auth.temenos.com/oauth2/token
+          scopes:
+            read: Read access to banking data
+            write: Write access to banking data
+            admin: Administrative access
+x-refined-from:
+- temenos-fund-administration-openapi.yml
+- temenos-transact-openapi.yml
+- temenos-wealth-openapi.yml

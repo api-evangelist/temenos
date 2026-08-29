@@ -1,7 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Holdings API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Holdings API
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -11,9 +10,16 @@ info:
     name: Temenos Terms of Service
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
+  description: 'Operations tagged Holdings across 3 of this provider''s published API definitions: temenos-fund-administration-openapi.yml, temenos-transact-openapi.yml, temenos-wealth-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://api.temenos.com/funds/v1
+  description: Temenos Fund Administration API - Production
+- url: https://api.temenos.com/transact/v1
+  description: Temenos Transact API - Production
+- url: https://sandbox.temenos.com/transact/v1
+  description: Temenos Transact API - Sandbox
+- url: https://api.temenos.com/wealth/v1
+  description: Temenos Wealth API - Production
 security:
 - bearerAuth: []
 tags:
@@ -51,6 +57,9 @@ paths:
                       $ref: '#/components/schemas/Position'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /holdings/transactions:
     get:
       operationId: listHoldingsTransactions
@@ -97,6 +106,9 @@ paths:
                       $ref: '#/components/schemas/SecurityTransaction'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /holdings/dividends:
     post:
       operationId: bookDividend
@@ -121,6 +133,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/funds/v1
+      description: Temenos Fund Administration API - Production
   /holdings/accounts:
     get:
       operationId: listAccounts
@@ -182,6 +197,11 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /holdings/accounts/{accountId}:
     get:
       operationId: getAccount
@@ -229,6 +249,11 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /holdings/accounts/{accountId}/balances:
     get:
       operationId: getAccountBalances
@@ -249,6 +274,11 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /holdings/accounts/{accountId}/transactions:
     get:
       operationId: listAccountTransactions
@@ -295,6 +325,11 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /holdings/deposits:
     get:
       operationId: listDeposits
@@ -326,6 +361,11 @@ paths:
                       $ref: '#/components/schemas/Deposit'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /holdings/loans:
     get:
       operationId: listLoans
@@ -380,6 +420,11 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://api.temenos.com/transact/v1
+      description: Temenos Transact API - Production
+    - url: https://sandbox.temenos.com/transact/v1
+      description: Temenos Transact API - Sandbox
   /holdings/portfolios:
     get:
       operationId: listPortfolios
@@ -439,6 +484,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized_2'
+    servers:
+    - url: https://api.temenos.com/wealth/v1
+      description: Temenos Wealth API - Production
   /holdings/portfolios/{portfolioId}:
     get:
       operationId: getPortfolio
@@ -474,6 +522,9 @@ paths:
           $ref: '#/components/responses/Unauthorized_2'
         '404':
           $ref: '#/components/responses/NotFound_2'
+    servers:
+    - url: https://api.temenos.com/wealth/v1
+      description: Temenos Wealth API - Production
   /holdings/portfolios/{portfolioId}/positions:
     get:
       operationId: listPortfolioPositions
@@ -515,6 +566,9 @@ paths:
           $ref: '#/components/responses/Unauthorized_2'
         '404':
           $ref: '#/components/responses/NotFound_2'
+    servers:
+    - url: https://api.temenos.com/wealth/v1
+      description: Temenos Wealth API - Production
   /holdings/portfolios/{portfolioId}/valuation:
     get:
       operationId: getPortfolioValuation
@@ -541,8 +595,265 @@ paths:
           $ref: '#/components/responses/Unauthorized_2'
         '404':
           $ref: '#/components/responses/NotFound_2'
+    servers:
+    - url: https://api.temenos.com/wealth/v1
+      description: Temenos Wealth API - Production
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    NotFound_2:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    DividendBooking:
+      type: object
+      description: Dividend booking request
+      required:
+      - fundId
+      - securityId
+      - amount
+      - currency
+      properties:
+        fundId:
+          type: string
+          description: Fund identifier
+        securityId:
+          type: string
+          description: Security identifier
+        amount:
+          type: number
+          format: double
+          description: Dividend amount
+        currency:
+          type: string
+          description: Currency code
+        exDate:
+          type: string
+          format: date
+          description: Ex-dividend date
+        paymentDate:
+          type: string
+          format: date
+          description: Payment date
+    Position:
+      type: object
+      description: Fund investment position
+      properties:
+        positionId:
+          type: string
+          description: Position identifier
+        fundId:
+          type: string
+          description: Fund identifier
+        securityId:
+          type: string
+          description: Security identifier
+        securityType:
+          type: string
+          description: Type of security
+          enum:
+          - EQUITY
+          - BOND
+          - FX
+          - FUTURE
+          - OPTION
+          - SWAP
+          - FUND
+        quantity:
+          type: number
+          format: double
+          description: Position quantity
+        marketValue:
+          type: number
+          format: double
+          description: Current market value
+        currency:
+          type: string
+          description: Position currency
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date
+    SecurityTransaction:
+      type: object
+      description: Securities transaction record
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        fundId:
+          type: string
+          description: Fund identifier
+        securityId:
+          type: string
+          description: Security identifier
+        transactionType:
+          type: string
+          description: Transaction type
+          enum:
+          - BUY
+          - SELL
+          - DIVIDEND
+          - COUPON
+          - FX_SPOT
+          - FX_FORWARD
+          - CAPITAL_INCREASE
+          - CAPITAL_DECREASE
+        quantity:
+          type: number
+          format: double
+          description: Transaction quantity
+        price:
+          type: number
+          format: double
+          description: Transaction price
+        amount:
+          type: number
+          format: double
+          description: Total transaction amount
+        currency:
+          type: string
+          description: Transaction currency
+        tradeDate:
+          type: string
+          format: date
+          description: Trade date
+        settlementDate:
+          type: string
+          format: date
+          description: Settlement date
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total records available
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
+    Account:
+      type: object
+      description: Banking account arrangement
+      properties:
+        accountId:
+          type: string
+          description: Unique account identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        accountName:
+          type: string
+          description: Account display name
+        accountType:
+          type: string
+          description: Type of account
+          enum:
+          - CURRENT
+          - SAVINGS
+          - DEPOSIT
+          - LOAN
+        productId:
+          type: string
+          description: Associated product identifier
+        currency:
+          type: string
+          description: Account currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        status:
+          type: string
+          description: Current account status
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - CLOSED
+          - DORMANT
+        openingDate:
+          type: string
+          format: date
+          description: Date the account was opened
+        workingBalance:
+          type: number
+          format: double
+          description: Current working balance
+        availableBalance:
+          type: number
+          format: double
+          description: Available balance for transactions
+    AccountUpdate:
+      type: object
+      description: Request body for updating an account
+      properties:
+        accountName:
+          type: string
+          description: Updated display name
+        status:
+          type: string
+          description: Updated account status
+          enum:
+          - ACTIVE
+          - INACTIVE
     Loan:
       type: object
       description: Loan arrangement
@@ -593,59 +904,6 @@ components:
         status:
           type: string
           description: Current loan status
-    Portfolio:
-      type: object
-      description: Investment portfolio
-      properties:
-        portfolioId:
-          type: string
-          description: Unique portfolio identifier
-        customerId:
-          type: string
-          description: Associated customer
-        portfolioName:
-          type: string
-          description: Portfolio display name
-        currency:
-          type: string
-          description: Portfolio base currency
-        mandateType:
-          type: string
-          description: Investment mandate type
-          enum:
-          - DISCRETIONARY
-          - ADVISORY
-          - EXECUTION_ONLY
-        riskProfile:
-          type: string
-          description: Client risk profile
-          enum:
-          - CONSERVATIVE
-          - MODERATE
-          - BALANCED
-          - GROWTH
-          - AGGRESSIVE
-        benchmarkId:
-          type: string
-          description: Assigned benchmark identifier
-        totalValue:
-          type: number
-          format: double
-          description: Total portfolio market value
-        advisorId:
-          type: string
-          description: Assigned advisor identifier
-        openDate:
-          type: string
-          format: date
-          description: Portfolio opening date
-        status:
-          type: string
-          description: Portfolio status
-          enum:
-          - ACTIVE
-          - CLOSED
-          - SUSPENDED
     Transaction:
       type: object
       description: Account transaction record
@@ -686,152 +944,6 @@ components:
         reference:
           type: string
           description: Transaction reference number
-    LoanCreate:
-      type: object
-      description: Request body for creating a new loan
-      required:
-      - customerId
-      - productId
-      - currency
-      - principalAmount
-      - term
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier for the borrower
-        productId:
-          type: string
-          description: Loan product identifier
-        currency:
-          type: string
-          description: Loan currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        principalAmount:
-          type: number
-          format: double
-          description: Requested loan amount
-          minimum: 0
-        term:
-          type: integer
-          description: Loan term in months
-          minimum: 1
-    PaginationHeader_2:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-    Position_2:
-      type: object
-      description: Portfolio position
-      properties:
-        positionId:
-          type: string
-          description: Position identifier
-        portfolioId:
-          type: string
-          description: Portfolio identifier
-        securityId:
-          type: string
-          description: Security identifier
-        securityName:
-          type: string
-          description: Security name
-        assetClass:
-          type: string
-          description: Asset class
-          enum:
-          - EQUITY
-          - FIXED_INCOME
-          - DERIVATIVES
-          - FUNDS
-          - CASH
-          - ALTERNATIVES
-        quantity:
-          type: number
-          format: double
-          description: Position quantity
-        averageCost:
-          type: number
-          format: double
-          description: Average cost per unit
-        marketPrice:
-          type: number
-          format: double
-          description: Current market price
-        marketValue:
-          type: number
-          format: double
-          description: Current market value
-        unrealizedPnL:
-          type: number
-          format: double
-          description: Unrealized profit and loss
-        currency:
-          type: string
-          description: Position currency
-        weight:
-          type: number
-          format: double
-          description: Position weight in portfolio as percentage
-    DividendBooking:
-      type: object
-      description: Dividend booking request
-      required:
-      - fundId
-      - securityId
-      - amount
-      - currency
-      properties:
-        fundId:
-          type: string
-          description: Fund identifier
-        securityId:
-          type: string
-          description: Security identifier
-        amount:
-          type: number
-          format: double
-          description: Dividend amount
-        currency:
-          type: string
-          description: Currency code
-        exDate:
-          type: string
-          format: date
-          description: Ex-dividend date
-        paymentDate:
-          type: string
-          format: date
-          description: Payment date
-    AccountCreate:
-      type: object
-      description: Request body for creating a new account
-      required:
-      - customerId
-      - productId
-      - currency
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier for the account holder
-        productId:
-          type: string
-          description: Product identifier defining account type and terms
-        currency:
-          type: string
-          description: Account currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        accountName:
-          type: string
-          description: Optional display name for the account
     AccountBalance:
       type: object
       description: Account balance details
@@ -893,156 +1005,132 @@ components:
         status:
           type: string
           description: Current deposit status
-    PaginationHeader:
+    AccountCreate:
       type: object
-      description: Pagination metadata
+      description: Request body for creating a new account
+      required:
+      - customerId
+      - productId
+      - currency
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier for the account holder
+        productId:
+          type: string
+          description: Product identifier defining account type and terms
+        currency:
+          type: string
+          description: Account currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        accountName:
+          type: string
+          description: Optional display name for the account
+    PaginationHeader_2:
+      type: object
+      description: Pagination metadata for list responses
       properties:
         page_size:
           type: integer
-          description: Records per page
+          description: Number of records per page
         page_start:
           type: integer
           description: Starting record number
         total_size:
           type: integer
-          description: Total records available
-    PortfolioCreate:
+          description: Total number of records available
+    LoanCreate:
       type: object
-      description: Portfolio creation request
+      description: Request body for creating a new loan
       required:
       - customerId
+      - productId
       - currency
-      - mandateType
+      - principalAmount
+      - term
       properties:
         customerId:
           type: string
-          description: Customer identifier
-        portfolioName:
+          description: Customer identifier for the borrower
+        productId:
           type: string
-          description: Portfolio name
+          description: Loan product identifier
         currency:
           type: string
-          description: Base currency in ISO 4217 format
+          description: Loan currency in ISO 4217 format
           pattern: ^[A-Z]{3}$
-        mandateType:
-          type: string
-          description: Investment mandate type
-          enum:
-          - DISCRETIONARY
-          - ADVISORY
-          - EXECUTION_ONLY
-        riskProfile:
-          type: string
-          description: Risk profile
-          enum:
-          - CONSERVATIVE
-          - MODERATE
-          - BALANCED
-          - GROWTH
-          - AGGRESSIVE
-        benchmarkId:
-          type: string
-          description: Benchmark assignment
-        advisorId:
-          type: string
-          description: Advisor assignment
-    SecurityTransaction:
+        principalAmount:
+          type: number
+          format: double
+          description: Requested loan amount
+          minimum: 0
+        term:
+          type: integer
+          description: Loan term in months
+          minimum: 1
+    Position_2:
       type: object
-      description: Securities transaction record
+      description: Portfolio position
       properties:
-        transactionId:
+        positionId:
           type: string
-          description: Transaction identifier
-        fundId:
+          description: Position identifier
+        portfolioId:
           type: string
-          description: Fund identifier
+          description: Portfolio identifier
         securityId:
           type: string
           description: Security identifier
-        transactionType:
+        securityName:
           type: string
-          description: Transaction type
+          description: Security name
+        assetClass:
+          type: string
+          description: Asset class
           enum:
-          - BUY
-          - SELL
-          - DIVIDEND
-          - COUPON
-          - FX_SPOT
-          - FX_FORWARD
-          - CAPITAL_INCREASE
-          - CAPITAL_DECREASE
+          - EQUITY
+          - FIXED_INCOME
+          - DERIVATIVES
+          - FUNDS
+          - CASH
+          - ALTERNATIVES
         quantity:
           type: number
           format: double
-          description: Transaction quantity
-        price:
+          description: Position quantity
+        averageCost:
           type: number
           format: double
-          description: Transaction price
-        amount:
+          description: Average cost per unit
+        marketPrice:
           type: number
           format: double
-          description: Total transaction amount
+          description: Current market price
+        marketValue:
+          type: number
+          format: double
+          description: Current market value
+        unrealizedPnL:
+          type: number
+          format: double
+          description: Unrealized profit and loss
         currency:
           type: string
-          description: Transaction currency
-        tradeDate:
-          type: string
-          format: date
-          description: Trade date
-        settlementDate:
-          type: string
-          format: date
-          description: Settlement date
-    Error:
+          description: Position currency
+        weight:
+          type: number
+          format: double
+          description: Position weight in portfolio as percentage
+    Error_3:
       type: object
       description: Error response
       properties:
         errorCode:
           type: string
-          description: Machine-readable error code
+          description: Error code
         errorMessage:
           type: string
-          description: Human-readable error description
-    Position:
-      type: object
-      description: Fund investment position
-      properties:
-        positionId:
-          type: string
-          description: Position identifier
-        fundId:
-          type: string
-          description: Fund identifier
-        securityId:
-          type: string
-          description: Security identifier
-        securityType:
-          type: string
-          description: Type of security
-          enum:
-          - EQUITY
-          - BOND
-          - FX
-          - FUTURE
-          - OPTION
-          - SWAP
-          - FUND
-        quantity:
-          type: number
-          format: double
-          description: Position quantity
-        marketValue:
-          type: number
-          format: double
-          description: Current market value
-        currency:
-          type: string
-          description: Position currency
-        valuationDate:
-          type: string
-          format: date
-          description: Valuation date
+          description: Error description
     PortfolioValuation:
       type: object
       description: Portfolio valuation summary
@@ -1086,51 +1174,99 @@ components:
                 type: number
                 format: double
                 description: Percentage weight
-    Error_3:
+    Portfolio:
       type: object
-      description: Error response
+      description: Investment portfolio
       properties:
-        errorCode:
+        portfolioId:
           type: string
-          description: Error code
-        errorMessage:
+          description: Unique portfolio identifier
+        customerId:
           type: string
-          description: Error description
-    AccountUpdate:
-      type: object
-      description: Request body for updating an account
-      properties:
-        accountName:
+          description: Associated customer
+        portfolioName:
           type: string
-          description: Updated display name
+          description: Portfolio display name
+        currency:
+          type: string
+          description: Portfolio base currency
+        mandateType:
+          type: string
+          description: Investment mandate type
+          enum:
+          - DISCRETIONARY
+          - ADVISORY
+          - EXECUTION_ONLY
+        riskProfile:
+          type: string
+          description: Client risk profile
+          enum:
+          - CONSERVATIVE
+          - MODERATE
+          - BALANCED
+          - GROWTH
+          - AGGRESSIVE
+        benchmarkId:
+          type: string
+          description: Assigned benchmark identifier
+        totalValue:
+          type: number
+          format: double
+          description: Total portfolio market value
+        advisorId:
+          type: string
+          description: Assigned advisor identifier
+        openDate:
+          type: string
+          format: date
+          description: Portfolio opening date
         status:
           type: string
-          description: Updated account status
+          description: Portfolio status
           enum:
           - ACTIVE
-          - INACTIVE
-    Error_2:
+          - CLOSED
+          - SUSPENDED
+    PortfolioCreate:
       type: object
-      description: Error response
+      description: Portfolio creation request
+      required:
+      - customerId
+      - currency
+      - mandateType
       properties:
-        errorCode:
+        customerId:
           type: string
-          description: Machine-readable error code
-        errorMessage:
+          description: Customer identifier
+        portfolioName:
           type: string
-          description: Human-readable error description
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field related to the error
-              message:
-                type: string
-                description: Detail message
+          description: Portfolio name
+        currency:
+          type: string
+          description: Base currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        mandateType:
+          type: string
+          description: Investment mandate type
+          enum:
+          - DISCRETIONARY
+          - ADVISORY
+          - EXECUTION_ONLY
+        riskProfile:
+          type: string
+          description: Risk profile
+          enum:
+          - CONSERVATIVE
+          - MODERATE
+          - BALANCED
+          - GROWTH
+          - AGGRESSIVE
+        benchmarkId:
+          type: string
+          description: Benchmark assignment
+        advisorId:
+          type: string
+          description: Advisor assignment
     PaginationHeader_3:
       type: object
       description: Pagination metadata
@@ -1144,95 +1280,7 @@ components:
         total_size:
           type: integer
           description: Total records
-    Account:
-      type: object
-      description: Banking account arrangement
-      properties:
-        accountId:
-          type: string
-          description: Unique account identifier
-        customerId:
-          type: string
-          description: Associated customer identifier
-        accountName:
-          type: string
-          description: Account display name
-        accountType:
-          type: string
-          description: Type of account
-          enum:
-          - CURRENT
-          - SAVINGS
-          - DEPOSIT
-          - LOAN
-        productId:
-          type: string
-          description: Associated product identifier
-        currency:
-          type: string
-          description: Account currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        status:
-          type: string
-          description: Current account status
-          enum:
-          - ACTIVE
-          - INACTIVE
-          - CLOSED
-          - DORMANT
-        openingDate:
-          type: string
-          format: date
-          description: Date the account was opened
-        workingBalance:
-          type: number
-          format: double
-          description: Current working balance
-        availableBalance:
-          type: number
-          format: double
-          description: Available balance for transactions
-  responses:
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound_2:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
   parameters:
-    pageSize:
-      name: page_size
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
     pageStart:
       name: page_start
       in: query
@@ -1241,17 +1289,10 @@ components:
         type: integer
         minimum: 0
         default: 0
-    portfolioId:
-      name: portfolioId
-      in: path
-      required: true
-      description: Unique portfolio identifier
-      schema:
-        type: string
-    pageSize_2:
+    pageSize:
       name: page_size
       in: query
-      description: Number of records per page
+      description: Number of records to return per page
       schema:
         type: integer
         minimum: 1
@@ -1272,11 +1313,40 @@ components:
         type: integer
         minimum: 0
         default: 0
+    pageSize_2:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    portfolioId:
+      name: portfolioId
+      in: path
+      required: true
+      description: Unique portfolio identifier
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+      description: JWT-based authentication token for Temenos Fund Administration API.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for API access
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.temenos.com/oauth2/authorize
+          tokenUrl: https://auth.temenos.com/oauth2/token
+          scopes:
+            read: Read access to banking data
+            write: Write access to banking data
+            admin: Administrative access
+x-refined-from:
+- temenos-fund-administration-openapi.yml
+- temenos-transact-openapi.yml
+- temenos-wealth-openapi.yml

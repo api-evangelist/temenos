@@ -1,21 +1,21 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Temenos Buy Now Pay Later Accounts Service Definitions API
-  description: APIs for buy now pay later services with embedded Explainable AI for automated decisioning and credit offer matching. Supports interest-free and interest-bearing BNPL products with point-of-sale integration and full loan lifecycle management. Core banking agnostic and deployable on Temenos Banking Cloud.
+  title: Temenos Journey Manager Service Definitions API
+  description: REST APIs for customer journey orchestration allowing external systems to integrate with Temenos Journey Manager for digital onboarding, form processing, and workflow management. Includes Application Package API, Delivery API, Form Groups API, Service Definitions API, Tasks API, Transactions API, Transaction History API, and Workspaces portal API.
   version: 1.0.0
   contact:
     name: Temenos Developer Support
-    url: https://developer.temenos.com/
-    email: api.support@temenos.com
+    url: https://journey.temenos.com/api/
   license:
     name: Temenos Terms of Service
     url: https://www.temenos.com/legal-information/website-terms-and-conditions/
   termsOfService: https://www.temenos.com/legal-information/website-terms-and-conditions/
 servers:
-- url: https://api.temenos.com/bnpl/v1
-  description: Temenos BNPL API - Production
+- url: https://journey.temenos.com/api/v1
+  description: Temenos Journey Manager API - Production
 security:
 - bearerAuth: []
+- oauth2: []
 tags:
 - name: Service Definitions
   description: Manage service definitions and parameters for journey integration services.
@@ -66,19 +66,41 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    ServiceDefinitionCreate:
+      type: object
+      description: Service definition creation request
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Service name
+        description:
+          type: string
+          description: Service description
     ServiceDefinition:
       type: object
       description: Integration service definition
@@ -107,33 +129,20 @@ components:
               required:
                 type: boolean
                 description: Whether required
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-    ServiceDefinitionCreate:
-      type: object
-      description: Service definition creation request
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Service name
-        description:
-          type: string
-          description: Service description
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://journey.temenos.com/oauth2/authorize
+          tokenUrl: https://journey.temenos.com/oauth2/token
+          scopes:
+            read: Read access
+            write: Write access
 externalDocs:
-  description: Temenos BNPL API Documentation
-  url: https://developer.temenos.com/service/buy-now-pay-later
+  description: Temenos Journey Manager API Documentation
+  url: https://journey.temenos.com/api/svcs-guide/rest-api/
