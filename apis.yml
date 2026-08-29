@@ -2,6 +2,18 @@ name: Temenos
 description: >-
   APIs for Temenos banking and financial services platform, providing cloud-native, cloud-agnostic, API-first banking
   solutions including core banking, digital banking, payments, wealth management, financial crime mitigation, and more.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
@@ -3378,6 +3390,9 @@ apis:
   - type: Documentation
     url: https://developer.temenos.com/service/buy-now-pay-later
 common:
+  - type: CapabilityMap
+    url: capabilities/temenos-capability-edges.yml
+    name: Temenos Business Capability Map
   - type: AgenticAccess
     url: agentic-access/temenos-agentic-access.yml
   - type: DomainSecurity
