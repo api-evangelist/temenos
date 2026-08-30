@@ -11,8 +11,8 @@ info:
     inlines its request so the chain is self-describing.
   version: 1.0.0
 sourceDescriptions:
-- name: infinityApi
-  url: ../openapi/temenos-infinity-openapi.yml
+- name: paymentsApi
+  url: ../openapi/temenos-payments-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: infinity-initiate-payment
@@ -49,7 +49,7 @@ workflows:
   steps:
   - stepId: initiatePayment
     description: Initiate a payment from the customer's debit account.
-    operationId: createPayment
+    operationId: createCmbPayment
     requestBody:
       contentType: application/json
       payload:
