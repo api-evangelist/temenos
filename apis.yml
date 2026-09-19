@@ -3340,6 +3340,8 @@ apis:
   humanURL: https://www.temenos.com/products/core-banking/
   baseURL: https://api.temenos.com/transact
   tags:
+  - Workspace
+  tags_raw:
   - Workspaces
   properties:
   - type: OpenAPI
