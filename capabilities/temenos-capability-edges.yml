@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 27
+edge_count: 28
 edges:
 - tag: Sanction Screening
   spec_file: temenos-sanction-screening-api-openapi.yml
@@ -268,6 +268,20 @@ edges:
   reason: Operations create and list package arrangements and retrieve package pricing for banking products
     — this is the banking product factory's bundling/package construct with relationship pricing, not
     a generic subscription or logistics package.
+- tag: Party
+  spec_file: temenos-party-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: POST /party/customers createCustomer "Create Customer"; GET /party/customers/{customerId}
+    getCustomer "Get Customer Details"; PUT updateCustomer "Update Customer Details"; schemas Customer,
+    CustomerCreate, CustomerUpdate, Investor, Beneficiary, WealthClient, Address
+  reason: The dominant surface is CRUD over party master records (customers, investors, distributors,
+    beneficiaries, wealth clients) — a customer/party master data capability. Confidence held at 0.7 because
+    part of the surface (AML screenings, FATCA/CRS records) is regulatory screening rather than customer
+    data mastering.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Product
   spec_file: temenos-product-api-openapi.yml
   capability_id: BC-1310.10
