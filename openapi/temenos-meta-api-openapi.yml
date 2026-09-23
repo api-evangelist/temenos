@@ -45,6 +45,22 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    ApiMetadata:
+      type: object
+      description: API resource metadata
+      properties:
+        apiName:
+          type: string
+          description: API resource name
+        apiVersion:
+          type: string
+          description: API version
+        description:
+          type: string
+          description: API resource description
+        path:
+          type: string
+          description: API resource path
     Error:
       type: object
       description: Error response
@@ -67,22 +83,6 @@ components:
               message:
                 type: string
                 description: Detail message
-    ApiMetadata:
-      type: object
-      description: API resource metadata
-      properties:
-        apiName:
-          type: string
-          description: API resource name
-        apiVersion:
-          type: string
-          description: API version
-        description:
-          type: string
-          description: API resource description
-        path:
-          type: string
-          description: API resource path
   responses:
     Unauthorized:
       description: Authentication required or invalid credentials

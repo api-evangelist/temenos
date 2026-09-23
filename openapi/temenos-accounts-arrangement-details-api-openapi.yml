@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Temenos Enterprise Product and Pricing Accounts Arrangement Details API
+  title: Temenos Enterprise Product and Pricing Accounts Arrangement…
   description: APIs for product pricing, quotation simulation, package arrangements, pricing adjustments, transparency details, and promotions management for banking products and services. Enables simulation of account creation and transaction events to determine applicable pricing details including interest rates, fees, and cashback. Supports pricing negotiation through quotation references and manual adjustment workflows.
   version: 1.0.0
   contact:

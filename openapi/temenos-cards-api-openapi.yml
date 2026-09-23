@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Temenos Infinity Digital Banking Cards API
-  description: Digital banking platform API for Temenos Infinity, providing omnichannel customer experiences across retail and business banking channels. Enables integration with Temenos Fabric and Temenos Visualizer for building responsive digital banking applications. Supports Open Banking via PSD2-compliant APIs and connects to over 100 FinTech services through the Temenos MarketPlace. Uses JavaScript frameworks such as React for front-end experience creation and provides REST APIs for accessing banking data as resources in machine-readable JSON format.
+  description: Digital banking platform API for Temenos Infinity, providing omnichannel customer experiences across retail and business banking channels.
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -80,25 +80,22 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request parameters or payload
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    pageStart:
+      name: pageStart
+      in: query
+      description: Pagination offset token or page number
+      schema:
+        type: string
+    pageSize:
+      name: pageSize
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        default: 25
+        minimum: 1
+        maximum: 100
   schemas:
     Error:
       type: object
@@ -171,22 +168,25 @@ components:
         accountId:
           type: string
           description: Linked account identifier
-  parameters:
-    pageStart:
-      name: pageStart
-      in: query
-      description: Pagination offset token or page number
-      schema:
-        type: string
-    pageSize:
-      name: pageSize
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        default: 25
-        minimum: 1
-        maximum: 100
+  responses:
+    BadRequest:
+      description: Invalid request parameters or payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,0 +1,26 @@
+# Front Door AI Index — temenos — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: temenos
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.temenos.com
+  final_host: www.temenos.com
+  ownership: own
+  owner: temenos
+  shares_host_with:
+  - temenos-transact
+  inherited_from: null
+  verdict: scored
+  score: 7
+  host_score: 7
+  density: 4.62
+  words: 1515
+  tiers:
+    agentic: 0
+    core: 7
+    model: 0
+  ambiguous: 0
+  top_terms:
+    AI: 7

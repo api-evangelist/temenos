@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Temenos Infinity Digital Banking Customers API
-  description: Digital banking platform API for Temenos Infinity, providing omnichannel customer experiences across retail and business banking channels. Enables integration with Temenos Fabric and Temenos Visualizer for building responsive digital banking applications. Supports Open Banking via PSD2-compliant APIs and connects to over 100 FinTech services through the Temenos MarketPlace. Uses JavaScript frameworks such as React for front-end experience creation and provides REST APIs for accessing banking data as resources in machine-readable JSON format.
+  description: Digital banking platform API for Temenos Infinity, providing omnichannel customer experiences across retail and business banking channels.
   version: 1.0.0
   contact:
     name: Temenos Developer Support
@@ -70,26 +70,29 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request parameters or payload
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        code:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Detail of the error
+          description: Additional error details
     Address:
       type: object
       description: Postal address
@@ -113,28 +116,6 @@ components:
           type: string
           description: ISO 3166-1 alpha-2 country code
           pattern: ^[A-Z]{2}$
-    Error:
-      type: object
-      description: Error response
-      properties:
-        code:
-          type: string
-          description: Error code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-              message:
-                type: string
-                description: Detail of the error
-          description: Additional error details
     Customer:
       type: object
       description: Customer profile in the digital banking platform
@@ -182,6 +163,25 @@ components:
       description: Unique customer identifier
       schema:
         type: string
+  responses:
+    BadRequest:
+      description: Invalid request parameters or payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

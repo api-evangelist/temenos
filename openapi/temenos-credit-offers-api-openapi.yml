@@ -96,6 +96,31 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    CreditOfferRequest:
+      type: object
+      required:
+      - customerId
+      - purchaseAmount
+      - currency
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        merchantId:
+          type: string
+          description: Merchant identifier
+        purchaseAmount:
+          type: number
+          format: double
+          description: Purchase amount
+          minimum: 0.01
+        currency:
+          type: string
+          description: Currency
+          pattern: ^[A-Z]{3}$
+        purchaseDescription:
+          type: string
+          description: Purchase description
     BnplLoan:
       type: object
       description: BNPL loan
@@ -153,43 +178,6 @@ components:
           type: string
         errorMessage:
           type: string
-    CreditOfferResponse:
-      type: object
-      description: Credit offer response with available options
-      properties:
-        offers:
-          type: array
-          description: Available BNPL offers
-          items:
-            $ref: '#/components/schemas/CreditOffer'
-        decisionExplanation:
-          type: string
-          description: AI decisioning explanation
-    CreditOfferRequest:
-      type: object
-      required:
-      - customerId
-      - purchaseAmount
-      - currency
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier
-        merchantId:
-          type: string
-          description: Merchant identifier
-        purchaseAmount:
-          type: number
-          format: double
-          description: Purchase amount
-          minimum: 0.01
-        currency:
-          type: string
-          description: Currency
-          pattern: ^[A-Z]{3}$
-        purchaseDescription:
-          type: string
-          description: Purchase description
     CreditOffer:
       type: object
       description: BNPL credit offer
@@ -229,15 +217,27 @@ components:
           type: string
           format: date-time
           description: Offer expiry timestamp
+    CreditOfferResponse:
+      type: object
+      description: Credit offer response with available options
+      properties:
+        offers:
+          type: array
+          description: Available BNPL offers
+          items:
+            $ref: '#/components/schemas/CreditOffer'
+        decisionExplanation:
+          type: string
+          description: AI decisioning explanation
   responses:
-    NotFound:
-      description: Not found
+    BadRequest:
+      description: Invalid request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request
+    NotFound:
+      description: Not found
       content:
         application/json:
           schema:

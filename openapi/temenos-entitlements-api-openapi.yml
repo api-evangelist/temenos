@@ -76,19 +76,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -100,6 +87,23 @@ components:
         errorMessage:
           type: string
           description: Error description
+    EntitlementCreate:
+      type: object
+      description: Entitlement assignment request
+      required:
+      - userId
+      - productId
+      - role
+      properties:
+        userId:
+          type: string
+          description: User identifier
+        productId:
+          type: string
+          description: Product identifier
+        role:
+          type: string
+          description: Role to assign
     Entitlement:
       type: object
       description: User entitlement
@@ -124,23 +128,19 @@ components:
         status:
           type: string
           description: Entitlement status
-    EntitlementCreate:
-      type: object
-      description: Entitlement assignment request
-      required:
-      - userId
-      - productId
-      - role
-      properties:
-        userId:
-          type: string
-          description: User identifier
-        productId:
-          type: string
-          description: Product identifier
-        role:
-          type: string
-          description: Role to assign
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

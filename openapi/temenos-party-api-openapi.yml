@@ -341,32 +341,81 @@ paths:
     - url: https://api.temenos.com/wealth/v1
       description: Temenos Wealth API - Production
 components:
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
+    pageStart_2:
+      name: page_start
+      in: query
+      description: Starting record number
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize_2:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   schemas:
+    Investor:
+      type: object
+      description: Fund investor record
+      properties:
+        investorId:
+          type: string
+          description: Unique investor identifier
+        investorType:
+          type: string
+          description: Investor classification
+          enum:
+          - INDIVIDUAL
+          - INSTITUTIONAL
+          - CORPORATE
+        name:
+          type: string
+          description: Investor name
+        nationality:
+          type: string
+          description: Investor nationality code
+        taxResidence:
+          type: string
+          description: Tax residence country code
+        kycStatus:
+          type: string
+          description: KYC verification status
+        fatcaStatus:
+          type: string
+          description: FATCA classification status
+        status:
+          type: string
+          description: Investor record status
     Error:
       type: object
       description: Error response
@@ -377,27 +426,6 @@ components:
         errorMessage:
           type: string
           description: Human-readable error description
-    Distributor:
-      type: object
-      description: Fund distributor record
-      properties:
-        distributorId:
-          type: string
-          description: Unique distributor identifier
-        name:
-          type: string
-          description: Distributor name
-        distributionAgreements:
-          type: array
-          description: Active distribution agreements
-          items:
-            type: string
-        commissionGroup:
-          type: string
-          description: Commission group assignment
-        status:
-          type: string
-          description: Distributor status
     FatcaRecord:
       type: object
       description: FATCA/CRS compliance record
@@ -417,30 +445,6 @@ components:
         status:
           type: string
           description: Compliance status
-    AmlScreening:
-      type: object
-      description: AML screening result
-      properties:
-        screeningId:
-          type: string
-          description: Screening record identifier
-        entityId:
-          type: string
-          description: Screened entity identifier
-        screeningDate:
-          type: string
-          format: date
-          description: Date of screening
-        result:
-          type: string
-          description: Screening outcome
-          enum:
-          - CLEAR
-          - MATCH
-          - POTENTIAL_MATCH
-        blockingCode:
-          type: string
-          description: Applied blocking code if any
     InvestorCreate:
       type: object
       description: Request body for creating an investor
@@ -477,38 +481,101 @@ components:
         total_size:
           type: integer
           description: Total records available
-    Investor:
+    Distributor:
       type: object
-      description: Fund investor record
+      description: Fund distributor record
       properties:
-        investorId:
+        distributorId:
           type: string
-          description: Unique investor identifier
-        investorType:
-          type: string
-          description: Investor classification
-          enum:
-          - INDIVIDUAL
-          - INSTITUTIONAL
-          - CORPORATE
+          description: Unique distributor identifier
         name:
           type: string
-          description: Investor name
-        nationality:
+          description: Distributor name
+        distributionAgreements:
+          type: array
+          description: Active distribution agreements
+          items:
+            type: string
+        commissionGroup:
           type: string
-          description: Investor nationality code
-        taxResidence:
-          type: string
-          description: Tax residence country code
-        kycStatus:
-          type: string
-          description: KYC verification status
-        fatcaStatus:
-          type: string
-          description: FATCA classification status
+          description: Commission group assignment
         status:
           type: string
-          description: Investor record status
+          description: Distributor status
+    AmlScreening:
+      type: object
+      description: AML screening result
+      properties:
+        screeningId:
+          type: string
+          description: Screening record identifier
+        entityId:
+          type: string
+          description: Screened entity identifier
+        screeningDate:
+          type: string
+          format: date
+          description: Date of screening
+        result:
+          type: string
+          description: Screening outcome
+          enum:
+          - CLEAR
+          - MATCH
+          - POTENTIAL_MATCH
+        blockingCode:
+          type: string
+          description: Applied blocking code if any
+    Beneficiary:
+      type: object
+      description: Payment beneficiary
+      properties:
+        beneficiaryId:
+          type: string
+          description: Unique beneficiary identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        beneficiaryName:
+          type: string
+          description: Beneficiary display name
+        accountNumber:
+          type: string
+          description: Beneficiary account number
+        iban:
+          type: string
+          description: Beneficiary IBAN
+        bic:
+          type: string
+          description: Beneficiary bank BIC/SWIFT code
+        bankName:
+          type: string
+          description: Beneficiary bank name
+        country:
+          type: string
+          description: Beneficiary country code
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
     Address:
       type: object
       description: Physical address
@@ -538,85 +605,6 @@ components:
         country:
           type: string
           description: ISO 3166-1 alpha-2 country code
-    Error_2:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field related to the error
-              message:
-                type: string
-                description: Detail message
-    CustomerCreate:
-      type: object
-      description: Request body for creating a customer
-      required:
-      - customerType
-      - lastName
-      properties:
-        customerType:
-          type: string
-          description: Customer classification
-          enum:
-          - INDIVIDUAL
-          - CORPORATE
-        title:
-          type: string
-          description: Customer title
-        firstName:
-          type: string
-          description: First name
-        lastName:
-          type: string
-          description: Last name or company name
-        dateOfBirth:
-          type: string
-          format: date
-          description: Date of birth
-        nationality:
-          type: string
-          description: ISO 3166-1 alpha-2 nationality code
-    Beneficiary:
-      type: object
-      description: Payment beneficiary
-      properties:
-        beneficiaryId:
-          type: string
-          description: Unique beneficiary identifier
-        customerId:
-          type: string
-          description: Associated customer identifier
-        beneficiaryName:
-          type: string
-          description: Beneficiary display name
-        accountNumber:
-          type: string
-          description: Beneficiary account number
-        iban:
-          type: string
-          description: Beneficiary IBAN
-        bic:
-          type: string
-          description: Beneficiary bank BIC/SWIFT code
-        bankName:
-          type: string
-          description: Beneficiary bank name
-        country:
-          type: string
-          description: Beneficiary country code
     Customer:
       type: object
       description: Customer record
@@ -699,6 +687,35 @@ components:
         total_size:
           type: integer
           description: Total number of records available
+    CustomerCreate:
+      type: object
+      description: Request body for creating a customer
+      required:
+      - customerType
+      - lastName
+      properties:
+        customerType:
+          type: string
+          description: Customer classification
+          enum:
+          - INDIVIDUAL
+          - CORPORATE
+        title:
+          type: string
+          description: Customer title
+        firstName:
+          type: string
+          description: First name
+        lastName:
+          type: string
+          description: Last name or company name
+        dateOfBirth:
+          type: string
+          format: date
+          description: Date of birth
+        nationality:
+          type: string
+          description: ISO 3166-1 alpha-2 nationality code
     Error_3:
       type: object
       description: Error response
@@ -755,48 +772,31 @@ components:
         total_size:
           type: integer
           description: Total records
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Unique customer identifier
-      schema:
-        type: string
-    pageStart_2:
-      name: page_start
-      in: query
-      description: Starting record number
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize_2:
-      name: page_size
-      in: query
-      description: Number of records per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
   securitySchemes:
     bearerAuth:
       type: http

@@ -103,25 +103,31 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    batchId:
+      name: batchId
+      in: path
+      required: true
+      description: Unique bulk payment batch identifier
+      schema:
+        type: string
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   schemas:
     Error:
       type: object
@@ -133,48 +139,6 @@ components:
         errorMessage:
           type: string
           description: Human-readable error description
-    BulkPaymentCreate:
-      type: object
-      description: Request body for creating a bulk payment batch
-      required:
-      - debitAccountId
-      - currency
-      - payments
-      properties:
-        debitAccountId:
-          type: string
-          description: Common debit account
-        currency:
-          type: string
-          description: Batch currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        valueDate:
-          type: string
-          format: date
-          description: Common value date for all payments
-        payments:
-          type: array
-          description: Individual payment instructions
-          minItems: 1
-          items:
-            type: object
-            required:
-            - beneficiaryName
-            - amount
-            properties:
-              beneficiaryName:
-                type: string
-                description: Beneficiary name
-              beneficiaryIban:
-                type: string
-                description: Beneficiary IBAN
-              amount:
-                type: number
-                format: double
-                description: Payment amount
-              reference:
-                type: string
-                description: Payment reference
     BulkPayment:
       type: object
       description: Bulk payment batch
@@ -221,31 +185,67 @@ components:
         total_size:
           type: integer
           description: Total number of records available
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    batchId:
-      name: batchId
-      in: path
-      required: true
-      description: Unique bulk payment batch identifier
-      schema:
-        type: string
+    BulkPaymentCreate:
+      type: object
+      description: Request body for creating a bulk payment batch
+      required:
+      - debitAccountId
+      - currency
+      - payments
+      properties:
+        debitAccountId:
+          type: string
+          description: Common debit account
+        currency:
+          type: string
+          description: Batch currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        valueDate:
+          type: string
+          format: date
+          description: Common value date for all payments
+        payments:
+          type: array
+          description: Individual payment instructions
+          minItems: 1
+          items:
+            type: object
+            required:
+            - beneficiaryName
+            - amount
+            properties:
+              beneficiaryName:
+                type: string
+                description: Beneficiary name
+              beneficiaryIban:
+                type: string
+                description: Beneficiary IBAN
+              amount:
+                type: number
+                format: double
+                description: Payment amount
+              reference:
+                type: string
+                description: Payment reference
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

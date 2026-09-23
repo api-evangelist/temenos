@@ -94,26 +94,27 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    FeeDetail:
+      type: object
+      description: Fee detail
+      properties:
+        feeType:
+          type: string
+          description: Fee type
+        description:
+          type: string
+          description: Fee description
+        amount:
+          type: number
+          format: double
+          description: Fee amount
+        currency:
+          type: string
+          description: Fee currency
+        frequency:
+          type: string
+          description: Fee frequency
     Error:
       type: object
       description: Error response
@@ -150,80 +151,6 @@ components:
         currency:
           type: string
           description: Event currency
-    InterestRateDetail:
-      type: object
-      description: Individual interest rate detail
-      properties:
-        rateType:
-          type: string
-          description: Rate type
-          enum:
-          - FIXED
-          - VARIABLE
-          - PROMOTIONAL
-        baseRate:
-          type: number
-          format: double
-          description: Base rate percentage
-        benefit:
-          type: number
-          format: double
-          description: Benefit adjustment
-        netRate:
-          type: number
-          format: double
-          description: Effective net rate
-        effectiveDate:
-          type: string
-          format: date
-          description: Rate effective date
-    FeeDetail:
-      type: object
-      description: Fee detail
-      properties:
-        feeType:
-          type: string
-          description: Fee type
-        description:
-          type: string
-          description: Fee description
-        amount:
-          type: number
-          format: double
-          description: Fee amount
-        currency:
-          type: string
-          description: Fee currency
-        frequency:
-          type: string
-          description: Fee frequency
-    QuotationSimulateRequest:
-      type: object
-      description: Arrangement creation simulation request
-      required:
-      - productId
-      - currency
-      properties:
-        productId:
-          type: string
-          description: Product identifier to simulate
-        customerId:
-          type: string
-          description: Customer identifier for personalized pricing
-        currency:
-          type: string
-          description: Arrangement currency
-          pattern: ^[A-Z]{3}$
-        amount:
-          type: number
-          format: double
-          description: Initial amount
-        term:
-          type: integer
-          description: Arrangement term in months
-        quotationReference:
-          type: string
-          description: User-defined quotation reference
     QuotationResult:
       type: object
       description: Quotation pricing result
@@ -260,6 +187,79 @@ components:
         negotiated:
           type: boolean
           description: Whether pricing has been negotiated
+    InterestRateDetail:
+      type: object
+      description: Individual interest rate detail
+      properties:
+        rateType:
+          type: string
+          description: Rate type
+          enum:
+          - FIXED
+          - VARIABLE
+          - PROMOTIONAL
+        baseRate:
+          type: number
+          format: double
+          description: Base rate percentage
+        benefit:
+          type: number
+          format: double
+          description: Benefit adjustment
+        netRate:
+          type: number
+          format: double
+          description: Effective net rate
+        effectiveDate:
+          type: string
+          format: date
+          description: Rate effective date
+    QuotationSimulateRequest:
+      type: object
+      description: Arrangement creation simulation request
+      required:
+      - productId
+      - currency
+      properties:
+        productId:
+          type: string
+          description: Product identifier to simulate
+        customerId:
+          type: string
+          description: Customer identifier for personalized pricing
+        currency:
+          type: string
+          description: Arrangement currency
+          pattern: ^[A-Z]{3}$
+        amount:
+          type: number
+          format: double
+          description: Initial amount
+        term:
+          type: integer
+          description: Arrangement term in months
+        quotationReference:
+          type: string
+          description: User-defined quotation reference
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

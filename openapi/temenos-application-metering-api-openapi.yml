@@ -59,6 +59,24 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   schemas:
     Error:
       type: object
@@ -70,6 +88,16 @@ components:
         errorMessage:
           type: string
           description: Error description
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
     MeteringRecord:
       type: object
       description: API usage metering record
@@ -90,16 +118,6 @@ components:
           type: string
           format: date
           description: Metering date
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-        page_start:
-          type: integer
-        total_size:
-          type: integer
   responses:
     Unauthorized:
       description: Authentication required
@@ -107,24 +125,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      description: Records per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
   securitySchemes:
     bearerAuth:
       type: http

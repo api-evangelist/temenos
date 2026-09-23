@@ -82,45 +82,7 @@ paths:
     - url: https://sandbox.temenos.com/infinity/v1
       description: Temenos Infinity API - Sandbox
 components:
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest_2:
-      description: Invalid request parameters or payload
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    Unauthorized_2:
-      description: Authentication credentials missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
   schemas:
-    Error:
-      type: object
-      properties:
-        errorCode:
-          type: string
-        errorMessage:
-          type: string
     CmbPayment:
       type: object
       description: Payment record
@@ -141,6 +103,13 @@ components:
         status:
           type: string
           description: Payment status
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
     CmbPaymentCreate:
       type: object
       required:
@@ -190,6 +159,38 @@ components:
                 type: string
                 description: Detail of the error
           description: Additional error details
+    PaymentResponse:
+      type: object
+      description: Payment status and details
+      properties:
+        paymentId:
+          type: string
+          description: Unique payment identifier
+        status:
+          type: string
+          description: Current payment status
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+          - CANCELLED
+        debitAccountId:
+          type: string
+          description: Source account identifier
+        creditAccountId:
+          type: string
+          description: Destination account identifier
+        amount:
+          type: number
+          description: Payment amount
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        createdDate:
+          type: string
+          format: date-time
+          description: Timestamp when the payment was created
     PaymentRequest:
       type: object
       description: Payment initiation request
@@ -225,38 +226,37 @@ components:
           type: string
           description: Payment reference or description
           maxLength: 140
-    PaymentResponse:
-      type: object
-      description: Payment status and details
-      properties:
-        paymentId:
-          type: string
-          description: Unique payment identifier
-        status:
-          type: string
-          description: Current payment status
-          enum:
-          - PENDING
-          - PROCESSING
-          - COMPLETED
-          - FAILED
-          - CANCELLED
-        debitAccountId:
-          type: string
-          description: Source account identifier
-        creditAccountId:
-          type: string
-          description: Destination account identifier
-        amount:
-          type: number
-          description: Payment amount
-        currency:
-          type: string
-          description: ISO 4217 currency code
-        createdDate:
-          type: string
-          format: date-time
-          description: Timestamp when the payment was created
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest_2:
+      description: Invalid request parameters or payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    Unauthorized_2:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   securitySchemes:
     bearerAuth:
       type: http

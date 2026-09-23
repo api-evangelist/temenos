@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Temenos Enterprise Product and Pricing Pricing Adjustment API
+  title: Temenos Enterprise Product and Pricing Pricing Adjustment…
   description: APIs for product pricing, quotation simulation, package arrangements, pricing adjustments, transparency details, and promotions management for banking products and services. Enables simulation of account creation and transaction events to determine applicable pricing details including interest rates, fees, and cashback. Supports pricing negotiation through quotation references and manual adjustment workflows.
   version: 1.0.0
   contact:
@@ -54,26 +54,27 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    FeeDetail:
+      type: object
+      description: Fee detail
+      properties:
+        feeType:
+          type: string
+          description: Fee type
+        description:
+          type: string
+          description: Fee description
+        amount:
+          type: number
+          format: double
+          description: Fee amount
+        currency:
+          type: string
+          description: Fee currency
+        frequency:
+          type: string
+          description: Fee frequency
     Error:
       type: object
       description: Error response
@@ -109,53 +110,6 @@ components:
           type: string
           format: date
           description: Expiry date for the adjustment
-    InterestRateDetail:
-      type: object
-      description: Individual interest rate detail
-      properties:
-        rateType:
-          type: string
-          description: Rate type
-          enum:
-          - FIXED
-          - VARIABLE
-          - PROMOTIONAL
-        baseRate:
-          type: number
-          format: double
-          description: Base rate percentage
-        benefit:
-          type: number
-          format: double
-          description: Benefit adjustment
-        netRate:
-          type: number
-          format: double
-          description: Effective net rate
-        effectiveDate:
-          type: string
-          format: date
-          description: Rate effective date
-    FeeDetail:
-      type: object
-      description: Fee detail
-      properties:
-        feeType:
-          type: string
-          description: Fee type
-        description:
-          type: string
-          description: Fee description
-        amount:
-          type: number
-          format: double
-          description: Fee amount
-        currency:
-          type: string
-          description: Fee currency
-        frequency:
-          type: string
-          description: Fee frequency
     QuotationResult:
       type: object
       description: Quotation pricing result
@@ -192,6 +146,52 @@ components:
         negotiated:
           type: boolean
           description: Whether pricing has been negotiated
+    InterestRateDetail:
+      type: object
+      description: Individual interest rate detail
+      properties:
+        rateType:
+          type: string
+          description: Rate type
+          enum:
+          - FIXED
+          - VARIABLE
+          - PROMOTIONAL
+        baseRate:
+          type: number
+          format: double
+          description: Base rate percentage
+        benefit:
+          type: number
+          format: double
+          description: Benefit adjustment
+        netRate:
+          type: number
+          format: double
+          description: Effective net rate
+        effectiveDate:
+          type: string
+          format: date
+          description: Rate effective date
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

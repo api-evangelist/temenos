@@ -45,16 +45,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
     PaymentRoute:
       type: object
       description: Payment routing configuration
@@ -74,6 +64,16 @@ components:
         status:
           type: string
           description: Route configuration status
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
   responses:
     Unauthorized:
       description: Authentication required or invalid credentials

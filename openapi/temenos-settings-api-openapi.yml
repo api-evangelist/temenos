@@ -44,7 +44,30 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Configuration:
+      type: object
+      description: System configuration setting
+      properties:
+        configurationId:
+          type: string
+          description: Configuration identifier
+        configurationGroup:
+          type: string
+          description: Configuration category group
+        key:
+          type: string
+          description: Configuration key
+        value:
+          type: string
+          description: Configuration value
     Error:
       type: object
       description: Error response
@@ -67,29 +90,6 @@ components:
               message:
                 type: string
                 description: Detail message
-    Configuration:
-      type: object
-      description: System configuration setting
-      properties:
-        configurationId:
-          type: string
-          description: Configuration identifier
-        configurationGroup:
-          type: string
-          description: Configuration category group
-        key:
-          type: string
-          description: Configuration key
-        value:
-          type: string
-          description: Configuration value
-  responses:
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

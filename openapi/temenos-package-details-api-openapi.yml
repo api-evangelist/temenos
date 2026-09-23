@@ -100,87 +100,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-    InterestRateDetail:
-      type: object
-      description: Individual interest rate detail
-      properties:
-        rateType:
-          type: string
-          description: Rate type
-          enum:
-          - FIXED
-          - VARIABLE
-          - PROMOTIONAL
-        baseRate:
-          type: number
-          format: double
-          description: Base rate percentage
-        benefit:
-          type: number
-          format: double
-          description: Benefit adjustment
-        netRate:
-          type: number
-          format: double
-          description: Effective net rate
-        effectiveDate:
-          type: string
-          format: date
-          description: Rate effective date
-    Package:
-      type: object
-      description: Package arrangement
-      properties:
-        packageId:
-          type: string
-          description: Package identifier
-        customerId:
-          type: string
-          description: Customer identifier
-        packageName:
-          type: string
-          description: Package name
-        primaryAccountId:
-          type: string
-          description: Primary account
-        linkedAccounts:
-          type: array
-          description: Linked account identifiers
-          items:
-            type: string
-        status:
-          type: string
-          description: Package status
     FeeDetail:
       type: object
       description: Fee detail
@@ -201,6 +139,16 @@ components:
         frequency:
           type: string
           description: Fee frequency
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
     PackageCreate:
       type: object
       description: Package creation request
@@ -222,19 +170,6 @@ components:
           description: Accounts to link
           items:
             type: string
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record
-        total_size:
-          type: integer
-          description: Total records
     PackagePricing:
       type: object
       description: Package pricing details
@@ -276,24 +211,89 @@ components:
                 type: number
                 format: double
                 description: Benefit value
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      description: Records per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
+    Package:
+      type: object
+      description: Package arrangement
+      properties:
+        packageId:
+          type: string
+          description: Package identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        packageName:
+          type: string
+          description: Package name
+        primaryAccountId:
+          type: string
+          description: Primary account
+        linkedAccounts:
+          type: array
+          description: Linked account identifiers
+          items:
+            type: string
+        status:
+          type: string
+          description: Package status
+    InterestRateDetail:
+      type: object
+      description: Individual interest rate detail
+      properties:
+        rateType:
+          type: string
+          description: Rate type
+          enum:
+          - FIXED
+          - VARIABLE
+          - PROMOTIONAL
+        baseRate:
+          type: number
+          format: double
+          description: Base rate percentage
+        benefit:
+          type: number
+          format: double
+          description: Benefit adjustment
+        netRate:
+          type: number
+          format: double
+          description: Effective net rate
+        effectiveDate:
+          type: string
+          format: date
+          description: Rate effective date
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

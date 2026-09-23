@@ -73,6 +73,22 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   schemas:
     Error:
       type: object
@@ -81,36 +97,6 @@ components:
           type: string
         errorMessage:
           type: string
-    Guarantee:
-      type: object
-      description: Bank guarantee
-      properties:
-        guaranteeId:
-          type: string
-          description: Guarantee identifier
-        guaranteeType:
-          type: string
-          description: Guarantee type
-        applicant:
-          type: string
-          description: Applicant
-        beneficiary:
-          type: string
-          description: Beneficiary
-        amount:
-          type: number
-          format: double
-          description: Guarantee amount
-        currency:
-          type: string
-          description: Currency
-        expiryDate:
-          type: string
-          format: date
-          description: Expiry date
-        status:
-          type: string
-          description: Guarantee status
     LetterOfCredit:
       type: object
       description: Letter of credit
@@ -154,6 +140,36 @@ components:
           type: integer
         total_size:
           type: integer
+    Guarantee:
+      type: object
+      description: Bank guarantee
+      properties:
+        guaranteeId:
+          type: string
+          description: Guarantee identifier
+        guaranteeType:
+          type: string
+          description: Guarantee type
+        applicant:
+          type: string
+          description: Applicant
+        beneficiary:
+          type: string
+          description: Beneficiary
+        amount:
+          type: number
+          format: double
+          description: Guarantee amount
+        currency:
+          type: string
+          description: Currency
+        expiryDate:
+          type: string
+          format: date
+          description: Expiry date
+        status:
+          type: string
+          description: Guarantee status
   responses:
     Unauthorized:
       description: Authentication required
@@ -161,22 +177,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
   securitySchemes:
     bearerAuth:
       type: http

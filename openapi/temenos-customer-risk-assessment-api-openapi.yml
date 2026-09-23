@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Temenos Financial Crime Mitigation Customer Risk Assessment API
+  title: Temenos Financial Crime Mitigation Customer Risk Assessment…
   description: API for anti-money laundering, fraud detection, and compliance including KYC risk scoring, sanctions screening, PEP matching, transaction monitoring, and alert management. Used by over 300 banks globally for comprehensive financial crime prevention covering watchlist screening, customer risk assessment, and regulatory compliance reporting.
   version: 1.0.0
   contact:
@@ -85,25 +85,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -197,6 +178,25 @@ components:
       description: Unique customer identifier
       schema:
         type: string
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

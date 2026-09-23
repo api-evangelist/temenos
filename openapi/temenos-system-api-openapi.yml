@@ -40,6 +40,23 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    SystemStatus:
+      type: object
+      description: System status information
+      properties:
+        status:
+          type: string
+          description: Current system operational status
+          enum:
+          - OPERATIONAL
+          - DEGRADED
+          - MAINTENANCE
+        version:
+          type: string
+          description: System version
+        uptime:
+          type: string
+          description: System uptime duration
     Error:
       type: object
       description: Error response
@@ -62,23 +79,6 @@ components:
               message:
                 type: string
                 description: Detail message
-    SystemStatus:
-      type: object
-      description: System status information
-      properties:
-        status:
-          type: string
-          description: Current system operational status
-          enum:
-          - OPERATIONAL
-          - DEGRADED
-          - MAINTENANCE
-        version:
-          type: string
-          description: System version
-        uptime:
-          type: string
-          description: System uptime duration
   responses:
     Unauthorized:
       description: Authentication required or invalid credentials

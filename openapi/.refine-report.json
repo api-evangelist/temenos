@@ -98,7 +98,8 @@
     "tag 'Party' spans 3 source specs (temenos-fund-administration-openapi.yml, temenos-transact-openapi.yml, temenos-wealth-openapi.yml): per-path servers applied",
     "tag 'Product' spans 2 source specs (temenos-fund-administration-openapi.yml, temenos-transact-openapi.yml): per-path servers applied",
     "tag 'Reference' spans 3 source specs (temenos-fund-administration-openapi.yml, temenos-transact-openapi.yml, temenos-wealth-openapi.yml): per-path servers applied",
-    "tag 'Transactions' spans 2 source specs (temenos-infinity-openapi.yml, temenos-journey-manager-openapi.yml): per-path servers applied"
+    "tag 'Transactions' spans 2 source specs (temenos-infinity-openapi.yml, temenos-journey-manager-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "temenos-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",

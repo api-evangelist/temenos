@@ -101,19 +101,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -147,35 +134,6 @@ components:
           type: string
           format: date-time
           description: Start timestamp
-    OrchestrationCreate:
-      type: object
-      description: Orchestration creation request
-      required:
-      - name
-      - steps
-      properties:
-        name:
-          type: string
-          description: Orchestration name
-        description:
-          type: string
-          description: Orchestration description
-        steps:
-          type: array
-          description: Orchestration steps
-          items:
-            type: object
-            required:
-            - stepOrder
-            - serviceName
-            - operationId
-            properties:
-              stepOrder:
-                type: integer
-              serviceName:
-                type: string
-              operationId:
-                type: string
     Orchestration:
       type: object
       description: Service orchestration sequence
@@ -207,6 +165,48 @@ components:
         status:
           type: string
           description: Orchestration status
+    OrchestrationCreate:
+      type: object
+      description: Orchestration creation request
+      required:
+      - name
+      - steps
+      properties:
+        name:
+          type: string
+          description: Orchestration name
+        description:
+          type: string
+          description: Orchestration description
+        steps:
+          type: array
+          description: Orchestration steps
+          items:
+            type: object
+            required:
+            - stepOrder
+            - serviceName
+            - operationId
+            properties:
+              stepOrder:
+                type: integer
+              serviceName:
+                type: string
+              operationId:
+                type: string
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
