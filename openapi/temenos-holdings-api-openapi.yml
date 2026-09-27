@@ -599,55 +599,6 @@ paths:
     - url: https://api.temenos.com/wealth/v1
       description: Temenos Wealth API - Production
 components:
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      description: Unique account identifier
-      schema:
-        type: string
-    pageStart_2:
-      name: page_start
-      in: query
-      description: Starting record number
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize_2:
-      name: page_size
-      in: query
-      description: Number of records per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    portfolioId:
-      name: portfolioId
-      in: path
-      required: true
-      description: Unique portfolio identifier
-      schema:
-        type: string
   schemas:
     Error:
       type: object
@@ -659,6 +610,49 @@ components:
         errorMessage:
           type: string
           description: Human-readable error description
+    DividendBooking:
+      type: object
+      description: Dividend booking request
+      required:
+      - fundId
+      - securityId
+      - amount
+      - currency
+      properties:
+        fundId:
+          type: string
+          description: Fund identifier
+        securityId:
+          type: string
+          description: Security identifier
+        amount:
+          type: number
+          format: double
+          description: Dividend amount
+        currency:
+          type: string
+          description: Currency code
+        exDate:
+          type: string
+          format: date
+          description: Ex-dividend date
+        paymentDate:
+          type: string
+          format: date
+          description: Payment date
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total records available
     Position:
       type: object
       description: Fund investment position
@@ -698,49 +692,6 @@ components:
           type: string
           format: date
           description: Valuation date
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total records available
-    DividendBooking:
-      type: object
-      description: Dividend booking request
-      required:
-      - fundId
-      - securityId
-      - amount
-      - currency
-      properties:
-        fundId:
-          type: string
-          description: Fund identifier
-        securityId:
-          type: string
-          description: Security identifier
-        amount:
-          type: number
-          format: double
-          description: Dividend amount
-        currency:
-          type: string
-          description: Currency code
-        exDate:
-          type: string
-          format: date
-          description: Ex-dividend date
-        paymentDate:
-          type: string
-          format: date
-          description: Payment date
     SecurityTransaction:
       type: object
       description: Securities transaction record
@@ -789,6 +740,62 @@ components:
           type: string
           format: date
           description: Settlement date
+    AccountCreate:
+      type: object
+      description: Request body for creating a new account
+      required:
+      - customerId
+      - productId
+      - currency
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier for the account holder
+        productId:
+          type: string
+          description: Product identifier defining account type and terms
+        currency:
+          type: string
+          description: Account currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        accountName:
+          type: string
+          description: Optional display name for the account
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
+    AccountUpdate:
+      type: object
+      description: Request body for updating an account
+      properties:
+        accountName:
+          type: string
+          description: Updated display name
+        status:
+          type: string
+          description: Updated account status
+          enum:
+          - ACTIVE
+          - INACTIVE
     Deposit:
       type: object
       description: Deposit arrangement
@@ -824,28 +831,98 @@ components:
         status:
           type: string
           description: Current deposit status
-    Error_2:
+    PaginationHeader_2:
       type: object
-      description: Error response
+      description: Pagination metadata for list responses
       properties:
-        errorCode:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    Loan:
+      type: object
+      description: Loan arrangement
+      properties:
+        loanId:
           type: string
-          description: Machine-readable error code
-        errorMessage:
+          description: Unique loan identifier
+        customerId:
           type: string
-          description: Human-readable error description
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field related to the error
-              message:
-                type: string
-                description: Detail message
+          description: Associated customer identifier
+        loanType:
+          type: string
+          description: Type of loan
+        currency:
+          type: string
+          description: Loan currency in ISO 4217 format
+        principalAmount:
+          type: number
+          format: double
+          description: Original loan principal amount
+        outstandingBalance:
+          type: number
+          format: double
+          description: Current outstanding balance
+        interestRate:
+          type: number
+          format: double
+          description: Applied interest rate
+        term:
+          type: integer
+          description: Loan term in months
+        startDate:
+          type: string
+          format: date
+          description: Loan start date
+        maturityDate:
+          type: string
+          format: date
+          description: Loan maturity date
+        repaymentFrequency:
+          type: string
+          description: Frequency of repayments
+          enum:
+          - MONTHLY
+          - QUARTERLY
+          - SEMI_ANNUAL
+          - ANNUAL
+        status:
+          type: string
+          description: Current loan status
+    LoanCreate:
+      type: object
+      description: Request body for creating a new loan
+      required:
+      - customerId
+      - productId
+      - currency
+      - principalAmount
+      - term
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier for the borrower
+        productId:
+          type: string
+          description: Loan product identifier
+        currency:
+          type: string
+          description: Loan currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        principalAmount:
+          type: number
+          format: double
+          description: Requested loan amount
+          minimum: 0
+        term:
+          type: integer
+          description: Loan term in months
+          minimum: 1
     AccountBalance:
       type: object
       description: Account balance details
@@ -920,132 +997,6 @@ components:
           type: number
           format: double
           description: Available balance for transactions
-    AccountCreate:
-      type: object
-      description: Request body for creating a new account
-      required:
-      - customerId
-      - productId
-      - currency
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier for the account holder
-        productId:
-          type: string
-          description: Product identifier defining account type and terms
-        currency:
-          type: string
-          description: Account currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        accountName:
-          type: string
-          description: Optional display name for the account
-    AccountUpdate:
-      type: object
-      description: Request body for updating an account
-      properties:
-        accountName:
-          type: string
-          description: Updated display name
-        status:
-          type: string
-          description: Updated account status
-          enum:
-          - ACTIVE
-          - INACTIVE
-    PaginationHeader_2:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-    LoanCreate:
-      type: object
-      description: Request body for creating a new loan
-      required:
-      - customerId
-      - productId
-      - currency
-      - principalAmount
-      - term
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier for the borrower
-        productId:
-          type: string
-          description: Loan product identifier
-        currency:
-          type: string
-          description: Loan currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        principalAmount:
-          type: number
-          format: double
-          description: Requested loan amount
-          minimum: 0
-        term:
-          type: integer
-          description: Loan term in months
-          minimum: 1
-    Loan:
-      type: object
-      description: Loan arrangement
-      properties:
-        loanId:
-          type: string
-          description: Unique loan identifier
-        customerId:
-          type: string
-          description: Associated customer identifier
-        loanType:
-          type: string
-          description: Type of loan
-        currency:
-          type: string
-          description: Loan currency in ISO 4217 format
-        principalAmount:
-          type: number
-          format: double
-          description: Original loan principal amount
-        outstandingBalance:
-          type: number
-          format: double
-          description: Current outstanding balance
-        interestRate:
-          type: number
-          format: double
-          description: Applied interest rate
-        term:
-          type: integer
-          description: Loan term in months
-        startDate:
-          type: string
-          format: date
-          description: Loan start date
-        maturityDate:
-          type: string
-          format: date
-          description: Loan maturity date
-        repaymentFrequency:
-          type: string
-          description: Frequency of repayments
-          enum:
-          - MONTHLY
-          - QUARTERLY
-          - SEMI_ANNUAL
-          - ANNUAL
-        status:
-          type: string
-          description: Current loan status
     Transaction:
       type: object
       description: Account transaction record
@@ -1086,59 +1037,6 @@ components:
         reference:
           type: string
           description: Transaction reference number
-    Portfolio:
-      type: object
-      description: Investment portfolio
-      properties:
-        portfolioId:
-          type: string
-          description: Unique portfolio identifier
-        customerId:
-          type: string
-          description: Associated customer
-        portfolioName:
-          type: string
-          description: Portfolio display name
-        currency:
-          type: string
-          description: Portfolio base currency
-        mandateType:
-          type: string
-          description: Investment mandate type
-          enum:
-          - DISCRETIONARY
-          - ADVISORY
-          - EXECUTION_ONLY
-        riskProfile:
-          type: string
-          description: Client risk profile
-          enum:
-          - CONSERVATIVE
-          - MODERATE
-          - BALANCED
-          - GROWTH
-          - AGGRESSIVE
-        benchmarkId:
-          type: string
-          description: Assigned benchmark identifier
-        totalValue:
-          type: number
-          format: double
-          description: Total portfolio market value
-        advisorId:
-          type: string
-          description: Assigned advisor identifier
-        openDate:
-          type: string
-          format: date
-          description: Portfolio opening date
-        status:
-          type: string
-          description: Portfolio status
-          enum:
-          - ACTIVE
-          - CLOSED
-          - SUSPENDED
     Error_3:
       type: object
       description: Error response
@@ -1149,6 +1047,62 @@ components:
         errorMessage:
           type: string
           description: Error description
+    PortfolioValuation:
+      type: object
+      description: Portfolio valuation summary
+      properties:
+        portfolioId:
+          type: string
+          description: Portfolio identifier
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date
+        totalMarketValue:
+          type: number
+          format: double
+          description: Total market value
+        totalCost:
+          type: number
+          format: double
+          description: Total cost basis
+        unrealizedPnL:
+          type: number
+          format: double
+          description: Total unrealized P&L
+        currency:
+          type: string
+          description: Valuation currency
+        assetAllocation:
+          type: array
+          description: Asset allocation breakdown
+          items:
+            type: object
+            properties:
+              assetClass:
+                type: string
+                description: Asset class name
+              marketValue:
+                type: number
+                format: double
+                description: Market value in asset class
+              weight:
+                type: number
+                format: double
+                description: Percentage weight
+    PaginationHeader_3:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
     PortfolioCreate:
       type: object
       description: Portfolio creation request
@@ -1242,62 +1196,59 @@ components:
           type: number
           format: double
           description: Position weight in portfolio as percentage
-    PortfolioValuation:
+    Portfolio:
       type: object
-      description: Portfolio valuation summary
+      description: Investment portfolio
       properties:
         portfolioId:
           type: string
-          description: Portfolio identifier
-        valuationDate:
+          description: Unique portfolio identifier
+        customerId:
           type: string
-          format: date
-          description: Valuation date
-        totalMarketValue:
-          type: number
-          format: double
-          description: Total market value
-        totalCost:
-          type: number
-          format: double
-          description: Total cost basis
-        unrealizedPnL:
-          type: number
-          format: double
-          description: Total unrealized P&L
+          description: Associated customer
+        portfolioName:
+          type: string
+          description: Portfolio display name
         currency:
           type: string
-          description: Valuation currency
-        assetAllocation:
-          type: array
-          description: Asset allocation breakdown
-          items:
-            type: object
-            properties:
-              assetClass:
-                type: string
-                description: Asset class name
-              marketValue:
-                type: number
-                format: double
-                description: Market value in asset class
-              weight:
-                type: number
-                format: double
-                description: Percentage weight
-    PaginationHeader_3:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record
-        total_size:
-          type: integer
-          description: Total records
+          description: Portfolio base currency
+        mandateType:
+          type: string
+          description: Investment mandate type
+          enum:
+          - DISCRETIONARY
+          - ADVISORY
+          - EXECUTION_ONLY
+        riskProfile:
+          type: string
+          description: Client risk profile
+          enum:
+          - CONSERVATIVE
+          - MODERATE
+          - BALANCED
+          - GROWTH
+          - AGGRESSIVE
+        benchmarkId:
+          type: string
+          description: Assigned benchmark identifier
+        totalValue:
+          type: number
+          format: double
+          description: Total portfolio market value
+        advisorId:
+          type: string
+          description: Assigned advisor identifier
+        openDate:
+          type: string
+          format: date
+          description: Portfolio opening date
+        status:
+          type: string
+          description: Portfolio status
+          enum:
+          - ACTIVE
+          - CLOSED
+          - SUSPENDED
   responses:
     BadRequest:
       description: Invalid request parameters
@@ -1329,6 +1280,55 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error_3'
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+    portfolioId:
+      name: portfolioId
+      in: path
+      required: true
+      description: Unique portfolio identifier
+      schema:
+        type: string
+    pageSize_2:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart_2:
+      name: page_start
+      in: query
+      description: Starting record number
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   securitySchemes:
     bearerAuth:
       type: http

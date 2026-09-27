@@ -114,46 +114,6 @@ paths:
     - url: https://journey.temenos.com/api/v1
       description: Temenos Journey Manager API - Production
 components:
-  parameters:
-    pageStart:
-      name: pageStart
-      in: query
-      description: Pagination offset token or page number
-      schema:
-        type: string
-    pageSize:
-      name: pageSize
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        default: 25
-        minimum: 1
-        maximum: 100
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      description: Unique account identifier
-      schema:
-        type: string
-    pageStart_2:
-      name: page_start
-      in: query
-      description: Starting record
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize_2:
-      name: page_size
-      in: query
-      description: Records per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
   schemas:
     Error:
       type: object
@@ -239,6 +199,16 @@ components:
         errorMessage:
           type: string
           description: Error description
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
     JourneyTransaction:
       type: object
       description: Customer journey transaction
@@ -271,16 +241,46 @@ components:
           type: string
           format: date-time
           description: Last activity timestamp
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-        page_start:
-          type: integer
-        total_size:
-          type: integer
+  parameters:
+    pageSize:
+      name: pageSize
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        default: 25
+        minimum: 1
+        maximum: 100
+    pageStart:
+      name: pageStart
+      in: query
+      description: Pagination offset token or page number
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+    pageSize_2:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart_2:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   responses:
     NotFound:
       description: Requested resource not found

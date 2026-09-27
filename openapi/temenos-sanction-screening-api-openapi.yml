@@ -141,14 +141,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
     customerId:
       name: customerId
       in: path
@@ -165,6 +157,14 @@ components:
         minimum: 1
         maximum: 100
         default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   schemas:
     Error:
       type: object
@@ -176,6 +176,94 @@ components:
         errorMessage:
           type: string
           description: Error description
+    OnboardingScreenRequest:
+      type: object
+      description: Onboarding screening request
+      required:
+      - name
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier if available
+        name:
+          type: string
+          description: Full name to screen
+        dateOfBirth:
+          type: string
+          format: date
+          description: Date of birth
+        nationality:
+          type: string
+          description: Nationality code
+        address:
+          type: string
+          description: Address information
+        idDocument:
+          type: string
+          description: Identity document number
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
+    SanctionAlert:
+      type: object
+      description: Sanctions screening alert
+      properties:
+        alertId:
+          type: string
+          description: Unique alert identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        matchType:
+          type: string
+          description: Type of screening match
+          enum:
+          - SANCTIONS
+          - PEP
+          - ADVERSE_MEDIA
+          - WATCHLIST
+        matchScore:
+          type: number
+          format: double
+          description: Match confidence score
+          minimum: 0
+          maximum: 100
+        matchedEntity:
+          type: string
+          description: Name of matched entity on list
+        listSource:
+          type: string
+          description: Source list for the match
+        severity:
+          type: string
+          description: Alert severity
+          enum:
+          - HIGH
+          - MEDIUM
+          - LOW
+        status:
+          type: string
+          description: Alert status
+          enum:
+          - OPEN
+          - UNDER_REVIEW
+          - ESCALATED
+          - CLOSED_TRUE_MATCH
+          - CLOSED_FALSE_POSITIVE
+        createdDate:
+          type: string
+          format: date-time
+          description: Alert creation timestamp
     TransactionScanRequest:
       type: object
       description: Transaction message scan request
@@ -229,94 +317,6 @@ components:
           description: Found matches
           items:
             $ref: '#/components/schemas/SanctionAlert'
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record
-        total_size:
-          type: integer
-          description: Total records
-    OnboardingScreenRequest:
-      type: object
-      description: Onboarding screening request
-      required:
-      - name
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier if available
-        name:
-          type: string
-          description: Full name to screen
-        dateOfBirth:
-          type: string
-          format: date
-          description: Date of birth
-        nationality:
-          type: string
-          description: Nationality code
-        address:
-          type: string
-          description: Address information
-        idDocument:
-          type: string
-          description: Identity document number
-    SanctionAlert:
-      type: object
-      description: Sanctions screening alert
-      properties:
-        alertId:
-          type: string
-          description: Unique alert identifier
-        customerId:
-          type: string
-          description: Associated customer identifier
-        matchType:
-          type: string
-          description: Type of screening match
-          enum:
-          - SANCTIONS
-          - PEP
-          - ADVERSE_MEDIA
-          - WATCHLIST
-        matchScore:
-          type: number
-          format: double
-          description: Match confidence score
-          minimum: 0
-          maximum: 100
-        matchedEntity:
-          type: string
-          description: Name of matched entity on list
-        listSource:
-          type: string
-          description: Source list for the match
-        severity:
-          type: string
-          description: Alert severity
-          enum:
-          - HIGH
-          - MEDIUM
-          - LOW
-        status:
-          type: string
-          description: Alert status
-          enum:
-          - OPEN
-          - UNDER_REVIEW
-          - ESCALATED
-          - CLOSED_TRUE_MATCH
-          - CLOSED_FALSE_POSITIVE
-        createdDate:
-          type: string
-          format: date-time
-          description: Alert creation timestamp
   responses:
     BadRequest:
       description: Invalid request parameters

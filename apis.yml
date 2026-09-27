@@ -66,7 +66,7 @@ apis:
   tags:
   - Cards
   - Digital Assets
-  - Document-Management
+  - Document Management
   - Ecosystem
   - Integration
   tags_raw:
@@ -75,6 +75,7 @@ apis:
   - Document Management
   - Ecosystem
   - Integrations
+  - Document-Management
   properties:
   - type: Documentation
     url: https://developer.temenos.com/ecosystem-apis
@@ -3538,11 +3539,12 @@ tags:
   - Cloud Banking
   - Core Banking
   - Digital Banking
-  - Financial-Services
+  - Financial Services
   - Fintech
   - Open Banking
   - Payments
   - Wealth Management
+  - Real-Time
 tags_raw:
   - Banking
   - Cloud Banking
@@ -3553,3 +3555,5 @@ tags_raw:
   - Open Banking
   - Payments
   - Wealth Management
+  - Financial-Services
+  - Real-Time

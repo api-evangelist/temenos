@@ -80,22 +80,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    pageStart:
-      name: pageStart
-      in: query
-      description: Pagination offset token or page number
-      schema:
-        type: string
-    pageSize:
-      name: pageSize
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        default: 25
-        minimum: 1
-        maximum: 100
   schemas:
     Error:
       type: object
@@ -119,24 +103,6 @@ components:
                 type: string
                 description: Detail of the error
           description: Additional error details
-    CardControls:
-      type: object
-      description: Card control settings
-      properties:
-        contactlessEnabled:
-          type: boolean
-          description: Whether contactless payments are enabled
-        onlineTransactionsEnabled:
-          type: boolean
-          description: Whether online transactions are enabled
-        dailySpendingLimit:
-          type: number
-          description: Maximum daily spending limit
-          minimum: 0
-        atmWithdrawalLimit:
-          type: number
-          description: Maximum daily ATM withdrawal limit
-          minimum: 0
     Card:
       type: object
       description: Customer debit or credit card
@@ -168,6 +134,24 @@ components:
         accountId:
           type: string
           description: Linked account identifier
+    CardControls:
+      type: object
+      description: Card control settings
+      properties:
+        contactlessEnabled:
+          type: boolean
+          description: Whether contactless payments are enabled
+        onlineTransactionsEnabled:
+          type: boolean
+          description: Whether online transactions are enabled
+        dailySpendingLimit:
+          type: number
+          description: Maximum daily spending limit
+          minimum: 0
+        atmWithdrawalLimit:
+          type: number
+          description: Maximum daily ATM withdrawal limit
+          minimum: 0
   responses:
     BadRequest:
       description: Invalid request parameters or payload
@@ -187,6 +171,22 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    pageSize:
+      name: pageSize
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        default: 25
+        minimum: 1
+        maximum: 100
+    pageStart:
+      name: pageStart
+      in: query
+      description: Pagination offset token or page number
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

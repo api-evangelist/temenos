@@ -47,22 +47,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
   schemas:
     Error:
       type: object
@@ -108,6 +92,22 @@ components:
         status:
           type: string
           description: Deposit status
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   responses:
     Unauthorized:
       description: Authentication required

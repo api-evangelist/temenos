@@ -66,18 +66,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ServiceDefinitionCreate:
-      type: object
-      description: Service definition creation request
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Service name
-        description:
-          type: string
-          description: Service description
     Error:
       type: object
       description: Error response
@@ -116,6 +104,18 @@ components:
               required:
                 type: boolean
                 description: Whether required
+    ServiceDefinitionCreate:
+      type: object
+      description: Service definition creation request
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Service name
+        description:
+          type: string
+          description: Service description
   responses:
     BadRequest:
       description: Invalid request

@@ -55,61 +55,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    FeeDetail:
-      type: object
-      description: Fee detail
-      properties:
-        feeType:
-          type: string
-          description: Fee type
-        description:
-          type: string
-          description: Fee description
-        amount:
-          type: number
-          format: double
-          description: Fee amount
-        currency:
-          type: string
-          description: Fee currency
-        frequency:
-          type: string
-          description: Fee frequency
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-    PricingAmendment:
-      type: object
-      description: Pricing amendment request
-      properties:
-        interestRateAdjustment:
-          type: number
-          format: double
-          description: Interest rate adjustment in basis points
-        feeWaivers:
-          type: array
-          description: Fee waivers to apply
-          items:
-            type: object
-            properties:
-              feeType:
-                type: string
-                description: Fee type to waive
-              waivePercentage:
-                type: number
-                format: double
-                description: Percentage of fee to waive
-        expiryDate:
-          type: string
-          format: date
-          description: Expiry date for the adjustment
     QuotationResult:
       type: object
       description: Quotation pricing result
@@ -146,6 +91,16 @@ components:
         negotiated:
           type: boolean
           description: Whether pricing has been negotiated
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
     InterestRateDetail:
       type: object
       description: Individual interest rate detail
@@ -173,6 +128,51 @@ components:
           type: string
           format: date
           description: Rate effective date
+    PricingAmendment:
+      type: object
+      description: Pricing amendment request
+      properties:
+        interestRateAdjustment:
+          type: number
+          format: double
+          description: Interest rate adjustment in basis points
+        feeWaivers:
+          type: array
+          description: Fee waivers to apply
+          items:
+            type: object
+            properties:
+              feeType:
+                type: string
+                description: Fee type to waive
+              waivePercentage:
+                type: number
+                format: double
+                description: Percentage of fee to waive
+        expiryDate:
+          type: string
+          format: date
+          description: Expiry date for the adjustment
+    FeeDetail:
+      type: object
+      description: Fee detail
+      properties:
+        feeType:
+          type: string
+          description: Fee type
+        description:
+          type: string
+          description: Fee description
+        amount:
+          type: number
+          format: double
+          description: Fee amount
+        currency:
+          type: string
+          description: Fee currency
+        frequency:
+          type: string
+          description: Fee frequency
   responses:
     BadRequest:
       description: Invalid request parameters

@@ -95,62 +95,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    FeeDetail:
-      type: object
-      description: Fee detail
-      properties:
-        feeType:
-          type: string
-          description: Fee type
-        description:
-          type: string
-          description: Fee description
-        amount:
-          type: number
-          format: double
-          description: Fee amount
-        currency:
-          type: string
-          description: Fee currency
-        frequency:
-          type: string
-          description: Fee frequency
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-    EventSimulateRequest:
-      type: object
-      description: Event simulation request
-      required:
-      - arrangementId
-      - eventType
-      properties:
-        arrangementId:
-          type: string
-          description: Existing arrangement identifier
-        eventType:
-          type: string
-          description: Type of event to simulate
-          enum:
-          - ATM_WITHDRAWAL
-          - FUNDS_TRANSFER
-          - PARTIAL_REDEMPTION
-          - FULL_REDEMPTION
-          - PAYMENT
-        amount:
-          type: number
-          format: double
-          description: Event amount
-        currency:
-          type: string
-          description: Event currency
     QuotationResult:
       type: object
       description: Quotation pricing result
@@ -187,33 +131,16 @@ components:
         negotiated:
           type: boolean
           description: Whether pricing has been negotiated
-    InterestRateDetail:
+    Error:
       type: object
-      description: Individual interest rate detail
+      description: Error response
       properties:
-        rateType:
+        errorCode:
           type: string
-          description: Rate type
-          enum:
-          - FIXED
-          - VARIABLE
-          - PROMOTIONAL
-        baseRate:
-          type: number
-          format: double
-          description: Base rate percentage
-        benefit:
-          type: number
-          format: double
-          description: Benefit adjustment
-        netRate:
-          type: number
-          format: double
-          description: Effective net rate
-        effectiveDate:
+          description: Error code
+        errorMessage:
           type: string
-          format: date
-          description: Rate effective date
+          description: Error description
     QuotationSimulateRequest:
       type: object
       description: Arrangement creation simulation request
@@ -241,6 +168,79 @@ components:
         quotationReference:
           type: string
           description: User-defined quotation reference
+    InterestRateDetail:
+      type: object
+      description: Individual interest rate detail
+      properties:
+        rateType:
+          type: string
+          description: Rate type
+          enum:
+          - FIXED
+          - VARIABLE
+          - PROMOTIONAL
+        baseRate:
+          type: number
+          format: double
+          description: Base rate percentage
+        benefit:
+          type: number
+          format: double
+          description: Benefit adjustment
+        netRate:
+          type: number
+          format: double
+          description: Effective net rate
+        effectiveDate:
+          type: string
+          format: date
+          description: Rate effective date
+    FeeDetail:
+      type: object
+      description: Fee detail
+      properties:
+        feeType:
+          type: string
+          description: Fee type
+        description:
+          type: string
+          description: Fee description
+        amount:
+          type: number
+          format: double
+          description: Fee amount
+        currency:
+          type: string
+          description: Fee currency
+        frequency:
+          type: string
+          description: Fee frequency
+    EventSimulateRequest:
+      type: object
+      description: Event simulation request
+      required:
+      - arrangementId
+      - eventType
+      properties:
+        arrangementId:
+          type: string
+          description: Existing arrangement identifier
+        eventType:
+          type: string
+          description: Type of event to simulate
+          enum:
+          - ATM_WITHDRAWAL
+          - FUNDS_TRANSFER
+          - PARTIAL_REDEMPTION
+          - FULL_REDEMPTION
+          - PAYMENT
+        amount:
+          type: number
+          format: double
+          description: Event amount
+        currency:
+          type: string
+          description: Event currency
   responses:
     BadRequest:
       description: Invalid request parameters

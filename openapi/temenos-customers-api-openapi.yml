@@ -70,6 +70,14 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
   schemas:
     Error:
       type: object
@@ -155,14 +163,6 @@ components:
           description: Updated phone number
         address:
           $ref: '#/components/schemas/Address'
-  parameters:
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Unique customer identifier
-      schema:
-        type: string
   responses:
     BadRequest:
       description: Invalid request parameters or payload

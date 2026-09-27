@@ -193,6 +193,16 @@ paths:
       description: Temenos Wealth API - Production
 components:
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
     ExchangeRateInjection:
       type: object
       description: Exchange rate injection request
@@ -224,16 +234,6 @@ components:
                 type: number
                 format: double
                 description: Exchange rate value
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
     SecurityPriceInjection:
       type: object
       description: Security price injection request
@@ -265,6 +265,19 @@ components:
               currency:
                 type: string
                 description: Price currency
+    IbanStructure:
+      type: object
+      description: IBAN validation structure
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        ibanLength:
+          type: integer
+          description: Expected IBAN length for the country
+        format:
+          type: string
+          description: IBAN format pattern
     Error_2:
       type: object
       description: Error response
@@ -287,30 +300,19 @@ components:
               message:
                 type: string
                 description: Detail message
-    Country:
+    PaginationHeader:
       type: object
-      description: Country reference data
+      description: Pagination metadata for list responses
       properties:
-        countryCode:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-          pattern: ^[A-Z]{2}$
-        countryName:
-          type: string
-          description: Country display name
-    IbanStructure:
-      type: object
-      description: IBAN validation structure
-      properties:
-        countryCode:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        ibanLength:
+        page_size:
           type: integer
-          description: Expected IBAN length for the country
-        format:
-          type: string
-          description: IBAN format pattern
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
     Currency:
       type: object
       description: Currency reference data
@@ -328,29 +330,17 @@ components:
         status:
           type: string
           description: Currency status
-    PaginationHeader:
+    Country:
       type: object
-      description: Pagination metadata for list responses
+      description: Country reference data
       properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-    Error_3:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
+        countryCode:
           type: string
-          description: Error code
-        errorMessage:
+          description: ISO 3166-1 alpha-2 country code
+          pattern: ^[A-Z]{2}$
+        countryName:
           type: string
-          description: Error description
+          description: Country display name
     Market:
       type: object
       description: Market reference data
@@ -373,6 +363,16 @@ components:
         status:
           type: string
           description: Market operating status
+    Error_3:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
   responses:
     BadRequest:
       description: Invalid request parameters
@@ -393,14 +393,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error_3'
   parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
     pageSize:
       name: page_size
       in: query
@@ -410,6 +402,14 @@ components:
         minimum: 1
         maximum: 100
         default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   securitySchemes:
     bearerAuth:
       type: http

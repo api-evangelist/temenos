@@ -73,22 +73,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
   schemas:
     Error:
       type: object
@@ -97,40 +81,6 @@ components:
           type: string
         errorMessage:
           type: string
-    LetterOfCredit:
-      type: object
-      description: Letter of credit
-      properties:
-        lcId:
-          type: string
-          description: LC identifier
-        lcType:
-          type: string
-          description: LC type
-          enum:
-          - IMPORT
-          - EXPORT
-          - STANDBY
-        applicant:
-          type: string
-          description: Applicant name
-        beneficiary:
-          type: string
-          description: Beneficiary name
-        amount:
-          type: number
-          format: double
-          description: LC amount
-        currency:
-          type: string
-          description: Currency
-        expiryDate:
-          type: string
-          format: date
-          description: Expiry date
-        status:
-          type: string
-          description: LC status
     PaginationHeader:
       type: object
       properties:
@@ -170,6 +120,56 @@ components:
         status:
           type: string
           description: Guarantee status
+    LetterOfCredit:
+      type: object
+      description: Letter of credit
+      properties:
+        lcId:
+          type: string
+          description: LC identifier
+        lcType:
+          type: string
+          description: LC type
+          enum:
+          - IMPORT
+          - EXPORT
+          - STANDBY
+        applicant:
+          type: string
+          description: Applicant name
+        beneficiary:
+          type: string
+          description: Beneficiary name
+        amount:
+          type: number
+          format: double
+          description: LC amount
+        currency:
+          type: string
+          description: Currency
+        expiryDate:
+          type: string
+          format: date
+          description: Expiry date
+        status:
+          type: string
+          description: LC status
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   responses:
     Unauthorized:
       description: Authentication required

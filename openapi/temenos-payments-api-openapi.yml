@@ -83,6 +83,13 @@ paths:
       description: Temenos Infinity API - Sandbox
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
     CmbPayment:
       type: object
       description: Payment record
@@ -103,13 +110,6 @@ components:
         status:
           type: string
           description: Payment status
-    Error:
-      type: object
-      properties:
-        errorCode:
-          type: string
-        errorMessage:
-          type: string
     CmbPaymentCreate:
       type: object
       required:
@@ -137,6 +137,41 @@ components:
         reference:
           type: string
           description: Payment reference
+    PaymentRequest:
+      type: object
+      description: Payment initiation request
+      required:
+      - debitAccountId
+      - creditAccountId
+      - amount
+      - currency
+      properties:
+        debitAccountId:
+          type: string
+          description: Source account identifier
+        creditAccountId:
+          type: string
+          description: Destination account or beneficiary identifier
+        amount:
+          type: number
+          description: Payment amount
+          minimum: 0
+          exclusiveMinimum: true
+        currency:
+          type: string
+          description: ISO 4217 currency code
+          pattern: ^[A-Z]{3}$
+        paymentType:
+          type: string
+          description: Type of payment
+          enum:
+          - DOMESTIC_TRANSFER
+          - INTERNATIONAL_TRANSFER
+          - BILL_PAYMENT
+        narrative:
+          type: string
+          description: Payment reference or description
+          maxLength: 140
     Error_2:
       type: object
       description: Error response
@@ -191,41 +226,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the payment was created
-    PaymentRequest:
-      type: object
-      description: Payment initiation request
-      required:
-      - debitAccountId
-      - creditAccountId
-      - amount
-      - currency
-      properties:
-        debitAccountId:
-          type: string
-          description: Source account identifier
-        creditAccountId:
-          type: string
-          description: Destination account or beneficiary identifier
-        amount:
-          type: number
-          description: Payment amount
-          minimum: 0
-          exclusiveMinimum: true
-        currency:
-          type: string
-          description: ISO 4217 currency code
-          pattern: ^[A-Z]{3}$
-        paymentType:
-          type: string
-          description: Type of payment
-          enum:
-          - DOMESTIC_TRANSFER
-          - INTERNATIONAL_TRANSFER
-          - BILL_PAYMENT
-        narrative:
-          type: string
-          description: Payment reference or description
-          maxLength: 140
   responses:
     BadRequest:
       description: Invalid request

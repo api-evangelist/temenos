@@ -77,6 +77,18 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    InterestRateDetails:
+      type: object
+      description: Arrangement interest rate details
+      properties:
+        arrangementId:
+          type: string
+          description: Arrangement identifier
+        rates:
+          type: array
+          description: Interest rate details
+          items:
+            $ref: '#/components/schemas/InterestRateDetail'
     Error:
       type: object
       description: Error response
@@ -87,26 +99,6 @@ components:
         errorMessage:
           type: string
           description: Error description
-    ChargeDetail:
-      type: object
-      description: Charge detail
-      properties:
-        chargeType:
-          type: string
-          description: Charge type
-        description:
-          type: string
-          description: Charge description
-        amount:
-          type: number
-          format: double
-          description: Charge amount
-        currency:
-          type: string
-          description: Currency
-        frequency:
-          type: string
-          description: Charge frequency
     InterestRateDetail:
       type: object
       description: Individual interest rate detail
@@ -134,18 +126,26 @@ components:
           type: string
           format: date
           description: Rate effective date
-    InterestRateDetails:
+    ChargeDetail:
       type: object
-      description: Arrangement interest rate details
+      description: Charge detail
       properties:
-        arrangementId:
+        chargeType:
           type: string
-          description: Arrangement identifier
-        rates:
-          type: array
-          description: Interest rate details
-          items:
-            $ref: '#/components/schemas/InterestRateDetail'
+          description: Charge type
+        description:
+          type: string
+          description: Charge description
+        amount:
+          type: number
+          format: double
+          description: Charge amount
+        currency:
+          type: string
+          description: Currency
+        frequency:
+          type: string
+          description: Charge frequency
   responses:
     NotFound:
       description: Resource not found

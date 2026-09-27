@@ -341,49 +341,30 @@ paths:
     - url: https://api.temenos.com/wealth/v1
       description: Temenos Wealth API - Production
 components:
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Unique customer identifier
-      schema:
-        type: string
-    pageStart_2:
-      name: page_start
-      in: query
-      description: Starting record number
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize_2:
-      name: page_size
-      in: query
-      description: Number of records per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total records available
     Investor:
       type: object
       description: Fund investor record
@@ -416,35 +397,27 @@ components:
         status:
           type: string
           description: Investor record status
-    Error:
+    Distributor:
       type: object
-      description: Error response
+      description: Fund distributor record
       properties:
-        errorCode:
+        distributorId:
           type: string
-          description: Machine-readable error code
-        errorMessage:
+          description: Unique distributor identifier
+        name:
           type: string
-          description: Human-readable error description
-    FatcaRecord:
-      type: object
-      description: FATCA/CRS compliance record
-      properties:
-        recordId:
+          description: Distributor name
+        distributionAgreements:
+          type: array
+          description: Active distribution agreements
+          items:
+            type: string
+        commissionGroup:
           type: string
-          description: FATCA record identifier
-        investorId:
-          type: string
-          description: Associated investor
-        classification:
-          type: string
-          description: FATCA classification
-        reportingJurisdiction:
-          type: string
-          description: Reporting jurisdiction
+          description: Commission group assignment
         status:
           type: string
-          description: Compliance status
+          description: Distributor status
     InvestorCreate:
       type: object
       description: Request body for creating an investor
@@ -468,40 +441,6 @@ components:
         taxResidence:
           type: string
           description: Tax residence country code
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total records available
-    Distributor:
-      type: object
-      description: Fund distributor record
-      properties:
-        distributorId:
-          type: string
-          description: Unique distributor identifier
-        name:
-          type: string
-          description: Distributor name
-        distributionAgreements:
-          type: array
-          description: Active distribution agreements
-          items:
-            type: string
-        commissionGroup:
-          type: string
-          description: Commission group assignment
-        status:
-          type: string
-          description: Distributor status
     AmlScreening:
       type: object
       description: AML screening result
@@ -526,56 +465,25 @@ components:
         blockingCode:
           type: string
           description: Applied blocking code if any
-    Beneficiary:
+    FatcaRecord:
       type: object
-      description: Payment beneficiary
+      description: FATCA/CRS compliance record
       properties:
-        beneficiaryId:
+        recordId:
           type: string
-          description: Unique beneficiary identifier
-        customerId:
+          description: FATCA record identifier
+        investorId:
           type: string
-          description: Associated customer identifier
-        beneficiaryName:
+          description: Associated investor
+        classification:
           type: string
-          description: Beneficiary display name
-        accountNumber:
+          description: FATCA classification
+        reportingJurisdiction:
           type: string
-          description: Beneficiary account number
-        iban:
+          description: Reporting jurisdiction
+        status:
           type: string
-          description: Beneficiary IBAN
-        bic:
-          type: string
-          description: Beneficiary bank BIC/SWIFT code
-        bankName:
-          type: string
-          description: Beneficiary bank name
-        country:
-          type: string
-          description: Beneficiary country code
-    Error_2:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field related to the error
-              message:
-                type: string
-                description: Detail message
+          description: Compliance status
     Address:
       type: object
       description: Physical address
@@ -656,24 +564,28 @@ components:
           description: Customer addresses
           items:
             $ref: '#/components/schemas/Address'
-    CustomerUpdate:
+    Error_2:
       type: object
-      description: Request body for updating customer details
+      description: Error response
       properties:
-        title:
+        errorCode:
           type: string
-          description: Updated title
-        firstName:
+          description: Machine-readable error code
+        errorMessage:
           type: string
-          description: Updated first name
-        lastName:
-          type: string
-          description: Updated last name
-        addresses:
+          description: Human-readable error description
+        details:
           type: array
-          description: Updated addresses
+          description: Additional error details
           items:
-            $ref: '#/components/schemas/Address'
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
     PaginationHeader_2:
       type: object
       description: Pagination metadata for list responses
@@ -687,6 +599,34 @@ components:
         total_size:
           type: integer
           description: Total number of records available
+    Beneficiary:
+      type: object
+      description: Payment beneficiary
+      properties:
+        beneficiaryId:
+          type: string
+          description: Unique beneficiary identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        beneficiaryName:
+          type: string
+          description: Beneficiary display name
+        accountNumber:
+          type: string
+          description: Beneficiary account number
+        iban:
+          type: string
+          description: Beneficiary IBAN
+        bic:
+          type: string
+          description: Beneficiary bank BIC/SWIFT code
+        bankName:
+          type: string
+          description: Beneficiary bank name
+        country:
+          type: string
+          description: Beneficiary country code
     CustomerCreate:
       type: object
       description: Request body for creating a customer
@@ -716,6 +656,24 @@ components:
         nationality:
           type: string
           description: ISO 3166-1 alpha-2 nationality code
+    CustomerUpdate:
+      type: object
+      description: Request body for updating customer details
+      properties:
+        title:
+          type: string
+          description: Updated title
+        firstName:
+          type: string
+          description: Updated first name
+        lastName:
+          type: string
+          description: Updated last name
+        addresses:
+          type: array
+          description: Updated addresses
+          items:
+            $ref: '#/components/schemas/Address'
     Error_3:
       type: object
       description: Error response
@@ -726,6 +684,19 @@ components:
         errorMessage:
           type: string
           description: Error description
+    PaginationHeader_3:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
     WealthClient:
       type: object
       description: Wealth management client
@@ -759,19 +730,6 @@ components:
         status:
           type: string
           description: Client status
-    PaginationHeader_3:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record
-        total_size:
-          type: integer
-          description: Total records
   responses:
     BadRequest:
       description: Invalid request parameters
@@ -797,6 +755,48 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error_3'
+  parameters:
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
+    pageSize_2:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart_2:
+      name: page_start
+      in: query
+      description: Starting record number
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   securitySchemes:
     bearerAuth:
       type: http

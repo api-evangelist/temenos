@@ -115,36 +115,6 @@ components:
                 type: string
                 description: Detail of the error
           description: Additional error details
-    ConsentRequest:
-      type: object
-      description: Open Banking consent creation request
-      required:
-      - tppId
-      - permissions
-      - expirationDate
-      properties:
-        tppId:
-          type: string
-          description: Third-party provider identifier
-        permissions:
-          type: array
-          items:
-            type: string
-            enum:
-            - READ_ACCOUNTS
-            - READ_BALANCES
-            - READ_TRANSACTIONS
-            - INITIATE_PAYMENTS
-          description: Requested access permissions
-        expirationDate:
-          type: string
-          format: date-time
-          description: Consent expiration date and time
-        accountIds:
-          type: array
-          items:
-            type: string
-          description: Specific account identifiers to authorize
     ConsentResponse:
       type: object
       description: Open Banking consent record
@@ -177,6 +147,36 @@ components:
           type: string
           format: date-time
           description: Consent expiration timestamp
+    ConsentRequest:
+      type: object
+      description: Open Banking consent creation request
+      required:
+      - tppId
+      - permissions
+      - expirationDate
+      properties:
+        tppId:
+          type: string
+          description: Third-party provider identifier
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+            - READ_ACCOUNTS
+            - READ_BALANCES
+            - READ_TRANSACTIONS
+            - INITIATE_PAYMENTS
+          description: Requested access permissions
+        expirationDate:
+          type: string
+          format: date-time
+          description: Consent expiration date and time
+        accountIds:
+          type: array
+          items:
+            type: string
+          description: Specific account identifiers to authorize
   responses:
     BadRequest:
       description: Invalid request parameters or payload

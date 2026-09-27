@@ -82,14 +82,13 @@ components:
         errorMessage:
           type: string
           description: Error description
-    ConfigurationCreate:
+    Configuration:
       type: object
-      description: Configuration creation request
-      required:
-      - configGroup
-      - key
-      - value
+      description: Application configuration
       properties:
+        configurationId:
+          type: string
+          description: Configuration identifier
         configGroup:
           type: string
           description: Configuration group
@@ -99,13 +98,14 @@ components:
         value:
           type: string
           description: Configuration value
-    Configuration:
+    ConfigurationCreate:
       type: object
-      description: Application configuration
+      description: Configuration creation request
+      required:
+      - configGroup
+      - key
+      - value
       properties:
-        configurationId:
-          type: string
-          description: Configuration identifier
         configGroup:
           type: string
           description: Configuration group
