@@ -95,7 +95,63 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    CreditOfferResponse:
+      type: object
+      description: Credit offer response with available options
+      properties:
+        offers:
+          type: array
+          description: Available BNPL offers
+          items:
+            $ref: '#/components/schemas/CreditOffer'
+        decisionExplanation:
+          type: string
+          description: AI decisioning explanation
+    CreditOfferRequest:
+      type: object
+      required:
+      - customerId
+      - purchaseAmount
+      - currency
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        merchantId:
+          type: string
+          description: Merchant identifier
+        purchaseAmount:
+          type: number
+          format: double
+          description: Purchase amount
+          minimum: 0.01
+        currency:
+          type: string
+          description: Currency
+          pattern: ^[A-Z]{3}$
+        purchaseDescription:
+          type: string
+          description: Purchase description
     Error:
       type: object
       properties:
@@ -192,62 +248,6 @@ components:
           type: string
           format: date-time
           description: Offer expiry timestamp
-    CreditOfferRequest:
-      type: object
-      required:
-      - customerId
-      - purchaseAmount
-      - currency
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier
-        merchantId:
-          type: string
-          description: Merchant identifier
-        purchaseAmount:
-          type: number
-          format: double
-          description: Purchase amount
-          minimum: 0.01
-        currency:
-          type: string
-          description: Currency
-          pattern: ^[A-Z]{3}$
-        purchaseDescription:
-          type: string
-          description: Purchase description
-    CreditOfferResponse:
-      type: object
-      description: Credit offer response with available options
-      properties:
-        offers:
-          type: array
-          description: Available BNPL offers
-          items:
-            $ref: '#/components/schemas/CreditOffer'
-        decisionExplanation:
-          type: string
-          description: AI decisioning explanation
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

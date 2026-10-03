@@ -78,6 +78,37 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    BundleArrangement:
+      type: object
+      description: Bundle arrangement grouping multiple accounts
+      properties:
+        bundleId:
+          type: string
+          description: Unique bundle identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        bundleName:
+          type: string
+          description: Bundle display name
+        productId:
+          type: string
+          description: Bundle product identifier
+        arrangements:
+          type: array
+          description: List of arrangements in the bundle
+          items:
+            type: object
+            properties:
+              arrangementId:
+                type: string
+                description: Arrangement identifier
+              productId:
+                type: string
+                description: Product identifier
+        status:
+          type: string
+          description: Bundle status
     Error:
       type: object
       description: Error response
@@ -113,37 +144,6 @@ components:
         total_size:
           type: integer
           description: Total number of records available
-    BundleArrangement:
-      type: object
-      description: Bundle arrangement grouping multiple accounts
-      properties:
-        bundleId:
-          type: string
-          description: Unique bundle identifier
-        customerId:
-          type: string
-          description: Associated customer identifier
-        bundleName:
-          type: string
-          description: Bundle display name
-        productId:
-          type: string
-          description: Bundle product identifier
-        arrangements:
-          type: array
-          description: List of arrangements in the bundle
-          items:
-            type: object
-            properties:
-              arrangementId:
-                type: string
-                description: Arrangement identifier
-              productId:
-                type: string
-                description: Product identifier
-        status:
-          type: string
-          description: Bundle status
     BundleArrangementCreate:
       type: object
       description: Request body for creating a bundle arrangement
@@ -165,20 +165,15 @@ components:
           description: Arrangement identifiers to include
           items:
             type: string
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     pageSize:
       name: page_size
       in: query
@@ -188,14 +183,19 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

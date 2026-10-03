@@ -152,62 +152,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    PaymentStatus:
-      type: object
-      description: Payment order processing status
-      properties:
-        paymentOrderId:
-          type: string
-          description: Payment order identifier
-        status:
-          type: string
-          description: Current processing status
-          enum:
-          - PENDING
-          - PROCESSING
-          - COMPLETED
-          - FAILED
-          - CANCELLED
-        clearingStatus:
-          type: string
-          description: Clearing system status
-        bookingStatus:
-          type: string
-          description: Account booking status
-          enum:
-          - BOOKED
-          - PENDING
-          - REJECTED
-        statusReason:
-          type: string
-          description: Reason for current status
-        lastUpdated:
-          type: string
-          format: date-time
-          description: Timestamp of last status update
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-    PaginationHeader:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
     PaymentOrder:
       type: object
       description: Payment order for fund transfer
@@ -276,6 +220,62 @@ components:
         remittanceInformation:
           type: string
           description: Remittance information for the payment
+    PaymentStatus:
+      type: object
+      description: Payment order processing status
+      properties:
+        paymentOrderId:
+          type: string
+          description: Payment order identifier
+        status:
+          type: string
+          description: Current processing status
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+          - CANCELLED
+        clearingStatus:
+          type: string
+          description: Clearing system status
+        bookingStatus:
+          type: string
+          description: Account booking status
+          enum:
+          - BOOKED
+          - PENDING
+          - REJECTED
+        statusReason:
+          type: string
+          description: Reason for current status
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Timestamp of last status update
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
     PaymentOrderCreate:
       type: object
       description: Request body for creating a payment order
@@ -337,12 +337,6 @@ components:
           description: Remittance information
           maxLength: 140
   responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: Requested resource not found
       content:
@@ -355,7 +349,28 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
+    paymentOrderId:
+      name: paymentOrderId
+      in: path
+      required: true
+      description: Unique payment order identifier
+      schema:
+        type: string
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     pageSize:
       name: page_size
       in: query
@@ -365,21 +380,6 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    paymentOrderId:
-      name: paymentOrderId
-      in: path
-      required: true
-      description: Unique payment order identifier
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

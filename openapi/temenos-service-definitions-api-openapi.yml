@@ -76,6 +76,18 @@ components:
         errorMessage:
           type: string
           description: Error description
+    ServiceDefinitionCreate:
+      type: object
+      description: Service definition creation request
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Service name
+        description:
+          type: string
+          description: Service description
     ServiceDefinition:
       type: object
       description: Integration service definition
@@ -104,18 +116,6 @@ components:
               required:
                 type: boolean
                 description: Whether required
-    ServiceDefinitionCreate:
-      type: object
-      description: Service definition creation request
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Service name
-        description:
-          type: string
-          description: Service description
   responses:
     BadRequest:
       description: Invalid request

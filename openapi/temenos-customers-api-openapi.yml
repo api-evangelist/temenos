@@ -70,14 +70,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Unique customer identifier
-      schema:
-        type: string
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -101,6 +112,19 @@ components:
                 type: string
                 description: Detail of the error
           description: Additional error details
+    CustomerUpdate:
+      type: object
+      description: Fields available for customer profile update
+      properties:
+        email:
+          type: string
+          format: email
+          description: Updated email address
+        phone:
+          type: string
+          description: Updated phone number
+        address:
+          $ref: '#/components/schemas/Address'
     Address:
       type: object
       description: Postal address
@@ -150,38 +174,14 @@ components:
           description: Date of birth
         address:
           $ref: '#/components/schemas/Address'
-    CustomerUpdate:
-      type: object
-      description: Fields available for customer profile update
-      properties:
-        email:
-          type: string
-          format: email
-          description: Updated email address
-        phone:
-          type: string
-          description: Updated phone number
-        address:
-          $ref: '#/components/schemas/Address'
-  responses:
-    BadRequest:
-      description: Invalid request parameters or payload
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -381,6 +381,89 @@ paths:
       description: Temenos Wealth API - Production
 components:
   schemas:
+    SharePriceCreate:
+      type: object
+      description: Request body for setting share price
+      required:
+      - shareClassId
+      - price
+      - currency
+      - valuationDate
+      properties:
+        shareClassId:
+          type: string
+          description: Share class identifier
+        price:
+          type: number
+          format: double
+          description: NAV-based share price
+        currency:
+          type: string
+          description: Price currency
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    OrderInstructionCreate:
+      type: object
+      description: Request body for creating an instruction
+      required:
+      - investorId
+      - fundId
+      - shareClassId
+      - instructionType
+      properties:
+        investorId:
+          type: string
+          description: Investor identifier
+        fundId:
+          type: string
+          description: Fund identifier
+        shareClassId:
+          type: string
+          description: Share class identifier
+        instructionType:
+          type: string
+          description: Type of instruction
+          enum:
+          - SUBSCRIPTION
+          - REDEMPTION
+          - SWITCH
+          - TRANSFER
+        quantity:
+          type: number
+          format: double
+          description: Number of units
+        amount:
+          type: number
+          format: double
+          description: Monetary amount
+        currency:
+          type: string
+          description: Currency code
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total records available
     OrderInstruction:
       type: object
       description: Fund order instruction
@@ -425,89 +508,6 @@ components:
           - EXECUTED
           - SETTLED
           - CANCELLED
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total records available
-    SharePriceCreate:
-      type: object
-      description: Request body for setting share price
-      required:
-      - shareClassId
-      - price
-      - currency
-      - valuationDate
-      properties:
-        shareClassId:
-          type: string
-          description: Share class identifier
-        price:
-          type: number
-          format: double
-          description: NAV-based share price
-        currency:
-          type: string
-          description: Price currency
-        valuationDate:
-          type: string
-          format: date
-          description: Valuation date
-    OrderInstructionCreate:
-      type: object
-      description: Request body for creating an instruction
-      required:
-      - investorId
-      - fundId
-      - shareClassId
-      - instructionType
-      properties:
-        investorId:
-          type: string
-          description: Investor identifier
-        fundId:
-          type: string
-          description: Fund identifier
-        shareClassId:
-          type: string
-          description: Share class identifier
-        instructionType:
-          type: string
-          description: Type of instruction
-          enum:
-          - SUBSCRIPTION
-          - REDEMPTION
-          - SWITCH
-          - TRANSFER
-        quantity:
-          type: number
-          format: double
-          description: Number of units
-        amount:
-          type: number
-          format: double
-          description: Monetary amount
-        currency:
-          type: string
-          description: Currency code
     SharePrice:
       type: object
       description: Fund share price record
@@ -526,110 +526,6 @@ components:
           type: string
           format: date
           description: Valuation date
-    Error_2:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field related to the error
-              message:
-                type: string
-                description: Detail message
-    StandingOrder:
-      type: object
-      description: Standing order instruction for recurring payments
-      properties:
-        standingOrderId:
-          type: string
-          description: Unique standing order identifier
-        accountId:
-          type: string
-          description: Source account identifier
-        beneficiaryId:
-          type: string
-          description: Beneficiary identifier
-        amount:
-          type: number
-          format: double
-          description: Payment amount per execution
-        currency:
-          type: string
-          description: Payment currency in ISO 4217 format
-        frequency:
-          type: string
-          description: Execution frequency
-          enum:
-          - DAILY
-          - WEEKLY
-          - MONTHLY
-          - QUARTERLY
-          - ANNUAL
-        startDate:
-          type: string
-          format: date
-          description: First execution date
-        endDate:
-          type: string
-          format: date
-          description: Last execution date
-        status:
-          type: string
-          description: Standing order status
-    PaginationHeader_2:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-    DirectDebit:
-      type: object
-      description: Direct debit mandate and instruction
-      properties:
-        directDebitId:
-          type: string
-          description: Unique direct debit identifier
-        accountId:
-          type: string
-          description: Account to be debited
-        mandateReference:
-          type: string
-          description: Direct debit mandate reference
-        creditorName:
-          type: string
-          description: Name of the creditor
-        amount:
-          type: number
-          format: double
-          description: Direct debit amount
-        currency:
-          type: string
-          description: Currency in ISO 4217 format
-        frequency:
-          type: string
-          description: Collection frequency
-        status:
-          type: string
-          description: Mandate status
     PaymentOrder:
       type: object
       description: Payment order for fund transfer
@@ -678,6 +574,81 @@ components:
         beneficiaryName:
           type: string
           description: Name of the payment beneficiary
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
+    PaginationHeader_2:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    StandingOrder:
+      type: object
+      description: Standing order instruction for recurring payments
+      properties:
+        standingOrderId:
+          type: string
+          description: Unique standing order identifier
+        accountId:
+          type: string
+          description: Source account identifier
+        beneficiaryId:
+          type: string
+          description: Beneficiary identifier
+        amount:
+          type: number
+          format: double
+          description: Payment amount per execution
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+        frequency:
+          type: string
+          description: Execution frequency
+          enum:
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+          - QUARTERLY
+          - ANNUAL
+        startDate:
+          type: string
+          format: date
+          description: First execution date
+        endDate:
+          type: string
+          format: date
+          description: Last execution date
+        status:
+          type: string
+          description: Standing order status
     PaymentOrderCreate:
       type: object
       description: Request body for creating a payment order
@@ -722,6 +693,58 @@ components:
           type: string
           description: Payment reference
           maxLength: 140
+    DirectDebit:
+      type: object
+      description: Direct debit mandate and instruction
+      properties:
+        directDebitId:
+          type: string
+          description: Unique direct debit identifier
+        accountId:
+          type: string
+          description: Account to be debited
+        mandateReference:
+          type: string
+          description: Direct debit mandate reference
+        creditorName:
+          type: string
+          description: Name of the creditor
+        amount:
+          type: number
+          format: double
+          description: Direct debit amount
+        currency:
+          type: string
+          description: Currency in ISO 4217 format
+        frequency:
+          type: string
+          description: Collection frequency
+        status:
+          type: string
+          description: Mandate status
+    Error_3:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    PaginationHeader_3:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
     SecurityOrderCreate:
       type: object
       description: Security order creation request
@@ -777,29 +800,6 @@ components:
           type: string
           format: date
           description: Expiry date for GTD orders
-    Error_3:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-    PaginationHeader_3:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record
-        total_size:
-          type: integer
-          description: Total records
     SecurityOrder:
       type: object
       description: Securities trading order
@@ -864,6 +864,41 @@ components:
           type: string
           format: date-time
           description: Order creation timestamp
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    pageStart_2:
+      name: page_start
+      in: query
+      description: Starting record number
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize_2:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   responses:
     BadRequest:
       description: Invalid request parameters
@@ -889,41 +924,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error_3'
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    pageSize_2:
-      name: page_size
-      in: query
-      description: Number of records per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    pageStart_2:
-      name: page_start
-      in: query
-      description: Starting record number
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
   securitySchemes:
     bearerAuth:
       type: http

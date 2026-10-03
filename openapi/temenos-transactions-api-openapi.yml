@@ -114,6 +114,25 @@ paths:
     - url: https://journey.temenos.com/api/v1
       description: Temenos Journey Manager API - Production
 components:
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   schemas:
     Error:
       type: object
@@ -242,6 +261,12 @@ components:
           format: date-time
           description: Last activity timestamp
   parameters:
+    pageStart:
+      name: pageStart
+      in: query
+      description: Pagination offset token or page number
+      schema:
+        type: string
     pageSize:
       name: pageSize
       in: query
@@ -251,12 +276,6 @@ components:
         default: 25
         minimum: 1
         maximum: 100
-    pageStart:
-      name: pageStart
-      in: query
-      description: Pagination offset token or page number
-      schema:
-        type: string
     accountId:
       name: accountId
       in: path
@@ -264,6 +283,14 @@ components:
       description: Unique account identifier
       schema:
         type: string
+    pageStart_2:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     pageSize_2:
       name: page_size
       in: query
@@ -273,33 +300,6 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    pageStart_2:
-      name: page_start
-      in: query
-      description: Starting record
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-  responses:
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
   securitySchemes:
     bearerAuth:
       type: http

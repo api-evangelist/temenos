@@ -66,6 +66,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    FormGroupCreate:
+      type: object
+      description: Form group creation request
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Group name
+        description:
+          type: string
+          description: Group description
     Error:
       type: object
       description: Error response
@@ -94,18 +106,6 @@ components:
           description: Forms in group
           items:
             type: string
-    FormGroupCreate:
-      type: object
-      description: Form group creation request
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Group name
-        description:
-          type: string
-          description: Group description
   responses:
     BadRequest:
       description: Invalid request

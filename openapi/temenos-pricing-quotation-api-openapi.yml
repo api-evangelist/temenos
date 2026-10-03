@@ -94,7 +94,36 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
     QuotationResult:
       type: object
       description: Quotation pricing result
@@ -131,43 +160,6 @@ components:
         negotiated:
           type: boolean
           description: Whether pricing has been negotiated
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-    QuotationSimulateRequest:
-      type: object
-      description: Arrangement creation simulation request
-      required:
-      - productId
-      - currency
-      properties:
-        productId:
-          type: string
-          description: Product identifier to simulate
-        customerId:
-          type: string
-          description: Customer identifier for personalized pricing
-        currency:
-          type: string
-          description: Arrangement currency
-          pattern: ^[A-Z]{3}$
-        amount:
-          type: number
-          format: double
-          description: Initial amount
-        term:
-          type: integer
-          description: Arrangement term in months
-        quotationReference:
-          type: string
-          description: User-defined quotation reference
     InterestRateDetail:
       type: object
       description: Individual interest rate detail
@@ -195,26 +187,6 @@ components:
           type: string
           format: date
           description: Rate effective date
-    FeeDetail:
-      type: object
-      description: Fee detail
-      properties:
-        feeType:
-          type: string
-          description: Fee type
-        description:
-          type: string
-          description: Fee description
-        amount:
-          type: number
-          format: double
-          description: Fee amount
-        currency:
-          type: string
-          description: Fee currency
-        frequency:
-          type: string
-          description: Fee frequency
     EventSimulateRequest:
       type: object
       description: Event simulation request
@@ -241,25 +213,53 @@ components:
         currency:
           type: string
           description: Event currency
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    QuotationSimulateRequest:
+      type: object
+      description: Arrangement creation simulation request
+      required:
+      - productId
+      - currency
+      properties:
+        productId:
+          type: string
+          description: Product identifier to simulate
+        customerId:
+          type: string
+          description: Customer identifier for personalized pricing
+        currency:
+          type: string
+          description: Arrangement currency
+          pattern: ^[A-Z]{3}$
+        amount:
+          type: number
+          format: double
+          description: Initial amount
+        term:
+          type: integer
+          description: Arrangement term in months
+        quotationReference:
+          type: string
+          description: User-defined quotation reference
+    FeeDetail:
+      type: object
+      description: Fee detail
+      properties:
+        feeType:
+          type: string
+          description: Fee type
+        description:
+          type: string
+          description: Fee description
+        amount:
+          type: number
+          format: double
+          description: Fee amount
+        currency:
+          type: string
+          description: Fee currency
+        frequency:
+          type: string
+          description: Fee frequency
   securitySchemes:
     bearerAuth:
       type: http

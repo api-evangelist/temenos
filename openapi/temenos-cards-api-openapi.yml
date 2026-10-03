@@ -80,7 +80,44 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    CardControls:
+      type: object
+      description: Card control settings
+      properties:
+        contactlessEnabled:
+          type: boolean
+          description: Whether contactless payments are enabled
+        onlineTransactionsEnabled:
+          type: boolean
+          description: Whether online transactions are enabled
+        dailySpendingLimit:
+          type: number
+          description: Maximum daily spending limit
+          minimum: 0
+        atmWithdrawalLimit:
+          type: number
+          description: Maximum daily ATM withdrawal limit
+          minimum: 0
     Error:
       type: object
       description: Error response
@@ -134,44 +171,13 @@ components:
         accountId:
           type: string
           description: Linked account identifier
-    CardControls:
-      type: object
-      description: Card control settings
-      properties:
-        contactlessEnabled:
-          type: boolean
-          description: Whether contactless payments are enabled
-        onlineTransactionsEnabled:
-          type: boolean
-          description: Whether online transactions are enabled
-        dailySpendingLimit:
-          type: number
-          description: Maximum daily spending limit
-          minimum: 0
-        atmWithdrawalLimit:
-          type: number
-          description: Maximum daily ATM withdrawal limit
-          minimum: 0
-  responses:
-    BadRequest:
-      description: Invalid request parameters or payload
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
+    pageStart:
+      name: pageStart
+      in: query
+      description: Pagination offset token or page number
+      schema:
+        type: string
     pageSize:
       name: pageSize
       in: query
@@ -181,12 +187,6 @@ components:
         default: 25
         minimum: 1
         maximum: 100
-    pageStart:
-      name: pageStart
-      in: query
-      description: Pagination offset token or page number
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

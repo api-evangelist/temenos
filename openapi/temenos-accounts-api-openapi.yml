@@ -113,22 +113,6 @@ paths:
       description: Temenos Infinity API - Sandbox
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        errorCode:
-          type: string
-        errorMessage:
-          type: string
-    PaginationHeader:
-      type: object
-      properties:
-        page_size:
-          type: integer
-        page_start:
-          type: integer
-        total_size:
-          type: integer
     CmbAccountCreate:
       type: object
       required:
@@ -146,6 +130,13 @@ components:
           type: string
           description: Account currency
           pattern: ^[A-Z]{3}$
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
     CmbAccount:
       type: object
       description: Commercial banking account
@@ -175,6 +166,15 @@ components:
         status:
           type: string
           description: Account status
+    PaginationHeader:
+      type: object
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
     Error_2:
       type: object
       description: Error response
@@ -253,31 +253,6 @@ components:
         productName:
           type: string
           description: Name of the banking product
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    Unauthorized_2:
-      description: Authentication credentials missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
   parameters:
     pageStart:
       name: page_start
@@ -294,17 +269,17 @@ components:
         minimum: 1
         maximum: 100
         default: 25
+    pageStart_2:
+      name: pageStart
+      in: query
+      description: Pagination offset token or page number
+      schema:
+        type: string
     accountId:
       name: accountId
       in: path
       required: true
       description: Unique account identifier
-      schema:
-        type: string
-    pageStart_2:
-      name: pageStart
-      in: query
-      description: Pagination offset token or page number
       schema:
         type: string
     pageSize_2:
@@ -316,6 +291,31 @@ components:
         default: 25
         minimum: 1
         maximum: 100
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    Unauthorized_2:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   securitySchemes:
     bearerAuth:
       type: http

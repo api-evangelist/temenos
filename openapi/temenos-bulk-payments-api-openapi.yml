@@ -103,7 +103,49 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
     BulkPayment:
       type: object
       description: Bulk payment batch
@@ -137,16 +179,6 @@ components:
           type: string
           format: date-time
           description: Batch creation timestamp
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
     BulkPaymentCreate:
       type: object
       description: Request body for creating a bulk payment batch
@@ -189,46 +221,15 @@ components:
               reference:
                 type: string
                 description: Payment reference
-    PaginationHeader:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
-    batchId:
-      name: batchId
-      in: path
-      required: true
-      description: Unique bulk payment batch identifier
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
       schema:
-        type: string
+        type: integer
+        minimum: 0
+        default: 0
     pageSize:
       name: page_size
       in: query
@@ -238,14 +239,13 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
+    batchId:
+      name: batchId
+      in: path
+      required: true
+      description: Unique bulk payment batch identifier
       schema:
-        type: integer
-        minimum: 0
-        default: 0
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

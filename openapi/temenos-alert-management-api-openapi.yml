@@ -78,35 +78,26 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-    AlertUpdate:
-      type: object
-      description: Alert disposition update
-      properties:
-        status:
-          type: string
-          description: Updated status
-          enum:
-          - UNDER_REVIEW
-          - ESCALATED
-          - CLOSED_TRUE_MATCH
-          - CLOSED_FALSE_POSITIVE
-        assignedTo:
-          type: string
-          description: Assigned investigator
-        note:
-          type: string
-          description: Investigation note
     AlertDetail:
       type: object
       description: Detailed alert information
@@ -158,25 +149,34 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    AlertUpdate:
+      type: object
+      description: Alert disposition update
+      properties:
+        status:
+          type: string
+          description: Updated status
+          enum:
+          - UNDER_REVIEW
+          - ESCALATED
+          - CLOSED_TRUE_MATCH
+          - CLOSED_FALSE_POSITIVE
+        assignedTo:
+          type: string
+          description: Assigned investigator
+        note:
+          type: string
+          description: Investigation note
   securitySchemes:
     bearerAuth:
       type: http

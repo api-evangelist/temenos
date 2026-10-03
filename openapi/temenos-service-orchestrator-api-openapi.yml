@@ -143,28 +143,6 @@ components:
         status:
           type: string
           description: Orchestration status
-    OrchestrationExecution:
-      type: object
-      description: Orchestration execution status
-      properties:
-        executionId:
-          type: string
-          description: Execution identifier
-        orchestrationId:
-          type: string
-          description: Orchestration identifier
-        status:
-          type: string
-          description: Execution status
-          enum:
-          - STARTED
-          - IN_PROGRESS
-          - COMPLETED
-          - FAILED
-        startTime:
-          type: string
-          format: date-time
-          description: Start timestamp
     OrchestrationCreate:
       type: object
       description: Orchestration creation request
@@ -194,6 +172,28 @@ components:
                 type: string
               operationId:
                 type: string
+    OrchestrationExecution:
+      type: object
+      description: Orchestration execution status
+      properties:
+        executionId:
+          type: string
+          description: Execution identifier
+        orchestrationId:
+          type: string
+          description: Orchestration identifier
+        status:
+          type: string
+          description: Execution status
+          enum:
+          - STARTED
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
+        startTime:
+          type: string
+          format: date-time
+          description: Start timestamp
   responses:
     BadRequest:
       description: Invalid request

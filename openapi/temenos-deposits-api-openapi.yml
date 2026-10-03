@@ -93,6 +93,13 @@ components:
           type: string
           description: Deposit status
   parameters:
+    pageStart:
+      name: page_start
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     pageSize:
       name: page_size
       in: query
@@ -101,13 +108,6 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    pageStart:
-      name: page_start
-      in: query
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
   responses:
     Unauthorized:
       description: Authentication required

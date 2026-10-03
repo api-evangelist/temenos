@@ -148,6 +148,63 @@ paths:
       description: Temenos Transact API - Sandbox
 components:
   schemas:
+    Fund:
+      type: object
+      description: Fund master record
+      properties:
+        fundId:
+          type: string
+          description: Unique fund identifier
+        fundName:
+          type: string
+          description: Fund name
+        fundType:
+          type: string
+          description: Fund classification type
+        domicile:
+          type: string
+          description: Fund domicile country
+        baseCurrency:
+          type: string
+          description: Fund base currency
+        managerId:
+          type: string
+          description: Fund manager identifier
+        promoterId:
+          type: string
+          description: Fund promoter identifier
+        inceptionDate:
+          type: string
+          format: date
+          description: Fund inception date
+        status:
+          type: string
+          description: Fund status
+    FundCreate:
+      type: object
+      description: Request body for creating a fund
+      required:
+      - fundName
+      - fundType
+      - domicile
+      - baseCurrency
+      properties:
+        fundName:
+          type: string
+          description: Fund name
+        fundType:
+          type: string
+          description: Fund type
+        domicile:
+          type: string
+          description: Domicile country code
+        baseCurrency:
+          type: string
+          description: Base currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        managerId:
+          type: string
+          description: Fund manager identifier
     Error:
       type: object
       description: Error response
@@ -208,63 +265,6 @@ components:
         status:
           type: string
           description: Share class status
-    Fund:
-      type: object
-      description: Fund master record
-      properties:
-        fundId:
-          type: string
-          description: Unique fund identifier
-        fundName:
-          type: string
-          description: Fund name
-        fundType:
-          type: string
-          description: Fund classification type
-        domicile:
-          type: string
-          description: Fund domicile country
-        baseCurrency:
-          type: string
-          description: Fund base currency
-        managerId:
-          type: string
-          description: Fund manager identifier
-        promoterId:
-          type: string
-          description: Fund promoter identifier
-        inceptionDate:
-          type: string
-          format: date
-          description: Fund inception date
-        status:
-          type: string
-          description: Fund status
-    FundCreate:
-      type: object
-      description: Request body for creating a fund
-      required:
-      - fundName
-      - fundType
-      - domicile
-      - baseCurrency
-      properties:
-        fundName:
-          type: string
-          description: Fund name
-        fundType:
-          type: string
-          description: Fund type
-        domicile:
-          type: string
-          description: Domicile country code
-        baseCurrency:
-          type: string
-          description: Base currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        managerId:
-          type: string
-          description: Fund manager identifier
     Error_2:
       type: object
       description: Error response
@@ -322,20 +322,15 @@ components:
         status:
           type: string
           description: Product availability status
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     pageSize:
       name: page_size
       in: query
@@ -345,14 +340,19 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

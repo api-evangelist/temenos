@@ -81,6 +81,56 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+    RequestToPayCreate:
+      type: object
+      description: Request body for creating an RTP
+      required:
+      - payerAccountId
+      - amount
+      - currency
+      properties:
+        payerAccountId:
+          type: string
+          description: Payer account identifier or proxy
+        amount:
+          type: number
+          format: double
+          description: Requested amount
+          minimum: 0.01
+        currency:
+          type: string
+          description: Currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        dueDate:
+          type: string
+          format: date
+          description: Payment due date
+        description:
+          type: string
+          description: Description of the payment request
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
     RequestToPay:
       type: object
       description: Request-to-pay message
@@ -122,70 +172,15 @@ components:
           - ACCEPTED
           - REJECTED
           - EXPIRED
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-    PaginationHeader:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-    RequestToPayCreate:
-      type: object
-      description: Request body for creating an RTP
-      required:
-      - payerAccountId
-      - amount
-      - currency
-      properties:
-        payerAccountId:
-          type: string
-          description: Payer account identifier or proxy
-        amount:
-          type: number
-          format: double
-          description: Requested amount
-          minimum: 0.01
-        currency:
-          type: string
-          description: Currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        dueDate:
-          type: string
-          format: date
-          description: Payment due date
-        description:
-          type: string
-          description: Description of the payment request
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     pageSize:
       name: page_size
       in: query
@@ -195,14 +190,19 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

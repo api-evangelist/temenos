@@ -72,16 +72,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
     Configuration:
       type: object
       description: Application configuration
@@ -98,6 +88,16 @@ components:
         value:
           type: string
           description: Configuration value
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
     ConfigurationCreate:
       type: object
       description: Configuration creation request

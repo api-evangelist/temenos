@@ -74,22 +74,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        errorCode:
-          type: string
-        errorMessage:
-          type: string
-    PaginationHeader:
-      type: object
-      properties:
-        page_size:
-          type: integer
-        page_start:
-          type: integer
-        total_size:
-          type: integer
     Guarantee:
       type: object
       description: Bank guarantee
@@ -120,6 +104,22 @@ components:
         status:
           type: string
           description: Guarantee status
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
+    PaginationHeader:
+      type: object
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
     LetterOfCredit:
       type: object
       description: Letter of credit
@@ -155,6 +155,13 @@ components:
           type: string
           description: LC status
   parameters:
+    pageStart:
+      name: page_start
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     pageSize:
       name: page_size
       in: query
@@ -163,13 +170,6 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    pageStart:
-      name: page_start
-      in: query
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
   responses:
     Unauthorized:
       description: Authentication required

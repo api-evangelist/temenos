@@ -172,37 +172,6 @@ components:
         total_size:
           type: integer
           description: Total records
-    AnalyticsTransaction:
-      type: object
-      description: Analytical transaction data
-      properties:
-        transactionId:
-          type: string
-          description: Transaction identifier
-        accountId:
-          type: string
-          description: Account identifier
-        transactionType:
-          type: string
-          description: Transaction type
-        amount:
-          type: number
-          format: double
-          description: Transaction amount
-        currency:
-          type: string
-          description: Currency
-        bookingDate:
-          type: string
-          format: date
-          description: Booking date
-        valueDate:
-          type: string
-          format: date
-          description: Value date
-        channel:
-          type: string
-          description: Originating channel
     AnalyticsAccount:
       type: object
       description: Analytical account data
@@ -237,7 +206,46 @@ components:
         status:
           type: string
           description: Account status
+    AnalyticsTransaction:
+      type: object
+      description: Analytical transaction data
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        accountId:
+          type: string
+          description: Account identifier
+        transactionType:
+          type: string
+          description: Transaction type
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        currency:
+          type: string
+          description: Currency
+        bookingDate:
+          type: string
+          format: date
+          description: Booking date
+        valueDate:
+          type: string
+          format: date
+          description: Value date
+        channel:
+          type: string
+          description: Originating channel
   parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     pageSize:
       name: page_size
       in: query
@@ -247,14 +255,6 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
   responses:
     Unauthorized:
       description: Authentication required
