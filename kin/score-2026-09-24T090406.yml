@@ -1,29 +1,27 @@
-# Kin Score artifact — temenos — 2026-08-30T203505
+# Kin Score artifact — temenos — 2026-09-24T090406
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: temenos
-  schema_version: 0.17.2
-  scored_at: '2026-08-30'
-  run_ts: 2026-08-30T203505
-  composite: 56.1
+  schema_version: 0.22.0
+  scored_at: '2026-09-24'
+  run_ts: 2026-09-24T090406
+  composite: 57.0
   band: strong
   facets:
-    discoverability: 68.5
-    contract_quality: 69.2
-    governance: 28.8
+    discoverability: 87.0
+    contract_quality: 68.3
+    contract_governance: 28.8
     operational_transparency: 31.6
     developer_ergonomics: 60.7
-    commercial_clarity: 40.8
-    contract_governance: 28.8
     access_clarity: 40.8
   agent_readiness:
-    score: 25.9
+    score: 27.6
     band: agent-aware
     dimensions:
       spec_presence: true
       agentic_access: derived
-      reversibility_documented: false
+      reversibility_documented: documented
       mcp_server: false
       auth_clarity: bearer
       idempotency: false
