@@ -77,6 +77,19 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     BundleArrangement:
       type: object
@@ -109,6 +122,40 @@ components:
         status:
           type: string
           description: Bundle status
+    BundleArrangementCreate:
+      type: object
+      description: Request body for creating a bundle arrangement
+      required:
+      - customerId
+      - productId
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        productId:
+          type: string
+          description: Bundle product identifier
+        bundleName:
+          type: string
+          description: Optional bundle name
+        arrangements:
+          type: array
+          description: Arrangement identifiers to include
+          items:
+            type: string
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
     Error:
       type: object
       description: Error response
@@ -131,40 +178,6 @@ components:
               message:
                 type: string
                 description: Detail message
-    PaginationHeader:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-    BundleArrangementCreate:
-      type: object
-      description: Request body for creating a bundle arrangement
-      required:
-      - customerId
-      - productId
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier
-        productId:
-          type: string
-          description: Bundle product identifier
-        bundleName:
-          type: string
-          description: Optional bundle name
-        arrangements:
-          type: array
-          description: Arrangement identifiers to include
-          items:
-            type: string
   parameters:
     pageStart:
       name: page_start
@@ -183,19 +196,6 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-  responses:
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

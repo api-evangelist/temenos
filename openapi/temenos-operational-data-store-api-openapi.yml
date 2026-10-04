@@ -79,6 +79,33 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    OperationalTransaction:
+      type: object
+      description: Operational transaction data
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        accountId:
+          type: string
+          description: Account identifier
+        amount:
+          type: number
+          format: double
+          description: Amount
+        currency:
+          type: string
+          description: Currency
+        bookingDate:
+          type: string
+          format: date
+          description: Booking date
+        description:
+          type: string
+          description: Transaction description
+        status:
+          type: string
+          description: Processing status
     OperationalAccount:
       type: object
       description: Operational account data
@@ -110,43 +137,6 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-    OperationalTransaction:
-      type: object
-      description: Operational transaction data
-      properties:
-        transactionId:
-          type: string
-          description: Transaction identifier
-        accountId:
-          type: string
-          description: Account identifier
-        amount:
-          type: number
-          format: double
-          description: Amount
-        currency:
-          type: string
-          description: Currency
-        bookingDate:
-          type: string
-          format: date
-          description: Booking date
-        description:
-          type: string
-          description: Transaction description
-        status:
-          type: string
-          description: Processing status
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
     PaginationHeader:
       type: object
       description: Pagination metadata
@@ -160,6 +150,16 @@ components:
         total_size:
           type: integer
           description: Total records
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
   parameters:
     pageStart:
       name: page_start

@@ -151,7 +151,132 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    PaymentStatus:
+      type: object
+      description: Payment order processing status
+      properties:
+        paymentOrderId:
+          type: string
+          description: Payment order identifier
+        status:
+          type: string
+          description: Current processing status
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+          - CANCELLED
+        clearingStatus:
+          type: string
+          description: Clearing system status
+        bookingStatus:
+          type: string
+          description: Account booking status
+          enum:
+          - BOOKED
+          - PENDING
+          - REJECTED
+        statusReason:
+          type: string
+          description: Reason for current status
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Timestamp of last status update
+    PaymentOrderCreate:
+      type: object
+      description: Request body for creating a payment order
+      required:
+      - debitAccountId
+      - amount
+      - currency
+      - paymentType
+      properties:
+        debitAccountId:
+          type: string
+          description: Originating account identifier
+        creditAccountId:
+          type: string
+          description: Destination account identifier for internal transfers
+        beneficiaryName:
+          type: string
+          description: Beneficiary name for external transfers
+        beneficiaryIban:
+          type: string
+          description: Beneficiary IBAN
+        beneficiaryBic:
+          type: string
+          description: Beneficiary bank BIC/SWIFT code
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+          minimum: 0.01
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        paymentType:
+          type: string
+          description: Type of payment
+          enum:
+          - SEPA_CREDIT
+          - INSTANT_SEPA
+          - SWIFT
+          - DOMESTIC
+          - INTERNAL
+          - TARGET2
+          - CROSS_BORDER
+        valueDate:
+          type: string
+          format: date
+          description: Requested value date
+        reference:
+          type: string
+          description: Payment reference
+          maxLength: 140
+        endToEndId:
+          type: string
+          description: End-to-end identifier
+          maxLength: 35
+        remittanceInformation:
+          type: string
+          description: Remittance information
+          maxLength: 140
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
     PaymentOrder:
       type: object
       description: Payment order for fund transfer
@@ -220,39 +345,6 @@ components:
         remittanceInformation:
           type: string
           description: Remittance information for the payment
-    PaymentStatus:
-      type: object
-      description: Payment order processing status
-      properties:
-        paymentOrderId:
-          type: string
-          description: Payment order identifier
-        status:
-          type: string
-          description: Current processing status
-          enum:
-          - PENDING
-          - PROCESSING
-          - COMPLETED
-          - FAILED
-          - CANCELLED
-        clearingStatus:
-          type: string
-          description: Clearing system status
-        bookingStatus:
-          type: string
-          description: Account booking status
-          enum:
-          - BOOKED
-          - PENDING
-          - REJECTED
-        statusReason:
-          type: string
-          description: Reason for current status
-        lastUpdated:
-          type: string
-          format: date-time
-          description: Timestamp of last status update
     Error:
       type: object
       description: Error response
@@ -263,98 +355,6 @@ components:
         errorMessage:
           type: string
           description: Human-readable error description
-    PaginationHeader:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-    PaymentOrderCreate:
-      type: object
-      description: Request body for creating a payment order
-      required:
-      - debitAccountId
-      - amount
-      - currency
-      - paymentType
-      properties:
-        debitAccountId:
-          type: string
-          description: Originating account identifier
-        creditAccountId:
-          type: string
-          description: Destination account identifier for internal transfers
-        beneficiaryName:
-          type: string
-          description: Beneficiary name for external transfers
-        beneficiaryIban:
-          type: string
-          description: Beneficiary IBAN
-        beneficiaryBic:
-          type: string
-          description: Beneficiary bank BIC/SWIFT code
-        amount:
-          type: number
-          format: double
-          description: Payment amount
-          minimum: 0.01
-        currency:
-          type: string
-          description: Payment currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        paymentType:
-          type: string
-          description: Type of payment
-          enum:
-          - SEPA_CREDIT
-          - INSTANT_SEPA
-          - SWIFT
-          - DOMESTIC
-          - INTERNAL
-          - TARGET2
-          - CROSS_BORDER
-        valueDate:
-          type: string
-          format: date
-          description: Requested value date
-        reference:
-          type: string
-          description: Payment reference
-          maxLength: 140
-        endToEndId:
-          type: string
-          description: End-to-end identifier
-          maxLength: 35
-        remittanceInformation:
-          type: string
-          description: Remittance information
-          maxLength: 140
-  responses:
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     paymentOrderId:
       name: paymentOrderId

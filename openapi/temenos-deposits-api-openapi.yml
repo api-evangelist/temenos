@@ -48,22 +48,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        errorCode:
-          type: string
-        errorMessage:
-          type: string
-    PaginationHeader:
-      type: object
-      properties:
-        page_size:
-          type: integer
-        page_start:
-          type: integer
-        total_size:
-          type: integer
     CmbDeposit:
       type: object
       description: Deposit product
@@ -92,6 +76,22 @@ components:
         status:
           type: string
           description: Deposit status
+    PaginationHeader:
+      type: object
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
   parameters:
     pageStart:
       name: page_start

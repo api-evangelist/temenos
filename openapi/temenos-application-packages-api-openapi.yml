@@ -116,14 +116,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    NotFound:
-      description: Not found
+    BadRequest:
+      description: Invalid request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request
+    NotFound:
+      description: Not found
       content:
         application/json:
           schema:

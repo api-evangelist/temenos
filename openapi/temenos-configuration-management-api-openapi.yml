@@ -71,6 +71,19 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Configuration:
       type: object
@@ -79,6 +92,23 @@ components:
         configurationId:
           type: string
           description: Configuration identifier
+        configGroup:
+          type: string
+          description: Configuration group
+        key:
+          type: string
+          description: Configuration key
+        value:
+          type: string
+          description: Configuration value
+    ConfigurationCreate:
+      type: object
+      description: Configuration creation request
+      required:
+      - configGroup
+      - key
+      - value
+      properties:
         configGroup:
           type: string
           description: Configuration group
@@ -98,36 +128,6 @@ components:
         errorMessage:
           type: string
           description: Error description
-    ConfigurationCreate:
-      type: object
-      description: Configuration creation request
-      required:
-      - configGroup
-      - key
-      - value
-      properties:
-        configGroup:
-          type: string
-          description: Configuration group
-        key:
-          type: string
-          description: Configuration key
-        value:
-          type: string
-          description: Configuration value
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

@@ -79,43 +79,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-    PaginationHeader:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
     DirectDebit:
       type: object
       description: Direct debit mandate and instruction
@@ -161,6 +125,29 @@ components:
           - ACTIVE
           - SUSPENDED
           - CANCELLED
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
   parameters:
     pageStart:
       name: page_start
@@ -179,6 +166,19 @@ components:
         minimum: 1
         maximum: 100
         default: 25
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

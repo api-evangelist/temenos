@@ -55,14 +55,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -74,6 +74,78 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    PricingAmendment:
+      type: object
+      description: Pricing amendment request
+      properties:
+        interestRateAdjustment:
+          type: number
+          format: double
+          description: Interest rate adjustment in basis points
+        feeWaivers:
+          type: array
+          description: Fee waivers to apply
+          items:
+            type: object
+            properties:
+              feeType:
+                type: string
+                description: Fee type to waive
+              waivePercentage:
+                type: number
+                format: double
+                description: Percentage of fee to waive
+        expiryDate:
+          type: string
+          format: date
+          description: Expiry date for the adjustment
+    InterestRateDetail:
+      type: object
+      description: Individual interest rate detail
+      properties:
+        rateType:
+          type: string
+          description: Rate type
+          enum:
+          - FIXED
+          - VARIABLE
+          - PROMOTIONAL
+        baseRate:
+          type: number
+          format: double
+          description: Base rate percentage
+        benefit:
+          type: number
+          format: double
+          description: Benefit adjustment
+        netRate:
+          type: number
+          format: double
+          description: Effective net rate
+        effectiveDate:
+          type: string
+          format: date
+          description: Rate effective date
+    FeeDetail:
+      type: object
+      description: Fee detail
+      properties:
+        feeType:
+          type: string
+          description: Fee type
+        description:
+          type: string
+          description: Fee description
+        amount:
+          type: number
+          format: double
+          description: Fee amount
+        currency:
+          type: string
+          description: Fee currency
+        frequency:
+          type: string
+          description: Fee frequency
     QuotationResult:
       type: object
       description: Quotation pricing result
@@ -120,78 +192,6 @@ components:
         errorMessage:
           type: string
           description: Error description
-    InterestRateDetail:
-      type: object
-      description: Individual interest rate detail
-      properties:
-        rateType:
-          type: string
-          description: Rate type
-          enum:
-          - FIXED
-          - VARIABLE
-          - PROMOTIONAL
-        baseRate:
-          type: number
-          format: double
-          description: Base rate percentage
-        benefit:
-          type: number
-          format: double
-          description: Benefit adjustment
-        netRate:
-          type: number
-          format: double
-          description: Effective net rate
-        effectiveDate:
-          type: string
-          format: date
-          description: Rate effective date
-    PricingAmendment:
-      type: object
-      description: Pricing amendment request
-      properties:
-        interestRateAdjustment:
-          type: number
-          format: double
-          description: Interest rate adjustment in basis points
-        feeWaivers:
-          type: array
-          description: Fee waivers to apply
-          items:
-            type: object
-            properties:
-              feeType:
-                type: string
-                description: Fee type to waive
-              waivePercentage:
-                type: number
-                format: double
-                description: Percentage of fee to waive
-        expiryDate:
-          type: string
-          format: date
-          description: Expiry date for the adjustment
-    FeeDetail:
-      type: object
-      description: Fee detail
-      properties:
-        feeType:
-          type: string
-          description: Fee type
-        description:
-          type: string
-          description: Fee description
-        amount:
-          type: number
-          format: double
-          description: Fee amount
-        currency:
-          type: string
-          description: Fee currency
-        frequency:
-          type: string
-          description: Fee frequency
   securitySchemes:
     bearerAuth:
       type: http

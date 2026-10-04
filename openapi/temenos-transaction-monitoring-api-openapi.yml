@@ -62,17 +62,25 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
     PaginationHeader:
       type: object
       description: Pagination metadata
@@ -125,24 +133,16 @@ components:
           type: string
           format: date-time
           description: Alert creation timestamp
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
   responses:
     Unauthorized:
       description: Authentication required

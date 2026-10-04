@@ -599,6 +599,37 @@ paths:
     - url: https://api.temenos.com/wealth/v1
       description: Temenos Wealth API - Production
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    NotFound_2:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
   schemas:
     Error:
       type: object
@@ -679,6 +710,19 @@ components:
           type: string
           format: date
           description: Valuation date
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total records available
     SecurityTransaction:
       type: object
       description: Securities transaction record
@@ -727,41 +771,6 @@ components:
           type: string
           format: date
           description: Settlement date
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total records available
-    Error_2:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field related to the error
-              message:
-                type: string
-                description: Detail message
     LoanCreate:
       type: object
       description: Request body for creating a new loan
@@ -826,120 +835,6 @@ components:
         status:
           type: string
           description: Current deposit status
-    AccountUpdate:
-      type: object
-      description: Request body for updating an account
-      properties:
-        accountName:
-          type: string
-          description: Updated display name
-        status:
-          type: string
-          description: Updated account status
-          enum:
-          - ACTIVE
-          - INACTIVE
-    PaginationHeader_2:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-    Account:
-      type: object
-      description: Banking account arrangement
-      properties:
-        accountId:
-          type: string
-          description: Unique account identifier
-        customerId:
-          type: string
-          description: Associated customer identifier
-        accountName:
-          type: string
-          description: Account display name
-        accountType:
-          type: string
-          description: Type of account
-          enum:
-          - CURRENT
-          - SAVINGS
-          - DEPOSIT
-          - LOAN
-        productId:
-          type: string
-          description: Associated product identifier
-        currency:
-          type: string
-          description: Account currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        status:
-          type: string
-          description: Current account status
-          enum:
-          - ACTIVE
-          - INACTIVE
-          - CLOSED
-          - DORMANT
-        openingDate:
-          type: string
-          format: date
-          description: Date the account was opened
-        workingBalance:
-          type: number
-          format: double
-          description: Current working balance
-        availableBalance:
-          type: number
-          format: double
-          description: Available balance for transactions
-    Transaction:
-      type: object
-      description: Account transaction record
-      properties:
-        transactionId:
-          type: string
-          description: Unique transaction identifier
-        accountId:
-          type: string
-          description: Associated account identifier
-        transactionType:
-          type: string
-          description: Type of transaction
-        amount:
-          type: number
-          format: double
-          description: Transaction amount
-        currency:
-          type: string
-          description: Transaction currency in ISO 4217 format
-        debitOrCredit:
-          type: string
-          description: Whether the transaction is a debit or credit
-          enum:
-          - DEBIT
-          - CREDIT
-        bookingDate:
-          type: string
-          format: date
-          description: Date the transaction was booked
-        valueDate:
-          type: string
-          format: date
-          description: Value date of the transaction
-        description:
-          type: string
-          description: Transaction narrative description
-        reference:
-          type: string
-          description: Transaction reference number
     Loan:
       type: object
       description: Loan arrangement
@@ -990,27 +885,6 @@ components:
         status:
           type: string
           description: Current loan status
-    AccountCreate:
-      type: object
-      description: Request body for creating a new account
-      required:
-      - customerId
-      - productId
-      - currency
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier for the account holder
-        productId:
-          type: string
-          description: Product identifier defining account type and terms
-        currency:
-          type: string
-          description: Account currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        accountName:
-          type: string
-          description: Optional display name for the account
     AccountBalance:
       type: object
       description: Account balance details
@@ -1037,6 +911,163 @@ components:
           type: number
           format: double
           description: Cleared funds balance
+    AccountCreate:
+      type: object
+      description: Request body for creating a new account
+      required:
+      - customerId
+      - productId
+      - currency
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier for the account holder
+        productId:
+          type: string
+          description: Product identifier defining account type and terms
+        currency:
+          type: string
+          description: Account currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        accountName:
+          type: string
+          description: Optional display name for the account
+    PaginationHeader_2:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    AccountUpdate:
+      type: object
+      description: Request body for updating an account
+      properties:
+        accountName:
+          type: string
+          description: Updated display name
+        status:
+          type: string
+          description: Updated account status
+          enum:
+          - ACTIVE
+          - INACTIVE
+    Transaction:
+      type: object
+      description: Account transaction record
+      properties:
+        transactionId:
+          type: string
+          description: Unique transaction identifier
+        accountId:
+          type: string
+          description: Associated account identifier
+        transactionType:
+          type: string
+          description: Type of transaction
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        currency:
+          type: string
+          description: Transaction currency in ISO 4217 format
+        debitOrCredit:
+          type: string
+          description: Whether the transaction is a debit or credit
+          enum:
+          - DEBIT
+          - CREDIT
+        bookingDate:
+          type: string
+          format: date
+          description: Date the transaction was booked
+        valueDate:
+          type: string
+          format: date
+          description: Value date of the transaction
+        description:
+          type: string
+          description: Transaction narrative description
+        reference:
+          type: string
+          description: Transaction reference number
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
+    Account:
+      type: object
+      description: Banking account arrangement
+      properties:
+        accountId:
+          type: string
+          description: Unique account identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        accountName:
+          type: string
+          description: Account display name
+        accountType:
+          type: string
+          description: Type of account
+          enum:
+          - CURRENT
+          - SAVINGS
+          - DEPOSIT
+          - LOAN
+        productId:
+          type: string
+          description: Associated product identifier
+        currency:
+          type: string
+          description: Account currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        status:
+          type: string
+          description: Current account status
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - CLOSED
+          - DORMANT
+        openingDate:
+          type: string
+          format: date
+          description: Date the account was opened
+        workingBalance:
+          type: number
+          format: double
+          description: Current working balance
+        availableBalance:
+          type: number
+          format: double
+          description: Available balance for transactions
     Portfolio:
       type: object
       description: Investment portfolio
@@ -1090,56 +1121,49 @@ components:
           - ACTIVE
           - CLOSED
           - SUSPENDED
-    Error_3:
+    PortfolioValuation:
       type: object
-      description: Error response
+      description: Portfolio valuation summary
       properties:
-        errorCode:
+        portfolioId:
           type: string
-          description: Error code
-        errorMessage:
+          description: Portfolio identifier
+        valuationDate:
           type: string
-          description: Error description
-    PortfolioCreate:
-      type: object
-      description: Portfolio creation request
-      required:
-      - customerId
-      - currency
-      - mandateType
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier
-        portfolioName:
-          type: string
-          description: Portfolio name
+          format: date
+          description: Valuation date
+        totalMarketValue:
+          type: number
+          format: double
+          description: Total market value
+        totalCost:
+          type: number
+          format: double
+          description: Total cost basis
+        unrealizedPnL:
+          type: number
+          format: double
+          description: Total unrealized P&L
         currency:
           type: string
-          description: Base currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        mandateType:
-          type: string
-          description: Investment mandate type
-          enum:
-          - DISCRETIONARY
-          - ADVISORY
-          - EXECUTION_ONLY
-        riskProfile:
-          type: string
-          description: Risk profile
-          enum:
-          - CONSERVATIVE
-          - MODERATE
-          - BALANCED
-          - GROWTH
-          - AGGRESSIVE
-        benchmarkId:
-          type: string
-          description: Benchmark assignment
-        advisorId:
-          type: string
-          description: Advisor assignment
+          description: Valuation currency
+        assetAllocation:
+          type: array
+          description: Asset allocation breakdown
+          items:
+            type: object
+            properties:
+              assetClass:
+                type: string
+                description: Asset class name
+              marketValue:
+                type: number
+                format: double
+                description: Market value in asset class
+              weight:
+                type: number
+                format: double
+                description: Percentage weight
     Position_2:
       type: object
       description: Portfolio position
@@ -1206,49 +1230,56 @@ components:
         total_size:
           type: integer
           description: Total records
-    PortfolioValuation:
+    Error_3:
       type: object
-      description: Portfolio valuation summary
+      description: Error response
       properties:
-        portfolioId:
+        errorCode:
           type: string
-          description: Portfolio identifier
-        valuationDate:
+          description: Error code
+        errorMessage:
           type: string
-          format: date
-          description: Valuation date
-        totalMarketValue:
-          type: number
-          format: double
-          description: Total market value
-        totalCost:
-          type: number
-          format: double
-          description: Total cost basis
-        unrealizedPnL:
-          type: number
-          format: double
-          description: Total unrealized P&L
+          description: Error description
+    PortfolioCreate:
+      type: object
+      description: Portfolio creation request
+      required:
+      - customerId
+      - currency
+      - mandateType
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        portfolioName:
+          type: string
+          description: Portfolio name
         currency:
           type: string
-          description: Valuation currency
-        assetAllocation:
-          type: array
-          description: Asset allocation breakdown
-          items:
-            type: object
-            properties:
-              assetClass:
-                type: string
-                description: Asset class name
-              marketValue:
-                type: number
-                format: double
-                description: Market value in asset class
-              weight:
-                type: number
-                format: double
-                description: Percentage weight
+          description: Base currency in ISO 4217 format
+          pattern: ^[A-Z]{3}$
+        mandateType:
+          type: string
+          description: Investment mandate type
+          enum:
+          - DISCRETIONARY
+          - ADVISORY
+          - EXECUTION_ONLY
+        riskProfile:
+          type: string
+          description: Risk profile
+          enum:
+          - CONSERVATIVE
+          - MODERATE
+          - BALANCED
+          - GROWTH
+          - AGGRESSIVE
+        benchmarkId:
+          type: string
+          description: Benchmark assignment
+        advisorId:
+          type: string
+          description: Advisor assignment
   parameters:
     pageStart:
       name: page_start
@@ -1282,6 +1313,13 @@ components:
         type: integer
         minimum: 0
         default: 0
+    portfolioId:
+      name: portfolioId
+      in: path
+      required: true
+      description: Unique portfolio identifier
+      schema:
+        type: string
     pageSize_2:
       name: page_size
       in: query
@@ -1291,44 +1329,6 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    portfolioId:
-      name: portfolioId
-      in: path
-      required: true
-      description: Unique portfolio identifier
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    NotFound_2:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
   securitySchemes:
     bearerAuth:
       type: http

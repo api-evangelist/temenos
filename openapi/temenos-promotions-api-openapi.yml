@@ -46,32 +46,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-    PromotionCreate:
-      type: object
-      description: Promotion creation request
-      required:
-      - customerId
-      - promotionCode
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier
-        promotionCode:
-          type: string
-          description: Promotional code
-        arrangementId:
-          type: string
-          description: Target arrangement
     Promotion:
       type: object
       description: Promotional arrangement
@@ -109,6 +83,32 @@ components:
           type: string
           format: date
           description: Promotion end date
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    PromotionCreate:
+      type: object
+      description: Promotion creation request
+      required:
+      - customerId
+      - promotionCode
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        promotionCode:
+          type: string
+          description: Promotional code
+        arrangementId:
+          type: string
+          description: Target arrangement
   responses:
     BadRequest:
       description: Invalid request parameters

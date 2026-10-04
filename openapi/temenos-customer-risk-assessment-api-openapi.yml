@@ -86,14 +86,14 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -105,49 +105,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-    KycFormSubmission:
-      type: object
-      description: KYC form submission for risk scoring
-      required:
-      - customerId
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier
-        customerType:
-          type: string
-          description: Customer type
-          enum:
-          - INDIVIDUAL
-          - CORPORATE
-        countryOfResidence:
-          type: string
-          description: Country of residence code
-        nationality:
-          type: string
-          description: Nationality code
-        occupation:
-          type: string
-          description: Occupation or business type
-        sourceOfFunds:
-          type: string
-          description: Declared source of funds
-        expectedTransactionVolume:
-          type: string
-          description: Expected monthly transaction volume range
-        pepStatus:
-          type: boolean
-          description: Whether customer is a politically exposed person
     RiskScore:
       type: object
       description: Customer risk score assessment
@@ -189,6 +146,49 @@ components:
           type: string
           format: date-time
           description: Date of risk assessment
+    KycFormSubmission:
+      type: object
+      description: KYC form submission for risk scoring
+      required:
+      - customerId
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        customerType:
+          type: string
+          description: Customer type
+          enum:
+          - INDIVIDUAL
+          - CORPORATE
+        countryOfResidence:
+          type: string
+          description: Country of residence code
+        nationality:
+          type: string
+          description: Nationality code
+        occupation:
+          type: string
+          description: Occupation or business type
+        sourceOfFunds:
+          type: string
+          description: Declared source of funds
+        expectedTransactionVolume:
+          type: string
+          description: Expected monthly transaction volume range
+        pepStatus:
+          type: boolean
+          description: Whether customer is a politically exposed person
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
   parameters:
     customerId:
       name: customerId

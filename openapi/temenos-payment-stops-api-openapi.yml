@@ -77,17 +77,76 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   schemas:
-    Error:
+    PaymentStop:
       type: object
-      description: Error response
+      description: Payment stop instruction
       properties:
-        errorCode:
+        paymentStopId:
           type: string
-          description: Machine-readable error code
-        errorMessage:
+          description: Unique payment stop identifier
+        accountId:
           type: string
-          description: Human-readable error description
+          description: Account for the stop instruction
+        stopType:
+          type: string
+          description: Type of payment stop
+          enum:
+          - CHEQUE
+          - AMOUNT_RANGE
+          - REFERENCE
+        chequeNumber:
+          type: string
+          description: Cheque number for cheque-based stops
+        amountFrom:
+          type: number
+          format: double
+          description: Minimum amount for range-based stops
+        amountTo:
+          type: number
+          format: double
+          description: Maximum amount for range-based stops
+        reference:
+          type: string
+          description: Payment reference for reference-based stops
+        status:
+          type: string
+          description: Stop instruction status
+          enum:
+          - ACTIVE
+          - EXPIRED
+          - CANCELLED
     PaginationHeader:
       type: object
       description: Pagination metadata for list responses
@@ -135,75 +194,16 @@ components:
         reference:
           type: string
           description: Payment reference to stop
-    PaymentStop:
+    Error:
       type: object
-      description: Payment stop instruction
+      description: Error response
       properties:
-        paymentStopId:
+        errorCode:
           type: string
-          description: Unique payment stop identifier
-        accountId:
+          description: Machine-readable error code
+        errorMessage:
           type: string
-          description: Account for the stop instruction
-        stopType:
-          type: string
-          description: Type of payment stop
-          enum:
-          - CHEQUE
-          - AMOUNT_RANGE
-          - REFERENCE
-        chequeNumber:
-          type: string
-          description: Cheque number for cheque-based stops
-        amountFrom:
-          type: number
-          format: double
-          description: Minimum amount for range-based stops
-        amountTo:
-          type: number
-          format: double
-          description: Maximum amount for range-based stops
-        reference:
-          type: string
-          description: Payment reference for reference-based stops
-        status:
-          type: string
-          description: Stop instruction status
-          enum:
-          - ACTIVE
-          - EXPIRED
-          - CANCELLED
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+          description: Human-readable error description
   securitySchemes:
     bearerAuth:
       type: http

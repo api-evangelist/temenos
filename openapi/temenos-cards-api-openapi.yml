@@ -81,6 +81,12 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
+    BadRequest:
+      description: Invalid request parameters or payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: Requested resource not found
       content:
@@ -93,13 +99,54 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or payload
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    pageStart:
+      name: pageStart
+      in: query
+      description: Pagination offset token or page number
+      schema:
+        type: string
+    pageSize:
+      name: pageSize
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        default: 25
+        minimum: 1
+        maximum: 100
   schemas:
+    Card:
+      type: object
+      description: Customer debit or credit card
+      properties:
+        cardId:
+          type: string
+          description: Unique card identifier
+        cardNumber:
+          type: string
+          description: Masked card number
+        cardType:
+          type: string
+          description: Type of card
+          enum:
+          - DEBIT
+          - CREDIT
+          - PREPAID
+        status:
+          type: string
+          description: Current card status
+          enum:
+          - ACTIVE
+          - BLOCKED
+          - EXPIRED
+          - PENDING_ACTIVATION
+        expiryDate:
+          type: string
+          description: Card expiry date in MM/YY format
+        accountId:
+          type: string
+          description: Linked account identifier
     CardControls:
       type: object
       description: Card control settings
@@ -140,53 +187,6 @@ components:
                 type: string
                 description: Detail of the error
           description: Additional error details
-    Card:
-      type: object
-      description: Customer debit or credit card
-      properties:
-        cardId:
-          type: string
-          description: Unique card identifier
-        cardNumber:
-          type: string
-          description: Masked card number
-        cardType:
-          type: string
-          description: Type of card
-          enum:
-          - DEBIT
-          - CREDIT
-          - PREPAID
-        status:
-          type: string
-          description: Current card status
-          enum:
-          - ACTIVE
-          - BLOCKED
-          - EXPIRED
-          - PENDING_ACTIVATION
-        expiryDate:
-          type: string
-          description: Card expiry date in MM/YY format
-        accountId:
-          type: string
-          description: Linked account identifier
-  parameters:
-    pageStart:
-      name: pageStart
-      in: query
-      description: Pagination offset token or page number
-      schema:
-        type: string
-    pageSize:
-      name: pageSize
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        default: 25
-        minimum: 1
-        maximum: 100
   securitySchemes:
     bearerAuth:
       type: http

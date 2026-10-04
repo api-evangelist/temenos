@@ -76,17 +76,37 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
+    EntitlementCreate:
       type: object
-      description: Error response
+      description: Entitlement assignment request
+      required:
+      - userId
+      - productId
+      - role
       properties:
-        errorCode:
+        userId:
           type: string
-          description: Error code
-        errorMessage:
+          description: User identifier
+        productId:
           type: string
-          description: Error description
+          description: Product identifier
+        role:
+          type: string
+          description: Role to assign
     Entitlement:
       type: object
       description: User entitlement
@@ -111,36 +131,16 @@ components:
         status:
           type: string
           description: Entitlement status
-    EntitlementCreate:
+    Error:
       type: object
-      description: Entitlement assignment request
-      required:
-      - userId
-      - productId
-      - role
+      description: Error response
       properties:
-        userId:
+        errorCode:
           type: string
-          description: User identifier
-        productId:
+          description: Error code
+        errorMessage:
           type: string
-          description: Product identifier
-        role:
-          type: string
-          description: Role to assign
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+          description: Error description
   securitySchemes:
     bearerAuth:
       type: http

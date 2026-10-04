@@ -129,6 +129,37 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    AnalyticsTransaction:
+      type: object
+      description: Analytical transaction data
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        accountId:
+          type: string
+          description: Account identifier
+        transactionType:
+          type: string
+          description: Transaction type
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        currency:
+          type: string
+          description: Currency
+        bookingDate:
+          type: string
+          format: date
+          description: Booking date
+        valueDate:
+          type: string
+          format: date
+          description: Value date
+        channel:
+          type: string
+          description: Originating channel
     AnalyticsCustomer:
       type: object
       description: Analytical customer data
@@ -149,16 +180,6 @@ components:
         currency:
           type: string
           description: Reporting currency
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
     PaginationHeader:
       type: object
       description: Pagination metadata
@@ -172,6 +193,16 @@ components:
         total_size:
           type: integer
           description: Total records
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
     AnalyticsAccount:
       type: object
       description: Analytical account data
@@ -206,37 +237,6 @@ components:
         status:
           type: string
           description: Account status
-    AnalyticsTransaction:
-      type: object
-      description: Analytical transaction data
-      properties:
-        transactionId:
-          type: string
-          description: Transaction identifier
-        accountId:
-          type: string
-          description: Account identifier
-        transactionType:
-          type: string
-          description: Transaction type
-        amount:
-          type: number
-          format: double
-          description: Transaction amount
-        currency:
-          type: string
-          description: Currency
-        bookingDate:
-          type: string
-          format: date
-          description: Booking date
-        valueDate:
-          type: string
-          format: date
-          description: Value date
-        channel:
-          type: string
-          description: Originating channel
   parameters:
     pageStart:
       name: page_start

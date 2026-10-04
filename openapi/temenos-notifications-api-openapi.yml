@@ -108,14 +108,14 @@ components:
                 description: Detail of the error
           description: Additional error details
   responses:
-    Unauthorized:
-      description: Authentication credentials missing or invalid
+    BadRequest:
+      description: Invalid request parameters or payload
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or payload
+    Unauthorized:
+      description: Authentication credentials missing or invalid
       content:
         application/json:
           schema:

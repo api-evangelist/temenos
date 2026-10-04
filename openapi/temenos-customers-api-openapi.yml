@@ -71,14 +71,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    NotFound:
-      description: Requested resource not found
+    BadRequest:
+      description: Invalid request parameters or payload
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or payload
+    NotFound:
+      description: Requested resource not found
       content:
         application/json:
           schema:
@@ -89,42 +89,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        code:
-          type: string
-          description: Error code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-              message:
-                type: string
-                description: Detail of the error
-          description: Additional error details
-    CustomerUpdate:
-      type: object
-      description: Fields available for customer profile update
-      properties:
-        email:
-          type: string
-          format: email
-          description: Updated email address
-        phone:
-          type: string
-          description: Updated phone number
-        address:
-          $ref: '#/components/schemas/Address'
     Address:
       type: object
       description: Postal address
@@ -148,6 +121,19 @@ components:
           type: string
           description: ISO 3166-1 alpha-2 country code
           pattern: ^[A-Z]{2}$
+    CustomerUpdate:
+      type: object
+      description: Fields available for customer profile update
+      properties:
+        email:
+          type: string
+          format: email
+          description: Updated email address
+        phone:
+          type: string
+          description: Updated phone number
+        address:
+          $ref: '#/components/schemas/Address'
     Customer:
       type: object
       description: Customer profile in the digital banking platform
@@ -174,14 +160,28 @@ components:
           description: Date of birth
         address:
           $ref: '#/components/schemas/Address'
-  parameters:
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Unique customer identifier
-      schema:
-        type: string
+    Error:
+      type: object
+      description: Error response
+      properties:
+        code:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Detail of the error
+          description: Additional error details
   securitySchemes:
     bearerAuth:
       type: http

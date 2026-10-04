@@ -65,7 +65,38 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    FormGroup:
+      type: object
+      description: Form group configuration
+      properties:
+        formGroupId:
+          type: string
+          description: Form group identifier
+        name:
+          type: string
+          description: Group name
+        description:
+          type: string
+          description: Group description
+        forms:
+          type: array
+          description: Forms in group
+          items:
+            type: string
     FormGroupCreate:
       type: object
       description: Form group creation request
@@ -88,37 +119,6 @@ components:
         errorMessage:
           type: string
           description: Error description
-    FormGroup:
-      type: object
-      description: Form group configuration
-      properties:
-        formGroupId:
-          type: string
-          description: Form group identifier
-        name:
-          type: string
-          description: Group name
-        description:
-          type: string
-          description: Group description
-        forms:
-          type: array
-          description: Forms in group
-          items:
-            type: string
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

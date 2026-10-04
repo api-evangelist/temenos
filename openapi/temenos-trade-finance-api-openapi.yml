@@ -73,6 +73,22 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   schemas:
     Guarantee:
       type: object
@@ -104,13 +120,6 @@ components:
         status:
           type: string
           description: Guarantee status
-    Error:
-      type: object
-      properties:
-        errorCode:
-          type: string
-        errorMessage:
-          type: string
     PaginationHeader:
       type: object
       properties:
@@ -154,22 +163,13 @@ components:
         status:
           type: string
           description: LC status
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
   responses:
     Unauthorized:
       description: Authentication required

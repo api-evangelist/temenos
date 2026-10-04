@@ -192,48 +192,26 @@ paths:
     - url: https://api.temenos.com/wealth/v1
       description: Temenos Wealth API - Production
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-    SecurityPriceInjection:
-      type: object
-      description: Security price injection request
-      required:
-      - prices
-      - valuationDate
-      properties:
-        valuationDate:
-          type: string
-          format: date
-          description: Valuation date for prices
-        prices:
-          type: array
-          description: Security prices to inject
-          items:
-            type: object
-            required:
-            - securityId
-            - price
-            - currency
-            properties:
-              securityId:
-                type: string
-                description: Security identifier
-              price:
-                type: number
-                format: double
-                description: Market price
-              currency:
-                type: string
-                description: Price currency
     ExchangeRateInjection:
       type: object
       description: Exchange rate injection request
@@ -265,6 +243,47 @@ components:
                 type: number
                 format: double
                 description: Exchange rate value
+    SecurityPriceInjection:
+      type: object
+      description: Security price injection request
+      required:
+      - prices
+      - valuationDate
+      properties:
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date for prices
+        prices:
+          type: array
+          description: Security prices to inject
+          items:
+            type: object
+            required:
+            - securityId
+            - price
+            - currency
+            properties:
+              securityId:
+                type: string
+                description: Security identifier
+              price:
+                type: number
+                format: double
+                description: Market price
+              currency:
+                type: string
+                description: Price currency
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
     Error_2:
       type: object
       description: Error response
@@ -287,30 +306,6 @@ components:
               message:
                 type: string
                 description: Detail message
-    Country:
-      type: object
-      description: Country reference data
-      properties:
-        countryCode:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-          pattern: ^[A-Z]{2}$
-        countryName:
-          type: string
-          description: Country display name
-    PaginationHeader:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
     IbanStructure:
       type: object
       description: IBAN validation structure
@@ -324,6 +319,19 @@ components:
         format:
           type: string
           description: IBAN format pattern
+    PaginationHeader:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
     Currency:
       type: object
       description: Currency reference data
@@ -341,6 +349,17 @@ components:
         status:
           type: string
           description: Currency status
+    Country:
+      type: object
+      description: Country reference data
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          pattern: ^[A-Z]{2}$
+        countryName:
+          type: string
+          description: Country display name
     Market:
       type: object
       description: Market reference data
@@ -373,25 +392,6 @@ components:
         errorMessage:
           type: string
           description: Error description
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
   parameters:
     pageStart:
       name: page_start

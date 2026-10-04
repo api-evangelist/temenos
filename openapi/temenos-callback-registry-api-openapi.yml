@@ -90,6 +90,12 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: Not found
       content:
@@ -102,13 +108,38 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   schemas:
+    CallbackCreate:
+      type: object
+      description: Callback registration request
+      required:
+      - callbackUrl
+      properties:
+        callbackUrl:
+          type: string
+          format: uri
+          description: Callback URL to register
+        transactionType:
+          type: string
+          description: Transaction type to filter
     Callback:
       type: object
       description: Registered callback
@@ -136,37 +167,6 @@ components:
         errorMessage:
           type: string
           description: Error description
-    CallbackCreate:
-      type: object
-      description: Callback registration request
-      required:
-      - callbackUrl
-      properties:
-        callbackUrl:
-          type: string
-          format: uri
-          description: Callback URL to register
-        transactionType:
-          type: string
-          description: Transaction type to filter
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      description: Records per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
   securitySchemes:
     bearerAuth:
       type: http

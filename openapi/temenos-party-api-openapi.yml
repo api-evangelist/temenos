@@ -342,6 +342,27 @@ paths:
       description: Temenos Wealth API - Production
 components:
   schemas:
+    Distributor:
+      type: object
+      description: Fund distributor record
+      properties:
+        distributorId:
+          type: string
+          description: Unique distributor identifier
+        name:
+          type: string
+          description: Distributor name
+        distributionAgreements:
+          type: array
+          description: Active distribution agreements
+          items:
+            type: string
+        commissionGroup:
+          type: string
+          description: Commission group assignment
+        status:
+          type: string
+          description: Distributor status
     Investor:
       type: object
       description: Fund investor record
@@ -374,60 +395,6 @@ components:
         status:
           type: string
           description: Investor record status
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-    InvestorCreate:
-      type: object
-      description: Request body for creating an investor
-      required:
-      - name
-      - investorType
-      properties:
-        name:
-          type: string
-          description: Investor name
-        investorType:
-          type: string
-          description: Investor classification
-          enum:
-          - INDIVIDUAL
-          - INSTITUTIONAL
-          - CORPORATE
-        nationality:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        taxResidence:
-          type: string
-          description: Tax residence country code
-    Distributor:
-      type: object
-      description: Fund distributor record
-      properties:
-        distributorId:
-          type: string
-          description: Unique distributor identifier
-        name:
-          type: string
-          description: Distributor name
-        distributionAgreements:
-          type: array
-          description: Active distribution agreements
-          items:
-            type: string
-        commissionGroup:
-          type: string
-          description: Commission group assignment
-        status:
-          type: string
-          description: Distributor status
     PaginationHeader:
       type: object
       description: Pagination metadata
@@ -465,6 +432,29 @@ components:
         blockingCode:
           type: string
           description: Applied blocking code if any
+    InvestorCreate:
+      type: object
+      description: Request body for creating an investor
+      required:
+      - name
+      - investorType
+      properties:
+        name:
+          type: string
+          description: Investor name
+        investorType:
+          type: string
+          description: Investor classification
+          enum:
+          - INDIVIDUAL
+          - INSTITUTIONAL
+          - CORPORATE
+        nationality:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        taxResidence:
+          type: string
+          description: Tax residence country code
     FatcaRecord:
       type: object
       description: FATCA/CRS compliance record
@@ -484,6 +474,16 @@ components:
         status:
           type: string
           description: Compliance status
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
     CustomerCreate:
       type: object
       description: Request body for creating a customer
@@ -513,46 +513,6 @@ components:
         nationality:
           type: string
           description: ISO 3166-1 alpha-2 nationality code
-    Error_2:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field related to the error
-              message:
-                type: string
-                description: Detail message
-    CustomerUpdate:
-      type: object
-      description: Request body for updating customer details
-      properties:
-        title:
-          type: string
-          description: Updated title
-        firstName:
-          type: string
-          description: Updated first name
-        lastName:
-          type: string
-          description: Updated last name
-        addresses:
-          type: array
-          description: Updated addresses
-          items:
-            $ref: '#/components/schemas/Address'
     Beneficiary:
       type: object
       description: Payment beneficiary
@@ -581,19 +541,6 @@ components:
         country:
           type: string
           description: Beneficiary country code
-    PaginationHeader_2:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
     Address:
       type: object
       description: Physical address
@@ -623,6 +570,37 @@ components:
         country:
           type: string
           description: ISO 3166-1 alpha-2 country code
+    PaginationHeader_2:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    CustomerUpdate:
+      type: object
+      description: Request body for updating customer details
+      properties:
+        title:
+          type: string
+          description: Updated title
+        firstName:
+          type: string
+          description: Updated first name
+        lastName:
+          type: string
+          description: Updated last name
+        addresses:
+          type: array
+          description: Updated addresses
+          items:
+            $ref: '#/components/schemas/Address'
     Customer:
       type: object
       description: Customer record
@@ -674,16 +652,28 @@ components:
           description: Customer addresses
           items:
             $ref: '#/components/schemas/Address'
-    Error_3:
+    Error_2:
       type: object
       description: Error response
       properties:
         errorCode:
           type: string
-          description: Error code
+          description: Machine-readable error code
         errorMessage:
           type: string
-          description: Error description
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
     PaginationHeader_3:
       type: object
       description: Pagination metadata
@@ -730,6 +720,41 @@ components:
         status:
           type: string
           description: Client status
+    Error_3:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
   parameters:
     pageStart:
       name: page_start
@@ -772,31 +797,6 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
   securitySchemes:
     bearerAuth:
       type: http

@@ -65,6 +65,19 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -76,22 +89,6 @@ components:
         errorMessage:
           type: string
           description: Error description
-    StreamingConfigurationCreate:
-      type: object
-      description: Streaming configuration creation request
-      required:
-      - entityType
-      - targetTopic
-      properties:
-        entityType:
-          type: string
-          description: Entity type to stream
-        targetTopic:
-          type: string
-          description: Target Kafka topic
-        filterCriteria:
-          type: string
-          description: Optional filter criteria
     StreamingConfiguration:
       type: object
       description: Event streaming configuration
@@ -114,19 +111,22 @@ components:
           enum:
           - ACTIVE
           - INACTIVE
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    StreamingConfigurationCreate:
+      type: object
+      description: Streaming configuration creation request
+      required:
+      - entityType
+      - targetTopic
+      properties:
+        entityType:
+          type: string
+          description: Entity type to stream
+        targetTopic:
+          type: string
+          description: Target Kafka topic
+        filterCriteria:
+          type: string
+          description: Optional filter criteria
   securitySchemes:
     bearerAuth:
       type: http

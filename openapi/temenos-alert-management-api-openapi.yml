@@ -79,14 +79,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -149,16 +149,6 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
     AlertUpdate:
       type: object
       description: Alert disposition update
@@ -177,6 +167,16 @@ components:
         note:
           type: string
           description: Investigation note
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
   securitySchemes:
     bearerAuth:
       type: http

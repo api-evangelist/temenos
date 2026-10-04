@@ -141,107 +141,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ScreeningResult:
-      type: object
-      description: Screening result
-      properties:
-        screeningId:
-          type: string
-          description: Screening identifier
-        status:
-          type: string
-          description: Screening outcome
-          enum:
-          - CLEAR
-          - MATCH_FOUND
-          - POTENTIAL_MATCH
-        matches:
-          type: array
-          description: Found matches
-          items:
-            $ref: '#/components/schemas/SanctionAlert'
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
-    OnboardingScreenRequest:
-      type: object
-      description: Onboarding screening request
-      required:
-      - name
-      properties:
-        customerId:
-          type: string
-          description: Customer identifier if available
-        name:
-          type: string
-          description: Full name to screen
-        dateOfBirth:
-          type: string
-          format: date
-          description: Date of birth
-        nationality:
-          type: string
-          description: Nationality code
-        address:
-          type: string
-          description: Address information
-        idDocument:
-          type: string
-          description: Identity document number
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record
-        total_size:
-          type: integer
-          description: Total records
-    TransactionScanRequest:
-      type: object
-      description: Transaction message scan request
-      required:
-      - transactionId
-      - beneficiaryName
-      properties:
-        transactionId:
-          type: string
-          description: Transaction identifier
-        originatorName:
-          type: string
-          description: Originator name
-        beneficiaryName:
-          type: string
-          description: Beneficiary name
-        beneficiaryAddress:
-          type: string
-          description: Beneficiary address
-        amount:
-          type: number
-          format: double
-          description: Transaction amount
-        currency:
-          type: string
-          description: Transaction currency
-        messageType:
-          type: string
-          description: Message format type
-          enum:
-          - MT103
-          - MT202
-          - PACS008
-          - PACS009
     SanctionAlert:
       type: object
       description: Sanctions screening alert
@@ -292,15 +191,116 @@ components:
           type: string
           format: date-time
           description: Alert creation timestamp
+    ScreeningResult:
+      type: object
+      description: Screening result
+      properties:
+        screeningId:
+          type: string
+          description: Screening identifier
+        status:
+          type: string
+          description: Screening outcome
+          enum:
+          - CLEAR
+          - MATCH_FOUND
+          - POTENTIAL_MATCH
+        matches:
+          type: array
+          description: Found matches
+          items:
+            $ref: '#/components/schemas/SanctionAlert'
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record
+        total_size:
+          type: integer
+          description: Total records
+    OnboardingScreenRequest:
+      type: object
+      description: Onboarding screening request
+      required:
+      - name
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier if available
+        name:
+          type: string
+          description: Full name to screen
+        dateOfBirth:
+          type: string
+          format: date
+          description: Date of birth
+        nationality:
+          type: string
+          description: Nationality code
+        address:
+          type: string
+          description: Address information
+        idDocument:
+          type: string
+          description: Identity document number
+    TransactionScanRequest:
+      type: object
+      description: Transaction message scan request
+      required:
+      - transactionId
+      - beneficiaryName
+      properties:
+        transactionId:
+          type: string
+          description: Transaction identifier
+        originatorName:
+          type: string
+          description: Originator name
+        beneficiaryName:
+          type: string
+          description: Beneficiary name
+        beneficiaryAddress:
+          type: string
+          description: Beneficiary address
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        currency:
+          type: string
+          description: Transaction currency
+        messageType:
+          type: string
+          description: Message format type
+          enum:
+          - MT103
+          - MT202
+          - PACS008
+          - PACS009
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -312,13 +312,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Unique customer identifier
-      schema:
-        type: string
     pageStart:
       name: page_start
       in: query
@@ -327,6 +320,13 @@ components:
         type: integer
         minimum: 0
         default: 0
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
     pageSize:
       name: page_size
       in: query
