@@ -3393,6 +3393,10 @@ apis:
   - type: Documentation
     url: https://developer.temenos.com/service/buy-now-pay-later
 common:
+  - type: Plans
+    url: plans/temenos-plans-pricing.yml
+  - type: FinOps
+    url: finops/temenos-finops.yml
   - type: CapabilityMap
     url: capabilities/temenos-capability-edges.yml
     name: Temenos Business Capability Map
