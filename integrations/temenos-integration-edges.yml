@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/temenos/integrations
+- https://n8n.io/integrations/temenos/
+- https://composio.dev/toolkits/temenos
+- https://monid.ai/tools/temenos
+checked:
+- https://composio.dev/toolkits/temenos
+- https://monid.ai/tools/temenos
+- https://n8n.io/integrations/temenos/
+- https://zapier.com/apps/temenos/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
