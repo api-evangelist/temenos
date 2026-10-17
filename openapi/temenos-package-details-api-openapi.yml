@@ -100,25 +100,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     pageStart:
       name: page_start
@@ -138,77 +119,6 @@ components:
         maximum: 100
         default: 25
   schemas:
-    Package:
-      type: object
-      description: Package arrangement
-      properties:
-        packageId:
-          type: string
-          description: Package identifier
-        customerId:
-          type: string
-          description: Customer identifier
-        packageName:
-          type: string
-          description: Package name
-        primaryAccountId:
-          type: string
-          description: Primary account
-        linkedAccounts:
-          type: array
-          description: Linked account identifiers
-          items:
-            type: string
-        status:
-          type: string
-          description: Package status
-    InterestRateDetail:
-      type: object
-      description: Individual interest rate detail
-      properties:
-        rateType:
-          type: string
-          description: Rate type
-          enum:
-          - FIXED
-          - VARIABLE
-          - PROMOTIONAL
-        baseRate:
-          type: number
-          format: double
-          description: Base rate percentage
-        benefit:
-          type: number
-          format: double
-          description: Benefit adjustment
-        netRate:
-          type: number
-          format: double
-          description: Effective net rate
-        effectiveDate:
-          type: string
-          format: date
-          description: Rate effective date
-    FeeDetail:
-      type: object
-      description: Fee detail
-      properties:
-        feeType:
-          type: string
-          description: Fee type
-        description:
-          type: string
-          description: Fee description
-        amount:
-          type: number
-          format: double
-          description: Fee amount
-        currency:
-          type: string
-          description: Fee currency
-        frequency:
-          type: string
-          description: Fee frequency
     PackagePricing:
       type: object
       description: Package pricing details
@@ -263,6 +173,26 @@ components:
         total_size:
           type: integer
           description: Total records
+    FeeDetail:
+      type: object
+      description: Fee detail
+      properties:
+        feeType:
+          type: string
+          description: Fee type
+        description:
+          type: string
+          description: Fee description
+        amount:
+          type: number
+          format: double
+          description: Fee amount
+        currency:
+          type: string
+          description: Fee currency
+        frequency:
+          type: string
+          description: Fee frequency
     PackageCreate:
       type: object
       description: Package creation request
@@ -284,6 +214,57 @@ components:
           description: Accounts to link
           items:
             type: string
+    Package:
+      type: object
+      description: Package arrangement
+      properties:
+        packageId:
+          type: string
+          description: Package identifier
+        customerId:
+          type: string
+          description: Customer identifier
+        packageName:
+          type: string
+          description: Package name
+        primaryAccountId:
+          type: string
+          description: Primary account
+        linkedAccounts:
+          type: array
+          description: Linked account identifiers
+          items:
+            type: string
+        status:
+          type: string
+          description: Package status
+    InterestRateDetail:
+      type: object
+      description: Individual interest rate detail
+      properties:
+        rateType:
+          type: string
+          description: Rate type
+          enum:
+          - FIXED
+          - VARIABLE
+          - PROMOTIONAL
+        baseRate:
+          type: number
+          format: double
+          description: Base rate percentage
+        benefit:
+          type: number
+          format: double
+          description: Benefit adjustment
+        netRate:
+          type: number
+          format: double
+          description: Effective net rate
+        effectiveDate:
+          type: string
+          format: date
+          description: Rate effective date
     Error:
       type: object
       description: Error response
@@ -294,6 +275,25 @@ components:
         errorMessage:
           type: string
           description: Error description
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

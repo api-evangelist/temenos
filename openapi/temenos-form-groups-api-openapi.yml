@@ -79,6 +79,18 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    FormGroupCreate:
+      type: object
+      description: Form group creation request
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Group name
+        description:
+          type: string
+          description: Group description
     FormGroup:
       type: object
       description: Form group configuration
@@ -97,18 +109,6 @@ components:
           description: Forms in group
           items:
             type: string
-    FormGroupCreate:
-      type: object
-      description: Form group creation request
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Group name
-        description:
-          type: string
-          description: Group description
     Error:
       type: object
       description: Error response

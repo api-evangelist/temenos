@@ -89,6 +89,26 @@ components:
           description: Interest rate details
           items:
             $ref: '#/components/schemas/InterestRateDetail'
+    ChargeDetail:
+      type: object
+      description: Charge detail
+      properties:
+        chargeType:
+          type: string
+          description: Charge type
+        description:
+          type: string
+          description: Charge description
+        amount:
+          type: number
+          format: double
+          description: Charge amount
+        currency:
+          type: string
+          description: Currency
+        frequency:
+          type: string
+          description: Charge frequency
     InterestRateDetail:
       type: object
       description: Individual interest rate detail
@@ -116,26 +136,6 @@ components:
           type: string
           format: date
           description: Rate effective date
-    ChargeDetail:
-      type: object
-      description: Charge detail
-      properties:
-        chargeType:
-          type: string
-          description: Charge type
-        description:
-          type: string
-          description: Charge description
-        amount:
-          type: number
-          format: double
-          description: Charge amount
-        currency:
-          type: string
-          description: Currency
-        frequency:
-          type: string
-          description: Charge frequency
     Error:
       type: object
       description: Error response

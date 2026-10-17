@@ -192,57 +192,7 @@ paths:
     - url: https://api.temenos.com/wealth/v1
       description: Temenos Wealth API - Production
 components:
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
   schemas:
-    ExchangeRateInjection:
-      type: object
-      description: Exchange rate injection request
-      required:
-      - rates
-      - effectiveDate
-      properties:
-        effectiveDate:
-          type: string
-          format: date
-          description: Effective date for rates
-        rates:
-          type: array
-          description: Exchange rates to inject
-          items:
-            type: object
-            required:
-            - baseCurrency
-            - quoteCurrency
-            - rate
-            properties:
-              baseCurrency:
-                type: string
-                description: Base currency code
-              quoteCurrency:
-                type: string
-                description: Quote currency code
-              rate:
-                type: number
-                format: double
-                description: Exchange rate value
     SecurityPriceInjection:
       type: object
       description: Security price injection request
@@ -274,6 +224,37 @@ components:
               currency:
                 type: string
                 description: Price currency
+    ExchangeRateInjection:
+      type: object
+      description: Exchange rate injection request
+      required:
+      - rates
+      - effectiveDate
+      properties:
+        effectiveDate:
+          type: string
+          format: date
+          description: Effective date for rates
+        rates:
+          type: array
+          description: Exchange rates to inject
+          items:
+            type: object
+            required:
+            - baseCurrency
+            - quoteCurrency
+            - rate
+            properties:
+              baseCurrency:
+                type: string
+                description: Base currency code
+              quoteCurrency:
+                type: string
+                description: Quote currency code
+              rate:
+                type: number
+                format: double
+                description: Exchange rate value
     Error:
       type: object
       description: Error response
@@ -284,41 +265,17 @@ components:
         errorMessage:
           type: string
           description: Human-readable error description
-    Error_2:
+    Country:
       type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        errorMessage:
-          type: string
-          description: Human-readable error description
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field related to the error
-              message:
-                type: string
-                description: Detail message
-    IbanStructure:
-      type: object
-      description: IBAN validation structure
+      description: Country reference data
       properties:
         countryCode:
           type: string
           description: ISO 3166-1 alpha-2 country code
-        ibanLength:
-          type: integer
-          description: Expected IBAN length for the country
-        format:
+          pattern: ^[A-Z]{2}$
+        countryName:
           type: string
-          description: IBAN format pattern
+          description: Country display name
     PaginationHeader:
       type: object
       description: Pagination metadata for list responses
@@ -349,17 +306,51 @@ components:
         status:
           type: string
           description: Currency status
-    Country:
+    IbanStructure:
       type: object
-      description: Country reference data
+      description: IBAN validation structure
       properties:
         countryCode:
           type: string
           description: ISO 3166-1 alpha-2 country code
-          pattern: ^[A-Z]{2}$
-        countryName:
+        ibanLength:
+          type: integer
+          description: Expected IBAN length for the country
+        format:
           type: string
-          description: Country display name
+          description: IBAN format pattern
+    Error_2:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        errorMessage:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+              message:
+                type: string
+                description: Detail message
+    Error_3:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
     Market:
       type: object
       description: Market reference data
@@ -382,16 +373,25 @@ components:
         status:
           type: string
           description: Market operating status
-    Error_3:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
   parameters:
     pageStart:
       name: page_start

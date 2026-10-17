@@ -91,38 +91,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  schemas:
-    Submission:
-      type: object
-      description: Form submission
-      properties:
-        submissionId:
-          type: string
-          description: Submission identifier
-        formName:
-          type: string
-          description: Form name
-        data:
-          type: object
-          description: Submission data
-          additionalProperties: true
-        status:
-          type: string
-          description: Delivery status
-        submittedDate:
-          type: string
-          format: date-time
-          description: Submission timestamp
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
   parameters:
     pageStart:
       name: page_start
@@ -154,6 +122,38 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
+    Submission:
+      type: object
+      description: Form submission
+      properties:
+        submissionId:
+          type: string
+          description: Submission identifier
+        formName:
+          type: string
+          description: Form name
+        data:
+          type: object
+          description: Submission data
+          additionalProperties: true
+        status:
+          type: string
+          description: Delivery status
+        submittedDate:
+          type: string
+          format: date-time
+          description: Submission timestamp
   securitySchemes:
     bearerAuth:
       type: http

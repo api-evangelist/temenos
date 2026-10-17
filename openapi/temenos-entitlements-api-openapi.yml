@@ -90,23 +90,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    EntitlementCreate:
-      type: object
-      description: Entitlement assignment request
-      required:
-      - userId
-      - productId
-      - role
-      properties:
-        userId:
-          type: string
-          description: User identifier
-        productId:
-          type: string
-          description: Product identifier
-        role:
-          type: string
-          description: Role to assign
     Entitlement:
       type: object
       description: User entitlement
@@ -131,6 +114,23 @@ components:
         status:
           type: string
           description: Entitlement status
+    EntitlementCreate:
+      type: object
+      description: Entitlement assignment request
+      required:
+      - userId
+      - productId
+      - role
+      properties:
+        userId:
+          type: string
+          description: User identifier
+        productId:
+          type: string
+          description: Product identifier
+        role:
+          type: string
+          description: Role to assign
     Error:
       type: object
       description: Error response

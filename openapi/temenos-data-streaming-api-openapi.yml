@@ -79,16 +79,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        errorCode:
-          type: string
-          description: Error code
-        errorMessage:
-          type: string
-          description: Error description
     StreamingConfiguration:
       type: object
       description: Event streaming configuration
@@ -111,6 +101,16 @@ components:
           enum:
           - ACTIVE
           - INACTIVE
+    Error:
+      type: object
+      description: Error response
+      properties:
+        errorCode:
+          type: string
+          description: Error code
+        errorMessage:
+          type: string
+          description: Error description
     StreamingConfigurationCreate:
       type: object
       description: Streaming configuration creation request

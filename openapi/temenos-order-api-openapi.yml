@@ -381,6 +381,81 @@ paths:
       description: Temenos Wealth API - Production
 components:
   schemas:
+    SharePrice:
+      type: object
+      description: Fund share price record
+      properties:
+        shareClassId:
+          type: string
+          description: Share class identifier
+        price:
+          type: number
+          format: double
+          description: NAV-based share price
+        currency:
+          type: string
+          description: Price currency
+        valuationDate:
+          type: string
+          format: date
+          description: Valuation date
+    PaginationHeader:
+      type: object
+      description: Pagination metadata
+      properties:
+        page_size:
+          type: integer
+          description: Records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total records available
+    OrderInstruction:
+      type: object
+      description: Fund order instruction
+      properties:
+        instructionId:
+          type: string
+          description: Instruction identifier
+        investorId:
+          type: string
+          description: Investor identifier
+        fundId:
+          type: string
+          description: Fund identifier
+        shareClassId:
+          type: string
+          description: Share class identifier
+        instructionType:
+          type: string
+          description: Type of instruction
+          enum:
+          - SUBSCRIPTION
+          - REDEMPTION
+          - SWITCH
+          - TRANSFER
+        quantity:
+          type: number
+          format: double
+          description: Number of units
+        amount:
+          type: number
+          format: double
+          description: Monetary amount
+        currency:
+          type: string
+          description: Currency code
+        status:
+          type: string
+          description: Instruction processing status
+          enum:
+          - PENDING
+          - VALIDATED
+          - EXECUTED
+          - SETTLED
+          - CANCELLED
     SharePriceCreate:
       type: object
       description: Request body for setting share price
@@ -441,81 +516,6 @@ components:
         currency:
           type: string
           description: Currency code
-    OrderInstruction:
-      type: object
-      description: Fund order instruction
-      properties:
-        instructionId:
-          type: string
-          description: Instruction identifier
-        investorId:
-          type: string
-          description: Investor identifier
-        fundId:
-          type: string
-          description: Fund identifier
-        shareClassId:
-          type: string
-          description: Share class identifier
-        instructionType:
-          type: string
-          description: Type of instruction
-          enum:
-          - SUBSCRIPTION
-          - REDEMPTION
-          - SWITCH
-          - TRANSFER
-        quantity:
-          type: number
-          format: double
-          description: Number of units
-        amount:
-          type: number
-          format: double
-          description: Monetary amount
-        currency:
-          type: string
-          description: Currency code
-        status:
-          type: string
-          description: Instruction processing status
-          enum:
-          - PENDING
-          - VALIDATED
-          - EXECUTED
-          - SETTLED
-          - CANCELLED
-    SharePrice:
-      type: object
-      description: Fund share price record
-      properties:
-        shareClassId:
-          type: string
-          description: Share class identifier
-        price:
-          type: number
-          format: double
-          description: NAV-based share price
-        currency:
-          type: string
-          description: Price currency
-        valuationDate:
-          type: string
-          format: date
-          description: Valuation date
-    PaginationHeader:
-      type: object
-      description: Pagination metadata
-      properties:
-        page_size:
-          type: integer
-          description: Records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total records available
     Error:
       type: object
       description: Error response
@@ -526,79 +526,6 @@ components:
         errorMessage:
           type: string
           description: Human-readable error description
-    DirectDebit:
-      type: object
-      description: Direct debit mandate and instruction
-      properties:
-        directDebitId:
-          type: string
-          description: Unique direct debit identifier
-        accountId:
-          type: string
-          description: Account to be debited
-        mandateReference:
-          type: string
-          description: Direct debit mandate reference
-        creditorName:
-          type: string
-          description: Name of the creditor
-        amount:
-          type: number
-          format: double
-          description: Direct debit amount
-        currency:
-          type: string
-          description: Currency in ISO 4217 format
-        frequency:
-          type: string
-          description: Collection frequency
-        status:
-          type: string
-          description: Mandate status
-    PaymentOrderCreate:
-      type: object
-      description: Request body for creating a payment order
-      required:
-      - debitAccountId
-      - amount
-      - currency
-      - paymentType
-      properties:
-        debitAccountId:
-          type: string
-          description: Originating account identifier
-        creditAccountId:
-          type: string
-          description: Destination account identifier
-        beneficiaryId:
-          type: string
-          description: Registered beneficiary identifier
-        amount:
-          type: number
-          format: double
-          description: Payment amount
-          minimum: 0
-        currency:
-          type: string
-          description: Payment currency in ISO 4217 format
-          pattern: ^[A-Z]{3}$
-        paymentType:
-          type: string
-          description: Type of payment
-          enum:
-          - INTERNAL
-          - DOMESTIC
-          - INTERNATIONAL
-          - SEPA
-          - SWIFT
-        valueDate:
-          type: string
-          format: date
-          description: Requested value date
-        reference:
-          type: string
-          description: Payment reference
-          maxLength: 140
     PaginationHeader_2:
       type: object
       description: Pagination metadata for list responses
@@ -612,6 +539,46 @@ components:
         total_size:
           type: integer
           description: Total number of records available
+    StandingOrder:
+      type: object
+      description: Standing order instruction for recurring payments
+      properties:
+        standingOrderId:
+          type: string
+          description: Unique standing order identifier
+        accountId:
+          type: string
+          description: Source account identifier
+        beneficiaryId:
+          type: string
+          description: Beneficiary identifier
+        amount:
+          type: number
+          format: double
+          description: Payment amount per execution
+        currency:
+          type: string
+          description: Payment currency in ISO 4217 format
+        frequency:
+          type: string
+          description: Execution frequency
+          enum:
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+          - QUARTERLY
+          - ANNUAL
+        startDate:
+          type: string
+          format: date
+          description: First execution date
+        endDate:
+          type: string
+          format: date
+          description: Last execution date
+        status:
+          type: string
+          description: Standing order status
     PaymentOrder:
       type: object
       description: Payment order for fund transfer
@@ -660,6 +627,35 @@ components:
         beneficiaryName:
           type: string
           description: Name of the payment beneficiary
+    DirectDebit:
+      type: object
+      description: Direct debit mandate and instruction
+      properties:
+        directDebitId:
+          type: string
+          description: Unique direct debit identifier
+        accountId:
+          type: string
+          description: Account to be debited
+        mandateReference:
+          type: string
+          description: Direct debit mandate reference
+        creditorName:
+          type: string
+          description: Name of the creditor
+        amount:
+          type: number
+          format: double
+          description: Direct debit amount
+        currency:
+          type: string
+          description: Currency in ISO 4217 format
+        frequency:
+          type: string
+          description: Collection frequency
+        status:
+          type: string
+          description: Mandate status
     Error_2:
       type: object
       description: Error response
@@ -682,46 +678,50 @@ components:
               message:
                 type: string
                 description: Detail message
-    StandingOrder:
+    PaymentOrderCreate:
       type: object
-      description: Standing order instruction for recurring payments
+      description: Request body for creating a payment order
+      required:
+      - debitAccountId
+      - amount
+      - currency
+      - paymentType
       properties:
-        standingOrderId:
+        debitAccountId:
           type: string
-          description: Unique standing order identifier
-        accountId:
+          description: Originating account identifier
+        creditAccountId:
           type: string
-          description: Source account identifier
+          description: Destination account identifier
         beneficiaryId:
           type: string
-          description: Beneficiary identifier
+          description: Registered beneficiary identifier
         amount:
           type: number
           format: double
-          description: Payment amount per execution
+          description: Payment amount
+          minimum: 0
         currency:
           type: string
           description: Payment currency in ISO 4217 format
-        frequency:
+          pattern: ^[A-Z]{3}$
+        paymentType:
           type: string
-          description: Execution frequency
+          description: Type of payment
           enum:
-          - DAILY
-          - WEEKLY
-          - MONTHLY
-          - QUARTERLY
-          - ANNUAL
-        startDate:
+          - INTERNAL
+          - DOMESTIC
+          - INTERNATIONAL
+          - SEPA
+          - SWIFT
+        valueDate:
           type: string
           format: date
-          description: First execution date
-        endDate:
+          description: Requested value date
+        reference:
           type: string
-          format: date
-          description: Last execution date
-        status:
-          type: string
-          description: Standing order status
+          description: Payment reference
+          maxLength: 140
     SecurityOrder:
       type: object
       description: Securities trading order
@@ -864,31 +864,6 @@ components:
         errorMessage:
           type: string
           description: Error description
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
   parameters:
     pageStart:
       name: page_start
@@ -924,6 +899,31 @@ components:
         minimum: 1
         maximum: 100
         default: 25
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
   securitySchemes:
     bearerAuth:
       type: http

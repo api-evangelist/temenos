@@ -341,60 +341,93 @@ paths:
     - url: https://api.temenos.com/wealth/v1
       description: Temenos Wealth API - Production
 components:
+  parameters:
+    pageStart:
+      name: page_start
+      in: query
+      description: Starting record number for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize:
+      name: page_size
+      in: query
+      description: Number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Unique customer identifier
+      schema:
+        type: string
+    pageStart_2:
+      name: page_start
+      in: query
+      description: Starting record number
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    pageSize_2:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_3'
   schemas:
-    Distributor:
+    FatcaRecord:
       type: object
-      description: Fund distributor record
+      description: FATCA/CRS compliance record
       properties:
-        distributorId:
+        recordId:
           type: string
-          description: Unique distributor identifier
-        name:
-          type: string
-          description: Distributor name
-        distributionAgreements:
-          type: array
-          description: Active distribution agreements
-          items:
-            type: string
-        commissionGroup:
-          type: string
-          description: Commission group assignment
-        status:
-          type: string
-          description: Distributor status
-    Investor:
-      type: object
-      description: Fund investor record
-      properties:
+          description: FATCA record identifier
         investorId:
           type: string
-          description: Unique investor identifier
-        investorType:
+          description: Associated investor
+        classification:
           type: string
-          description: Investor classification
-          enum:
-          - INDIVIDUAL
-          - INSTITUTIONAL
-          - CORPORATE
-        name:
+          description: FATCA classification
+        reportingJurisdiction:
           type: string
-          description: Investor name
-        nationality:
-          type: string
-          description: Investor nationality code
-        taxResidence:
-          type: string
-          description: Tax residence country code
-        kycStatus:
-          type: string
-          description: KYC verification status
-        fatcaStatus:
-          type: string
-          description: FATCA classification status
+          description: Reporting jurisdiction
         status:
           type: string
-          description: Investor record status
+          description: Compliance status
     PaginationHeader:
       type: object
       description: Pagination metadata
@@ -432,6 +465,38 @@ components:
         blockingCode:
           type: string
           description: Applied blocking code if any
+    Investor:
+      type: object
+      description: Fund investor record
+      properties:
+        investorId:
+          type: string
+          description: Unique investor identifier
+        investorType:
+          type: string
+          description: Investor classification
+          enum:
+          - INDIVIDUAL
+          - INSTITUTIONAL
+          - CORPORATE
+        name:
+          type: string
+          description: Investor name
+        nationality:
+          type: string
+          description: Investor nationality code
+        taxResidence:
+          type: string
+          description: Tax residence country code
+        kycStatus:
+          type: string
+          description: KYC verification status
+        fatcaStatus:
+          type: string
+          description: FATCA classification status
+        status:
+          type: string
+          description: Investor record status
     InvestorCreate:
       type: object
       description: Request body for creating an investor
@@ -455,25 +520,6 @@ components:
         taxResidence:
           type: string
           description: Tax residence country code
-    FatcaRecord:
-      type: object
-      description: FATCA/CRS compliance record
-      properties:
-        recordId:
-          type: string
-          description: FATCA record identifier
-        investorId:
-          type: string
-          description: Associated investor
-        classification:
-          type: string
-          description: FATCA classification
-        reportingJurisdiction:
-          type: string
-          description: Reporting jurisdiction
-        status:
-          type: string
-          description: Compliance status
     Error:
       type: object
       description: Error response
@@ -484,123 +530,27 @@ components:
         errorMessage:
           type: string
           description: Human-readable error description
-    CustomerCreate:
+    Distributor:
       type: object
-      description: Request body for creating a customer
-      required:
-      - customerType
-      - lastName
+      description: Fund distributor record
       properties:
-        customerType:
+        distributorId:
           type: string
-          description: Customer classification
-          enum:
-          - INDIVIDUAL
-          - CORPORATE
-        title:
+          description: Unique distributor identifier
+        name:
           type: string
-          description: Customer title
-        firstName:
-          type: string
-          description: First name
-        lastName:
-          type: string
-          description: Last name or company name
-        dateOfBirth:
-          type: string
-          format: date
-          description: Date of birth
-        nationality:
-          type: string
-          description: ISO 3166-1 alpha-2 nationality code
-    Beneficiary:
-      type: object
-      description: Payment beneficiary
-      properties:
-        beneficiaryId:
-          type: string
-          description: Unique beneficiary identifier
-        customerId:
-          type: string
-          description: Associated customer identifier
-        beneficiaryName:
-          type: string
-          description: Beneficiary display name
-        accountNumber:
-          type: string
-          description: Beneficiary account number
-        iban:
-          type: string
-          description: Beneficiary IBAN
-        bic:
-          type: string
-          description: Beneficiary bank BIC/SWIFT code
-        bankName:
-          type: string
-          description: Beneficiary bank name
-        country:
-          type: string
-          description: Beneficiary country code
-    Address:
-      type: object
-      description: Physical address
-      properties:
-        addressType:
-          type: string
-          description: Type of address
-          enum:
-          - RESIDENTIAL
-          - BUSINESS
-          - CORRESPONDENCE
-        addressLine1:
-          type: string
-          description: First line of address
-        addressLine2:
-          type: string
-          description: Second line of address
-        city:
-          type: string
-          description: City name
-        state:
-          type: string
-          description: State or province
-        postalCode:
-          type: string
-          description: Postal or zip code
-        country:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-    PaginationHeader_2:
-      type: object
-      description: Pagination metadata for list responses
-      properties:
-        page_size:
-          type: integer
-          description: Number of records per page
-        page_start:
-          type: integer
-          description: Starting record number
-        total_size:
-          type: integer
-          description: Total number of records available
-    CustomerUpdate:
-      type: object
-      description: Request body for updating customer details
-      properties:
-        title:
-          type: string
-          description: Updated title
-        firstName:
-          type: string
-          description: Updated first name
-        lastName:
-          type: string
-          description: Updated last name
-        addresses:
+          description: Distributor name
+        distributionAgreements:
           type: array
-          description: Updated addresses
+          description: Active distribution agreements
           items:
-            $ref: '#/components/schemas/Address'
+            type: string
+        commissionGroup:
+          type: string
+          description: Commission group assignment
+        status:
+          type: string
+          description: Distributor status
     Customer:
       type: object
       description: Customer record
@@ -652,6 +602,95 @@ components:
           description: Customer addresses
           items:
             $ref: '#/components/schemas/Address'
+    CustomerUpdate:
+      type: object
+      description: Request body for updating customer details
+      properties:
+        title:
+          type: string
+          description: Updated title
+        firstName:
+          type: string
+          description: Updated first name
+        lastName:
+          type: string
+          description: Updated last name
+        addresses:
+          type: array
+          description: Updated addresses
+          items:
+            $ref: '#/components/schemas/Address'
+    PaginationHeader_2:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page_size:
+          type: integer
+          description: Number of records per page
+        page_start:
+          type: integer
+          description: Starting record number
+        total_size:
+          type: integer
+          description: Total number of records available
+    CustomerCreate:
+      type: object
+      description: Request body for creating a customer
+      required:
+      - customerType
+      - lastName
+      properties:
+        customerType:
+          type: string
+          description: Customer classification
+          enum:
+          - INDIVIDUAL
+          - CORPORATE
+        title:
+          type: string
+          description: Customer title
+        firstName:
+          type: string
+          description: First name
+        lastName:
+          type: string
+          description: Last name or company name
+        dateOfBirth:
+          type: string
+          format: date
+          description: Date of birth
+        nationality:
+          type: string
+          description: ISO 3166-1 alpha-2 nationality code
+    Address:
+      type: object
+      description: Physical address
+      properties:
+        addressType:
+          type: string
+          description: Type of address
+          enum:
+          - RESIDENTIAL
+          - BUSINESS
+          - CORRESPONDENCE
+        addressLine1:
+          type: string
+          description: First line of address
+        addressLine2:
+          type: string
+          description: Second line of address
+        city:
+          type: string
+          description: City name
+        state:
+          type: string
+          description: State or province
+        postalCode:
+          type: string
+          description: Postal or zip code
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
     Error_2:
       type: object
       description: Error response
@@ -674,6 +713,34 @@ components:
               message:
                 type: string
                 description: Detail message
+    Beneficiary:
+      type: object
+      description: Payment beneficiary
+      properties:
+        beneficiaryId:
+          type: string
+          description: Unique beneficiary identifier
+        customerId:
+          type: string
+          description: Associated customer identifier
+        beneficiaryName:
+          type: string
+          description: Beneficiary display name
+        accountNumber:
+          type: string
+          description: Beneficiary account number
+        iban:
+          type: string
+          description: Beneficiary IBAN
+        bic:
+          type: string
+          description: Beneficiary bank BIC/SWIFT code
+        bankName:
+          type: string
+          description: Beneficiary bank name
+        country:
+          type: string
+          description: Beneficiary country code
     PaginationHeader_3:
       type: object
       description: Pagination metadata
@@ -730,73 +797,6 @@ components:
         errorMessage:
           type: string
           description: Error description
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_3'
-  parameters:
-    pageStart:
-      name: page_start
-      in: query
-      description: Starting record number for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize:
-      name: page_size
-      in: query
-      description: Number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Unique customer identifier
-      schema:
-        type: string
-    pageStart_2:
-      name: page_start
-      in: query
-      description: Starting record number
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    pageSize_2:
-      name: page_size
-      in: query
-      description: Number of records per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
   securitySchemes:
     bearerAuth:
       type: http

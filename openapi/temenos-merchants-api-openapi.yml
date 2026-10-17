@@ -64,15 +64,6 @@ components:
         maximum: 100
         default: 25
   schemas:
-    PaginationHeader:
-      type: object
-      properties:
-        page_size:
-          type: integer
-        page_start:
-          type: integer
-        total_size:
-          type: integer
     Merchant:
       type: object
       description: Registered merchant
@@ -92,6 +83,15 @@ components:
         status:
           type: string
           description: Integration status
+    PaginationHeader:
+      type: object
+      properties:
+        page_size:
+          type: integer
+        page_start:
+          type: integer
+        total_size:
+          type: integer
     Error:
       type: object
       properties:
