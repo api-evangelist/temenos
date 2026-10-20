@@ -1,16 +1,87 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/temenos/integrations
 - https://n8n.io/integrations/temenos/
 - https://composio.dev/toolkits/temenos
 - https://monid.ai/tools/temenos
 checked:
+- https://cloudsecurityalliance.org/star/registry
 - https://composio.dev/toolkits/temenos
+- https://eucoc.cloud/en/public-register/list-of-adherent-services
 - https://monid.ai/tools/temenos
 - https://n8n.io/integrations/temenos/
 - https://zapier.com/apps/temenos/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: Cloud Security Alliance STAR Registry
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://cloudsecurityalliance.org/star/registry/temenos-ag/services/temenos-ag
+  category: Cloud security assurance
+  contract_reference:
+    register: CSA STAR Registry (cloudsecurityalliance.org/star/registry)
+    spec_file: null
+    standard: CSA STAR
+    role: star-level-2
+    registered_name: Temenos AG
+    registry_id: temenos-ag
+    service_url: https://www.temenos.com
+    matched_domain: temenos.com
+    matched_by: domain+name-among-holders
+    identity_source: the service URL the organisation filed on its STAR listing (no lookup)
+    levels:
+    - EU Cloud CoC
+    - Partner Entries
+    - STAR Level 1
+    - STAR Level 2
+    certified_products:
+    - product: STAR Attestation
+      lapsed: false
+      latest: '2026-08-14'
+    signal_note: STAR Level 1 (CAIQ self-assessment) = participation; certified_products = one entry per STAR Level
+      2 / STAR for AI Level 2 assessment TYPE (third-party certification, attestation, C-STAR, ValidAIted); lapsed
+      = every instance marked (Deprecated) by the registry; service counts never recorded
+    detected_by: sweep-compliance-assurance.py
+    detected: '2026-10-20'
+  detected_by: sweep-compliance-assurance.py
+  first_seen: '2026-10-20'
+- partner_name: EU Cloud Code of Conduct (SCOPE Europe monitoring body)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://eucoc.cloud/en/public-register/list-of-adherent-services
+  category: Cloud data-protection assurance
+  contract_reference:
+    register: EU Cloud Code of Conduct public register (eucoc.cloud, list of adherent services)
+    spec_file: null
+    standard: EU Cloud CoC
+    role: eu-cloud-coc-adherent
+    registered_name: TEMENOS CLOUD SWITZERLAND SA
+    register_id: 2023LVL02SCOPE5317
+    service_url: https://www.temenos.com/
+    matched_domain: temenos.com
+    matched_by: domain+name-among-holders
+    identity_source: the service URL on the register (filed by the adherent, verified by the monitoring body)
+    level_of_compliance: 2
+    latest_assessment: '2026-02-09'
+    due_date: '2027-01-30'
+    certified_products:
+    - product: EU Cloud CoC verified declaration of adherence
+      lapsed: false
+      level: 2
+    signal_note: 'one certified product: adherence verified by the accredited monitoring body (GDPR Art. 41); lapsed
+      when the due date has passed; level is context; services never counted'
+    detected_by: sweep-compliance-assurance.py
+    detected: '2026-10-20'
+  detected_by: sweep-compliance-assurance.py
+  first_seen: '2026-10-20'
 templates: []
